@@ -1,0 +1,38 @@
+{
+  "nav": {
+    "cities": "Cities",
+    "moments": "Moments",
+    "about": "About",
+    "language": "日本語"
+  },
+  "home": {
+    "hero_tagline": "間",
+    "hero_subtitle": "The space between moments.",
+    "hero_body": "Japan is not a destination. It is a feeling — of rain on paper umbrellas, of silence in old temples, of belonging in a city that never sleeps.",
+    "cities_label": "Explore by city",
+    "moments_label": "Latest moments",
+    "moments_cta": "Read more",
+    "featured_label": "Featured story"
+  },
+  "cities": {
+    "explore": "Explore",
+    "moments_in": "Moments in",
+    "the_feeling": "The feeling"
+  },
+  "moments": {
+    "read_time": "{min} min read",
+    "all_moments": "All moments",
+    "from": "From"
+  },
+  "about": {
+    "title": "About MA",
+    "manifesto_label": "Manifesto"
+  },
+  "footer": {
+    "tagline": "間 — The pause between things.",
+    "cities": "Cities",
+    "moments": "Moments",
+    "about": "About",
+    "rights": "All rights reserved."
+  }
+}

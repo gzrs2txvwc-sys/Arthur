@@ -1,0 +1,38 @@
+{
+  "nav": {
+    "cities": "都市",
+    "moments": "瞬間",
+    "about": "について",
+    "language": "English"
+  },
+  "home": {
+    "hero_tagline": "間",
+    "hero_subtitle": "瞬間と瞬間の間に。",
+    "hero_body": "日本は目的地ではありません。それは感覚です — 和紙の傘に降る雨、古い寺の静寂、眠らない都市に属する感覚。",
+    "cities_label": "都市を探索する",
+    "moments_label": "最新の瞬間",
+    "moments_cta": "続きを読む",
+    "featured_label": "注目のストーリー"
+  },
+  "cities": {
+    "explore": "探索する",
+    "moments_in": "の瞬間",
+    "the_feeling": "その感覚"
+  },
+  "moments": {
+    "read_time": "{min}分で読む",
+    "all_moments": "すべての瞬間",
+    "from": "より"
+  },
+  "about": {
+    "title": "MAについて",
+    "manifesto_label": "マニフェスト"
+  },
+  "footer": {
+    "tagline": "間 — ものとものの間の間。",
+    "cities": "都市",
+    "moments": "瞬間",
+    "about": "について",
+    "rights": "全著作権所有。"
+  }
+}

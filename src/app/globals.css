@@ -1,0 +1,177 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* ─── Design Tokens ──────────────────────────────── */
+@theme {
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-body: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-japanese: var(--font-noto), "Hiragino Mincho ProN", serif;
+  --font-mono: var(--font-jetbrains), "Fira Code", monospace;
+
+  --color-ink: #0a0a0a;
+  --color-ink-soft: #1c1c1c;
+  --color-parchment: #f5f0eb;
+  --color-parchment-warm: #ede8e2;
+  --color-sand: #c8b89a;
+  --color-sand-light: #e8ddd0;
+  --color-muted: #888077;
+
+  --color-tokyo-from: #1a1a2e;
+  --color-tokyo-to: #e94560;
+  --color-tokyo-accent: #e94560;
+
+  --color-kyoto-from: #1a2e1e;
+  --color-kyoto-to: #c9a96e;
+  --color-kyoto-accent: #c9a96e;
+
+  --color-osaka-from: #2a0e00;
+  --color-osaka-to: #ff6b35;
+  --color-osaka-accent: #ff6b35;
+}
+
+/* ─── Base ───────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-ink);
+  color: var(--color-parchment);
+  font-family: var(--font-body);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: var(--color-sand);
+  color: var(--color-ink);
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--color-ink); }
+::-webkit-scrollbar-thumb { background: var(--color-sand); border-radius: 2px; }
+
+/* ─── Typography scales ──────────────────────────── */
+.font-display { font-family: var(--font-display); }
+.font-japanese { font-family: var(--font-japanese); }
+
+.text-display-xl {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 10vw, 9rem);
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+
+.text-display-lg {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.text-display-md {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.text-caption {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* ─── Drop cap ───────────────────────────────────── */
+.drop-cap::first-letter {
+  font-family: var(--font-display);
+  font-size: 5.5em;
+  font-weight: 300;
+  float: left;
+  line-height: 0.75;
+  margin-right: 0.1em;
+  margin-top: 0.08em;
+  color: var(--color-sand);
+}
+
+/* ─── Gradient helpers ───────────────────────────── */
+.gradient-text {
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.gradient-tokyo { background: linear-gradient(135deg, var(--color-tokyo-from), var(--color-tokyo-to)); }
+.gradient-kyoto { background: linear-gradient(135deg, var(--color-kyoto-from), var(--color-kyoto-to)); }
+.gradient-osaka { background: linear-gradient(135deg, var(--color-osaka-from), var(--color-osaka-to)); }
+
+/* ─── Glass nav ──────────────────────────────────── */
+.nav-glass {
+  background: color-mix(in srgb, var(--color-ink) 80%, transparent);
+  backdrop-filter: blur(20px) saturate(1.5);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-sand) 10%, transparent);
+}
+
+/* ─── Noise texture ──────────────────────────────── */
+.noise::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─── Card hover lift ────────────────────────────── */
+.card-lift {
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
+}
+.card-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+}
+
+/* ─── Image cinematic treatment ──────────────────── */
+.img-cinematic {
+  filter: contrast(1.05) saturate(0.85);
+  transition: filter 0.8s ease, transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.group:hover .img-cinematic {
+  filter: contrast(1.0) saturate(1.0);
+  transform: scale(1.04);
+}
+
+/* ─── Prose overrides ────────────────────────────── */
+.prose-ma {
+  --tw-prose-body: #ede8e2;
+  --tw-prose-headings: #f5f0eb;
+  --tw-prose-links: #c8b89a;
+  --tw-prose-bold: #f5f0eb;
+  --tw-prose-quotes: #e8ddd0;
+  --tw-prose-quote-borders: #c8b89a;
+  --tw-prose-captions: #888077;
+  --tw-prose-hr: rgba(200,184,154,0.2);
+}
+
+/* ─── Horizontal rule ────────────────────────────── */
+.hr-sand {
+  border: none;
+  border-top: 1px solid color-mix(in srgb, var(--color-sand) 20%, transparent);
+}
+
+/* ─── City accent variable (set per city page) ───── */
+:root {
+  --city-accent: var(--color-sand);
+}
