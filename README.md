@@ -1,36 +1,120 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MA (間) — Japan Lifestyle Platform
 
-## Getting Started
+A cinematic Japan lifestyle platform focused on atmosphere, feelings, and real experiences.
+Not a travel guide. A feeling, honestly shared.
 
-First, run the development server:
+## Stack
+
+- **Next.js 16** — App Router, TypeScript strict
+- **Tailwind CSS v4** — design tokens via `@theme`, no JS config
+- **next-intl v4** — EN / JA localization (`/en/...` and `/ja/...`)
+- **next-mdx-remote v6** — RSC-native MDX for literary essays
+- **Framer Motion** — scroll-triggered cinematic animations
+- **Vercel** — zero-config deployment
+
+## Local Development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# → http://localhost:3000  (redirects to /en)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Build
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build   # production build
+npm run lint    # ESLint (must be clean before deploying)
+npx tsc --noEmit  # TypeScript check
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deploy to Vercel
 
-## Learn More
+### Option A — Vercel Dashboard (recommended)
 
-To learn more about Next.js, take a look at the following resources:
+1. Push this branch to GitHub
+2. Go to [vercel.com/new](https://vercel.com/new)
+3. Import the repository
+4. Vercel auto-detects Next.js — no configuration needed
+5. Click **Deploy**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The `vercel.json` in the root is already configured.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Option B — Vercel CLI
 
-## Deploy on Vercel
+```bash
+npm i -g vercel
+vercel login
+vercel --prod
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Environment Variables
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+No environment variables are required for the base deployment.
+All content is file-based (MDX in `src/content/`).
+
+## Project Structure
+
+```
+src/
+  app/
+    [locale]/           # EN + JA route group
+      layout.tsx        # NavBar + Footer wrapper
+      page.tsx          # Home
+      cities/[slug]/    # City portrait (tokyo, kyoto, osaka)
+      moments/          # Essay index
+      moments/[slug]/   # Individual essay
+      about/            # Manifesto
+    globals.css         # Full design system
+    layout.tsx          # Root layout + Google Fonts
+  components/
+    layout/             # NavBar, Footer
+    cards/              # CityCard, MomentCard
+    content/            # PullQuote, MDXContent
+    motion/             # FadeIn, RevealText, StaggerChildren
+    ui/                 # Button, Tag, ScrollIndicator
+  lib/
+    cities.ts           # City data + palette definitions
+    content.ts          # MDX file loader (gray-matter + reading-time)
+    types.ts            # Shared TypeScript types
+  i18n/
+    routing.ts          # next-intl locale config
+    request.ts          # next-intl server config
+  content/moments/      # MDX essays (add new ones here)
+  proxy.ts              # next-intl locale routing (Next.js 16)
+messages/
+  en.json               # English strings
+  ja.json               # Japanese strings
+```
+
+## Adding Content
+
+### New moment essay
+
+Create `src/content/moments/your-slug.mdx`:
+
+```mdx
+---
+title: "Your Title"
+city: "tokyo"          # tokyo | kyoto | osaka
+date: "2024-12-01"
+excerpt: "One sentence that captures the feeling."
+imageUrl: "https://images.unsplash.com/photo-...?w=1400&q=80"
+imageAlt: "Description of the image"
+tags: ["tag1", "tag2"]
+---
+
+Your literary essay here...
+```
+
+The page auto-generates at `/en/moments/your-slug`.
+
+## Cities
+
+Each city has a distinct emotional identity:
+
+| City | Palette | Feeling |
+|------|---------|---------|
+| Tokyo | Indigo → Crimson | Electric and lonely |
+| Kyoto | Moss → Gold | Quiet and nostalgic |
+| Osaka | Earth → Orange | Warm and energetic |

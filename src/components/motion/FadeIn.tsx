@@ -14,7 +14,7 @@ interface FadeInProps {
 
 const variants: Variants = {
   hidden: (y: number) => ({ opacity: 0, y }),
-  visible: (y: number) => ({
+  visible: () => ({
     opacity: 1,
     y: 0,
     transition: {

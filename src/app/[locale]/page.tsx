@@ -209,10 +209,10 @@ export default async function HomePage({
               — philosophy
             </p>
             <blockquote className="text-display-md text-[var(--color-parchment)] font-light italic leading-snug">
-              "Japan is not a destination.
+              &ldquo;Japan is not a destination.
               <br />
               It is a{" "}
-              <em className="text-[var(--color-sand)] not-italic">feeling</em>."
+              <em className="text-[var(--color-sand)] not-italic">feeling</em>.&rdquo;
             </blockquote>
             <div className="mt-10">
               <Button href={`/${locale}/about`} variant="outline">

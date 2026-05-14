@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -17,7 +16,6 @@ interface NavBarProps {
 }
 
 export function NavBar({ locale, messages }: NavBarProps) {
-  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -28,7 +26,6 @@ export function NavBar({ locale, messages }: NavBarProps) {
   }, []);
 
   const altLocale = locale === "en" ? "ja" : "en";
-  const altPath = pathname.replace(`/${locale}`, `/${altLocale}`);
 
   const links = [
     { href: `/${locale}/cities/tokyo`, label: messages.cities },

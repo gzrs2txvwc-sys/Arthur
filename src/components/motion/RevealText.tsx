@@ -7,15 +7,12 @@ interface RevealTextProps {
   children: ReactNode;
   className?: string;
   delay?: number;
-  stagger?: number;
-  as?: "h1" | "h2" | "h3" | "p" | "span" | "div";
 }
 
 export function RevealText({
   children,
   className,
   delay = 0,
-  as: Tag = "div",
 }: RevealTextProps) {
   return (
     <motion.div

@@ -62,7 +62,7 @@ export default async function AboutPage({
             {t("title")}
           </h1>
           <p className="text-display-md font-display font-light italic text-[var(--color-sand)] max-w-2xl">
-            "Not a travel guide. A feeling, honestly shared."
+            &ldquo;Not a travel guide. A feeling, honestly shared.&rdquo;
           </p>
         </FadeIn>
       </section>
