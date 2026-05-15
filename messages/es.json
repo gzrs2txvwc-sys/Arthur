@@ -1,0 +1,89 @@
+{
+  "nav": {
+    "map": "Mapa",
+    "living": "Vivir",
+    "cities": "Ciudades",
+    "stories": "Historias",
+    "community": "Comunidad",
+    "about": "Acerca de",
+    "language": "Español"
+  },
+  "home": {
+    "hero_label": "Creado por extranjeros. Para extranjeros.",
+    "hero_title": "Vida en Japón,\ndesde adentro.",
+    "hero_subtitle": "No es una guía de viaje. Es una comunidad de personas que realmente viven aquí — compartiendo lo que se siente, lo que desearían haber sabido, y lo que los mantiene quedándose.",
+    "cta_experiences": "Leer experiencias",
+    "cta_cities": "Explorar ciudades",
+    "voices_label": "Voces de la comunidad",
+    "voices_title": "Lo que los extranjeros realmente dicen",
+    "categories_label": "Vida en Japón",
+    "categories_title": "Encuentra tu capítulo",
+    "experiences_label": "Historias internas",
+    "experiences_title": "Personas reales. Japón real.",
+    "cities_label": "Tres ciudades",
+    "cities_title": "Tres formas de vivir",
+    "tips_label": "Conocimiento interno",
+    "tips_title": "Lo que nadie te dice",
+    "survival_label": "Antes de llegar",
+    "survival_title": "Lo que nadie les dice a los extranjeros antes de mudarse a Japón",
+    "path_label": "Antes de entrar",
+    "path_title": "Elige tu camino",
+    "path_subtitle": "La plataforma se adapta a lo que necesitas.",
+    "worlds_label": "Explora",
+    "worlds_title": "Hay mucho aquí para ti",
+    "moments_cta": "Leer más historias",
+    "community_cta_label": "Comparte tu historia",
+    "community_cta_title": "¿Has vivido en Japón?",
+    "community_cta_body": "La plataforma crece a través de experiencias reales. Si has vivido, trabajado o estudiado en Japón, tu historia pertenece aquí.",
+    "community_cta_button": "Contáctanos"
+  },
+  "cities": {
+    "explore": "Explorar",
+    "moments_in": "Momentos en",
+    "experiences_in": "Viviendo en",
+    "the_feeling": "La sensación",
+    "living_title": "Cómo es vivir aquí",
+    "neighborhoods_label": "Barrios",
+    "tips_label": "Consejos internos"
+  },
+  "moments": {
+    "read_time": "{min} min de lectura",
+    "all_moments": "Todas las historias",
+    "from": "De"
+  },
+  "experiences": {
+    "read_time": "{min} min de lectura",
+    "all_experiences": "Todas las experiencias",
+    "by": "Por",
+    "years_in_japan": "{n} años en Japón",
+    "back": "Volver a la comunidad"
+  },
+  "living": {
+    "title": "Vivir en Japón",
+    "subtitle": "La guía práctica, emocional y humana para estar realmente aquí.",
+    "categories_label": "¿Qué necesitas?",
+    "tips_label": "Consejos de la comunidad",
+    "neighborhoods_label": "Dónde vivir",
+    "cta_label": "Comparte lo que sabes"
+  },
+  "community": {
+    "title": "Comunidad",
+    "subtitle": "Extranjeros viviendo en Japón — sus palabras, su conocimiento, sus historias.",
+    "voices_label": "Voces",
+    "experiences_label": "Experiencias",
+    "tips_label": "Consejos internos"
+  },
+  "about": {
+    "title": "Acerca de MA",
+    "manifesto_label": "Manifiesto"
+  },
+  "footer": {
+    "tagline": "間 — Vida real en Japón, desde adentro.",
+    "living": "Vivir",
+    "cities": "Ciudades",
+    "stories": "Historias",
+    "community": "Comunidad",
+    "about": "Acerca de",
+    "rights": "Todos los derechos reservados."
+  }
+}

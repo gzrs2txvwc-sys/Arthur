@@ -1,0 +1,89 @@
+{
+  "nav": {
+    "map": "Bản đồ",
+    "living": "Sinh sống",
+    "cities": "Thành phố",
+    "stories": "Câu chuyện",
+    "community": "Cộng đồng",
+    "about": "Giới thiệu",
+    "language": "Tiếng Việt"
+  },
+  "home": {
+    "hero_label": "Được xây dựng bởi người nước ngoài. Cho người nước ngoài.",
+    "hero_title": "Cuộc sống ở Nhật Bản,\ntừ bên trong.",
+    "hero_subtitle": "Không phải hướng dẫn du lịch. Đây là cộng đồng của những người thực sự sống ở đây — chia sẻ cảm giác, điều họ ước biết sớm hơn, và lý do tiếp tục ở lại.",
+    "cta_experiences": "Đọc trải nghiệm",
+    "cta_cities": "Khám phá thành phố",
+    "voices_label": "Tiếng nói cộng đồng",
+    "voices_title": "Điều người nước ngoài thực sự nói",
+    "categories_label": "Cuộc sống ở Nhật Bản",
+    "categories_title": "Tìm chương của bạn",
+    "experiences_label": "Câu chuyện nội bộ",
+    "experiences_title": "Người thật. Nhật Bản thật.",
+    "cities_label": "Ba thành phố",
+    "cities_title": "Ba cách sống",
+    "tips_label": "Kiến thức nội bộ",
+    "tips_title": "Điều không ai nói với bạn",
+    "survival_label": "Trước khi đến",
+    "survival_title": "Điều không ai nói với người nước ngoài trước khi chuyển đến Nhật Bản",
+    "path_label": "Trước khi bắt đầu",
+    "path_title": "Chọn con đường của bạn",
+    "path_subtitle": "Nền tảng thích nghi với nhu cầu của bạn.",
+    "worlds_label": "Khám phá",
+    "worlds_title": "Có rất nhiều thứ ở đây dành cho bạn",
+    "moments_cta": "Đọc thêm câu chuyện",
+    "community_cta_label": "Chia sẻ câu chuyện của bạn",
+    "community_cta_title": "Bạn đã từng sống ở Nhật Bản chưa?",
+    "community_cta_body": "Nền tảng phát triển qua những trải nghiệm thực tế. Nếu bạn đã sống, làm việc hoặc học tập ở Nhật Bản, câu chuyện của bạn thuộc về đây.",
+    "community_cta_button": "Liên hệ"
+  },
+  "cities": {
+    "explore": "Khám phá",
+    "moments_in": "Khoảnh khắc ở",
+    "experiences_in": "Sống ở",
+    "the_feeling": "Cảm giác",
+    "living_title": "Sống ở đây như thế nào",
+    "neighborhoods_label": "Khu phố",
+    "tips_label": "Mẹo nội bộ"
+  },
+  "moments": {
+    "read_time": "{min} phút đọc",
+    "all_moments": "Tất cả câu chuyện",
+    "from": "Từ"
+  },
+  "experiences": {
+    "read_time": "{min} phút đọc",
+    "all_experiences": "Tất cả trải nghiệm",
+    "by": "Bởi",
+    "years_in_japan": "{n} năm ở Nhật Bản",
+    "back": "Quay lại cộng đồng"
+  },
+  "living": {
+    "title": "Sống ở Nhật Bản",
+    "subtitle": "Hướng dẫn thực tế, cảm xúc và nhân văn để thực sự ở đây.",
+    "categories_label": "Bạn cần gì?",
+    "tips_label": "Mẹo cộng đồng",
+    "neighborhoods_label": "Nên sống ở đâu",
+    "cta_label": "Chia sẻ những gì bạn biết"
+  },
+  "community": {
+    "title": "Cộng đồng",
+    "subtitle": "Người nước ngoài sống ở Nhật Bản — lời nói, kiến thức, câu chuyện của họ.",
+    "voices_label": "Tiếng nói",
+    "experiences_label": "Trải nghiệm",
+    "tips_label": "Mẹo nội bộ"
+  },
+  "about": {
+    "title": "Về MA",
+    "manifesto_label": "Tuyên ngôn"
+  },
+  "footer": {
+    "tagline": "間 — Cuộc sống thật ở Nhật Bản, từ bên trong.",
+    "living": "Sinh sống",
+    "cities": "Thành phố",
+    "stories": "Câu chuyện",
+    "community": "Cộng đồng",
+    "about": "Giới thiệu",
+    "rights": "Bảo lưu mọi quyền."
+  }
+}

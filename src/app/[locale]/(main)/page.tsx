@@ -3,6 +3,7 @@ import Image from "next/image";
 import { getAllCities } from "@/lib/cities";
 import { getAllMoments, getAllExperiences } from "@/lib/content";
 import { communityVoices, lifeCategories, insiderTips, survivalTruths } from "@/lib/community";
+import { worlds } from "@/lib/worlds";
 import { CityCard } from "@/components/cards/CityCard";
 import { MomentCard } from "@/components/cards/MomentCard";
 import { ExperienceCard } from "@/components/community/ExperienceCard";
@@ -10,6 +11,8 @@ import { CommunityVoice } from "@/components/community/CommunityVoice";
 import { CategoryGrid } from "@/components/ui/CategoryGrid";
 import { InsiderTip } from "@/components/ui/InsiderTip";
 import { SurvivalCard } from "@/components/ui/SurvivalCard";
+import { PathSelector } from "@/components/ui/PathSelector";
+import { WorldGrid } from "@/components/ui/WorldGrid";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { StaggerChildren, StaggerItem } from "@/components/motion/RevealText";
 import { ScrollIndicator } from "@/components/ui/ScrollIndicator";
@@ -45,11 +48,9 @@ export default async function HomePage({
             style={{ filter: "saturate(0.55) brightness(0.32) contrast(1.06) sepia(0.10)" }}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/60 via-transparent to-[#0a0a0a]" />
-          {/* Ambient breathing light — simulates environmental motion */}
           <div className="ambient-ray" />
         </div>
 
-        {/* Film grain over hero */}
         <FilmGrain opacity={0.065} className="z-[3]" />
 
         {/* Kanji watermark */}
@@ -95,15 +96,45 @@ export default async function HomePage({
             </div>
           </div>
 
-          {/* Scroll indicator — bottom center */}
           <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
             <ScrollIndicator />
           </div>
         </div>
       </section>
 
-      {/* ── What nobody tells you ─────────────────────────────────── */}
+      {/* ── Choose Your Path ─────────────────────────────────────── */}
       <section className="py-20 md:py-28 px-6 lg:px-12 max-w-7xl mx-auto w-full">
+        <FadeIn>
+          <PathSelector
+            locale={locale}
+            labelText={t("path_label")}
+            titleText={t("path_title")}
+            subtitleText={t("path_subtitle")}
+          />
+        </FadeIn>
+      </section>
+
+      {/* ── Exploration worlds grid ───────────────────────────────── */}
+      <section className="pb-20 md:pb-28">
+        <div className="px-6 lg:px-12 max-w-7xl mx-auto w-full mb-10">
+          <FadeIn>
+            <p className="text-caption text-[var(--color-sand)] mb-3 tracking-[0.2em]">
+              {t("worlds_label")}
+            </p>
+            <h2 className="text-display-lg text-[var(--color-parchment)]">
+              {t("worlds_title")}
+            </h2>
+          </FadeIn>
+        </div>
+
+        <FadeIn delay={0.1}>
+          <WorldGrid worlds={worlds} locale={locale} />
+        </FadeIn>
+      </section>
+
+      {/* ── What nobody tells you ─────────────────────────────────── */}
+      <section id="survival" className="py-16 md:py-24 px-6 lg:px-12 max-w-7xl mx-auto w-full">
+        <div className="hr-sand mb-16" />
         <FadeIn className="mb-12">
           <p className="text-caption text-[var(--color-sand)] mb-3 tracking-[0.2em]">
             {t("survival_label")}
@@ -126,7 +157,8 @@ export default async function HomePage({
       </section>
 
       {/* ── Community voices strip ────────────────────────────────── */}
-      <section className="py-20 md:py-28 px-6 lg:px-12 max-w-7xl mx-auto w-full">
+      <section className="py-16 md:py-24 px-6 lg:px-12 max-w-7xl mx-auto w-full">
+        <div className="hr-sand mb-16" />
         <FadeIn className="mb-12">
           <p className="text-caption text-[var(--color-sand)] mb-3">
             {t("voices_label")}
@@ -201,7 +233,7 @@ export default async function HomePage({
         </section>
       )}
 
-      {/* ── Cities — reframed as "places to live" ─────────────────── */}
+      {/* ── Cities ───────────────────────────────────────────────── */}
       <section className="py-16 md:py-24 px-6 lg:px-12 max-w-7xl mx-auto w-full">
         <div className="hr-sand mb-16" />
         <FadeIn className="mb-16">

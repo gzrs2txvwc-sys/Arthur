@@ -1,0 +1,89 @@
+{
+  "nav": {
+    "map": "地图",
+    "living": "生活",
+    "cities": "城市",
+    "stories": "故事",
+    "community": "社区",
+    "about": "关于",
+    "language": "简体中文"
+  },
+  "home": {
+    "hero_label": "由外国人建立。为外国人而生。",
+    "hero_title": "在日本的生活，\n从内部看起。",
+    "hero_subtitle": "这不是旅游指南。这是一个真正住在这里的人们的社区——分享真实感受、希望早知道的事，以及让他们继续留下的原因。",
+    "cta_experiences": "阅读经验",
+    "cta_cities": "探索城市",
+    "voices_label": "社区声音",
+    "voices_title": "外国人真正说的话",
+    "categories_label": "在日本的生活",
+    "categories_title": "找到你的篇章",
+    "experiences_label": "内部人士故事",
+    "experiences_title": "真实的人。真实的日本。",
+    "cities_label": "三个城市",
+    "cities_title": "三种生活方式",
+    "tips_label": "内部知识",
+    "tips_title": "没有人告诉你的事",
+    "survival_label": "抵达之前",
+    "survival_title": "移居日本前没有人告诉外国人的事",
+    "path_label": "进入之前",
+    "path_title": "选择你的路径",
+    "path_subtitle": "平台会根据你的需求进行调整。",
+    "worlds_label": "探索",
+    "worlds_title": "这里有太多东西等着你",
+    "moments_cta": "阅读更多故事",
+    "community_cta_label": "分享你的故事",
+    "community_cta_title": "你在日本住过吗？",
+    "community_cta_body": "平台通过真实经验成长。如果你曾在日本生活、工作或学习，你的故事属于这里。",
+    "community_cta_button": "联系我们"
+  },
+  "cities": {
+    "explore": "探索",
+    "moments_in": "的时刻",
+    "experiences_in": "生活在",
+    "the_feeling": "那种感觉",
+    "living_title": "住在这里是什么感觉",
+    "neighborhoods_label": "街区",
+    "tips_label": "内部提示"
+  },
+  "moments": {
+    "read_time": "{min} 分钟阅读",
+    "all_moments": "所有故事",
+    "from": "来自"
+  },
+  "experiences": {
+    "read_time": "{min} 分钟阅读",
+    "all_experiences": "所有经验",
+    "by": "作者",
+    "years_in_japan": "在日本 {n} 年",
+    "back": "返回社区"
+  },
+  "living": {
+    "title": "在日本生活",
+    "subtitle": "真正在这里的实用、情感和人性化指南。",
+    "categories_label": "你需要什么？",
+    "tips_label": "社区提示",
+    "neighborhoods_label": "住在哪里",
+    "cta_label": "分享你所知道的"
+  },
+  "community": {
+    "title": "社区",
+    "subtitle": "住在日本的外国人——他们的话语、知识、故事。",
+    "voices_label": "声音",
+    "experiences_label": "经验",
+    "tips_label": "内部提示"
+  },
+  "about": {
+    "title": "关于 MA",
+    "manifesto_label": "宣言"
+  },
+  "footer": {
+    "tagline": "間 — 从内部看真实的日本生活。",
+    "living": "生活",
+    "cities": "城市",
+    "stories": "故事",
+    "community": "社区",
+    "about": "关于",
+    "rights": "版权所有。"
+  }
+}

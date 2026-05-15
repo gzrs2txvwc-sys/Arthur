@@ -1,0 +1,89 @@
+{
+  "nav": {
+    "map": "지도",
+    "living": "생활",
+    "cities": "도시",
+    "stories": "이야기",
+    "community": "커뮤니티",
+    "about": "소개",
+    "language": "한국어"
+  },
+  "home": {
+    "hero_label": "외국인이 만든, 외국인을 위한.",
+    "hero_title": "일본에서의 삶,\n내부에서.",
+    "hero_subtitle": "여행 가이드가 아닙니다. 실제로 여기 사는 사람들의 커뮤니티 — 어떤 느낌인지, 미리 알았으면 좋았을 것, 그리고 계속 머무는 이유를 공유합니다.",
+    "cta_experiences": "경험 읽기",
+    "cta_cities": "도시 탐색",
+    "voices_label": "커뮤니티 목소리",
+    "voices_title": "외국인들이 실제로 말하는 것",
+    "categories_label": "일본에서의 생활",
+    "categories_title": "나의 챕터 찾기",
+    "experiences_label": "인사이더 스토리",
+    "experiences_title": "실제 사람들. 진짜 일본.",
+    "cities_label": "세 도시",
+    "cities_title": "세 가지 삶의 방식",
+    "tips_label": "인사이더 지식",
+    "tips_title": "아무도 알려주지 않는 것",
+    "survival_label": "도착 전에",
+    "survival_title": "일본으로 이주하기 전에 아무도 외국인에게 알려주지 않는 것",
+    "path_label": "시작하기 전에",
+    "path_title": "당신의 길을 선택하세요",
+    "path_subtitle": "플랫폼이 당신이 필요한 것에 맞게 조정됩니다.",
+    "worlds_label": "탐색",
+    "worlds_title": "여기에 당신을 위한 것이 너무 많습니다",
+    "moments_cta": "더 많은 이야기 읽기",
+    "community_cta_label": "당신의 이야기를 공유하세요",
+    "community_cta_title": "일본에 살아본 적 있으신가요?",
+    "community_cta_body": "플랫폼은 실제 경험을 통해 성장합니다. 일본에서 생활, 일, 또는 공부한 경험이 있다면 당신의 이야기가 여기에 속합니다.",
+    "community_cta_button": "연락하기"
+  },
+  "cities": {
+    "explore": "탐색",
+    "moments_in": "의 순간들",
+    "experiences_in": "에서의 생활",
+    "the_feeling": "그 느낌",
+    "living_title": "여기서 사는 것이 어떤지",
+    "neighborhoods_label": "동네",
+    "tips_label": "인사이더 팁"
+  },
+  "moments": {
+    "read_time": "{min}분 읽기",
+    "all_moments": "모든 이야기",
+    "from": "에서"
+  },
+  "experiences": {
+    "read_time": "{min}분 읽기",
+    "all_experiences": "모든 경험",
+    "by": "작성자",
+    "years_in_japan": "일본 {n}년",
+    "back": "커뮤니티로 돌아가기"
+  },
+  "living": {
+    "title": "일본에서 살기",
+    "subtitle": "실제로 여기 있는 것에 대한 실용적이고 감정적이며 인간적인 가이드.",
+    "categories_label": "무엇이 필요하신가요?",
+    "tips_label": "커뮤니티 팁",
+    "neighborhoods_label": "어디서 살까",
+    "cta_label": "알고 있는 것 공유하기"
+  },
+  "community": {
+    "title": "커뮤니티",
+    "subtitle": "일본에 사는 외국인들 — 그들의 말, 지식, 이야기.",
+    "voices_label": "목소리",
+    "experiences_label": "경험",
+    "tips_label": "인사이더 팁"
+  },
+  "about": {
+    "title": "MA 소개",
+    "manifesto_label": "선언문"
+  },
+  "footer": {
+    "tagline": "間 — 내부에서 보는 일본의 실제 삶.",
+    "living": "생활",
+    "cities": "도시",
+    "stories": "이야기",
+    "community": "커뮤니티",
+    "about": "소개",
+    "rights": "모든 권리 보유."
+  }
+}
