@@ -9,6 +9,7 @@ import type { MapPin, PinCategory } from "@/lib/mapData";
 import { MapFilters } from "./MapFilters";
 import { PinStory } from "./PinStory";
 import { MapAtmosphere } from "./MapAtmosphere";
+import { FilmGrain } from "@/components/ui/FilmGrain";
 
 // Leaflet cannot run on the server
 const JapanMap = dynamic(() => import("./JapanMap"), {
@@ -108,6 +109,9 @@ export function MapExperience({ title, subtitle }: MapExperienceProps) {
       {/* Cinematic depth layers */}
       <div className="map-depth-haze" />
       <div className="map-scanlines" />
+
+      {/* Film grain — above canvas, below UI */}
+      <FilmGrain opacity={0.06} className="z-[6]" />
 
       {/* Vignette */}
       <div className="map-vignette" />

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { X, ArrowRight } from "lucide-react";
 import { categoryMeta } from "@/lib/mapData";
 import type { MapPin } from "@/lib/mapData";
+import { FilmGrain } from "@/components/ui/FilmGrain";
 
 interface PinStoryProps {
   pin: MapPin | null;
@@ -83,14 +84,17 @@ export function PinStory({
                     src={pin.imageUrl}
                     alt={pin.title}
                     fill
-                    className="object-cover ken-burns"
-                    style={{ filter: "saturate(0.7) brightness(0.45)" }}
+                    className="object-cover ken-burns img-analog"
                   />
                 </motion.div>
               </AnimatePresence>
 
               {/* Gradient over image */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent" />
+
+              {/* Film atmosphere */}
+              <FilmGrain opacity={0.09} className="z-[7]" />
+              <div className="light-leak-el" />
 
               {/* Category badge */}
               <div className="absolute top-4 left-4 flex items-center gap-2 z-10">

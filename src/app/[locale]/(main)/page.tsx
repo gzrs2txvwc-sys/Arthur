@@ -13,6 +13,7 @@ import { FadeIn } from "@/components/motion/FadeIn";
 import { StaggerChildren, StaggerItem } from "@/components/motion/RevealText";
 import { ScrollIndicator } from "@/components/ui/ScrollIndicator";
 import { Button } from "@/components/ui/Button";
+import { FilmGrain } from "@/components/ui/FilmGrain";
 
 export default async function HomePage({
   params,
@@ -40,10 +41,15 @@ export default async function HomePage({
             fill
             priority
             className="object-cover object-center"
-            style={{ filter: "saturate(0.5) brightness(0.25)" }}
+            style={{ filter: "saturate(0.45) brightness(0.22) contrast(1.08) sepia(0.12)" }}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/60 via-transparent to-[#0a0a0a]" />
+          {/* Ambient breathing light — simulates environmental motion */}
+          <div className="ambient-ray" />
         </div>
+
+        {/* Film grain over hero */}
+        <FilmGrain opacity={0.065} className="z-[3]" />
 
         {/* Kanji watermark */}
         <div

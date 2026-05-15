@@ -390,10 +390,87 @@ body {
 
 /* ─── Ken Burns image animation ──────────────────── */
 @keyframes ken-burns {
-  from { transform: scale(1.0) translate(0%, 0%); }
-  to   { transform: scale(1.13) translate(-2%, -1.5%); }
+  from { transform: scale(1.03) translate(0%, 0%); }
+  to   { transform: scale(1.16) translate(-2%, -1.5%); }
 }
 
 .ken-burns {
   animation: ken-burns 14s ease-out forwards;
+}
+
+/* ─── Film grain overlay ─────────────────────────── */
+@keyframes grain-shift {
+  0%   { background-position:   0%    0%; }
+  14%  { background-position: -38%  -18%; }
+  28%  { background-position:  48%  -42%; }
+  43%  { background-position: -22%   48%; }
+  57%  { background-position:  58%   22%; }
+  71%  { background-position: -12%  -58%; }
+  85%  { background-position:  28%   52%; }
+  100% { background-position:   0%    0%; }
+}
+
+.grain-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.92' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  mix-blend-mode: overlay;
+  animation: grain-shift 0.35s steps(1) infinite;
+  opacity: var(--grain-opacity, 0.055);
+}
+
+/* ─── Film light leak on images ──────────────────── */
+@keyframes light-leak {
+  0%, 100% { opacity: 0; }
+  6%        { opacity: 1; }
+  18%       { opacity: 0; }
+  54%       { opacity: 0; }
+  60%       { opacity: 0.55; }
+  72%       { opacity: 0; }
+}
+
+.light-leak-el {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at 88% 8%,
+    rgba(255, 170, 55, 0.18) 0%,
+    rgba(255, 85, 20, 0.08) 38%,
+    transparent 65%
+  );
+  animation: light-leak 18s ease-in-out 6s infinite;
+  z-index: 6;
+}
+
+/* ─── Hero ambient breathing light ──────────────── */
+@keyframes ambient-breathe {
+  0%   { opacity: 0; transform: scale(1.0) translate(0%, 0%); }
+  35%  { opacity: 1; }
+  65%  { opacity: 0.7; transform: scale(1.06) translate(1%, -1%); }
+  100% { opacity: 0; transform: scale(1.0) translate(0%, 0%); }
+}
+
+.ambient-ray {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 55% 45% at 28% 38%,
+    rgba(255, 195, 70, 0.045) 0%,
+    rgba(200, 120, 40, 0.02) 55%,
+    transparent 100%
+  );
+  animation: ambient-breathe 22s ease-in-out infinite;
+  mix-blend-mode: screen;
+  z-index: 2;
+}
+
+/* ─── Analog image treatment ────────────────────── */
+.img-analog {
+  filter:
+    saturate(0.55)
+    contrast(1.14)
+    brightness(0.38)
+    sepia(0.18);
 }
