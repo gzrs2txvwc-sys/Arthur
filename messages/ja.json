@@ -1,37 +1,80 @@
 {
   "nav": {
+    "living": "生活",
     "cities": "都市",
-    "moments": "瞬間",
+    "stories": "ストーリー",
+    "community": "コミュニティ",
     "about": "について",
     "language": "English"
   },
   "home": {
-    "hero_tagline": "間",
-    "hero_subtitle": "瞬間と瞬間の間に。",
-    "hero_body": "日本は目的地ではありません。それは感覚です — 和紙の傘に降る雨、古い寺の静寂、眠らない都市に属する感覚。",
-    "cities_label": "都市を探索する",
-    "moments_label": "最新の瞬間",
-    "moments_cta": "続きを読む",
-    "featured_label": "注目のストーリー"
+    "hero_label": "外国人による、外国人のために。",
+    "hero_title": "日本での生活を、\n内側から。",
+    "hero_subtitle": "旅行ガイドではありません。実際にここに住んでいる人々のコミュニティ — どんな感じか、知っておきたかったこと、なぜ居続けるかを共有しています。",
+    "cta_experiences": "体験を読む",
+    "cta_cities": "都市を探索する",
+    "voices_label": "コミュニティの声",
+    "voices_title": "外国人が実際に言うこと",
+    "categories_label": "日本での生活",
+    "categories_title": "あなたの章を見つける",
+    "experiences_label": "インサイダーストーリー",
+    "experiences_title": "リアルな人々。リアルな日本。",
+    "cities_label": "三つの都市",
+    "cities_title": "三つの暮らし方",
+    "tips_label": "インサイダーの知識",
+    "tips_title": "誰も教えてくれないこと",
+    "moments_cta": "もっとストーリーを読む",
+    "community_cta_label": "あなたのストーリーを共有する",
+    "community_cta_title": "日本に住んだことがありますか？",
+    "community_cta_body": "プラットフォームはリアルな体験を通じて成長します。日本で生活、仕事、または勉強した経験があれば、あなたのストーリーはここに属します。",
+    "community_cta_button": "お問い合わせ"
   },
   "cities": {
     "explore": "探索する",
     "moments_in": "の瞬間",
-    "the_feeling": "その感覚"
+    "experiences_in": "での生活",
+    "the_feeling": "その感覚",
+    "living_title": "ここに住むとはどういうことか",
+    "neighborhoods_label": "街",
+    "tips_label": "インサイダーのヒント"
   },
   "moments": {
     "read_time": "{min}分で読む",
-    "all_moments": "すべての瞬間",
+    "all_moments": "すべてのストーリー",
     "from": "より"
+  },
+  "experiences": {
+    "read_time": "{min}分で読む",
+    "all_experiences": "すべての体験",
+    "by": "著者",
+    "years_in_japan": "日本{n}年",
+    "back": "コミュニティに戻る"
+  },
+  "living": {
+    "title": "日本での生活",
+    "subtitle": "ここに実際にいることへの実践的、感情的、そして人間的なガイド。",
+    "categories_label": "何が必要ですか？",
+    "tips_label": "コミュニティのヒント",
+    "neighborhoods_label": "どこに住むか",
+    "cta_label": "知っていることを共有する"
+  },
+  "community": {
+    "title": "コミュニティ",
+    "subtitle": "日本に住む外国人 — 彼らの言葉、知識、ストーリー。",
+    "voices_label": "声",
+    "experiences_label": "体験",
+    "tips_label": "インサイダーのヒント"
   },
   "about": {
     "title": "MAについて",
     "manifesto_label": "マニフェスト"
   },
   "footer": {
-    "tagline": "間 — ものとものの間の間。",
+    "tagline": "間 — 内側からのリアルな日本生活。",
+    "living": "生活",
     "cities": "都市",
-    "moments": "瞬間",
+    "stories": "ストーリー",
+    "community": "コミュニティ",
     "about": "について",
     "rights": "全著作権所有。"
   }

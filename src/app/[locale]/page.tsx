@@ -1,9 +1,14 @@
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { getAllCities } from "@/lib/cities";
-import { getAllMoments } from "@/lib/content";
+import { getAllMoments, getAllExperiences } from "@/lib/content";
+import { communityVoices, lifeCategories, insiderTips } from "@/lib/community";
 import { CityCard } from "@/components/cards/CityCard";
 import { MomentCard } from "@/components/cards/MomentCard";
+import { ExperienceCard } from "@/components/community/ExperienceCard";
+import { CommunityVoice } from "@/components/community/CommunityVoice";
+import { CategoryGrid } from "@/components/ui/CategoryGrid";
+import { InsiderTip } from "@/components/ui/InsiderTip";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { StaggerChildren, StaggerItem } from "@/components/motion/RevealText";
 import { ScrollIndicator } from "@/components/ui/ScrollIndicator";
@@ -16,95 +21,169 @@ export default async function HomePage({
 }) {
   const { locale } = await params;
   const t = await getTranslations("home");
-  const tM = await getTranslations("moments");
 
   const cities = getAllCities();
-  const moments = getAllMoments().slice(0, 4);
+  const experiences = getAllExperiences();
+  const moments = getAllMoments().slice(0, 3);
+  const voices = communityVoices.slice(0, 3);
+  const tips = insiderTips.filter((tip) => tip.city === "all").slice(0, 3);
 
   return (
     <>
-      {/* ── Cinematic Hero ─────────────────────────── */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
-        {/* Background: layered gradient + image blend */}
+      {/* ── Hero ──────────────────────────────────────────────────── */}
+      <section className="relative min-h-screen flex flex-col justify-center overflow-hidden">
+        {/* Background */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=2000&q=75"
-            alt="Japan cityscape at night"
+            src="https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?w=2000&q=75"
+            alt="Foreigners living in Japan"
             fill
             priority
             className="object-cover object-center"
-            style={{ filter: "saturate(0.6) brightness(0.35)" }}
+            style={{ filter: "saturate(0.5) brightness(0.25)" }}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/40 via-transparent to-[#0a0a0a]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/60 via-transparent to-[#0a0a0a]" />
         </div>
 
-        {/* Hero content */}
-        <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
-          {/* The kanji */}
-          <div
-            className="font-display font-light text-[var(--color-sand)] animate-fade-in"
-            style={{
-              fontSize: "clamp(6rem, 20vw, 18rem)",
-              lineHeight: 1,
-              letterSpacing: "-0.02em",
-              opacity: 0.15,
-              position: "absolute",
-              left: "50%",
-              top: "50%",
-              transform: "translate(-50%, -55%)",
-              userSelect: "none",
-              zIndex: -1,
-            }}
+        {/* Kanji watermark */}
+        <div
+          className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none select-none"
+          aria-hidden="true"
+        >
+          <span
+            className="font-display font-light text-[var(--color-sand)]"
+            style={{ fontSize: "clamp(12rem, 40vw, 32rem)", opacity: 0.04, lineHeight: 1 }}
           >
             間
-          </div>
-
-          <div className="animate-fade-up">
-            <p className="text-caption text-[var(--color-sand)] mb-8 tracking-[0.3em]">
-              間 · MA
-            </p>
-          </div>
-
-          <h1
-            className="text-display-xl text-[var(--color-parchment)] animate-fade-up delay-200 mb-6"
-          >
-            {t("hero_subtitle")}
-          </h1>
-
-          <p
-            className="text-lg md:text-xl text-[var(--color-sand-light)] max-w-2xl mx-auto
-              leading-relaxed animate-fade-up delay-400 font-light"
-          >
-            {t("hero_body")}
-          </p>
-
-          <div className="mt-12 animate-fade-up delay-500 flex items-center justify-center gap-6 flex-wrap">
-            <Button href={`/${locale}/cities/tokyo`} variant="outline">
-              {t("cities_label")}
-            </Button>
-            <Button href={`/${locale}/moments`} variant="ghost">
-              {t("moments_label")}
-            </Button>
-          </div>
+          </span>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10">
-          <ScrollIndicator />
+        {/* Content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 pt-32 pb-24 w-full">
+          <div className="max-w-3xl">
+            <div className="animate-fade-up">
+              <p className="text-caption text-[var(--color-sand)] mb-6 tracking-[0.25em]">
+                {t("hero_label")}
+              </p>
+            </div>
+
+            <h1
+              className="text-display-xl text-[var(--color-parchment)] animate-fade-up delay-100 mb-6"
+              style={{ whiteSpace: "pre-line" }}
+            >
+              {t("hero_title")}
+            </h1>
+
+            <p className="text-lg text-[var(--color-sand-light)] max-w-xl leading-relaxed animate-fade-up delay-200 font-light mb-10">
+              {t("hero_subtitle")}
+            </p>
+
+            <div className="flex flex-wrap gap-4 animate-fade-up delay-300">
+              <Button href={`/${locale}/community`} variant="solid">
+                {t("cta_experiences")}
+              </Button>
+              <Button href={`/${locale}/living`} variant="outline">
+                {t("cta_cities")}
+              </Button>
+            </div>
+          </div>
+
+          {/* Scroll indicator — bottom center */}
+          <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
+            <ScrollIndicator />
+          </div>
         </div>
       </section>
 
-      {/* ── Cities ─────────────────────────────────── */}
-      <section className="py-24 md:py-32 px-6 lg:px-12 max-w-7xl mx-auto w-full">
-        <FadeIn className="mb-16">
-          <p className="text-caption mb-3">{t("cities_label")}</p>
+      {/* ── Community voices strip ────────────────────────────────── */}
+      <section className="py-20 md:py-28 px-6 lg:px-12 max-w-7xl mx-auto w-full">
+        <FadeIn className="mb-12">
+          <p className="text-caption text-[var(--color-sand)] mb-3">
+            {t("voices_label")}
+          </p>
           <h2 className="text-display-lg text-[var(--color-parchment)]">
-            Three cities.
-            <br />
-            <em className="font-light text-[var(--color-sand)]">
-              Three feelings.
-            </em>
+            {t("voices_title")}
           </h2>
+        </FadeIn>
+
+        <StaggerChildren
+          className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/5"
+          staggerDelay={0.1}
+        >
+          {voices.map((voice, i) => (
+            <StaggerItem key={voice.id}>
+              <CommunityVoice voice={voice} accent={i === 1} />
+            </StaggerItem>
+          ))}
+        </StaggerChildren>
+
+        <FadeIn className="mt-8" delay={0.2}>
+          <Button href={`/${locale}/community`} variant="ghost">
+            Read more voices
+          </Button>
+        </FadeIn>
+      </section>
+
+      {/* ── Life categories grid ──────────────────────────────────── */}
+      <section className="py-16 md:py-24 px-6 lg:px-12 max-w-7xl mx-auto w-full">
+        <div className="hr-sand mb-16" />
+        <FadeIn className="mb-10">
+          <p className="text-caption text-[var(--color-sand)] mb-3">
+            {t("categories_label")}
+          </p>
+          <h2 className="text-display-lg text-[var(--color-parchment)]">
+            {t("categories_title")}
+          </h2>
+        </FadeIn>
+        <FadeIn delay={0.1}>
+          <CategoryGrid categories={lifeCategories} locale={locale} />
+        </FadeIn>
+      </section>
+
+      {/* ── Experience stories ────────────────────────────────────── */}
+      {experiences.length > 0 && (
+        <section className="py-16 md:py-24 px-6 lg:px-12 max-w-7xl mx-auto w-full">
+          <div className="hr-sand mb-16" />
+          <FadeIn className="flex items-end justify-between mb-12 flex-wrap gap-4">
+            <div>
+              <p className="text-caption text-[var(--color-sand)] mb-3">
+                {t("experiences_label")}
+              </p>
+              <h2 className="text-display-lg text-[var(--color-parchment)]">
+                {t("experiences_title")}
+              </h2>
+            </div>
+            <Button href={`/${locale}/community`} variant="ghost">
+              All experiences
+            </Button>
+          </FadeIn>
+
+          <StaggerChildren
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+            staggerDelay={0.12}
+          >
+            {experiences.slice(0, 3).map((exp) => (
+              <StaggerItem key={exp.slug}>
+                <ExperienceCard experience={exp} locale={locale} />
+              </StaggerItem>
+            ))}
+          </StaggerChildren>
+        </section>
+      )}
+
+      {/* ── Cities — reframed as "places to live" ─────────────────── */}
+      <section className="py-16 md:py-24 px-6 lg:px-12 max-w-7xl mx-auto w-full">
+        <div className="hr-sand mb-16" />
+        <FadeIn className="mb-16">
+          <p className="text-caption text-[var(--color-sand)] mb-3">
+            {t("cities_label")}
+          </p>
+          <h2 className="text-display-lg text-[var(--color-parchment)]">
+            {t("cities_title")}
+          </h2>
+          <p className="text-[var(--color-muted)] mt-4 max-w-xl leading-relaxed">
+            Each city demands a different version of you. Find out which one fits.
+          </p>
         </FadeIn>
 
         <StaggerChildren
@@ -113,69 +192,61 @@ export default async function HomePage({
         >
           {cities.map((city) => (
             <StaggerItem key={city.slug}>
-              <CityCard city={city} locale={locale} exploreLabel="Explore" />
+              <CityCard city={city} locale={locale} exploreLabel="Living here" />
             </StaggerItem>
           ))}
         </StaggerChildren>
       </section>
 
-      {/* ── Divider ────────────────────────────────── */}
-      <div className="px-6 lg:px-12 max-w-7xl mx-auto w-full">
-        <div className="hr-sand" />
-      </div>
+      {/* ── Insider tips strip ───────────────────────────────────── */}
+      {tips.length > 0 && (
+        <section className="py-16 md:py-24 px-6 lg:px-12 max-w-7xl mx-auto w-full">
+          <div className="hr-sand mb-16" />
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            <FadeIn className="lg:col-span-4">
+              <p className="text-caption text-[var(--color-sand)] mb-3">
+                {t("tips_label")}
+              </p>
+              <h2 className="text-display-lg text-[var(--color-parchment)] mb-6">
+                {t("tips_title")}
+              </h2>
+              <p className="text-[var(--color-muted)] leading-relaxed mb-8">
+                The things that took people years to learn, condensed. Contributed by the community.
+              </p>
+              <Button href={`/${locale}/living`} variant="ghost">
+                All insider knowledge
+              </Button>
+            </FadeIn>
 
-      {/* ── Featured moment ────────────────────────── */}
-      {moments[0] && (
-        <section className="py-24 md:py-32 px-6 lg:px-12 max-w-7xl mx-auto w-full">
-          <FadeIn className="mb-6">
-            <p className="text-caption">{t("featured_label")}</p>
-          </FadeIn>
-
-          <FadeIn delay={0.1}>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              {/* Image */}
-              <div className="relative aspect-[4/3] overflow-hidden rounded-sm">
-                <Image
-                  src={moments[0].imageUrl}
-                  alt={moments[0].imageAlt}
-                  fill
-                  className="object-cover img-cinematic"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
-              </div>
-
-              {/* Text */}
-              <div>
-                <p className="text-caption text-[var(--color-sand)] capitalize mb-4">
-                  {moments[0].city} ·{" "}
-                  {tM("read_time").replace(
-                    "{min}",
-                    String(moments[0].readingTime)
-                  )}
-                </p>
-                <h3 className="text-display-md text-[var(--color-parchment)] mb-6">
-                  {moments[0].title}
-                </h3>
-                <p className="text-[var(--color-muted)] leading-relaxed mb-8 text-base">
-                  {moments[0].excerpt}
-                </p>
-                <Button href={`/${locale}/moments/${moments[0].slug}`} variant="ghost">
-                  Read the story
-                </Button>
-              </div>
-            </div>
-          </FadeIn>
+            <StaggerChildren
+              className="lg:col-span-8 flex flex-col gap-4"
+              staggerDelay={0.12}
+            >
+              {tips.map((tip) => (
+                <StaggerItem key={tip.id}>
+                  <InsiderTip
+                    tip={tip.tip}
+                    context={tip.context}
+                    variant="default"
+                  />
+                </StaggerItem>
+              ))}
+            </StaggerChildren>
+          </div>
         </section>
       )}
 
-      {/* ── Moments grid ───────────────────────────── */}
-      {moments.length > 1 && (
+      {/* ── Literary moments ─────────────────────────────────────── */}
+      {moments.length > 0 && (
         <section className="py-16 md:py-24 px-6 lg:px-12 max-w-7xl mx-auto w-full">
-          <FadeIn className="flex items-end justify-between mb-12">
+          <div className="hr-sand mb-16" />
+          <FadeIn className="flex items-end justify-between mb-12 flex-wrap gap-4">
             <div>
-              <p className="text-caption mb-2">{t("moments_label")}</p>
-              <h2 className="text-display-md text-[var(--color-parchment)]">
-                Recent moments
+              <p className="text-caption text-[var(--color-sand)] mb-3">
+                Documentary writing
+              </p>
+              <h2 className="text-display-md font-display font-light text-[var(--color-parchment)]">
+                Moments of being there
               </h2>
             </div>
             <Button href={`/${locale}/moments`} variant="ghost">
@@ -184,15 +255,15 @@ export default async function HomePage({
           </FadeIn>
 
           <StaggerChildren
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
             staggerDelay={0.1}
           >
-            {moments.slice(1).map((moment) => (
+            {moments.map((moment) => (
               <StaggerItem key={moment.slug}>
                 <MomentCard
                   moment={moment}
                   locale={locale}
-                  readTimeLabel={tM("read_time")}
+                  readTimeLabel="{min} min read"
                 />
               </StaggerItem>
             ))}
@@ -200,25 +271,24 @@ export default async function HomePage({
         </section>
       )}
 
-      {/* ── Philosophy strip ───────────────────────── */}
+      {/* ── Community CTA ─────────────────────────────────────────── */}
       <section className="relative py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-tokyo-from)] via-[#0d1520] to-[var(--color-kyoto-from)] opacity-60" />
-        <div className="relative z-10 text-center px-6 max-w-3xl mx-auto">
+        <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-kyoto-from)] via-[#0a0a12] to-[var(--color-tokyo-from)]" />
+        <div className="absolute inset-0 noise" />
+        <div className="relative z-10 text-center px-6 max-w-2xl mx-auto">
           <FadeIn>
-            <p className="text-caption text-[var(--color-sand)] mb-8">
-              — philosophy
+            <p className="text-caption text-[var(--color-sand)] mb-6 tracking-[0.2em]">
+              {t("community_cta_label")}
             </p>
-            <blockquote className="text-display-md text-[var(--color-parchment)] font-light italic leading-snug">
-              &ldquo;Japan is not a destination.
-              <br />
-              It is a{" "}
-              <em className="text-[var(--color-sand)] not-italic">feeling</em>.&rdquo;
-            </blockquote>
-            <div className="mt-10">
-              <Button href={`/${locale}/about`} variant="outline">
-                Read the manifesto
-              </Button>
-            </div>
+            <h2 className="text-display-lg text-[var(--color-parchment)] mb-4">
+              {t("community_cta_title")}
+            </h2>
+            <p className="text-[var(--color-muted)] leading-relaxed mb-10 text-lg">
+              {t("community_cta_body")}
+            </p>
+            <Button href={`/${locale}/about`} variant="outline">
+              {t("community_cta_button")}
+            </Button>
           </FadeIn>
         </div>
       </section>

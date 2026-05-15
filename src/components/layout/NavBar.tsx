@@ -8,8 +8,10 @@ import { motion, AnimatePresence } from "framer-motion";
 interface NavBarProps {
   locale: string;
   messages: {
+    living: string;
     cities: string;
-    moments: string;
+    stories: string;
+    community: string;
     about: string;
     language: string;
   };
@@ -28,9 +30,10 @@ export function NavBar({ locale, messages }: NavBarProps) {
   const altLocale = locale === "en" ? "ja" : "en";
 
   const links = [
+    { href: `/${locale}/living`, label: messages.living },
     { href: `/${locale}/cities/tokyo`, label: messages.cities },
-    { href: `/${locale}/moments`, label: messages.moments },
-    { href: `/${locale}/about`, label: messages.about },
+    { href: `/${locale}/moments`, label: messages.stories },
+    { href: `/${locale}/community`, label: messages.community },
   ];
 
   return (
@@ -44,7 +47,8 @@ export function NavBar({ locale, messages }: NavBarProps) {
           {/* Logo */}
           <Link
             href={`/${locale}`}
-            className="font-display text-2xl font-light tracking-tight text-[var(--color-parchment)] hover:text-[var(--color-sand)] transition-colors duration-300"
+            className="font-display text-2xl font-light tracking-tight
+              text-[var(--color-parchment)] hover:text-[var(--color-sand)] transition-colors duration-300"
           >
             間
           </Link>
@@ -55,20 +59,24 @@ export function NavBar({ locale, messages }: NavBarProps) {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-caption text-[var(--color-muted)] hover:text-[var(--color-parchment)] transition-colors duration-300"
+                className="text-caption text-[var(--color-muted)] hover:text-[var(--color-parchment)]
+                  transition-colors duration-300"
               >
                 {link.label}
               </Link>
             ))}
+
+            {/* Language switcher */}
             <Link
-              href={altLocale === "en" ? "/" : `/ja`}
-              className="text-caption text-[var(--color-muted)] hover:text-[var(--color-sand)] transition-colors duration-300 ml-4 border-l border-white/10 pl-4"
+              href={altLocale === "en" ? "/" : "/ja"}
+              className="text-caption text-[var(--color-muted)] hover:text-[var(--color-sand)]
+                transition-colors duration-300 ml-4 border-l border-white/10 pl-4"
             >
               {messages.language}
             </Link>
           </div>
 
-          {/* Mobile menu toggle */}
+          {/* Mobile toggle */}
           <button
             className="md:hidden text-[var(--color-parchment)] p-1"
             onClick={() => setMenuOpen((v) => !v)}
@@ -83,9 +91,9 @@ export function NavBar({ locale, messages }: NavBarProps) {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -16 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="fixed inset-0 z-40 nav-glass flex flex-col items-center justify-center gap-8"
           >
@@ -94,7 +102,8 @@ export function NavBar({ locale, messages }: NavBarProps) {
                 key={link.href}
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
-                className="text-display-md text-[var(--color-parchment)] hover:text-[var(--color-sand)] transition-colors duration-300"
+                className="text-display-md text-[var(--color-parchment)]
+                  hover:text-[var(--color-sand)] transition-colors duration-300"
               >
                 {link.label}
               </Link>

@@ -1,37 +1,80 @@
 {
   "nav": {
+    "living": "Living",
     "cities": "Cities",
-    "moments": "Moments",
+    "stories": "Stories",
+    "community": "Community",
     "about": "About",
     "language": "日本語"
   },
   "home": {
-    "hero_tagline": "間",
-    "hero_subtitle": "The space between moments.",
-    "hero_body": "Japan is not a destination. It is a feeling — of rain on paper umbrellas, of silence in old temples, of belonging in a city that never sleeps.",
-    "cities_label": "Explore by city",
-    "moments_label": "Latest moments",
-    "moments_cta": "Read more",
-    "featured_label": "Featured story"
+    "hero_label": "Built by foreigners. For foreigners.",
+    "hero_title": "Life in Japan,\nfrom the inside.",
+    "hero_subtitle": "Not a travel guide. A community of people who actually live here — sharing what it feels like, what they wish they'd known, and what keeps them staying.",
+    "cta_experiences": "Read experiences",
+    "cta_cities": "Explore cities",
+    "voices_label": "Community voices",
+    "voices_title": "What foreigners actually say",
+    "categories_label": "Life in Japan",
+    "categories_title": "Find your chapter",
+    "experiences_label": "Insider stories",
+    "experiences_title": "Real people. Real Japan.",
+    "cities_label": "Three cities",
+    "cities_title": "Three ways of living",
+    "tips_label": "Insider knowledge",
+    "tips_title": "What nobody tells you",
+    "moments_cta": "Read more stories",
+    "community_cta_label": "Share your story",
+    "community_cta_title": "Have you lived in Japan?",
+    "community_cta_body": "The platform grows through real experiences. If you've lived, worked, or studied in Japan, your story belongs here.",
+    "community_cta_button": "Get in touch"
   },
   "cities": {
     "explore": "Explore",
     "moments_in": "Moments in",
-    "the_feeling": "The feeling"
+    "experiences_in": "Living in",
+    "the_feeling": "The feeling",
+    "living_title": "What it's like to live here",
+    "neighborhoods_label": "Neighborhoods",
+    "tips_label": "Insider tips"
   },
   "moments": {
     "read_time": "{min} min read",
-    "all_moments": "All moments",
+    "all_moments": "All stories",
     "from": "From"
+  },
+  "experiences": {
+    "read_time": "{min} min read",
+    "all_experiences": "All experiences",
+    "by": "By",
+    "years_in_japan": "{n} years in Japan",
+    "back": "Back to community"
+  },
+  "living": {
+    "title": "Living in Japan",
+    "subtitle": "The practical, emotional, and human guide to actually being here.",
+    "categories_label": "What do you need?",
+    "tips_label": "Community tips",
+    "neighborhoods_label": "Where to live",
+    "cta_label": "Share what you know"
+  },
+  "community": {
+    "title": "Community",
+    "subtitle": "Foreigners living in Japan — their words, their knowledge, their stories.",
+    "voices_label": "Voices",
+    "experiences_label": "Experiences",
+    "tips_label": "Insider tips"
   },
   "about": {
     "title": "About MA",
     "manifesto_label": "Manifesto"
   },
   "footer": {
-    "tagline": "間 — The pause between things.",
+    "tagline": "间 — Real life in Japan, from the inside.",
+    "living": "Living",
     "cities": "Cities",
-    "moments": "Moments",
+    "stories": "Stories",
+    "community": "Community",
     "about": "About",
     "rights": "All rights reserved."
   }

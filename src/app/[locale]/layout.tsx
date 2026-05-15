@@ -23,9 +23,9 @@ export default async function LocaleLayout({
   }
 
   const messages = await getMessages();
-  const nav = (messages as Record<string, Record<string, string>>).nav ?? {};
-  const footer =
-    (messages as Record<string, Record<string, string>>).footer ?? {};
+  const m = messages as Record<string, Record<string, string>>;
+  const nav = m.nav ?? {};
+  const footer = m.footer ?? {};
 
   return (
     <NextIntlClientProvider messages={messages} locale={locale}>
@@ -33,8 +33,10 @@ export default async function LocaleLayout({
         <NavBar
           locale={locale}
           messages={{
+            living: nav.living ?? "Living",
             cities: nav.cities ?? "Cities",
-            moments: nav.moments ?? "Moments",
+            stories: nav.stories ?? "Stories",
+            community: nav.community ?? "Community",
             about: nav.about ?? "About",
             language: nav.language ?? "日本語",
           }}
@@ -43,9 +45,11 @@ export default async function LocaleLayout({
         <Footer
           locale={locale}
           messages={{
-            tagline: footer.tagline ?? "間 — The pause between things.",
+            tagline: footer.tagline ?? "間 — Real life in Japan, from the inside.",
+            living: footer.living ?? "Living",
             cities: footer.cities ?? "Cities",
-            moments: footer.moments ?? "Moments",
+            stories: footer.stories ?? "Stories",
+            community: footer.community ?? "Community",
             about: footer.about ?? "About",
             rights: footer.rights ?? "All rights reserved.",
           }}
