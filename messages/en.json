@@ -16,12 +16,16 @@
     "cta_cities": "Explore cities",
     "voices_label": "Community voices",
     "voices_title": "What foreigners actually say",
+    "voices_cta": "Read more voices",
     "categories_label": "Life in Japan",
     "categories_title": "Find your chapter",
     "experiences_label": "Insider stories",
     "experiences_title": "Real people. Real Japan.",
+    "experiences_all": "All experiences",
     "cities_label": "Three cities",
     "cities_title": "Three ways of living",
+    "city_living_here": "Living here",
+    "city_tagline": "Each city demands a different version of you. Find out which one fits.",
     "survival_label": "Before you land",
     "survival_title": "What nobody tells foreigners before moving to Japan",
     "path_label": "Before you enter",
@@ -40,6 +44,8 @@
     "path_culture_label": "Understanding Japan",
     "path_culture_desc": "Silence, hierarchy, seasons, the emotional reality of being here.",
     "path_recommended": "Recommended for your situation",
+    "moments_section_label": "Documentary writing",
+    "moments_section_title": "Moments of being there",
     "tips_label": "Insider knowledge",
     "tips_title": "What nobody tells you",
     "moments_cta": "Read more stories",
@@ -47,6 +53,68 @@
     "community_cta_title": "Have you lived in Japan?",
     "community_cta_body": "The platform grows through real experiences. If you've lived, worked, or studied in Japan, your story belongs here.",
     "community_cta_button": "Get in touch"
+  },
+  "worlds": {
+    "emotional-map": {
+      "title": "The Emotional Map",
+      "subtitle": "Memories, loneliness, and belonging — mapped across Japan.",
+      "category": "Interactive"
+    },
+    "tonight-tokyo": {
+      "title": "Tonight in Tokyo",
+      "subtitle": "What the city looks like at midnight when you don't know anyone.",
+      "category": "Documentary"
+    },
+    "three-month-wall": {
+      "title": "The Three-Month Wall",
+      "subtitle": "Why almost everyone almost quits — and what actually helps.",
+      "category": "Psychology"
+    },
+    "language-keigo": {
+      "title": "Language & Keigo",
+      "subtitle": "How register mistakes signal what you think of yourself.",
+      "category": "Language"
+    },
+    "visa-paperwork": {
+      "title": "Visa & Paperwork",
+      "subtitle": "The bureaucratic labyrinth, mapped by people who got through it.",
+      "category": "Practical"
+    },
+    "apartment-reality": {
+      "title": "Apartment Reality",
+      "subtitle": "Guarantors, key money, and what landlords never explain.",
+      "category": "Housing"
+    },
+    "city-personalities": {
+      "title": "City Personalities",
+      "subtitle": "Tokyo wants everything. Kyoto wants silence. Osaka wants to feed you.",
+      "category": "Cities"
+    },
+    "finding-community": {
+      "title": "Finding Community",
+      "subtitle": "How long-term foreigners actually built their social world.",
+      "category": "Community"
+    },
+    "konbini-culture": {
+      "title": "Konbini Culture",
+      "subtitle": "Japan's most underestimated institution — and how to use it fully.",
+      "category": "Daily Life"
+    },
+    "workplace-reality": {
+      "title": "Workplace Reality",
+      "subtitle": "Hierarchy, silence, and the signs of a company you should leave.",
+      "category": "Work"
+    },
+    "seasonal-feelings": {
+      "title": "Seasonal Feelings",
+      "subtitle": "How Japan changes you four times a year, whether you notice or not.",
+      "category": "Atmosphere"
+    },
+    "solo-living": {
+      "title": "Solo Living",
+      "subtitle": "The art of being alone in the world's loneliest city.",
+      "category": "Solo Life"
+    }
   },
   "cities": {
     "explore": "Explore",

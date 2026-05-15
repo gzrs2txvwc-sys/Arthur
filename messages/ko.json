@@ -16,12 +16,16 @@
     "cta_cities": "도시 탐색",
     "voices_label": "커뮤니티 목소리",
     "voices_title": "외국인들이 실제로 말하는 것",
+    "voices_cta": "더 많은 목소리 읽기",
     "categories_label": "일본에서의 생활",
     "categories_title": "나의 챕터 찾기",
     "experiences_label": "인사이더 스토리",
     "experiences_title": "실제 사람들. 진짜 일본.",
+    "experiences_all": "모든 경험",
     "cities_label": "세 도시",
     "cities_title": "세 가지 삶의 방식",
+    "city_living_here": "여기서 살기",
+    "city_tagline": "각 도시가 당신의 다른 모습을 요구합니다. 어느 도시가 맞는지 찾아보세요.",
     "tips_label": "인사이더 지식",
     "tips_title": "아무도 알려주지 않는 것",
     "survival_label": "도착 전에",
@@ -42,11 +46,75 @@
     "path_culture_label": "일본을 깊이 이해하고 싶은",
     "path_culture_desc": "침묵의 의미, 위계의 무게, 계절의 감정, 실제로 여기 있다는 것의 느낌.",
     "path_recommended": "당신의 상황에 맞는 추천",
+    "moments_section_label": "다큐멘터리 글쓰기",
+    "moments_section_title": "그 순간, 거기에 있었다",
     "moments_cta": "더 많은 이야기 읽기",
     "community_cta_label": "당신의 이야기를 공유하세요",
     "community_cta_title": "일본에 살아본 적 있으신가요?",
     "community_cta_body": "플랫폼은 실제 경험을 통해 성장합니다. 일본에서 생활, 일, 또는 공부한 경험이 있다면 당신의 이야기가 여기에 속합니다.",
     "community_cta_button": "연락하기"
+  },
+  "worlds": {
+    "emotional-map": {
+      "title": "감정 지도",
+      "subtitle": "기억, 외로움, 소속감 — 일본 전역에 새겨진 좌표들.",
+      "category": "인터랙티브"
+    },
+    "tonight-tokyo": {
+      "title": "오늘 밤의 도쿄",
+      "subtitle": "아무도 모르는 도시에서 자정은 어떤 모습일까.",
+      "category": "다큐멘터리"
+    },
+    "three-month-wall": {
+      "title": "3개월의 벽",
+      "subtitle": "거의 모든 사람이 한 번은 포기를 생각했다. 버텨낸 것은 무엇인가.",
+      "category": "심리"
+    },
+    "language-keigo": {
+      "title": "언어와 경어",
+      "subtitle": "말하는 방식이 자기 자신에 대해 무언가를 드러낸다.",
+      "category": "언어"
+    },
+    "visa-paperwork": {
+      "title": "비자와 서류",
+      "subtitle": "관료주의의 미로, 헤쳐나온 사람들이 그린 지도.",
+      "category": "실용"
+    },
+    "apartment-reality": {
+      "title": "아파트 현실",
+      "subtitle": "보증인, 사례금, 그리고 집주인이 절대 설명하지 않는 것들.",
+      "category": "주거"
+    },
+    "city-personalities": {
+      "title": "도시의 개성",
+      "subtitle": "도쿄는 모든 것을 원한다. 교토는 침묵을 원한다. 오사카는 당신을 먹이고 싶다.",
+      "category": "도시"
+    },
+    "finding-community": {
+      "title": "커뮤니티 찾기",
+      "subtitle": "오래 살아온 외국인들이 실제로 사회적 세계를 만든 방법.",
+      "category": "커뮤니티"
+    },
+    "konbini-culture": {
+      "title": "편의점 문화",
+      "subtitle": "일본에서 가장 과소평가된 기관, 그것을 완전히 활용하는 법.",
+      "category": "일상"
+    },
+    "workplace-reality": {
+      "title": "직장 현실",
+      "subtitle": "위계질서, 침묵, 그리고 떠나야 할 회사의 신호들.",
+      "category": "일"
+    },
+    "seasonal-feelings": {
+      "title": "계절의 감정",
+      "subtitle": "일본은 1년에 네 번 당신을 바꾼다, 깨닫든 못하든.",
+      "category": "분위기"
+    },
+    "solo-living": {
+      "title": "혼자 살기",
+      "subtitle": "세상에서 가장 외로운 도시에서 혼자 있는 예술.",
+      "category": "솔로 라이프"
+    }
   },
   "cities": {
     "explore": "탐색",

@@ -24,6 +24,19 @@ export default async function HomePage({
 }) {
   const { locale } = await params;
   const t = await getTranslations("home");
+  const tw = await getTranslations("worlds");
+
+  const worldTranslations = Object.fromEntries(
+    ["emotional-map","tonight-tokyo","three-month-wall","language-keigo","visa-paperwork",
+     "apartment-reality","city-personalities","finding-community","konbini-culture",
+     "workplace-reality","seasonal-feelings","solo-living"].map((id) => [
+      id,
+      {
+        title: tw(`${id as "emotional-map"}.title`),
+        category: tw(`${id as "emotional-map"}.category`),
+      },
+    ])
+  );
 
   const cities = getAllCities();
   const experiences = getAllExperiences();
@@ -124,6 +137,7 @@ export default async function HomePage({
               },
               recommended: t("path_recommended"),
             }}
+            worldTranslations={worldTranslations}
           />
         </FadeIn>
       </section>
@@ -195,7 +209,7 @@ export default async function HomePage({
 
         <FadeIn className="mt-10" delay={0.2}>
           <Button href={`/${locale}/community`} variant="ghost">
-            Read more voices
+            {t("voices_cta")}
           </Button>
         </FadeIn>
       </section>
@@ -214,7 +228,7 @@ export default async function HomePage({
               </h2>
             </div>
             <Button href={`/${locale}/community`} variant="ghost">
-              All experiences
+              {t("experiences_all")}
             </Button>
           </FadeIn>
 
@@ -242,7 +256,7 @@ export default async function HomePage({
             {t("cities_title")}
           </h2>
           <p className="text-[var(--color-muted)] mt-4 max-w-xl leading-relaxed">
-            Each city demands a different version of you. Find out which one fits.
+            {t("city_tagline")}
           </p>
         </FadeIn>
 
@@ -252,7 +266,7 @@ export default async function HomePage({
         >
           {cities.map((city) => (
             <StaggerItem key={city.slug}>
-              <CityCard city={city} locale={locale} exploreLabel="Living here" />
+              <CityCard city={city} locale={locale} exploreLabel={t("city_living_here")} />
             </StaggerItem>
           ))}
         </StaggerChildren>
@@ -265,10 +279,10 @@ export default async function HomePage({
           <FadeIn className="flex items-end justify-between mb-14 flex-wrap gap-4">
             <div>
               <p className="text-caption text-[var(--color-sand)] mb-3">
-                Documentary writing
+                {t("moments_section_label")}
               </p>
               <h2 className="text-display-md font-display font-light text-[var(--color-parchment)]">
-                Moments of being there
+                {t("moments_section_title")}
               </h2>
             </div>
             <Button href={`/${locale}/moments`} variant="ghost">

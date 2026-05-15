@@ -16,12 +16,16 @@
     "cta_cities": "Jelajahi kota",
     "voices_label": "Suara komunitas",
     "voices_title": "Apa yang sebenarnya dikatakan orang asing",
+    "voices_cta": "Baca lebih banyak suara",
     "categories_label": "Kehidupan di Jepang",
     "categories_title": "Temukan babak Anda",
     "experiences_label": "Cerita orang dalam",
     "experiences_title": "Orang nyata. Jepang nyata.",
+    "experiences_all": "Semua pengalaman",
     "cities_label": "Tiga kota",
     "cities_title": "Tiga cara hidup",
+    "city_living_here": "Hidup di sini",
+    "city_tagline": "Setiap kota menuntut sisi yang berbeda dari Anda. Temukan kota yang cocok.",
     "tips_label": "Pengetahuan orang dalam",
     "tips_title": "Yang tidak ada yang ceritakan",
     "survival_label": "Sebelum tiba",
@@ -42,11 +46,75 @@
     "path_culture_label": "Ingin memahami Jepang lebih dalam",
     "path_culture_desc": "Makna keheningan, bobot hierarki, emosi musiman, realitas benar-benar ada di sini.",
     "path_recommended": "Direkomendasikan untuk situasi Anda",
+    "moments_section_label": "Penulisan dokumenter",
+    "moments_section_title": "Momen saat hadir di sana",
     "moments_cta": "Baca lebih banyak cerita",
     "community_cta_label": "Bagikan cerita Anda",
     "community_cta_title": "Pernahkah Anda tinggal di Jepang?",
     "community_cta_body": "Platform berkembang melalui pengalaman nyata. Jika Anda pernah tinggal, bekerja, atau belajar di Jepang, cerita Anda milik di sini.",
     "community_cta_button": "Hubungi kami"
+  },
+  "worlds": {
+    "emotional-map": {
+      "title": "Peta Emosi",
+      "subtitle": "Kenangan, kesepian, dan rasa memiliki — dipetakan di seluruh Jepang.",
+      "category": "Interaktif"
+    },
+    "tonight-tokyo": {
+      "title": "Malam Ini di Tokyo",
+      "subtitle": "Seperti apa kota ini tengah malam ketika kamu tidak kenal siapa pun.",
+      "category": "Dokumenter"
+    },
+    "three-month-wall": {
+      "title": "Tembok Tiga Bulan",
+      "subtitle": "Hampir semua orang hampir menyerah — dan apa yang benar-benar membantu.",
+      "category": "Psikologi"
+    },
+    "language-keigo": {
+      "title": "Bahasa & Keigo",
+      "subtitle": "Bagaimana kesalahan tingkat bahasa mengungkapkan apa yang kamu pikirkan tentang dirimu.",
+      "category": "Bahasa"
+    },
+    "visa-paperwork": {
+      "title": "Visa & Dokumen",
+      "subtitle": "Labirin birokrasi, dipetakan oleh orang yang berhasil melewatinya.",
+      "category": "Praktis"
+    },
+    "apartment-reality": {
+      "title": "Realita Apartemen",
+      "subtitle": "Penjamin, uang kunci, dan apa yang tidak pernah dijelaskan pemilik rumah.",
+      "category": "Perumahan"
+    },
+    "city-personalities": {
+      "title": "Kepribadian Kota",
+      "subtitle": "Tokyo menginginkan segalanya. Kyoto menginginkan kesunyian. Osaka ingin memberimu makan.",
+      "category": "Kota"
+    },
+    "finding-community": {
+      "title": "Menemukan Komunitas",
+      "subtitle": "Bagaimana orang asing jangka panjang benar-benar membangun dunia sosial mereka.",
+      "category": "Komunitas"
+    },
+    "konbini-culture": {
+      "title": "Budaya Konbini",
+      "subtitle": "Institusi Jepang yang paling diremehkan — dan cara memanfaatkannya sepenuhnya.",
+      "category": "Kehidupan"
+    },
+    "workplace-reality": {
+      "title": "Realita Tempat Kerja",
+      "subtitle": "Hierarki, keheningan, dan tanda-tanda perusahaan yang harus kamu tinggalkan.",
+      "category": "Kerja"
+    },
+    "seasonal-feelings": {
+      "title": "Perasaan Musiman",
+      "subtitle": "Bagaimana Jepang mengubahmu empat kali setahun, disadari atau tidak.",
+      "category": "Atmosfer"
+    },
+    "solo-living": {
+      "title": "Hidup Sendiri",
+      "subtitle": "Seni hidup sendiri di kota paling sepi di dunia.",
+      "category": "Solo"
+    }
   },
   "cities": {
     "explore": "Jelajahi",

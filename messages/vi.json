@@ -16,12 +16,16 @@
     "cta_cities": "Khám phá thành phố",
     "voices_label": "Tiếng nói cộng đồng",
     "voices_title": "Điều người nước ngoài thực sự nói",
+    "voices_cta": "Đọc thêm tiếng nói",
     "categories_label": "Cuộc sống ở Nhật Bản",
     "categories_title": "Tìm chương của bạn",
     "experiences_label": "Câu chuyện nội bộ",
     "experiences_title": "Người thật. Nhật Bản thật.",
+    "experiences_all": "Tất cả trải nghiệm",
     "cities_label": "Ba thành phố",
     "cities_title": "Ba cách sống",
+    "city_living_here": "Sống ở đây",
+    "city_tagline": "Mỗi thành phố đòi hỏi một phần khác nhau của bạn. Tìm ra nơi phù hợp.",
     "tips_label": "Kiến thức nội bộ",
     "tips_title": "Điều không ai nói với bạn",
     "survival_label": "Trước khi đến",
@@ -42,11 +46,75 @@
     "path_culture_label": "Muốn hiểu sâu về Nhật Bản",
     "path_culture_desc": "Ý nghĩa của sự im lặng, tôn ti trật tự, cảm xúc theo mùa, thực tế sống ở đây.",
     "path_recommended": "Được đề xuất cho tình huống của bạn",
+    "moments_section_label": "Văn học tài liệu",
+    "moments_section_title": "Những khoảnh khắc hiện diện",
     "moments_cta": "Đọc thêm câu chuyện",
     "community_cta_label": "Chia sẻ câu chuyện của bạn",
     "community_cta_title": "Bạn đã từng sống ở Nhật Bản chưa?",
     "community_cta_body": "Nền tảng phát triển qua những trải nghiệm thực tế. Nếu bạn đã sống, làm việc hoặc học tập ở Nhật Bản, câu chuyện của bạn thuộc về đây.",
     "community_cta_button": "Liên hệ"
+  },
+  "worlds": {
+    "emotional-map": {
+      "title": "Bản Đồ Cảm Xúc",
+      "subtitle": "Ký ức, cô đơn, và cảm giác thuộc về — được vẽ trên khắp Nhật Bản.",
+      "category": "Tương tác"
+    },
+    "tonight-tokyo": {
+      "title": "Tối Nay Ở Tokyo",
+      "subtitle": "Thành phố trông như thế nào lúc nửa đêm khi bạn không biết ai.",
+      "category": "Tài liệu"
+    },
+    "three-month-wall": {
+      "title": "Bức Tường Ba Tháng",
+      "subtitle": "Hầu hết mọi người đều gần như bỏ cuộc — và điều thực sự giúp ích.",
+      "category": "Tâm lý"
+    },
+    "language-keigo": {
+      "title": "Ngôn Ngữ & Kính Ngữ",
+      "subtitle": "Cách bạn nói tiết lộ bạn nghĩ gì về bản thân mình.",
+      "category": "Ngôn ngữ"
+    },
+    "visa-paperwork": {
+      "title": "Visa & Giấy Tờ",
+      "subtitle": "Mê cung quan liêu, được lập bản đồ bởi người đã vượt qua.",
+      "category": "Thực tế"
+    },
+    "apartment-reality": {
+      "title": "Thực Tế Thuê Nhà",
+      "subtitle": "Người bảo lãnh, tiền lễ, và những gì chủ nhà không bao giờ giải thích.",
+      "category": "Nhà ở"
+    },
+    "city-personalities": {
+      "title": "Tính Cách Đô Thị",
+      "subtitle": "Tokyo muốn mọi thứ. Kyoto muốn im lặng. Osaka muốn cho bạn ăn.",
+      "category": "Thành phố"
+    },
+    "finding-community": {
+      "title": "Tìm Cộng Đồng",
+      "subtitle": "Cách những người nước ngoài lâu năm thực sự xây dựng thế giới xã hội.",
+      "category": "Cộng đồng"
+    },
+    "konbini-culture": {
+      "title": "Văn Hóa Konbini",
+      "subtitle": "Tổ chức bị đánh giá thấp nhất Nhật Bản — và cách tận dụng hoàn toàn.",
+      "category": "Cuộc sống"
+    },
+    "workplace-reality": {
+      "title": "Thực Tế Nơi Làm Việc",
+      "subtitle": "Cấp bậc, im lặng, và dấu hiệu của công ty bạn nên rời bỏ.",
+      "category": "Công việc"
+    },
+    "seasonal-feelings": {
+      "title": "Cảm Xúc Theo Mùa",
+      "subtitle": "Nhật Bản thay đổi bạn bốn lần một năm, dù bạn có nhận ra hay không.",
+      "category": "Không khí"
+    },
+    "solo-living": {
+      "title": "Sống Một Mình",
+      "subtitle": "Nghệ thuật sống một mình ở thành phố cô đơn nhất thế giới.",
+      "category": "Độc thân"
+    }
   },
   "cities": {
     "explore": "Khám phá",

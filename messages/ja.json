@@ -1,5 +1,6 @@
 {
   "nav": {
+    "map": "地図",
     "living": "生活",
     "cities": "都市",
     "stories": "ストーリー",
@@ -15,12 +16,16 @@
     "cta_cities": "都市を探索する",
     "voices_label": "コミュニティの声",
     "voices_title": "外国人が実際に言うこと",
+    "voices_cta": "もっと声を読む",
     "categories_label": "日本での生活",
     "categories_title": "あなたの章を見つける",
     "experiences_label": "インサイダーストーリー",
     "experiences_title": "リアルな人々。リアルな日本。",
+    "experiences_all": "すべての体験",
     "cities_label": "三つの都市",
     "cities_title": "三つの暮らし方",
+    "city_living_here": "ここで生活する",
+    "city_tagline": "それぞれの都市が、あなたの異なる一面を引き出す。",
     "survival_label": "到着前に",
     "survival_title": "日本に移住する前に誰も外国人に教えないこと",
     "path_label": "始める前に",
@@ -39,6 +44,8 @@
     "path_culture_label": "日本を深く理解したい",
     "path_culture_desc": "沈黙の意味、上下関係の重さ、四季と感情、ここにいるリアル。",
     "path_recommended": "あなたの状況に合ったおすすめ",
+    "moments_section_label": "ドキュメンタリー",
+    "moments_section_title": "そこにいた、あの瞬間",
     "tips_label": "インサイダーの知識",
     "tips_title": "誰も教えてくれないこと",
     "moments_cta": "もっとストーリーを読む",
@@ -46,6 +53,68 @@
     "community_cta_title": "日本に住んだことがありますか？",
     "community_cta_body": "プラットフォームはリアルな体験を通じて成長します。日本で生活、仕事、または勉強した経験があれば、あなたのストーリーはここに属します。",
     "community_cta_button": "お問い合わせ"
+  },
+  "worlds": {
+    "emotional-map": {
+      "title": "感情地図",
+      "subtitle": "記憶、孤独、そして帰属感 — 日本全土に刻まれた座標。",
+      "category": "インタラクティブ"
+    },
+    "tonight-tokyo": {
+      "title": "今夜の東京",
+      "subtitle": "誰も知らない夜、この街はどんな顔をしているか。",
+      "category": "ドキュメンタリー"
+    },
+    "three-month-wall": {
+      "title": "三ヶ月の壁",
+      "subtitle": "ほぼ全員が一度は諦めかけた。それを乗り越えたものとは。",
+      "category": "心理"
+    },
+    "language-keigo": {
+      "title": "言語と敬語",
+      "subtitle": "言葉の使い方が、あなた自身についての何かを語る。",
+      "category": "言語"
+    },
+    "visa-paperwork": {
+      "title": "ビザと書類",
+      "subtitle": "日本の官僚的迷宮を、乗り越えた人たちがマッピングした。",
+      "category": "実践"
+    },
+    "apartment-reality": {
+      "title": "アパートの現実",
+      "subtitle": "保証人、礼金、そして大家が決して説明しないこと。",
+      "category": "住まい"
+    },
+    "city-personalities": {
+      "title": "都市の個性",
+      "subtitle": "東京は全てを求める。京都は静寂を求める。大阪はあなたを食べさせたい。",
+      "category": "都市"
+    },
+    "finding-community": {
+      "title": "コミュニティを見つける",
+      "subtitle": "長期外国人たちがどうやって本当のつながりを築いたか。",
+      "category": "コミュニティ"
+    },
+    "konbini-culture": {
+      "title": "コンビニ文化",
+      "subtitle": "日本で最も過小評価されている制度、その使いこなし方。",
+      "category": "日常"
+    },
+    "workplace-reality": {
+      "title": "職場の現実",
+      "subtitle": "上下関係、沈黙、そして辞めるべき会社のサイン。",
+      "category": "仕事"
+    },
+    "seasonal-feelings": {
+      "title": "季節の感情",
+      "subtitle": "日本は一年に四回あなたを変える。気づいていなくても。",
+      "category": "空気"
+    },
+    "solo-living": {
+      "title": "一人暮らし",
+      "subtitle": "世界で最も孤独な街で、一人でいる術。",
+      "category": "ソロライフ"
+    }
   },
   "cities": {
     "explore": "探索する",

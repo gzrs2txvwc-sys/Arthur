@@ -16,12 +16,16 @@
     "cta_cities": "探索城市",
     "voices_label": "來自社群的聲音",
     "voices_title": "真正住在日本的人，說的那些話",
+    "voices_cta": "閱讀更多聲音",
     "categories_label": "在日本的生活",
     "categories_title": "找到你的篇章",
     "experiences_label": "內部人士故事",
     "experiences_title": "真實的人。真實的日本。",
+    "experiences_all": "所有經驗",
     "cities_label": "三個城市",
     "cities_title": "三種截然不同的生活",
+    "city_living_here": "在這裡生活",
+    "city_tagline": "每座城市都要求你展現不同的自己。找到最適合你的那一座。",
     "tips_label": "來自內部的知識",
     "tips_title": "那些沒有人告訴你的事",
     "survival_label": "在你抵達之前",
@@ -42,11 +46,75 @@
     "path_recommended": "適合你現在處境的推薦",
     "worlds_label": "探索這個世界",
     "worlds_title": "這裡有你還沒發現的世界",
+    "moments_section_label": "紀錄文學",
+    "moments_section_title": "身在其中的那些時刻",
     "moments_cta": "閱讀更多故事",
     "community_cta_label": "分享你的故事",
     "community_cta_title": "你在日本住過嗎？",
     "community_cta_body": "平台透過真實經驗成長。如果你曾在日本生活、工作或學習，你的故事屬於這裡。",
     "community_cta_button": "聯絡我們"
+  },
+  "worlds": {
+    "emotional-map": {
+      "title": "情感地圖",
+      "subtitle": "記憶、孤獨與歸屬感，在日本版圖上留下的座標。",
+      "category": "互動體驗"
+    },
+    "tonight-tokyo": {
+      "title": "今夜的東京",
+      "subtitle": "當你不認識任何人，午夜的城市是什麼模樣。",
+      "category": "紀錄片"
+    },
+    "three-month-wall": {
+      "title": "三個月的牆",
+      "subtitle": "幾乎每個人都曾想過放棄。撐過去的，靠的是什麼。",
+      "category": "心理"
+    },
+    "language-keigo": {
+      "title": "語言與敬語",
+      "subtitle": "你說話的方式，透露了你如何看待自己。",
+      "category": "語言"
+    },
+    "visa-paperwork": {
+      "title": "簽證與文件",
+      "subtitle": "那個官僚迷宮，由已經走出來的人幫你畫好了地圖。",
+      "category": "實用"
+    },
+    "apartment-reality": {
+      "title": "租屋現實",
+      "subtitle": "保證人、禮金，還有房東永遠不會主動告訴你的事。",
+      "category": "住居"
+    },
+    "city-personalities": {
+      "title": "城市的個性",
+      "subtitle": "東京要你給它一切。京都要你保持沉默。大阪想餵飽你。",
+      "category": "城市"
+    },
+    "finding-community": {
+      "title": "找到同伴",
+      "subtitle": "那些在日本待了很久的外國人，是怎麼建立真正的連結的。",
+      "category": "社群"
+    },
+    "konbini-culture": {
+      "title": "便利商店文化",
+      "subtitle": "日本最被低估的機構，以及如何把它發揮到極致。",
+      "category": "日常生活"
+    },
+    "workplace-reality": {
+      "title": "職場現實",
+      "subtitle": "上下關係、沉默文化，以及你應該離職的那些信號。",
+      "category": "工作"
+    },
+    "seasonal-feelings": {
+      "title": "季節的情緒",
+      "subtitle": "日本一年四次改變你，不管你有沒有察覺。",
+      "category": "氛圍"
+    },
+    "solo-living": {
+      "title": "一個人住",
+      "subtitle": "在世界上最孤獨的城市裡，獨處的藝術。",
+      "category": "獨居生活"
+    }
   },
   "cities": {
     "explore": "探索",
