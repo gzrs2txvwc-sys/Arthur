@@ -10,6 +10,7 @@ import { MapFilters } from "./MapFilters";
 import { PinStory } from "./PinStory";
 import { MapAtmosphere } from "./MapAtmosphere";
 import { FilmGrain } from "@/components/ui/FilmGrain";
+import { AmbientSoundscape } from "./AmbientSoundscape";
 
 // Leaflet cannot run on the server
 const JapanMap = dynamic(() => import("./JapanMap"), {
@@ -134,6 +135,11 @@ export function MapExperience({ title, subtitle }: MapExperienceProps) {
           onChange={setActiveCategory}
           counts={counts}
         />
+      </div>
+
+      {/* ── Ambient audio toggle ──────────────────── */}
+      <div className="absolute bottom-24 right-4 md:right-8 z-[450]">
+        <AmbientSoundscape />
       </div>
 
       {/* ── Bottom overlay: pin count + hint ─────── */}

@@ -16,6 +16,16 @@ interface PinStoryProps {
   hasPrev: boolean;
 }
 
+// Deterministic fake timestamp from pin ID chars — feels like camera EXIF
+function pinTimestamp(pin: MapPin): string {
+  const c = pin.id;
+  const mm  = String((c.charCodeAt(0) % 11) + 1).padStart(2, "0");
+  const dd  = String((c.charCodeAt(1) % 27) + 1).padStart(2, "0");
+  const hh  = String(c.charCodeAt(2) % 24).padStart(2, "0");
+  const min = String(c.charCodeAt(3) % 60).padStart(2, "0");
+  return `${pin.year ?? "20xx"}.${mm}.${dd}  ${hh}:${min}`;
+}
+
 export function PinStory({
   pin,
   onClose,
@@ -118,12 +128,19 @@ export function PinStory({
                 <X size={14} />
               </button>
 
-              {/* Year */}
-              {pin.year && (
-                <span className="absolute bottom-4 right-4 text-caption text-[var(--color-muted)] z-10">
-                  {pin.year}
-                </span>
-              )}
+              {/* Camera-style date timestamp */}
+              <div
+                className="absolute bottom-4 left-4 z-10 pointer-events-none select-none font-mono"
+                style={{
+                  fontSize: "9px",
+                  letterSpacing: "0.07em",
+                  color: "#FF7400",
+                  textShadow: "0 0 6px rgba(255,90,0,0.55)",
+                  opacity: 0.72,
+                }}
+              >
+                {pinTimestamp(pin)}
+              </div>
             </div>
 
             {/* Content — fades + lifts on pin change */}

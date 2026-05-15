@@ -474,3 +474,9 @@ body {
     brightness(0.38)
     sepia(0.18);
 }
+
+/* ─── Ambient audio bar animation ───────────────── */
+@keyframes audio-bar {
+  from { transform: scaleY(0.22); }
+  to   { transform: scaleY(1.0);  }
+}
