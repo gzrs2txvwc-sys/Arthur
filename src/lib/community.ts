@@ -261,3 +261,82 @@ export function getFeaturedVoices(count = 3): CommunityVoice[] {
 export function getTipsByCity(citySlug: string): InsiderTip[] {
   return insiderTips.filter((t) => t.city === citySlug || t.city === "all");
 }
+
+// ── Survival truths ──────────────────────────────────
+export type SurvivalUrgency = "day-one" | "week-one" | "month-one" | "ongoing";
+
+export interface SurvivalTruth {
+  id: string;
+  number: number;
+  urgency: SurvivalUrgency;
+  title: string;
+  hook: string;
+  body: string;
+}
+
+export const survivalTruths: SurvivalTruth[] = [
+  {
+    id: "address-circle",
+    number: 1,
+    urgency: "day-one",
+    title: "The address circle must be done in exact order",
+    hook: "City Hall first. Everything else is locked behind it.",
+    body: "You cannot open a bank account without a residence card. You cannot get a residence card without registering your address at City Hall within 14 days of arrival. You cannot register your address at City Hall without your passport and visa. The sequence is: land → City Hall → residence card → bank account → everything else. Doing it out of order costs weeks.",
+  },
+  {
+    id: "three-month-wall",
+    number: 2,
+    urgency: "month-one",
+    title: "Month three is when most people break",
+    hook: "The novelty ends. The loneliness begins. It's survivable.",
+    body: "The first weeks are adrenaline. Everything is new and interesting enough to carry you. Around month three, the adrenaline runs out and reality arrives: you have no close friends yet, your Japanese isn't working the way you hoped, and the city is indifferent. This is normal. Almost everyone goes through it. The people who stay are the ones who knew it was coming.",
+  },
+  {
+    id: "silence-not-disapproval",
+    number: 3,
+    urgency: "week-one",
+    title: "Silence is not disapproval",
+    hook: "They're thinking. Not rejecting you.",
+    body: "In most Western cultures, silence in conversation means something is wrong. In Japan, a long pause before someone answers often means they're taking your question seriously. Rushing to fill silence reads as anxiety and can make the other person feel their thoughtfulness is unwanted. Let it breathe. The answer is coming.",
+  },
+  {
+    id: "keigo-hierarchy",
+    number: 4,
+    urgency: "month-one",
+    title: "Using casual Japanese to seniors signals you don't respect hierarchy",
+    hook: "Register mistakes aren't just grammar errors. They're social ones.",
+    body: "Japanese has formal registers (keigo) used with bosses, teachers, strangers, and anyone older. Using plain form (友達語) with a senpai or manager is like calling your professor by their first name on day one — it signals you're claiming equal standing. Nobody will correct you directly. They'll just become slightly more formal and slightly more distant. Learn keigo early, even imperfectly.",
+  },
+  {
+    id: "eating-alone",
+    number: 5,
+    urgency: "day-one",
+    title: "Eating alone is not sad here. It's infrastructure.",
+    hook: "Counter seating exists for a reason.",
+    body: "Japan has an entire culture built around solo dining. Ramen shops have counter seats specifically for single diners. Most sushi bars are designed for one. Convenience stores exist so you can eat a full meal standing at 11pm without anyone thinking anything of it. You will never feel judged for eating alone in Japan. It may be the most socially comfortable country in the world for solitude.",
+  },
+  {
+    id: "konbini-infrastructure",
+    number: 6,
+    urgency: "day-one",
+    title: "The convenience store is not a convenience store",
+    hook: "It's a bank, a pharmacy, a post office, a hot meal, and a social neutral zone.",
+    body: "You can pay your electricity bill at a konbini. You can withdraw cash (7-Eleven ATMs accept foreign cards; most Japanese ATMs don't). You can send packages, print documents, buy medicine, eat a full hot meal, and sit at a table without anyone making you feel like you have to leave. In a city where public sitting space is scarce, the konbini is infrastructure.",
+  },
+  {
+    id: "line-not-optional",
+    number: 7,
+    urgency: "week-one",
+    title: "LINE is not optional",
+    hook: "If your employer, school, or friends are Japanese, you will use LINE or you will be excluded.",
+    body: "Japan runs on LINE the way the US runs on iMessage and Europe runs on WhatsApp. Work groups, school announcements, event coordination, apartment lease communication — it all happens on LINE. Not having it or checking it slowly means missing things. There's also a timing norm: messages sent in the evening are generally replied to the next morning, not immediately. Read receipts are visible, which creates its own social pressure.",
+  },
+  {
+    id: "foreigner-network",
+    number: 8,
+    urgency: "month-one",
+    title: "There is a foreigner network. It takes effort to find.",
+    hook: "It exists in every city. It is the difference between surviving and belonging.",
+    body: "Every major Japanese city has overlapping communities of long-term foreign residents — expat Facebook groups, meetup.com language exchanges, international bars that became community hubs, subreddit threads turned real friendships. These networks feel secondary to 'really living in Japan,' but they are where most people find their footing. Your first Japanese friends will often come after your first foreign-resident friends give you the confidence to try.",
+  },
+];

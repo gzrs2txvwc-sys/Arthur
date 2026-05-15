@@ -435,8 +435,8 @@ body {
   pointer-events: none;
   background: radial-gradient(
     ellipse at 88% 8%,
-    rgba(255, 170, 55, 0.18) 0%,
-    rgba(255, 85, 20, 0.08) 38%,
+    rgba(255, 200, 100, 0.22) 0%,
+    rgba(240, 155, 60, 0.10) 38%,
     transparent 65%
   );
   animation: light-leak 18s ease-in-out 6s infinite;
@@ -469,10 +469,10 @@ body {
 /* ─── Analog image treatment ────────────────────── */
 .img-analog {
   filter:
-    saturate(0.55)
-    contrast(1.14)
-    brightness(0.38)
-    sepia(0.18);
+    saturate(0.72)
+    contrast(1.08)
+    brightness(0.52)
+    sepia(0.10);
 }
 
 /* ─── Ambient audio bar animation ───────────────── */

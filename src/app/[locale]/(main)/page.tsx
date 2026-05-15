@@ -2,13 +2,14 @@ import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { getAllCities } from "@/lib/cities";
 import { getAllMoments, getAllExperiences } from "@/lib/content";
-import { communityVoices, lifeCategories, insiderTips } from "@/lib/community";
+import { communityVoices, lifeCategories, insiderTips, survivalTruths } from "@/lib/community";
 import { CityCard } from "@/components/cards/CityCard";
 import { MomentCard } from "@/components/cards/MomentCard";
 import { ExperienceCard } from "@/components/community/ExperienceCard";
 import { CommunityVoice } from "@/components/community/CommunityVoice";
 import { CategoryGrid } from "@/components/ui/CategoryGrid";
 import { InsiderTip } from "@/components/ui/InsiderTip";
+import { SurvivalCard } from "@/components/ui/SurvivalCard";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { StaggerChildren, StaggerItem } from "@/components/motion/RevealText";
 import { ScrollIndicator } from "@/components/ui/ScrollIndicator";
@@ -41,7 +42,7 @@ export default async function HomePage({
             fill
             priority
             className="object-cover object-center"
-            style={{ filter: "saturate(0.45) brightness(0.22) contrast(1.08) sepia(0.12)" }}
+            style={{ filter: "saturate(0.55) brightness(0.32) contrast(1.06) sepia(0.10)" }}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/60 via-transparent to-[#0a0a0a]" />
           {/* Ambient breathing light — simulates environmental motion */}
@@ -99,6 +100,29 @@ export default async function HomePage({
             <ScrollIndicator />
           </div>
         </div>
+      </section>
+
+      {/* ── What nobody tells you ─────────────────────────────────── */}
+      <section className="py-20 md:py-28 px-6 lg:px-12 max-w-7xl mx-auto w-full">
+        <FadeIn className="mb-12">
+          <p className="text-caption text-[var(--color-sand)] mb-3 tracking-[0.2em]">
+            {t("survival_label")}
+          </p>
+          <h2 className="text-display-lg text-[var(--color-parchment)] max-w-2xl">
+            {t("survival_title")}
+          </h2>
+        </FadeIn>
+
+        <StaggerChildren
+          className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/5"
+          staggerDelay={0.08}
+        >
+          {survivalTruths.map((truth) => (
+            <StaggerItem key={truth.id}>
+              <SurvivalCard truth={truth} />
+            </StaggerItem>
+          ))}
+        </StaggerChildren>
       </section>
 
       {/* ── Community voices strip ────────────────────────────────── */}
