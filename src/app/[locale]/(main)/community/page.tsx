@@ -65,10 +65,10 @@ export default async function CommunityPage({
               {t("experiences_label")}
             </p>
             <h2 className="text-display-lg text-[var(--color-parchment)]">
-              Long-form stories
+              {t("stories_title")}
             </h2>
             <p className="text-[var(--color-muted)] mt-4 max-w-xl leading-relaxed">
-              First-person accounts of what it actually looks like to build a life in Japan.
+              {t("stories_desc")}
             </p>
           </FadeIn>
 
@@ -93,7 +93,7 @@ export default async function CommunityPage({
             {t("tips_label")}
           </p>
           <h2 className="text-display-lg text-[var(--color-parchment)]">
-            Collective knowledge
+            {t("knowledge_title")}
           </h2>
         </FadeIn>
 
@@ -116,13 +116,13 @@ export default async function CommunityPage({
         <div className="relative z-10 max-w-2xl mx-auto px-6 text-center">
           <FadeIn>
             <h2 className="text-display-md text-[var(--color-parchment)] mb-4">
-              Lived in Japan?
+              {t("cta_title")}
             </h2>
             <p className="text-[var(--color-muted)] leading-relaxed mb-10">
-              This platform grows through honest stories. If you have a year or more of Japan life behind you, we want to hear about it.
+              {t("cta_desc")}
             </p>
             <Button href={`/${locale}/about`} variant="outline">
-              Share your experience
+              {t("cta_button")}
             </Button>
           </FadeIn>
         </div>

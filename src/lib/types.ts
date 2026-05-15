@@ -1,4 +1,4 @@
-export type Locale = "en" | "ja";
+export type Locale = "en" | "ja" | "zh-TW" | "zh-CN" | "ko" | "vi" | "id" | "th" | "es";
 
 export type CitySlug = "tokyo" | "kyoto" | "osaka";
 

@@ -94,7 +94,11 @@
       "title": "Ada jaringan orang asing. Hanya perlu usaha untuk menemukannya.",
       "hook": "Ada di setiap kota. Itulah perbedaan antara bertahan dan merasa memiliki.",
       "body": "Setiap kota besar Jepang punya komunitas warga asing jangka panjang yang saling tumpang tindih — grup Facebook, pertukaran bahasa, bar internasional yang jadi pusat komunitas, pertemanan nyata dari thread Reddit. Jaringan ini terasa seperti rencana cadangan dari 'benar-benar hidup di Jepang', tapi inilah tempat sebagian besar orang menemukan pijakan. Teman Jepang pertama sering datang setelah teman warga asing memberikan kepercayaan diri untuk mencoba."
-    }
+    },
+    "urgency_day_one": "Hari Pertama",
+    "urgency_week_one": "Minggu Pertama",
+    "urgency_month_one": "Bulan Pertama",
+    "urgency_ongoing": "Berkelanjutan"
   },
   "voices": {
     "sarah-tokyo": {
@@ -191,12 +195,29 @@
     "the_feeling": "Perasaannya",
     "living_title": "Bagaimana rasanya tinggal di sini",
     "neighborhoods_label": "Lingkungan",
-    "tips_label": "Tips orang dalam"
+    "tips_label": "Tips orang dalam",
+    "prefecture": "Prefektur",
+    "population": "Populasi",
+    "feelings_label": "感覚 — Perasaan",
+    "living_here": "Tinggal di sini, jujur saja",
+    "insider_tip": "Tips orang dalam",
+    "insiders_know": "Yang diketahui orang dalam tentang {city}",
+    "atmosphere_of": "Suasana {city}",
+    "where_to_live": "Di mana tinggal di {city}",
+    "coming_soon": "Cerita dari {city} sedang ditulis. Kembali nanti.",
+    "read_experiences": "Baca pengalaman",
+    "practical_guide": "Panduan praktis",
+    "full_living_guide": "Panduan hidup lengkap",
+    "compare_cities": "Bandingkan kota",
+    "living_in": "Tinggal di {city}"
   },
   "moments": {
     "read_time": "{min} menit membaca",
     "all_moments": "Semua cerita",
-    "from": "Dari"
+    "from": "Dari",
+    "page_title": "Momen",
+    "page_description": "Kiriman sastra dari dalam Jepang. Bukan tulisan perjalanan. Bukan panduan. Perasaan, diingat dengan jujur.",
+    "coming_soon": "Momen sedang ditulis. Kembali nanti."
   },
   "experiences": {
     "read_time": "{min} menit membaca",
@@ -211,18 +232,51 @@
     "categories_label": "Apa yang Anda butuhkan?",
     "tips_label": "Tips komunitas",
     "neighborhoods_label": "Di mana tinggal",
-    "cta_label": "Bagikan apa yang Anda ketahui"
+    "cta_label": "Bagikan apa yang Anda ketahui",
+    "read_experiences": "Baca pengalaman",
+    "tips_title": "Yang tidak ada yang peringatkan",
+    "tips_desc": "Dikontribusikan komunitas. Diverifikasi oleh orang yang belajar dengan susah payah.",
+    "neighborhoods_title": "Di mana sebenarnya tinggal",
+    "neighborhoods_desc": "Bukan area wisata. Lingkungan yang benar-benar dipilih orang asing — dan alasannya.",
+    "explore_by_city": "Jelajahi berdasarkan kota",
+    "living_in": "Tinggal di {city}",
+    "insider_tip": "Tips orang dalam"
   },
   "community": {
     "title": "Komunitas",
     "subtitle": "Orang asing yang tinggal di Jepang — kata-kata, pengetahuan, cerita mereka.",
     "voices_label": "Suara",
     "experiences_label": "Pengalaman",
-    "tips_label": "Tips orang dalam"
+    "tips_label": "Tips orang dalam",
+    "stories_title": "Cerita panjang",
+    "stories_desc": "Akun orang pertama tentang bagaimana sebenarnya membangun kehidupan di Jepang.",
+    "knowledge_title": "Pengetahuan kolektif",
+    "cta_title": "Pernah tinggal di Jepang?",
+    "cta_desc": "Platform ini tumbuh melalui cerita yang jujur. Jika Anda memiliki setahun atau lebih kehidupan Jepang di belakang Anda, kami ingin mendengarnya.",
+    "cta_button": "Bagikan pengalaman Anda"
   },
   "about": {
     "title": "Tentang MA",
-    "manifesto_label": "Manifesto"
+    "manifesto_label": "Manifesto",
+    "quote": "Bukan panduan perjalanan. Sebuah perasaan, dibagikan dengan jujur.",
+    "how_we_work": "Cara kami bekerja",
+    "principles_title": "Prinsip kami",
+    "begin_city": "Mulai dengan sebuah kota.",
+    "choose_mood": "Setiap kota terasa berbeda. Pilih suasana hati yang Anda rasakan.",
+    "manifesto_1": "Kebanyakan tulisan tentang Jepang salah — bukan secara faktual, tetapi secara emosional. Ini mereduksi peradaban dengan kedalaman luar biasa menjadi daftar hal yang harus dilakukan dan tempat yang harus dilihat. Ini memperlakukan misteri sebagai masalah yang harus dipecahkan, keheningan sebagai ketiadaan yang harus diisi.",
+    "manifesto_2": "MA dimulai dari premis yang berbeda: bahwa Jepang layak untuk ditulis sebagaimana rasanya sebenarnya. Penuh listrik dan sepi di Tokyo jam 3 pagi. Tenang dan kuno di Kyoto sebelum kerumunan datang. Hangat dan terbuka di Osaka di atas semangkuk ramen yang telah disempurnakan seseorang selama tiga puluh tahun.",
+    "manifesto_3": "Kami bukan panduan perjalanan. Kami tidak memberitahu Anda apa yang harus dilakukan. Kami memberitahu Anda bagaimana rasanya berada di sana — tekstur spesifik jam-jam tertentu di tempat-tempat tertentu, cuaca emosional kota-kota yang telah dibentuk oleh berabad-abad nilai-nilai khusus: menahan diri, presisi, keindahan, ketidakkekalan.",
+    "manifesto_4": "Namanya berasal dari 間 (ma), konsep Jepang tanpa terjemahan bahasa Inggris langsung. Artinya ruang di antara hal-hal — jeda di antara nada yang membuat musik bermakna, celah di antara objek yang memberi mereka definisi, keheningan yang membuat ucapan layak didengar. Setiap karya yang kami terbitkan hidup di ruang itu.",
+    "manifesto_5": "Kami menulis dengan lambat, hati-hati, dan jujur. Kami tidak menerbitkan konten yang dibuat AI. Kami tidak mengoptimalkan untuk mesin pencari. Kami tidak membuat daftar. Kami menghasilkan pengalaman yang dirasakan, diingat dengan jujur.",
+    "manifesto_6": "Jepang bukan tujuan. Ini adalah perasaan. Kami mencoba berbaginya.",
+    "value_honest_title": "Jujur",
+    "value_honest_desc": "Kami menulis dari pengalaman nyata. Tidak ada perjalanan pers, tidak ada konten bersponsor, tidak ada teks yang dibuat AI. Setiap kata bertanggung jawab pada perasaan sebenarnya berada di suatu tempat.",
+    "value_slow_title": "Lambat",
+    "value_slow_desc": "Kami menerbitkan jarang dan hati-hati. Satu momen yang diamati dengan baik lebih berharga dari seratus laporan terburu-buru.",
+    "value_literary_title": "Sastra",
+    "value_literary_desc": "Kami memperlakukan tulisan perjalanan sebagai sastra — dengan semua keahlian, ambiguitas, dan kejujuran emosional yang itu siratkan.",
+    "value_specific_title": "Spesifik",
+    "value_specific_desc": "Kami menolak generalisasi. Perasaan Tokyo jam 3 pagi di hujan November berbeda dari Tokyo siang hari di bulan Agustus. Kami peduli dengan perbedaan itu."
   },
   "footer": {
     "tagline": "間 — Kehidupan nyata di Jepang, dari dalam.",
@@ -232,5 +286,59 @@
     "community": "Komunitas",
     "about": "Tentang",
     "rights": "Hak cipta dilindungi."
+  },
+  "common": {
+    "years_japan": "{n}th"
+  },
+  "categories": {
+    "work": {
+      "label": "Bekerja di Jepang",
+      "description": "Visa, budaya kantor, kerja jarak jauh, mengajar bahasa Inggris, dan menemukan pijakan."
+    },
+    "study": {
+      "label": "Kehidupan Mahasiswa",
+      "description": "Universitas, sekolah bahasa, persiapan JLPT, dan seperti apa kehidupan kampus sebenarnya."
+    },
+    "language": {
+      "label": "Belajar Bahasa Jepang",
+      "description": "Dari nol hingga percakapan sehari-hari — aplikasi, tutor, trik imersi yang benar-benar berhasil."
+    },
+    "food": {
+      "label": "Makanan & Makan",
+      "description": "Menavigasi menu, menemukan tempat makan di lingkungan, alergi makanan, belanja bahan makanan."
+    },
+    "housing": {
+      "label": "Mencari Tempat Tinggal",
+      "description": "Rumah gaijin, apartemen, penjamin, gunung dokumen — saran nyata."
+    },
+    "daily-life": {
+      "label": "Kehidupan Sehari-hari",
+      "description": "Bertahan hidup dengan konbini, budaya uang tunai, kunjungan rumah sakit, dan 100 hal kecil yang tidak ada yang peringatkan."
+    },
+    "neighborhoods": {
+      "label": "Lingkungan",
+      "description": "Di mana sebenarnya tinggal — bukan area wisata. Tempat nyata, oleh orang-orang yang tinggal di sana."
+    },
+    "hidden-spots": {
+      "label": "Tempat Tersembunyi",
+      "description": "Tempat yang diketahui penduduk lokal tapi tidak ada di buku panduan. Dibagikan oleh orang dalam, bukan algoritma."
+    }
+  },
+  "cities_content": {
+    "tokyo": {
+      "tagline": "Penuh listrik dan sepi.",
+      "description": "Tokyo tidak tidur. Ia berdengung — frekuensi rendah yang konstan di bawah empat puluh juta detak jantung. Di sini, kesepian bukan ketiadaan melainkan tekstur: nuansa cahaya toko serba ada jam 3 pagi di aspal basah, berat kerumunan yang bergerak mengelilingi Anda seperti air. Penuh listrik, anonim, dan entah bagaimana lebih hidup dari tempat mana pun di bumi.",
+      "feelings": "Anonimitas penuh listrik|Mesin penjual otomatis jam 3 pagi|Kesepian di tengah kerumunan|Neon dalam hujan"
+    },
+    "kyoto": {
+      "tagline": "Tenang dan nostalgia.",
+      "description": "Kyoto tidak terburu-buru. Ia menunggu — di lumut di antara batu tua, di jeda sebelum lonceng kuil, di cara cahaya pagi melintas layar kertas. Ini adalah kota yang mengingat segalanya: berat sutra, aroma cedar dan dupa, suara sandal kayu di gang berbatu saat senja. Ini membuat Anda bernostalgia untuk kehidupan yang belum pernah Anda jalani.",
+      "feelings": "Keheningan kuno|Lumut dan cedar|Beban berabad-abad|Lonceng kuil pagi"
+    },
+    "osaka": {
+      "tagline": "Hangat dan energik.",
+      "description": "Osaka tidak menahan diri. Ia memberi makan Anda, menggoda Anda, menarik Anda ke dalam percakapan yang tidak Anda sadari sedang terjadi. Ini adalah Jepang tanpa formalitas — di mana orang asing berbagi meja, di mana makanan adalah agama, di mana kota menertawai dirinya sendiri. Dotonbori tengah malam adalah tempat paling manusiawi di dunia: kacau, hangat, dan sepenuhnya jujur tentang apa yang diinginkannya.",
+      "feelings": "Kehangatan makanan jalanan|Dotonbori tengah malam|Tawa tanpa alasan|Demokrasi kelaparan"
+    }
   }
 }

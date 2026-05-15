@@ -109,9 +109,14 @@ export function getExperiencesByCity(citySlug: string): Experience[] {
 
 // ─── Shared helpers ────────────────────────────────
 
+const localeToTag: Record<string, string> = {
+  en: "en-US", ja: "ja-JP", "zh-TW": "zh-TW", "zh-CN": "zh-CN",
+  ko: "ko-KR", vi: "vi-VN", id: "id-ID", th: "th-TH", es: "es-ES",
+};
+
 export function formatDate(dateStr: string, locale: string = "en"): string {
   const date = new Date(dateStr);
-  return date.toLocaleDateString(locale === "ja" ? "ja-JP" : "en-US", {
+  return date.toLocaleDateString(localeToTag[locale] ?? "en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",

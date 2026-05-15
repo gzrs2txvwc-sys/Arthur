@@ -94,7 +94,11 @@
       "title": "Có mạng lưới người nước ngoài. Chỉ cần nỗ lực để tìm.",
       "hook": "Có ở mọi thành phố. Đó là sự khác biệt giữa tồn tại và thuộc về.",
       "body": "Mọi thành phố lớn của Nhật đều có các cộng đồng người nước ngoài dài hạn chồng chéo — nhóm Facebook, giao lưu ngôn ngữ, quán bar quốc tế trở thành trung tâm cộng đồng, tình bạn từ Reddit threads. Những mạng lưới này có vẻ là kế hoạch dự phòng cho 'thực sự sống ở Nhật', nhưng đây là nơi hầu hết mọi người tìm thấy chỗ đứng. Người bạn Nhật đầu tiên thường xuất hiện sau khi bạn bè người nước ngoài đã cho bạn sự tự tin để thử."
-    }
+    },
+    "urgency_day_one": "Ngày đầu",
+    "urgency_week_one": "Tuần đầu",
+    "urgency_month_one": "Tháng đầu",
+    "urgency_ongoing": "Liên tục"
   },
   "voices": {
     "sarah-tokyo": {
@@ -191,12 +195,29 @@
     "the_feeling": "Cảm giác",
     "living_title": "Sống ở đây như thế nào",
     "neighborhoods_label": "Khu phố",
-    "tips_label": "Mẹo nội bộ"
+    "tips_label": "Mẹo nội bộ",
+    "prefecture": "Tỉnh/Thành",
+    "population": "Dân số",
+    "feelings_label": "感覚 — Cảm xúc",
+    "living_here": "Sống ở đây, thật sự",
+    "insider_tip": "Mẹo nội bộ",
+    "insiders_know": "Điều chỉ người sống ở {city} mới biết",
+    "atmosphere_of": "Không khí của {city}",
+    "where_to_live": "Nên sống ở đâu tại {city}",
+    "coming_soon": "Câu chuyện từ {city} đang được viết. Hãy quay lại sau.",
+    "read_experiences": "Đọc trải nghiệm",
+    "practical_guide": "Hướng dẫn thực tế",
+    "full_living_guide": "Hướng dẫn sinh sống đầy đủ",
+    "compare_cities": "So sánh các thành phố",
+    "living_in": "Sống ở {city}"
   },
   "moments": {
     "read_time": "{min} phút đọc",
     "all_moments": "Tất cả câu chuyện",
-    "from": "Từ"
+    "from": "Từ",
+    "page_title": "Khoảnh khắc",
+    "page_description": "Những bức thư văn học từ bên trong Nhật Bản. Không phải du ký. Không phải hướng dẫn. Là cảm xúc, được nhớ lại một cách trung thực.",
+    "coming_soon": "Câu chuyện đang được viết. Hãy quay lại sớm."
   },
   "experiences": {
     "read_time": "{min} phút đọc",
@@ -211,18 +232,51 @@
     "categories_label": "Bạn cần gì?",
     "tips_label": "Mẹo cộng đồng",
     "neighborhoods_label": "Nên sống ở đâu",
-    "cta_label": "Chia sẻ những gì bạn biết"
+    "cta_label": "Chia sẻ những gì bạn biết",
+    "read_experiences": "Đọc trải nghiệm",
+    "tips_title": "Điều không ai nói với bạn",
+    "tips_desc": "Đến từ cộng đồng. Được xác nhận bởi những người đã học từ kinh nghiệm đắng cay.",
+    "neighborhoods_title": "Nơi thực sự để sống",
+    "neighborhoods_desc": "Không phải khu du lịch. Là những khu phố người nước ngoài thực sự chọn — và lý do tại sao.",
+    "explore_by_city": "Khám phá theo thành phố",
+    "living_in": "Sống ở {city}",
+    "insider_tip": "Mẹo nội bộ"
   },
   "community": {
     "title": "Cộng đồng",
     "subtitle": "Người nước ngoài sống ở Nhật Bản — lời nói, kiến thức, câu chuyện của họ.",
     "voices_label": "Tiếng nói",
     "experiences_label": "Trải nghiệm",
-    "tips_label": "Mẹo nội bộ"
+    "tips_label": "Mẹo nội bộ",
+    "stories_title": "Câu chuyện dài",
+    "stories_desc": "Những ghi chép ngôi thứ nhất về việc xây dựng cuộc sống ở Nhật Bản thực sự trông như thế nào.",
+    "knowledge_title": "Kiến thức tập thể",
+    "cta_title": "Bạn đã từng sống ở Nhật chưa?",
+    "cta_desc": "Nền tảng này phát triển qua những câu chuyện thật. Nếu bạn có một năm trở lên sống ở Nhật, câu chuyện của bạn thuộc về đây.",
+    "cta_button": "Chia sẻ trải nghiệm của bạn"
   },
   "about": {
     "title": "Về MA",
-    "manifesto_label": "Tuyên ngôn"
+    "manifesto_label": "Tuyên ngôn",
+    "quote": "Không phải hướng dẫn du lịch. Là cảm xúc, được chia sẻ thành thật.",
+    "how_we_work": "Cách chúng tôi làm việc",
+    "principles_title": "Nguyên tắc của chúng tôi",
+    "begin_city": "Bắt đầu với một thành phố.",
+    "choose_mood": "Mỗi thành phố mang cảm giác khác nhau. Hãy chọn theo tâm trạng hiện tại của bạn.",
+    "manifesto_1": "Hầu hết những gì viết về Nhật Bản đều sai — không phải về mặt thực tế, mà về mặt cảm xúc. Nó rút gọn một nền văn minh có chiều sâu phi thường thành một danh sách những việc cần làm và những nơi cần xem. Nó đối xử với bí ẩn như một vấn đề cần giải quyết, sự im lặng như một khoảng trống cần lấp đầy.",
+    "manifesto_2": "MA bắt đầu từ một tiền đề khác: rằng Nhật Bản xứng đáng được viết về theo cách nó thực sự cảm thấy. Điện sáng và cô đơn ở Tokyo lúc 3 giờ sáng. Yên tĩnh và cổ kính ở Kyoto trước khi đám đông đến. Ấm áp và không phòng thủ ở Osaka bên bát ramen mà ai đó đã hoàn thiện trong ba mươi năm.",
+    "manifesto_3": "Chúng tôi không phải hướng dẫn du lịch. Chúng tôi không nói với bạn phải làm gì. Chúng tôi nói với bạn cảm giác khi ở đó — kết cấu cụ thể của những giờ nhất định ở những nơi nhất định, thời tiết cảm xúc của những thành phố được định hình bởi hàng thế kỷ giá trị đặc thù: kiềm chế, chính xác, vẻ đẹp, vô thường.",
+    "manifesto_4": "Cái tên đến từ 間 (ma), một khái niệm tiếng Nhật không có bản dịch tiếng Anh trực tiếp. Nó có nghĩa là khoảng không gian giữa các sự vật — khoảng dừng giữa các nốt nhạc làm cho âm nhạc có ý nghĩa, khoảng cách giữa các vật thể tạo ra định nghĩa, sự im lặng làm cho lời nói đáng để lắng nghe. Mỗi bài viết chúng tôi xuất bản đều sống trong không gian đó.",
+    "manifesto_5": "Chúng tôi viết chậm, cẩn thận và thành thật. Chúng tôi không xuất bản nội dung do AI tạo ra. Chúng tôi không tối ưu hóa cho công cụ tìm kiếm. Chúng tôi không tạo danh sách. Chúng tôi tạo ra những trải nghiệm được cảm nhận, được nhớ lại một cách thành thật.",
+    "manifesto_6": "Nhật Bản không phải là điểm đến. Đó là một cảm giác. Chúng tôi đang cố gắng chia sẻ nó.",
+    "value_honest_title": "Thành thật",
+    "value_honest_desc": "Chúng tôi viết từ kinh nghiệm thực tế. Không có chuyến đi báo chí, không có nội dung tài trợ, không có văn bản do AI tạo ra. Mỗi từ đều chịu trách nhiệm với cảm giác thực sự của việc ở một nơi nào đó.",
+    "value_slow_title": "Chậm rãi",
+    "value_slow_desc": "Chúng tôi xuất bản ít và cẩn thận. Một khoảnh khắc được quan sát kỹ lưỡng có giá trị hơn một trăm bài viết vội vàng.",
+    "value_literary_title": "Văn học",
+    "value_literary_desc": "Chúng tôi đối xử với du ký như văn học — với tất cả sự khéo léo, mơ hồ và thành thật về mặt cảm xúc mà điều đó ngụ ý.",
+    "value_specific_title": "Cụ thể",
+    "value_specific_desc": "Chúng tôi chống lại sự khái quát hóa. Cảm giác ở Tokyo lúc 3 giờ sáng trong mưa tháng 11 khác với Tokyo lúc giữa trưa tháng 8. Chúng tôi quan tâm đến sự khác biệt đó."
   },
   "footer": {
     "tagline": "間 — Cuộc sống thật ở Nhật Bản, từ bên trong.",
@@ -232,5 +286,59 @@
     "community": "Cộng đồng",
     "about": "Giới thiệu",
     "rights": "Bảo lưu mọi quyền."
+  },
+  "common": {
+    "years_japan": "{n}y"
+  },
+  "categories": {
+    "work": {
+      "label": "Làm việc ở Nhật Bản",
+      "description": "Visa, văn hóa văn phòng, làm việc từ xa, dạy tiếng Anh và tìm chỗ đứng."
+    },
+    "study": {
+      "label": "Cuộc sống sinh viên",
+      "description": "Đại học, trường ngôn ngữ, chuẩn bị JLPT và cuộc sống campus thực sự trông như thế nào."
+    },
+    "language": {
+      "label": "Học tiếng Nhật",
+      "description": "Từ zero đến hội thoại hàng ngày — ứng dụng, gia sư, thủ thuật đắm chìm thực sự hiệu quả."
+    },
+    "food": {
+      "label": "Ẩm thực",
+      "description": "Đọc menu, tìm quán quen trong khu phố, dị ứng thực phẩm, đi chợ."
+    },
+    "housing": {
+      "label": "Tìm nhà",
+      "description": "Gaijin house, căn hộ, người bảo lãnh, núi giấy tờ — lời khuyên thực tế."
+    },
+    "daily-life": {
+      "label": "Cuộc sống hàng ngày",
+      "description": "Sống sót với konbini, văn hóa tiền mặt, đi bệnh viện và 100 điều nhỏ không ai cảnh báo bạn."
+    },
+    "neighborhoods": {
+      "label": "Khu phố",
+      "description": "Nơi thực sự để sống — không phải khu du lịch. Những địa điểm thực sự, bởi người sống ở đó."
+    },
+    "hidden-spots": {
+      "label": "Địa điểm ẩn",
+      "description": "Những nơi người địa phương biết nhưng sách hướng dẫn bỏ qua. Được chia sẻ bởi người trong cuộc, không phải thuật toán."
+    }
+  },
+  "cities_content": {
+    "tokyo": {
+      "tagline": "Điện sáng và cô đơn.",
+      "description": "Tokyo không ngủ. Nó vo ve — một tần số thấp, liên tục bên dưới bốn mươi triệu nhịp tim. Ở đây, sự cô đơn không phải là thiếu vắng mà là một kết cấu: cảm giác ánh đèn tiệm tiện lợi lúc 3 giờ sáng trên mặt đường ướt, sức nặng của đám đông chảy quanh bạn như nước. Điện sáng, vô danh, nhưng sống động hơn bất cứ nơi nào trên trái đất.",
+      "feelings": "Sự ẩn danh điện sáng|Máy bán hàng tự động lúc 3 giờ sáng|Cô đơn trong đám đông|Ánh neon trong mưa"
+    },
+    "kyoto": {
+      "tagline": "Yên tĩnh và hoài cổ.",
+      "description": "Kyoto không vội vã. Nó chờ đợi — trong rêu giữa những tảng đá cổ, trong khoảng lặng trước tiếng chuông chùa, trong cách ánh sáng ban mai xuyên qua tấm bình phong giấy. Đây là một thành phố nhớ mọi thứ: sức nặng của lụa, mùi gỗ bách và hương, tiếng guốc gỗ trên con hẻm đá cuội lúc hoàng hôn. Nó khiến bạn nhớ tiếc một cuộc đời mình chưa từng sống.",
+      "feelings": "Sự im lặng cổ đại|Rêu và gỗ bách|Sức nặng của nhiều thế kỷ|Chuông chùa buổi sáng"
+    },
+    "osaka": {
+      "tagline": "Ấm áp và sôi động.",
+      "description": "Osaka không giữ lại. Nó cho bạn ăn, trêu bạn, kéo bạn vào một cuộc trò chuyện mà bạn không biết mình đang có. Đây là Nhật Bản không có sự trang trọng — nơi người lạ chia bàn ăn, nơi thức ăn là tôn giáo, nơi thành phố tự cười nhạo bản thân. Dotonbori lúc nửa đêm là nơi nhân văn nhất thế giới: hỗn loạn, ấm áp, và hoàn toàn trung thực về những gì nó muốn.",
+      "feelings": "Hơi ấm của thức ăn đường phố|Dotonbori lúc nửa đêm|Tiếng cười không có lý do|Sự dân chủ của cơn đói"
+    }
   }
 }

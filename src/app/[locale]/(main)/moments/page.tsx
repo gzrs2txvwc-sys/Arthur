@@ -29,11 +29,10 @@ export default async function MomentsPage({
             {t("all_moments")}
           </p>
           <h1 className="text-display-xl text-[var(--color-parchment)] mb-6">
-            Moments
+            {t("page_title")}
           </h1>
           <p className="text-lg text-[var(--color-muted)] max-w-xl leading-relaxed">
-            Literary dispatches from inside Japan. Not travel writing.
-            Not guides. Feelings, honestly remembered.
+            {t("page_description")}
           </p>
         </FadeIn>
       </section>
@@ -75,7 +74,7 @@ export default async function MomentsPage({
         ) : (
           <FadeIn>
             <p className="text-[var(--color-muted)] text-lg py-24 text-center">
-              Moments are being written. Return soon.
+              {t("coming_soon")}
             </p>
           </FadeIn>
         )}

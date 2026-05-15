@@ -94,7 +94,11 @@
       "title": "外國人的社群存在，但需要主動去找",
       "hook": "每座城市都有。差別在於，找到它是撐過去還是真正屬於這裡。",
       "body": "每個日本主要城市都有重疊的長期外籍居民社群——臉書群組、語言交換、成為社群核心的國際酒吧、從 Reddit 討論串演變成真實友誼的存在。這些網絡看起來好像是「真正融入日本」的備案，但往往是大多數人找到立足點的地方。你的第一批日本朋友，常常是在外籍居民朋友給你信心之後才出現的。"
-    }
+    },
+    "urgency_day_one": "第一天",
+    "urgency_week_one": "第一週",
+    "urgency_month_one": "第一個月",
+    "urgency_ongoing": "持續"
   },
   "voices": {
     "sarah-tokyo": {
@@ -191,12 +195,29 @@
     "the_feeling": "那種感覺",
     "living_title": "住在這裡是什麼感覺",
     "neighborhoods_label": "街區",
-    "tips_label": "內部提示"
+    "tips_label": "內部提示",
+    "prefecture": "都道府縣",
+    "population": "人口",
+    "feelings_label": "感覚 — 感受",
+    "living_here": "真實的生活樣貌",
+    "insider_tip": "內行人的提示",
+    "insiders_know": "只有真正住過{city}的人才知道",
+    "atmosphere_of": "{city}的氛圍",
+    "where_to_live": "在{city}住哪裡",
+    "coming_soon": "{city}的故事正在書寫中。請再回來看看。",
+    "read_experiences": "閱讀親身經歷",
+    "practical_guide": "實用指南",
+    "full_living_guide": "完整生活指南",
+    "compare_cities": "比較城市",
+    "living_in": "在{city}生活"
   },
   "moments": {
     "read_time": "{min} 分鐘",
     "all_moments": "所有故事",
-    "from": "來自"
+    "from": "來自",
+    "page_title": "時刻",
+    "page_description": "從日本內部寄來的文學速寫。不是旅遊報導，不是攻略指南。是誠實回憶的感受。",
+    "coming_soon": "故事正在書寫中。請再回來看看。"
   },
   "experiences": {
     "read_time": "{min} 分鐘",
@@ -211,18 +232,51 @@
     "categories_label": "你需要什麼？",
     "tips_label": "社群提示",
     "neighborhoods_label": "住在哪裡",
-    "cta_label": "分享你所知道的"
+    "cta_label": "分享你所知道的",
+    "read_experiences": "閱讀親身經歷",
+    "tips_title": "沒有人告訴你的事",
+    "tips_desc": "來自社群的集體智慧。由那些吃過苦頭的人親身驗證。",
+    "neighborhoods_title": "真正適合住的地方",
+    "neighborhoods_desc": "不是觀光區。是真正住在那裡的外國人選擇的街區——以及他們的理由。",
+    "explore_by_city": "按城市探索",
+    "living_in": "在{city}生活",
+    "insider_tip": "內行人的提示"
   },
   "community": {
     "title": "社群",
     "subtitle": "住在日本的外國人——他們的話語、知識、故事。",
     "voices_label": "聲音",
     "experiences_label": "經驗",
-    "tips_label": "內部提示"
+    "tips_label": "內部提示",
+    "stories_title": "長篇故事",
+    "stories_desc": "第一人稱的親身記錄——在日本建立生活究竟是什麼樣子。",
+    "knowledge_title": "集體智慧",
+    "cta_title": "你曾在日本生活過嗎？",
+    "cta_desc": "這個平台靠真實故事成長。如果你有過住在日本一年以上的經歷，你的故事值得被分享。",
+    "cta_button": "分享你的故事"
   },
   "about": {
     "title": "關於 MA",
-    "manifesto_label": "宣言"
+    "manifesto_label": "宣言",
+    "quote": "不是旅遊指南。是誠實分享的感受。",
+    "how_we_work": "我們如何運作",
+    "principles_title": "我們的原則",
+    "begin_city": "從一座城市開始。",
+    "choose_mood": "每座城市的感覺都不同。選擇你現在的心情。",
+    "manifesto_1": "關於日本的大多數文字都寫錯了——不是事實上，而是情感上。它們把一個具有非凡深度的文明，化約為一份待辦事項和景點清單。把謎視為需要解決的問題，把沉默視為需要填滿的空白。",
+    "manifesto_2": "MA從另一個前提出發：日本值得被以它實際給人的感受來書寫。凌晨三點的東京，電氣感與孤獨感並存。遊客到來前的京都，靜謐而古老。在大阪，有人花了三十年磨練的那碗拉麵前，溫暖而無防備。",
+    "manifesto_3": "我們不是旅遊指南。我們不告訴你該做什麼。我們告訴你在那裡是什麼感覺——某些地方某些時刻的具體質地，被數百年特定價值觀塑造的城市的情感氣候：克制、精準、美、無常。",
+    "manifesto_4": "名字來自「間」（ma），一個沒有直接英譯的日語概念。它意指事物之間的空間——讓音樂有意義的音符間的停頓，賦予物體定義的間隔，讓言語值得聆聽的靜默。我們發表的每一篇文章，都活在那個空間裡。",
+    "manifesto_5": "我們寫得緩慢、仔細、誠實。我們不發表AI生成的內容。我們不為搜尋引擎優化。我們不寫清單。我們創作被感受過的經歷，誠實地回憶。",
+    "manifesto_6": "日本不是一個目的地。它是一種感覺。我們試著將它分享出去。",
+    "value_honest_title": "誠實",
+    "value_honest_desc": "我們從真實經歷書寫。沒有媒體邀請，沒有贊助內容，沒有AI生成文字。每一個字都對身處某地的真實感受負責。",
+    "value_slow_title": "緩慢",
+    "value_slow_desc": "我們少發表，但仔細發表。一個觀察深刻的瞬間，勝過百篇倉促寫就的報導。",
+    "value_literary_title": "文學性",
+    "value_literary_desc": "我們將旅行書寫視為文學——包含其所有的技藝、模糊性與情感誠實。",
+    "value_specific_title": "具體",
+    "value_specific_desc": "我們抵抗泛化。十一月雨中凌晨三點的東京感覺，不同於八月正午的東京。我們在乎這種差異。"
   },
   "footer": {
     "tagline": "間 — 從內部看真實的日本生活。",
@@ -232,5 +286,59 @@
     "community": "社群",
     "about": "關於",
     "rights": "版權所有。"
+  },
+  "common": {
+    "years_japan": "{n}年"
+  },
+  "categories": {
+    "work": {
+      "label": "在日本工作",
+      "description": "簽證、職場文化、遠端工作、英語教學，以及找到立足之地。"
+    },
+    "study": {
+      "label": "學生生活",
+      "description": "大學、語言學校、JLPT備考，以及校園生活的真實樣貌。"
+    },
+    "language": {
+      "label": "學習日語",
+      "description": "從零開始到日常對話——真正有效的應用程式、家教和沉浸式技巧。"
+    },
+    "food": {
+      "label": "飲食",
+      "description": "看懂菜單、找到你的街坊常去店、食物過敏和日常採購。"
+    },
+    "housing": {
+      "label": "找房子",
+      "description": "外國人分租公寓、一般公寓、保證人、文件山——真實建議。"
+    },
+    "daily-life": {
+      "label": "日常生活",
+      "description": "便利商店生存術、現金文化、就醫經驗，以及沒人告訴你的100件小事。"
+    },
+    "neighborhoods": {
+      "label": "街區",
+      "description": "真正適合住的地方——不是觀光區，是住在那裡的人推薦的真實地點。"
+    },
+    "hidden-spots": {
+      "label": "隱藏景點",
+      "description": "只有當地人知道但旅遊書沒寫的地方，由內行人分享，非演算法推薦。"
+    }
+  },
+  "cities_content": {
+    "tokyo": {
+      "tagline": "電氣感與孤獨感並存。",
+      "description": "東京不睡覺。它嗡嗡作響——四千萬顆心跳之下，那低沉而恆久的頻率。在這裡，孤獨不是缺席，而是一種質地：深夜三點的便利商店燈光映在濕漉漉的柏油路上，人潮像水一樣從你身旁流過。電氣、匿名，卻又比世界上任何地方都更有生命力。",
+      "feelings": "電氣的匿名感|凌晨三點的自動販賣機|人群中的孤獨|雨夜中的霓虹"
+    },
+    "kyoto": {
+      "tagline": "寧靜而懷舊。",
+      "description": "京都不趕路。它等待——在古老石縫間的青苔裡，在寺鐘響起之前的那一刻靜默裡，在晨光穿透障子紙的方式裡。這座城市記得一切：絲綢的重量，杉木與線香的氣味，黃昏時木屐踏過石板巷的聲音。它讓你對一段從未經歷過的人生感到懷念。",
+      "feelings": "古老的靜默|苔蘚與杉木|世紀的重量|清晨的寺鐘"
+    },
+    "osaka": {
+      "tagline": "溫暖而充滿活力。",
+      "description": "大阪毫不客氣。它餵你、逗你笑，把你拉進一場你渾然不覺的對話。這是沒有拘謹的日本——陌生人共享一張桌子，食物是一種信仰，城市敢於嘲笑自己。午夜的道頓堀是世界上最有人情味的地方：混亂、溫暖，對自己想要什麼坦誠得驚人。",
+      "feelings": "路邊攤的溫度|道頓堀的午夜|無緣無故的笑聲|飢餓面前人人平等"
+    }
   }
 }

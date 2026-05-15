@@ -42,6 +42,11 @@ export default async function CityPage({
 
   const t = await getTranslations("cities");
   const tM = await getTranslations("moments");
+  const tCC = await getTranslations("cities_content");
+
+  const localizedTagline = tCC(`${slug as "tokyo"}.tagline`);
+  const localizedDescription = tCC(`${slug as "tokyo"}.description`);
+  const localizedFeelings = tCC(`${slug as "tokyo"}.feelings`).split("|");
 
   const moments = getMomentsByCity(city.slug as CitySlug);
   const experiences = getExperiencesByCity(city.slug);
@@ -88,10 +93,10 @@ export default async function CityPage({
             {city.name}
           </h1>
           <p className="text-display-md italic font-light text-[var(--color-sand)] animate-fade-up delay-300">
-            {city.tagline}
+            {localizedTagline}
           </p>
           <div className="flex flex-wrap gap-4 mt-10 animate-fade-up delay-400">
-            {city.feelings.map((feeling) => (
+            {localizedFeelings.map((feeling) => (
               <span
                 key={feeling}
                 className="text-caption text-[var(--color-muted)] border border-white/10 px-3 py-1.5"
@@ -109,16 +114,16 @@ export default async function CityPage({
           <FadeIn className="lg:col-span-3">
             <div className="space-y-6">
               <div>
-                <p className="text-caption mb-1">Prefecture</p>
+                <p className="text-caption mb-1">{t("prefecture")}</p>
                 <p className="text-sm text-[var(--color-parchment-warm)]">{city.prefecture}</p>
               </div>
               <div>
-                <p className="text-caption mb-1">Population</p>
+                <p className="text-caption mb-1">{t("population")}</p>
                 <p className="text-sm text-[var(--color-parchment-warm)]">{city.population}</p>
               </div>
               <div className="hr-sand" />
               <div>
-                <p className="text-caption mb-3">感覚 — Feelings</p>
+                <p className="text-caption mb-3">{t("feelings_label")}</p>
                 <ul className="space-y-2">
                   {city.feelingsJa.map((feeling) => (
                     <li key={feeling} className="text-sm text-[var(--color-muted)] font-japanese">
@@ -130,10 +135,10 @@ export default async function CityPage({
               <div className="hr-sand" />
               <div className="flex flex-col gap-3">
                 <Button href={`/${locale}/community`} variant="ghost">
-                  Read experiences
+                  {t("read_experiences")}
                 </Button>
                 <Button href={`/${locale}/living`} variant="ghost">
-                  Practical guide
+                  {t("practical_guide")}
                 </Button>
               </div>
             </div>
@@ -147,7 +152,7 @@ export default async function CityPage({
               &ldquo;{city.taglineJa}&rdquo;
             </p>
             <p className="text-lg text-[var(--color-parchment-warm)] leading-relaxed max-w-3xl">
-              {city.description}
+              {localizedDescription}
             </p>
           </FadeIn>
         </div>
@@ -162,7 +167,7 @@ export default async function CityPage({
               {t("experiences_in")} {city.name}
             </p>
             <h2 className="text-display-lg text-[var(--color-parchment)]">
-              Living here, honestly
+              {t("living_here")}
             </h2>
           </FadeIn>
           <StaggerChildren
@@ -187,7 +192,7 @@ export default async function CityPage({
               {t("neighborhoods_label")}
             </p>
             <h2 className="text-display-lg text-[var(--color-parchment)]">
-              Where to live in {city.name}
+              {t("where_to_live", { city: city.name })}
             </h2>
           </FadeIn>
 
@@ -215,7 +220,7 @@ export default async function CityPage({
                     {n.description}
                   </p>
                   <div className="border-t border-white/5 pt-4">
-                    <p className="text-caption text-[var(--color-sand)] mb-2">Insider tip</p>
+                    <p className="text-caption text-[var(--color-sand)] mb-2">{t("insider_tip")}</p>
                     <p className="text-sm text-[var(--color-muted)] italic leading-relaxed">
                       {n.insiderTip}
                     </p>
@@ -237,10 +242,10 @@ export default async function CityPage({
                 {t("tips_label")}
               </p>
               <h2 className="text-display-md text-[var(--color-parchment)] mb-4">
-                What insiders know about {city.name}
+                {t("insiders_know", { city: city.name })}
               </h2>
               <Button href={`/${locale}/living`} variant="ghost">
-                Full living guide
+                {t("full_living_guide")}
               </Button>
             </FadeIn>
             <StaggerChildren className="lg:col-span-8 flex flex-col gap-4" staggerDelay={0.1}>
@@ -260,8 +265,7 @@ export default async function CityPage({
         <FadeIn className="mb-12">
           <p className="text-caption mb-3">{t("moments_in")} {city.name}</p>
           <h2 className="text-display-lg text-[var(--color-parchment)]">
-            The atmosphere of{" "}
-            <em className="font-light text-[var(--color-sand)]">{city.name}</em>
+            {t("atmosphere_of", { city: city.name })}
           </h2>
         </FadeIn>
 
@@ -279,7 +283,7 @@ export default async function CityPage({
         ) : (
           <FadeIn>
             <p className="text-[var(--color-muted)] text-lg">
-              Stories from {city.name} are being written. Come back soon.
+              {t("coming_soon", { city: city.name })}
             </p>
           </FadeIn>
         )}
@@ -289,13 +293,13 @@ export default async function CityPage({
       <section className="py-16 pb-24 px-6 lg:px-12 max-w-7xl mx-auto w-full">
         <FadeIn>
           <div className="hr-sand mb-12" />
-          <p className="text-caption mb-6">Compare cities</p>
+          <p className="text-caption mb-6">{t("compare_cities")}</p>
           <div className="flex flex-wrap gap-4">
             {(["tokyo", "kyoto", "osaka"] as const)
               .filter((s) => s !== city.slug)
               .map((s) => (
                 <Button key={s} href={`/${locale}/cities/${s}`} variant="outline">
-                  Living in {s.charAt(0).toUpperCase() + s.slice(1)}
+                  {t("living_in", { city: s.charAt(0).toUpperCase() + s.slice(1) })}
                 </Button>
               ))}
           </div>

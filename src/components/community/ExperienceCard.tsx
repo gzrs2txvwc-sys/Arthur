@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 import type { Experience } from "@/lib/types";
 import { formatDate } from "@/lib/content";
 
@@ -8,14 +9,20 @@ interface ExperienceCardProps {
   locale: string;
 }
 
-export function ExperienceCard({ experience, locale }: ExperienceCardProps) {
+export async function ExperienceCard({ experience, locale }: ExperienceCardProps) {
   const { person } = experience;
+  const tE = await getTranslations("experiences");
+  const tCat = await getTranslations("categories");
 
   const cityAccentMap: Record<string, string> = {
     tokyo: "var(--color-tokyo-accent)",
     kyoto: "var(--color-kyoto-accent)",
     osaka: "var(--color-osaka-accent)",
   };
+
+  const categoryLabel = tCat(`${experience.category as "work"}.label`);
+  const readTime = tE("read_time", { min: experience.readingTime });
+  const yearsLabel = tE("years_in_japan", { n: person.yearsInJapan });
 
   return (
     <Link
@@ -36,7 +43,7 @@ export function ExperienceCard({ experience, locale }: ExperienceCardProps) {
         {/* Category badge */}
         <div className="absolute bottom-4 left-4">
           <span className="text-caption bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-sm capitalize">
-            {experience.category.replace("-", " ")}
+            {categoryLabel}
           </span>
         </div>
       </div>
@@ -57,7 +64,7 @@ export function ExperienceCard({ experience, locale }: ExperienceCardProps) {
             {person.name}
           </p>
           <p className="text-caption text-[var(--color-muted)]">
-            {person.role} · {person.yearsInJapan}y in Japan
+            {person.role} · {yearsLabel}
           </p>
         </div>
         <span
@@ -83,9 +90,7 @@ export function ExperienceCard({ experience, locale }: ExperienceCardProps) {
 
       {/* Footer */}
       <div className="flex items-center gap-3 mt-4">
-        <span className="text-caption text-[var(--color-muted)]">
-          {experience.readingTime} min read
-        </span>
+        <span className="text-caption text-[var(--color-muted)]">{readTime}</span>
         <span className="text-caption text-[var(--color-muted)]">·</span>
         <span className="text-caption text-[var(--color-muted)]">
           {formatDate(experience.date, locale)}

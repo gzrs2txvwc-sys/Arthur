@@ -78,7 +78,7 @@ export default async function LivingPage({
                     variant="ghost"
                     className="!text-xs"
                   >
-                    Read experiences
+                    {t("read_experiences")}
                   </Button>
                 </div>
               </div>
@@ -96,10 +96,10 @@ export default async function LivingPage({
               {t("tips_label")}
             </p>
             <h2 className="text-display-md text-[var(--color-parchment)] mb-4">
-              What nobody warns you about
+              {t("tips_title")}
             </h2>
             <p className="text-[var(--color-muted)] text-sm leading-relaxed">
-              Community-contributed. Verified by people who learned the hard way.
+              {t("tips_desc")}
             </p>
           </FadeIn>
 
@@ -128,10 +128,10 @@ export default async function LivingPage({
             {t("neighborhoods_label")}
           </p>
           <h2 className="text-display-lg text-[var(--color-parchment)]">
-            Where to actually live
+            {t("neighborhoods_title")}
           </h2>
           <p className="text-[var(--color-muted)] mt-4 max-w-xl leading-relaxed">
-            Not the tourist areas. The neighborhoods that foreigners actually choose — and why.
+            {t("neighborhoods_desc")}
           </p>
         </FadeIn>
 
@@ -164,7 +164,7 @@ export default async function LivingPage({
                 </p>
 
                 <div className="border-t border-white/5 pt-4 mt-4">
-                  <p className="text-caption text-[var(--color-sand)] mb-2">Insider tip</p>
+                  <p className="text-caption text-[var(--color-sand)] mb-2">{t("insider_tip")}</p>
                   <p className="text-sm text-[var(--color-muted)] italic leading-relaxed">
                     {n.insiderTip}
                   </p>
@@ -189,11 +189,11 @@ export default async function LivingPage({
         {/* City links */}
         <FadeIn className="mt-16">
           <div className="hr-sand mb-10" />
-          <p className="text-caption mb-6">Explore by city</p>
+          <p className="text-caption mb-6">{t("explore_by_city")}</p>
           <div className="flex flex-wrap gap-4">
             {(["tokyo", "kyoto", "osaka"] as const).map((city) => (
               <Button key={city} href={`/${locale}/cities/${city}`} variant="outline">
-                Living in {city.charAt(0).toUpperCase() + city.slice(1)}
+                {t("living_in", { city: city.charAt(0).toUpperCase() + city.slice(1) })}
               </Button>
             ))}
           </div>

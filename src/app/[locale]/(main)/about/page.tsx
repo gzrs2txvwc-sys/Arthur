@@ -6,41 +6,8 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "About MA — Manifesto",
-  description:
-    "MA is not a travel guide. It is an attempt to capture what Japan actually feels like.",
+  description: "MA is not a travel guide. It is an attempt to capture what Japan actually feels like.",
 };
-
-const manifestoParagraphs = [
-  "Most writing about Japan is wrong — not factually, but emotionally. It reduces a civilization of extraordinary depth to a list of things to do and places to see. It treats mystery as a problem to be solved, silence as an absence to be filled.",
-  "MA began from a different premise: that Japan deserves to be written about the way it actually feels. Electric and lonely in Tokyo at 3am. Quiet and ancient in Kyoto before the crowds. Warm and unguarded in Osaka over a bowl of ramen that someone has been perfecting for thirty years.",
-  "We are not a travel guide. We do not tell you what to do. We tell you what it feels like to be there — the specific texture of certain hours in certain places, the emotional weather of cities that have been shaped by centuries of particular values: restraint, precision, beauty, impermanence.",
-  "The name comes from 間 (ma), a Japanese concept with no direct English translation. It means the space between things — the pause between notes that makes music meaningful, the gap between objects that gives them definition, the silence that makes speech worth hearing. Every piece we publish lives in that space.",
-  "We write slowly, carefully, and honestly. We do not publish AI-generated content. We do not optimize for search engines. We do not produce lists. We produce felt experiences, honestly recalled.",
-  "Japan is not a destination. It is a feeling. We are trying to share it.",
-];
-
-const values = [
-  {
-    title: "Honest",
-    description:
-      "We write from real experience. No press trips, no sponsored content, no AI-generated text. Every word is accountable to the actual feeling of being somewhere.",
-  },
-  {
-    title: "Slow",
-    description:
-      "We publish rarely and carefully. One well-observed moment is worth more than a hundred rushed dispatches.",
-  },
-  {
-    title: "Literary",
-    description:
-      "We treat travel writing as literature — with all the craft, ambiguity, and emotional honesty that implies.",
-  },
-  {
-    title: "Specific",
-    description:
-      "We resist generalization. The feeling of Tokyo at 3am in November rain is different from Tokyo at noon in August. We care about the difference.",
-  },
-];
 
 export default async function AboutPage({
   params,
@@ -49,6 +16,18 @@ export default async function AboutPage({
 }) {
   const { locale } = await params;
   const t = await getTranslations("about");
+
+  const manifestoParagraphs = [
+    t("manifesto_1"), t("manifesto_2"), t("manifesto_3"),
+    t("manifesto_4"), t("manifesto_5"), t("manifesto_6"),
+  ];
+
+  const values = [
+    { title: t("value_honest_title"), description: t("value_honest_desc") },
+    { title: t("value_slow_title"),   description: t("value_slow_desc") },
+    { title: t("value_literary_title"), description: t("value_literary_desc") },
+    { title: t("value_specific_title"), description: t("value_specific_desc") },
+  ];
 
   return (
     <>
@@ -62,7 +41,7 @@ export default async function AboutPage({
             {t("title")}
           </h1>
           <p className="text-display-md font-display font-light italic text-[var(--color-sand)] max-w-2xl">
-            &ldquo;Not a travel guide. A feeling, honestly shared.&rdquo;
+            &ldquo;{t("quote")}&rdquo;
           </p>
         </FadeIn>
       </section>
@@ -92,9 +71,9 @@ export default async function AboutPage({
       {/* ── Values ──────────────────────────────── */}
       <section className="py-24 md:py-32 px-6 lg:px-12 max-w-7xl mx-auto w-full">
         <FadeIn className="mb-16">
-          <p className="text-caption mb-3">How we work</p>
+          <p className="text-caption mb-3">{t("how_we_work")}</p>
           <h2 className="text-display-lg text-[var(--color-parchment)]">
-            Our principles
+            {t("principles_title")}
           </h2>
         </FadeIn>
 
@@ -126,10 +105,10 @@ export default async function AboutPage({
               間
             </p>
             <h2 className="text-display-md text-[var(--color-parchment)] mb-4">
-              Begin with a city.
+              {t("begin_city")}
             </h2>
             <p className="text-[var(--color-muted)] mb-10">
-              Each one feels different. Choose the mood you are in.
+              {t("choose_mood")}
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               {["tokyo", "kyoto", "osaka"].map((city) => (

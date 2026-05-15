@@ -26,7 +26,13 @@ export default async function HomePage({
   const t = await getTranslations("home");
   const tw = await getTranslations("worlds");
   const ts = await getTranslations("survival");
-  const tv = await getTranslations("voices");
+
+  const urgencyLabels = {
+    "day-one":   ts("urgency_day_one"),
+    "week-one":  ts("urgency_week_one"),
+    "month-one": ts("urgency_month_one"),
+    "ongoing":   ts("urgency_ongoing"),
+  } as const;
 
   const worldTranslations = Object.fromEntries(
     ["emotional-map","tonight-tokyo","three-month-wall","language-keigo","visa-paperwork",
@@ -45,12 +51,6 @@ export default async function HomePage({
     title: ts(`${truth.id as "address-circle"}.title`),
     hook: ts(`${truth.id as "address-circle"}.hook`),
     body: ts(`${truth.id as "address-circle"}.body`),
-  }));
-
-  const localizedVoices = communityVoices.slice(0, 3).map((v) => ({
-    ...v,
-    person: { ...v.person, role: tv(`${v.id as "sarah-tokyo"}.role`) },
-    quote: tv(`${v.id as "sarah-tokyo"}.quote`),
   }));
 
   const cities = getAllCities();
@@ -192,7 +192,7 @@ export default async function HomePage({
         >
           {localizedSurvivalTruths.map((truth) => (
             <StaggerItem key={truth.id}>
-              <SurvivalCard truth={truth} />
+              <SurvivalCard truth={truth} urgencyLabel={urgencyLabels[truth.urgency]} />
             </StaggerItem>
           ))}
         </StaggerChildren>
@@ -214,7 +214,7 @@ export default async function HomePage({
           className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/5"
           staggerDelay={0.1}
         >
-          {localizedVoices.map((voice, i) => (
+          {communityVoices.slice(0, 3).map((voice, i) => (
             <StaggerItem key={voice.id}>
               <CommunityVoice voice={voice} accent={i === 1} />
             </StaggerItem>

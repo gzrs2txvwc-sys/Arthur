@@ -2,19 +2,21 @@
 
 import type { SurvivalTruth, SurvivalUrgency } from "@/lib/community";
 
-const urgencyConfig: Record<SurvivalUrgency, { label: string; color: string }> = {
-  "day-one":   { label: "Day one",   color: "#e85d4a" },
-  "week-one":  { label: "Week one",  color: "#c9a96e" },
-  "month-one": { label: "Month one", color: "#7AADCA" },
-  "ongoing":   { label: "Ongoing",   color: "#888077" },
+const urgencyColors: Record<SurvivalUrgency, string> = {
+  "day-one":   "#e85d4a",
+  "week-one":  "#c9a96e",
+  "month-one": "#7AADCA",
+  "ongoing":   "#888077",
 };
 
 interface SurvivalCardProps {
   truth: SurvivalTruth;
+  urgencyLabel: string;
 }
 
-export function SurvivalCard({ truth }: SurvivalCardProps) {
-  const urgency = urgencyConfig[truth.urgency];
+export function SurvivalCard({ truth, urgencyLabel }: SurvivalCardProps) {
+  const color = urgencyColors[truth.urgency];
+  const urgency = { label: urgencyLabel, color };
 
   return (
     <article

@@ -94,7 +94,11 @@
       "title": "Existe una red de extranjeros. Solo hace falta esfuerzo para encontrarla.",
       "hook": "Existe en cada ciudad. Es la diferencia entre sobrevivir y pertenecer.",
       "body": "Cada ciudad importante de Japón tiene comunidades superpuestas de residentes extranjeros a largo plazo — grupos de Facebook, intercambios de idiomas, bares internacionales que se convirtieron en centros comunitarios, amistades reales nacidas de hilos de Reddit. Estas redes parecen secundarias para 'vivir de verdad en Japón', pero es donde la mayoría encuentra su lugar. Tus primeros amigos japoneses suelen llegar después de que los amigos residentes extranjeros te den la confianza para intentarlo."
-    }
+    },
+    "urgency_day_one": "Primer día",
+    "urgency_week_one": "Primera semana",
+    "urgency_month_one": "Primer mes",
+    "urgency_ongoing": "Continuo"
   },
   "voices": {
     "sarah-tokyo": {
@@ -191,12 +195,29 @@
     "the_feeling": "La sensación",
     "living_title": "Cómo es vivir aquí",
     "neighborhoods_label": "Barrios",
-    "tips_label": "Consejos internos"
+    "tips_label": "Consejos internos",
+    "prefecture": "Prefectura",
+    "population": "Población",
+    "feelings_label": "感覚 — Sensaciones",
+    "living_here": "Vivir aquí, con honestidad",
+    "insider_tip": "Consejo de insider",
+    "insiders_know": "Lo que los insiders saben sobre {city}",
+    "atmosphere_of": "La atmósfera de {city}",
+    "where_to_live": "Dónde vivir en {city}",
+    "coming_soon": "Las historias de {city} se están escribiendo. Vuelve pronto.",
+    "read_experiences": "Leer experiencias",
+    "practical_guide": "Guía práctica",
+    "full_living_guide": "Guía completa de vida",
+    "compare_cities": "Comparar ciudades",
+    "living_in": "Viviendo en {city}"
   },
   "moments": {
     "read_time": "{min} min de lectura",
     "all_moments": "Todas las historias",
-    "from": "De"
+    "from": "De",
+    "page_title": "Momentos",
+    "page_description": "Despachos literarios desde el interior de Japón. No escritura de viajes. No guías. Sentimientos, honestamente recordados.",
+    "coming_soon": "Los momentos se están escribiendo. Vuelve pronto."
   },
   "experiences": {
     "read_time": "{min} min de lectura",
@@ -211,18 +232,51 @@
     "categories_label": "¿Qué necesitas?",
     "tips_label": "Consejos de la comunidad",
     "neighborhoods_label": "Dónde vivir",
-    "cta_label": "Comparte lo que sabes"
+    "cta_label": "Comparte lo que sabes",
+    "read_experiences": "Leer experiencias",
+    "tips_title": "Lo que nadie te advierte",
+    "tips_desc": "Contribuido por la comunidad. Verificado por personas que aprendieron a las malas.",
+    "neighborhoods_title": "Dónde vivir realmente",
+    "neighborhoods_desc": "No las zonas turísticas. Los barrios que los extranjeros realmente eligen — y por qué.",
+    "explore_by_city": "Explorar por ciudad",
+    "living_in": "Viviendo en {city}",
+    "insider_tip": "Consejo interno"
   },
   "community": {
     "title": "Comunidad",
     "subtitle": "Extranjeros viviendo en Japón — sus palabras, su conocimiento, sus historias.",
     "voices_label": "Voces",
     "experiences_label": "Experiencias",
-    "tips_label": "Consejos internos"
+    "tips_label": "Consejos internos",
+    "stories_title": "Historias extensas",
+    "stories_desc": "Relatos en primera persona de cómo es construir una vida en Japón.",
+    "knowledge_title": "Conocimiento colectivo",
+    "cta_title": "¿Viviste en Japón?",
+    "cta_desc": "Esta plataforma crece a través de historias honestas. Si tienes un año o más de vida en Japón, queremos escucharte.",
+    "cta_button": "Comparte tu experiencia"
   },
   "about": {
     "title": "Acerca de MA",
-    "manifesto_label": "Manifiesto"
+    "manifesto_label": "Manifiesto",
+    "quote": "No una guía de viaje. Un sentimiento, honestamente compartido.",
+    "how_we_work": "Cómo trabajamos",
+    "principles_title": "Nuestros principios",
+    "begin_city": "Empieza con una ciudad.",
+    "choose_mood": "Cada una se siente diferente. Elige el estado de ánimo en que estás.",
+    "manifesto_1": "La mayoría de lo que se escribe sobre Japón es incorrecto — no factualmente, sino emocionalmente. Reduce una civilización de profundidad extraordinaria a una lista de cosas que hacer y lugares que ver. Trata el misterio como un problema a resolver, el silencio como una ausencia a llenar.",
+    "manifesto_2": "MA comenzó desde una premisa diferente: que Japón merece ser escrito sobre tal como se siente. Eléctrico y solitario en Tokio a las 3am. Tranquilo y antiguo en Kioto antes de las multitudes. Cálido y desinhibido en Osaka sobre un cuenco de ramen que alguien ha estado perfeccionando durante treinta años.",
+    "manifesto_3": "No somos una guía de viaje. No te decimos qué hacer. Te decimos cómo se siente estar ahí — la textura específica de ciertas horas en ciertos lugares, el clima emocional de ciudades que han sido moldeadas por siglos de valores particulares: contención, precisión, belleza, impermanencia.",
+    "manifesto_4": "El nombre viene de 間 (ma), un concepto japonés sin traducción directa al inglés. Significa el espacio entre las cosas — la pausa entre notas que hace que la música sea significativa, el hueco entre objetos que les da definición, el silencio que hace que el habla valga la pena escuchar. Cada pieza que publicamos vive en ese espacio.",
+    "manifesto_5": "Escribimos lento, con cuidado y con honestidad. No publicamos contenido generado por IA. No optimizamos para motores de búsqueda. No producimos listas. Producimos experiencias sentidas, honestamente recordadas.",
+    "manifesto_6": "Japón no es un destino. Es un sentimiento. Estamos intentando compartirlo.",
+    "value_honest_title": "Honesto",
+    "value_honest_desc": "Escribimos desde experiencia real. Sin viajes de prensa, sin contenido patrocinado, sin texto generado por IA. Cada palabra responde al sentimiento real de estar en algún lugar.",
+    "value_slow_title": "Lento",
+    "value_slow_desc": "Publicamos pocas veces y con cuidado. Un momento bien observado vale más que cien despachos apresurados.",
+    "value_literary_title": "Literario",
+    "value_literary_desc": "Tratamos la escritura de viajes como literatura — con todo el oficio, la ambigüedad y la honestidad emocional que eso implica.",
+    "value_specific_title": "Específico",
+    "value_specific_desc": "Nos resistimos a la generalización. La sensación de Tokio a las 3am bajo la lluvia de noviembre es diferente a la de Tokio al mediodía en agosto. Nos importa la diferencia."
   },
   "footer": {
     "tagline": "間 — Vida real en Japón, desde adentro.",
@@ -232,5 +286,59 @@
     "community": "Comunidad",
     "about": "Acerca de",
     "rights": "Todos los derechos reservados."
+  },
+  "common": {
+    "years_japan": "{n}a"
+  },
+  "categories": {
+    "work": {
+      "label": "Trabajar en Japón",
+      "description": "Visas, cultura de oficina, trabajo remoto, enseñar inglés, y encontrar tu lugar."
+    },
+    "study": {
+      "label": "Vida Estudiantil",
+      "description": "Universidades, escuelas de idiomas, preparación para el JLPT, y cómo es la vida universitaria realmente."
+    },
+    "language": {
+      "label": "Aprender Japonés",
+      "description": "De cero a conversación diaria — aplicaciones, tutores, trucos de inmersión que realmente funcionan."
+    },
+    "food": {
+      "label": "Comida y Comer",
+      "description": "Navegar menús, encontrar tu lugar del barrio, alergias alimentarias, compras en el supermercado."
+    },
+    "housing": {
+      "label": "Encontrar Vivienda",
+      "description": "Casas gaijin, apartamentos, garantes, la montaña de papeles — consejos reales."
+    },
+    "daily-life": {
+      "label": "Vida Cotidiana",
+      "description": "Sobrevivir al konbini, cultura del efectivo, visitas al hospital, y 100 pequeñas cosas que nadie te advierte."
+    },
+    "neighborhoods": {
+      "label": "Barrios",
+      "description": "Dónde vivir realmente — no las zonas turísticas. Los lugares reales, de personas que viven allí."
+    },
+    "hidden-spots": {
+      "label": "Lugares Ocultos",
+      "description": "Los lugares que conocen los locales pero que los libros de viajes omiten. Compartidos por insiders, no por algoritmos."
+    }
+  },
+  "cities_content": {
+    "tokyo": {
+      "tagline": "Eléctrico y solitario.",
+      "description": "Tokio no duerme. Zumba — una frecuencia baja y constante bajo cuarenta millones de latidos. Aquí, la soledad no es una ausencia sino una textura: la sensación de la luz de la tienda de conveniencia a las 3am sobre el pavimento mojado, el peso de una multitud que se mueve a tu alrededor como agua. Eléctrico, anónimo, y de alguna manera más vivo que cualquier otro lugar en la tierra.",
+      "feelings": "Anonimato eléctrico|Máquinas expendedoras a las 3am|La soledad de las multitudes|Neón bajo la lluvia"
+    },
+    "kyoto": {
+      "tagline": "Tranquilo y nostálgico.",
+      "description": "Kioto no tiene prisa. Espera — en el musgo entre las piedras antiguas, en la pausa antes del gong del templo, en la forma en que la luz de la mañana cruza un panel de papel. Esta es una ciudad que recuerda todo: el peso de la seda, el olor del cedro y el incienso, el sonido de las sandalias de madera en un callejón empedrado al atardecer. Te hace sentir nostalgia por una vida que nunca has vivido.",
+      "feelings": "Silencio antiguo|Musgo y cedro|El peso de los siglos|Campanas de templo al amanecer"
+    },
+    "osaka": {
+      "tagline": "Cálido y enérgico.",
+      "description": "Osaka no se contiene. Te alimenta, te provoca, te arrastra a una conversación que no sabías que estabas teniendo. Este es Japón sin la formalidad — donde los desconocidos comparten mesas, donde la comida es religión, donde la ciudad se ríe de sí misma. Dotonbori a medianoche es el lugar más humano del mundo: caótico, cálido y completamente honesto sobre lo que quiere.",
+      "feelings": "Calidez de la comida callejera|Dotonbori a medianoche|Risa sin motivo|La democracia del hambre"
+    }
   }
 }

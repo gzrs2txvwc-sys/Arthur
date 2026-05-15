@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import type { CommunityVoice as CommunityVoiceType } from "@/lib/types";
 
 interface CommunityVoiceProps {
@@ -5,8 +6,15 @@ interface CommunityVoiceProps {
   accent?: boolean;
 }
 
-export function CommunityVoice({ voice, accent = false }: CommunityVoiceProps) {
+export async function CommunityVoice({ voice, accent = false }: CommunityVoiceProps) {
   const { person, quote } = voice;
+  const tV = await getTranslations("voices");
+  const tC = await getTranslations("common");
+
+  const voiceId = voice.id as "sarah-tokyo";
+  const localizedQuote = tV(`${voiceId}.quote`);
+  const localizedRole = tV(`${voiceId}.role`);
+  const yearsLabel = tC("years_japan", { n: person.yearsInJapan });
 
   const cityAccentMap = {
     tokyo: "border-[var(--color-tokyo-accent)]",
@@ -20,22 +28,21 @@ export function CommunityVoice({ voice, accent = false }: CommunityVoiceProps) {
     osaka: "text-[var(--color-osaka-accent)]",
   };
 
+  void quote; // raw quote still on the object, component uses localized version
+
   return (
     <figure
       className={`flex flex-col gap-6 p-6 border-t ${cityAccentMap[person.city]} border-t-2
         border-l border-r border-b border-white/5 bg-white/[0.02]
         ${accent ? "bg-white/[0.04]" : ""}`}
     >
-      {/* Quote */}
       <blockquote>
         <p className="font-display text-xl md:text-2xl font-light italic text-[var(--color-parchment)] leading-snug">
-          &ldquo;{quote}&rdquo;
+          &ldquo;{localizedQuote}&rdquo;
         </p>
       </blockquote>
 
-      {/* Person */}
       <figcaption className="flex items-center gap-4 mt-auto">
-        {/* Avatar initials */}
         <div
           className={`w-10 h-10 rounded-full flex items-center justify-center text-xs font-mono
             font-medium text-[var(--color-ink)] shrink-0`}
@@ -47,15 +54,13 @@ export function CommunityVoice({ voice, accent = false }: CommunityVoiceProps) {
         </div>
 
         <div>
-          <p className="text-sm text-[var(--color-parchment)] font-medium">
-            {person.name}
-          </p>
+          <p className="text-sm text-[var(--color-parchment)] font-medium">{person.name}</p>
           <p className="text-caption text-[var(--color-muted)]">
-            {person.role} ·{" "}
+            {localizedRole} ·{" "}
             <span className={cityTextMap[person.city]}>
               {person.city.charAt(0).toUpperCase() + person.city.slice(1)}
             </span>{" "}
-            · {person.yearsInJapan}y
+            · {yearsLabel}
           </p>
         </div>
 
