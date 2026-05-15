@@ -330,6 +330,35 @@ body {
   border-color: transparent !important;
 }
 
+/* ─── Map atmospheric depth layers ──────────────── */
+.map-depth-haze {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(4, 4, 8, 0.45) 0%,
+    transparent 22%,
+    transparent 76%,
+    rgba(4, 4, 8, 0.35) 100%
+  );
+}
+
+.map-scanlines {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 3px,
+    rgba(0, 0, 0, 0.022) 3px,
+    rgba(0, 0, 0, 0.022) 4px
+  );
+}
+
 /* ─── Map pin entrance animation ─────────────────── */
 @keyframes pin-appear {
   0%   { transform: scale(0) rotate(-15deg); opacity: 0; }

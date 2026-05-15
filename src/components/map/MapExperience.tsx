@@ -105,6 +105,10 @@ export function MapExperience({ title, subtitle }: MapExperienceProps) {
       {/* ── Atmospheric city halos ────────────────── */}
       <MapAtmosphere mapRef={mapRef} />
 
+      {/* Cinematic depth layers */}
+      <div className="map-depth-haze" />
+      <div className="map-scanlines" />
+
       {/* Vignette */}
       <div className="map-vignette" />
 

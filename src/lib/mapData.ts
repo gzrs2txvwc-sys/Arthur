@@ -4,7 +4,8 @@ export type PinCategory =
   | "belonging"
   | "survival"
   | "discovery"
-  | "milestone";
+  | "milestone"
+  | "practical";
 
 export interface MapPin {
   id: string;
@@ -59,6 +60,12 @@ export const categoryMeta: Record<
     color: "#A8E6CF",
     glow: "rgba(168,230,207,0.4)",
     description: "The moments that changed everything",
+  },
+  practical: {
+    label: "Local Knowledge",
+    color: "#7AADCA",
+    glow: "rgba(122,173,202,0.4)",
+    description: "What only insiders know",
   },
 };
 
@@ -292,6 +299,83 @@ export const mapPins: MapPin[] = [
     attribution: "Contributed by David, chef",
     year: "2020",
     tags: ["ramen", "shinsekai", "food", "survival", "local"],
+  },
+
+  // ── PRACTICAL KNOWLEDGE + EMOTIONAL ────────────
+  {
+    id: "shinjuku-city-hall",
+    coordinates: [35.6945, 139.6975],
+    category: "survival",
+    city: "tokyo",
+    title: "Shinjuku City Hall, Foreign Registration",
+    subtitle: "The address. The circle. The stamp.",
+    story:
+      "You cannot open a bank account without an address. You cannot sign a lease without a bank account. You cannot get a phone contract without a fixed address. This is the circle foreigners discover in their first week. The City Hall in Shinjuku has a foreign registration window staffed by people who have seen the circle ten thousand times. The man at my window had forms in eight languages and a laminated gesture-card for conversations where no common language existed. He corrected three errors on my form without comment. He stamped three things. I left with a residence card. Outside I stood in the sun for a while — not doing anything, just standing there. I had a coordinate in Japan now.",
+    imageUrl:
+      "https://images.unsplash.com/photo-1513407030348-c983a97b98d8?w=1200&q=80",
+    attribution: "Personal, week one",
+    year: "2018",
+    tags: ["residence-card", "admin", "shinjuku", "first-week", "survival"],
+  },
+  {
+    id: "ueno-first-restaurant",
+    coordinates: [35.7151, 139.7755],
+    category: "milestone",
+    city: "tokyo",
+    title: "Ueno, First Solo Meal",
+    subtitle: "I chose it because it had plastic food in the window. I could point.",
+    story:
+      "The restaurant had a glass case outside with plastic replicas of every dish. I could point. The hostess seated me at a counter. She brought miso soup without my asking — I didn't know it was complimentary, I thought she had guessed I needed it. I pointed to number 7 on the menu. She asked something I didn't understand. I nodded. The right thing arrived. An elderly man across the counter was eating the same thing. He didn't look at me but at some point slid the sesame seeds toward me. I had been about to ask for them. That meal was when I understood that Japan has a language below language — made of attention rather than words. I have been looking for those gestures ever since.",
+    imageUrl:
+      "https://images.unsplash.com/photo-1580651315530-69c8e0026685?w=1200&q=80",
+    attribution: "Personal, month one",
+    year: "2018",
+    tags: ["ueno", "first-meal", "alone", "kindness", "milestone"],
+  },
+  {
+    id: "shinjuku-language-school",
+    coordinates: [35.6872, 139.7038],
+    category: "practical",
+    city: "tokyo",
+    title: "The Language School Corridor, Shinjuku",
+    subtitle: "Eight schools in ten minutes. All of them full of people starting over.",
+    story:
+      "The Japanese language schools cluster in Shinjuku. There are eight of them within a ten-minute walk of each other, each advertising in six languages, each with a placement test, each with the same result: you end up in a room with strangers from places you've never been, all of you trying to say the same word correctly. Level 1 is always full of people who arrived last week. Level 4 is full of people who have been here three years and still can't pass the JLPT. The teacher's name was Tanaka-sensei. She never spoke English to us even in a crisis. When I graduated Level 3 she shook my hand and said something in Japanese I understood completely. That moment took eleven months.",
+    imageUrl:
+      "https://images.unsplash.com/photo-1574871786514-46e1680ea587?w=1200&q=80",
+    attribution: "Contributed by multiple people, various years",
+    year: "2019",
+    tags: ["japanese-class", "shinjuku", "language-school", "jlpt", "practical"],
+  },
+  {
+    id: "osaka-foreigner-izakaya",
+    coordinates: [34.6658, 135.5045],
+    category: "belonging",
+    city: "osaka",
+    title: "The Unmarked Izakaya, Namba Side Streets",
+    subtitle: "No sign. A handwritten slip of paper. She doesn't speak English.",
+    story:
+      "There is an izakaya in the Namba backstreets that became, for a few years, an informal gathering point for Osaka's foreigner community. No sign outside. The entrance is a handwritten slip of paper. It's run by a woman in her seventies who doesn't speak English and doesn't need to. She brings you what she thinks you need. Three beers in, she might bring rice without your asking. She has a look she gives at 10:45pm that is not unkind but is final. I found out about it through a 2019 Facebook post in a group called 'Foreigners in Kansai (Real Talk)' that was somehow still active. The people I met there — a Brazilian dentist, a Senegalese graduate student, a Welsh woman who had been in Osaka for twenty years — I consider some of them family.",
+    imageUrl:
+      "https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=1200&q=80",
+    attribution: "Contributed by Priya, Namba resident",
+    year: "2021",
+    tags: ["izakaya", "community", "namba", "belonging", "local-secret"],
+  },
+  {
+    id: "kyoto-river-cycling",
+    coordinates: [35.0248, 135.7648],
+    category: "discovery",
+    city: "kyoto",
+    title: "The Kamo River Cycling Route",
+    subtitle: "Not on any map for foreigners. You have to get it from someone who stayed.",
+    story:
+      "Nobody published the Kamo River cycling route for foreigners. It exists because enough people used it over enough years. North from Marutamachi along the eastern bank, past the herons standing still in the shallows, past the students studying on the grass, past the egrets. The path becomes unpaved, then field, then something between field and forest. You can ride it in ninety minutes at a slow pace, or four hours if you stop. I learned about it from a woman in my language class who learned it from the previous year's exchange students. The knowledge passes forward, person to person. That's how most useful knowledge in Kyoto works — not broadcast, not published. Earned.",
+    imageUrl:
+      "https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=1200&q=80",
+    attribution: "Contributed by Marcus, Kyoto PhD",
+    year: "2022",
+    tags: ["kyoto", "cycling", "kamo-river", "hidden", "practical"],
   },
 ];
 
