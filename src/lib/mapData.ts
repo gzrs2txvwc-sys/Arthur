@@ -115,9 +115,9 @@ export const mapPins: MapPin[] = [
     category: "milestone",
     city: "tokyo",
     title: "Kōenji Station Platform",
-    subtitle: "The night I cried on a train and nobody said anything — and that was okay",
+    subtitle: "I used the wrong verb. The room understood something I didn't.",
     story:
-      "I had failed the keigo exam. In Japan, there is a formal register of Japanese — keigo — used with elders, teachers, bosses. I couldn't get it right. My teacher had corrected me in front of the class, not unkindly, but publicly. On the Chuo line home I started crying and missed Koenji and ended up at Ogikubo. A woman across from me quietly put a packet of tissues on the seat next to me and looked away. In Japan, you don't intrude. But you notice. That tissue packet changed something in me.",
+      "It happened in a role-play exercise. I was the new employee; my classmate was the section chief. I'd rehearsed my lines — including itadaku, the humble form for 'receive,' the one you use when you want to show the other person is above you. In the room I said morau instead. Casual register, like talking to a friend. The teacher paused the exercise and explained: using the wrong register with a superior doesn't read as a language mistake. It reads as a claim of equality. The room went quiet in the way Japanese rooms go quiet when something has been understood by everyone at once. On the Chuo line I missed Koenji and ended up at Ogikubo. A woman put a packet of tissues on the seat beside me without looking. In Japan, you don't intrude on someone's feelings. But you notice. I've thought about that tissue packet more than almost anything else from that year.",
     imageUrl:
       "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=1200&q=80",
     attribution: "Personal, high school year two",
@@ -145,14 +145,14 @@ export const mapPins: MapPin[] = [
     category: "loneliness",
     city: "tokyo",
     title: "High School Entrance Ceremony",
-    subtitle: "250 students. I understood 40% of what was said.",
+    subtitle: "90 minutes in a gymnasium. I understood half the words, none of the silence.",
     story:
-      "The entrance ceremony was in the school gymnasium. Everyone in black and white. The principal spoke for thirty minutes in formal Japanese. I sat in the third row trying to look like someone who understood. The student next to me — I never learned her name — slid her printed ceremony program over so I could follow along. She moved it back when the speech was over and never mentioned it. I thought about that for months.",
+      "The entrance ceremony was in the gymnasium, April, everyone in black and white. The principal spoke for thirty minutes in formal Japanese I could parse maybe forty percent of. I sat in the third row arranging my face into the expression of someone who understood. What I hadn't known about Japanese schools was the silence — there's a grammar to it. Who bows first, who walks through the door last, who waits for the teacher to sit. For three weeks I kept going first: first through the door, first to sit, first to speak. Nobody corrected me. They just waited. The student beside me at the ceremony had slid her printed program over so I could follow along. When the speeches ended she took it back and never mentioned it. She hadn't done it out of pity. I understood that later — much later.",
     imageUrl:
       "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1200&q=80",
     attribution: "Personal, high school arrival",
     year: "2018",
-    tags: ["high-school", "ceremony", "language", "loneliness"],
+    tags: ["high-school", "ceremony", "hierarchy", "silence", "loneliness"],
   },
   {
     id: "yanaka-discovery",
@@ -247,6 +247,36 @@ export const mapPins: MapPin[] = [
     attribution: "Contributed by Priya, UX designer",
     year: "2021",
     tags: ["dotonbori", "belonging", "stranger", "warmth", "osaka"],
+  },
+  {
+    id: "escalator-bow",
+    coordinates: [35.6930, 139.7006],
+    category: "memory",
+    city: "tokyo",
+    title: "The Escalator Bow",
+    subtitle: "I bowed. He bowed back. The escalators carried us past each other.",
+    story:
+      "Second month. I was on a down escalator in a department store in Shinjuku. I made eye contact with a salaryman on the up escalator. Something in my brain misfired and I bowed — a full thirty-degree bow, the serious kind. He bowed back, immediately, reflexively. We were both mid-bow when the escalators carried us past each other. I went back up to the fourth floor and stood by a rack of ties for a moment. What I hadn't understood yet was that the bow itself wasn't wrong. The bow was fine. Correct, even. What I'd been afraid of — that I'd broken some rule, done something absurd — turned out to be that I'd done something that simply was. That took time to understand. The body learns the country before the mind does.",
+    imageUrl:
+      "https://images.unsplash.com/photo-1535189043414-47a3c49a0bed?w=1200&q=80",
+    attribution: "Personal, first months",
+    year: "2018",
+    tags: ["bow", "etiquette", "department-store", "first-months", "shinjuku"],
+  },
+  {
+    id: "first-japanese-friend",
+    coordinates: [35.6406, 139.6980],
+    category: "belonging",
+    city: "tokyo",
+    title: "Nakameguro, Late Afternoon",
+    subtitle: "Eight months in. The first time it felt like actual friendship.",
+    story:
+      "I had been in Japan for eight months before I had what I would call a real friend here. Not a study partner, not someone I ate lunch near — a friend. It happened like this: Kenji had been in my class since September. We had studied together, nodded in hallways, sat near each other in silence. Then one afternoon he sent me a LINE message — just a photo of a coffee shop menu. No text. I sent back a question mark. He sent directions. We sat there for three hours. He spoke Japanese. I replied in broken Japanese and English. At some point I looked up and it had gotten dark outside. He had laughed at three things I said — not politely, actually laughed. That's when I understood. The rules for friendship here are not colder. Just slower. This was the canal where we walked after.",
+    imageUrl:
+      "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=1200&q=80",
+    attribution: "Personal, year one",
+    year: "2019",
+    tags: ["nakameguro", "friendship", "belonging", "year-one", "line"],
   },
   {
     id: "shinsekai-ramen",

@@ -8,11 +8,7 @@ import { mapPins, categoryMeta, mapCenter, mapDefaultZoom } from "@/lib/mapData"
 import type { MapPin, PinCategory } from "@/lib/mapData";
 
 // ── Fly-to helper (runs inside map context) ────────
-function MapController({
-  selectedPin,
-}: {
-  selectedPin: MapPin | null;
-}) {
+function MapController({ selectedPin }: { selectedPin: MapPin | null }) {
   const map = useMap();
   useEffect(() => {
     if (selectedPin) {
@@ -25,15 +21,25 @@ function MapController({
   return null;
 }
 
+// ── Map instance bridge (exposes map to parent) ────
+function MapInstanceBridge({ onMapReady }: { onMapReady: (map: L.Map) => void }) {
+  const map = useMap();
+  useEffect(() => {
+    onMapReady(map);
+  }, [map, onMapReady]);
+  return null;
+}
+
 // ── Custom div-icon factory ────────────────────────
-function createPinIcon(category: PinCategory, isActive: boolean) {
+function createPinIcon(category: PinCategory, isActive: boolean, entering = false) {
   const { color, glow } = categoryMeta[category];
   return L.divIcon({
     className: "",
     html: `
-      <div class="map-pin ${isActive ? "map-pin--active" : ""}"
+      <div class="map-pin${isActive ? " map-pin--active" : ""}${entering ? " map-pin--entering" : ""}"
            style="--pin-color:${color};--pin-glow:${glow}">
         <div class="map-pin__pulse"></div>
+        <div class="map-pin__pulse-2"></div>
         <div class="map-pin__ring"></div>
         <div class="map-pin__dot"></div>
       </div>`,
@@ -47,12 +53,14 @@ interface JapanMapProps {
   selectedPin: MapPin | null;
   activeCategory: PinCategory | "all";
   onPinSelect: (pin: MapPin) => void;
+  onMapReady?: (map: L.Map) => void;
 }
 
 export default function JapanMap({
   selectedPin,
   activeCategory,
   onPinSelect,
+  onMapReady,
 }: JapanMapProps) {
   const markersRef = useRef<Record<string, L.Marker>>({});
 
@@ -79,6 +87,9 @@ export default function JapanMap({
 
       {/* Fly controller */}
       <MapController selectedPin={selectedPin} />
+
+      {/* Expose map instance to parent */}
+      {onMapReady && <MapInstanceBridge onMapReady={onMapReady} />}
 
       {/* Zoom control — bottom right */}
       <ZoomControl />
@@ -113,19 +124,31 @@ interface PinLayerProps {
 
 function PinLayer({ pins, selectedPin, markersRef, onPinSelect }: PinLayerProps) {
   const map = useMap();
+  const isInitialRef = useRef(true);
 
   useEffect(() => {
-    // Remove all existing markers
     Object.values(markersRef.current).forEach((m) => m.remove());
     markersRef.current = {};
 
-    // Add new markers
-    pins.forEach((pin) => {
+    const entering = isInitialRef.current;
+    isInitialRef.current = false;
+
+    pins.forEach((pin, index) => {
       const isActive = selectedPin?.id === pin.id;
-      const icon = createPinIcon(pin.category, isActive);
+      const icon = createPinIcon(pin.category, isActive, entering);
       const marker = L.marker(pin.coordinates, { icon })
         .addTo(map)
         .on("click", () => onPinSelect(pin));
+
+      if (entering) {
+        // Remove entrance class after stagger delay + animation duration
+        const delay = 180 + index * 55;
+        setTimeout(() => {
+          const el = marker.getElement()?.querySelector(".map-pin");
+          if (el) el.classList.remove("map-pin--entering");
+        }, delay + 650);
+      }
+
       markersRef.current[pin.id] = marker;
     });
 

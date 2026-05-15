@@ -329,3 +329,42 @@ body {
   color: var(--color-ink) !important;
   border-color: transparent !important;
 }
+
+/* ─── Map pin entrance animation ─────────────────── */
+@keyframes pin-appear {
+  0%   { transform: scale(0) rotate(-15deg); opacity: 0; }
+  65%  { transform: scale(1.2) rotate(4deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.map-pin--entering {
+  animation: pin-appear 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* Second pulse layer — offset timing for depth */
+.map-pin__pulse-2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--pin-color);
+  opacity: 0;
+  animation: pin-pulse 2.8s ease-out 1.4s infinite;
+}
+
+.map-pin--active .map-pin__pulse-2 {
+  animation: pin-pulse 1.6s ease-out 0.8s infinite;
+}
+
+/* ─── Ken Burns image animation ──────────────────── */
+@keyframes ken-burns {
+  from { transform: scale(1.0) translate(0%, 0%); }
+  to   { transform: scale(1.13) translate(-2%, -1.5%); }
+}
+
+.ken-burns {
+  animation: ken-burns 14s ease-out forwards;
+}

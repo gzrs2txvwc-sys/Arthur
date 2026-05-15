@@ -1,11 +1,14 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useRef } from "react";
+import { motion } from "framer-motion";
+import type { Map as LeafletMap } from "leaflet";
 import { mapPins, categoryMeta } from "@/lib/mapData";
 import type { MapPin, PinCategory } from "@/lib/mapData";
 import { MapFilters } from "./MapFilters";
 import { PinStory } from "./PinStory";
+import { MapAtmosphere } from "./MapAtmosphere";
 
 // Leaflet cannot run on the server
 const JapanMap = dynamic(() => import("./JapanMap"), {
@@ -31,6 +34,14 @@ interface MapExperienceProps {
 export function MapExperience({ title, subtitle }: MapExperienceProps) {
   const [selectedPin, setSelectedPin] = useState<MapPin | null>(null);
   const [activeCategory, setActiveCategory] = useState<PinCategory | "all">("all");
+  const [introGone, setIntroGone] = useState(false);
+
+  // Ref to receive the Leaflet map instance from JapanMap
+  const mapRef = useRef<LeafletMap | null>(null) as { current: LeafletMap | null };
+
+  const handleMapReady = useCallback((map: LeafletMap) => {
+    mapRef.current = map;
+  }, [mapRef]);
 
   const visiblePins = useMemo(
     () =>
@@ -70,14 +81,29 @@ export function MapExperience({ title, subtitle }: MapExperienceProps) {
 
   return (
     <div className="relative w-full h-[100dvh] overflow-hidden bg-[#0a0a0a]">
+      {/* ── Cinematic intro overlay ────────────────── */}
+      {!introGone && (
+        <motion.div
+          className="absolute inset-0 z-[900] bg-[#0a0a0a] pointer-events-none"
+          initial={{ opacity: 1 }}
+          animate={{ opacity: 0 }}
+          transition={{ duration: 1.2, delay: 0.6 }}
+          onAnimationComplete={() => setIntroGone(true)}
+        />
+      )}
+
       {/* ── Map ───────────────────────────────────── */}
       <div className="absolute inset-0 z-0">
         <JapanMap
           selectedPin={selectedPin}
           activeCategory={activeCategory}
           onPinSelect={handlePinSelect}
+          onMapReady={handleMapReady}
         />
       </div>
+
+      {/* ── Atmospheric city halos ────────────────── */}
+      <MapAtmosphere mapRef={mapRef} />
 
       {/* Vignette */}
       <div className="map-vignette" />

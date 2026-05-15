@@ -43,9 +43,7 @@ export function PinStory({
           <motion.div
             key="panel"
             className="fixed z-[600] flex flex-col overflow-hidden
-              /* mobile: bottom sheet */
               bottom-0 left-0 right-0 max-h-[75dvh] rounded-t-2xl
-              /* desktop: right panel */
               md:bottom-0 md:top-0 md:left-auto md:right-0 md:w-[420px]
               md:max-h-none md:rounded-none"
             style={{
@@ -60,20 +58,42 @@ export function PinStory({
             exit={{ x: "100%", opacity: 0 }}
             transition={{ type: "spring", stiffness: 300, damping: 32 }}
           >
-            {/* Image */}
+            {/* Category-color shimmer border */}
+            <div
+              className="absolute top-0 left-0 right-0 h-[2px] pointer-events-none"
+              style={{
+                background: `linear-gradient(90deg, transparent 0%, ${meta.color} 50%, transparent 100%)`,
+                boxShadow: `0 0 18px 2px ${meta.glow}`,
+                zIndex: 1,
+              }}
+            />
+
+            {/* Image with Ken Burns + cross-fade */}
             <div className="relative h-52 md:h-64 shrink-0 overflow-hidden">
-              <Image
-                src={pin.imageUrl}
-                alt={pin.title}
-                fill
-                className="object-cover"
-                style={{ filter: "saturate(0.7) brightness(0.45)" }}
-              />
+              <AnimatePresence mode="sync">
+                <motion.div
+                  key={pin.id}
+                  className="absolute inset-0"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.55 }}
+                >
+                  <Image
+                    src={pin.imageUrl}
+                    alt={pin.title}
+                    fill
+                    className="object-cover ken-burns"
+                    style={{ filter: "saturate(0.7) brightness(0.45)" }}
+                  />
+                </motion.div>
+              </AnimatePresence>
+
               {/* Gradient over image */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent" />
 
               {/* Category badge */}
-              <div className="absolute top-4 left-4 flex items-center gap-2">
+              <div className="absolute top-4 left-4 flex items-center gap-2 z-10">
                 <span
                   className="w-2 h-2 rounded-full"
                   style={{ background: meta.color, boxShadow: `0 0 8px ${meta.glow}` }}
@@ -87,7 +107,7 @@ export function PinStory({
               <button
                 onClick={onClose}
                 className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center
-                  rounded-full bg-black/50 text-[var(--color-muted)]
+                  rounded-full bg-black/50 text-[var(--color-muted)] z-10
                   hover:text-[var(--color-parchment)] hover:bg-black/80
                   transition-all duration-200 backdrop-blur-sm"
               >
@@ -96,14 +116,20 @@ export function PinStory({
 
               {/* Year */}
               {pin.year && (
-                <span className="absolute bottom-4 right-4 text-caption text-[var(--color-muted)]">
+                <span className="absolute bottom-4 right-4 text-caption text-[var(--color-muted)] z-10">
                   {pin.year}
                 </span>
               )}
             </div>
 
-            {/* Content */}
-            <div className="flex-1 overflow-y-auto px-6 py-6">
+            {/* Content — fades + lifts on pin change */}
+            <motion.div
+              key={pin.id}
+              className="flex-1 overflow-y-auto px-6 py-6"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
+            >
               {/* City */}
               <p className="text-caption capitalize mb-2" style={{ color: meta.color }}>
                 {pin.city} · {pin.category.replace("-", " ")}
@@ -151,7 +177,7 @@ export function PinStory({
                   {pin.attribution}
                 </p>
               )}
-            </div>
+            </motion.div>
 
             {/* Navigation */}
             <div className="px-6 py-4 border-t border-white/5 flex items-center justify-between shrink-0">
