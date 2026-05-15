@@ -30,9 +30,9 @@ export function NavBar({ locale, messages }: NavBarProps) {
   const altLocale = locale === "en" ? "ja" : "en";
 
   const links = [
+    { href: `/${locale}/map`, label: "Map" },
     { href: `/${locale}/living`, label: messages.living },
     { href: `/${locale}/cities/tokyo`, label: messages.cities },
-    { href: `/${locale}/moments`, label: messages.stories },
     { href: `/${locale}/community`, label: messages.community },
   ];
 
