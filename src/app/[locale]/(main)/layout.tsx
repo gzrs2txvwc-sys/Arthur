@@ -21,6 +21,7 @@ export default async function MainLayout({
       <NavBar
         locale={locale}
         messages={{
+          map: nav.map ?? "Map",
           living: nav.living ?? "Living",
           cities: nav.cities ?? "Cities",
           stories: nav.stories ?? "Stories",

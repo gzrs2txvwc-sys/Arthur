@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 interface NavBarProps {
   locale: string;
   messages: {
+    map: string;
     living: string;
     cities: string;
     stories: string;
@@ -130,7 +131,7 @@ export function NavBar({ locale, messages }: NavBarProps) {
   const prefix = locale === "en" ? "" : `/${locale}`;
 
   const links = [
-    { href: `${prefix}/map`, label: "Map" },
+    { href: `${prefix}/map`, label: messages.map },
     { href: `${prefix}/living`, label: messages.living },
     { href: `${prefix}/cities/tokyo`, label: messages.cities },
     { href: `${prefix}/community`, label: messages.community },

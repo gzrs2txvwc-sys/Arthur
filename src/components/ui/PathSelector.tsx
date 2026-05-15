@@ -15,12 +15,15 @@ export interface PathTranslations {
   recommended: string;
 }
 
+export type WorldTranslationMap = Record<string, { title: string; category: string }>;
+
 interface PathSelectorProps {
   locale: string;
   labelText: string;
   titleText: string;
   subtitleText: string;
   pathTranslations: PathTranslations;
+  worldTranslations: WorldTranslationMap;
 }
 
 export function PathSelector({
@@ -29,6 +32,7 @@ export function PathSelector({
   titleText,
   subtitleText,
   pathTranslations,
+  worldTranslations,
 }: PathSelectorProps) {
   const [selected, setSelected] = useState<PathId | null>(null);
 
@@ -175,13 +179,13 @@ export function PathSelector({
                         opacity: 0.8,
                       }}
                     >
-                      {world.category}
+                      {worldTranslations[world.id]?.category ?? world.category}
                     </span>
                     <p
                       className="font-display font-light text-[var(--color-parchment)] leading-snug"
                       style={{ fontSize: "0.9rem" }}
                     >
-                      {world.title}
+                      {worldTranslations[world.id]?.title ?? world.title}
                     </p>
                   </div>
                   <div
