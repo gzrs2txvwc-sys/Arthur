@@ -377,6 +377,67 @@ export const mapPins: MapPin[] = [
     year: "2022",
     tags: ["kyoto", "cycling", "kamo-river", "hidden", "practical"],
   },
+  // ── NEW: Raw human traces ──────────────────────────
+  {
+    id: "3am-familymart",
+    coordinates: [35.6938, 139.7034],
+    category: "loneliness",
+    city: "tokyo",
+    title: "3 AM at FamilyMart",
+    subtitle: "The night I understood why people stay",
+    story:
+      "The first time I cried in Japan it was 3am in FamilyMart. I was buying onigiri. The cashier said thank you — that perfect, automatic ありがとうございます — and I realized I hadn't spoken to another person in four days. Not really spoken. Not made actual eye contact. The fluorescent light was making everything look surgical. I paid, walked outside, sat on the curb by the magazine stand, and ate the onigiri in the cold. A salaryman walked past without looking at me. A couple walked past without looking at me. I was completely invisible. I thought: this is either the worst thing about Japan or the best thing, and I genuinely cannot tell which.",
+    imageUrl:
+      "https://images.unsplash.com/photo-1580822184713-fc5400e7fe10?w=800&q=75",
+    attribution: "Submitted anonymously, Tokyo",
+    year: "2023",
+    tags: ["3am", "convenience store", "invisible", "loneliness", "shinjuku"],
+  },
+  {
+    id: "two-ramens-kyoto",
+    coordinates: [34.9024, 135.7581],
+    category: "memory",
+    city: "kyoto",
+    title: "Two Ramens in Fushimi",
+    subtitle: "What happens when you order wrong and aren't allowed to admit it",
+    story:
+      "I ordered 二つ when I meant 一つ. It was midnight. The chef was older, wearing a headband, not the kind of person you explain mistakes to. He brought both bowls without any expression and placed them side by side. The steam rose between them. I understood: this was happening. I ate both ramens alone at the counter. The second one got cold halfway through. Nobody said anything. I paid for both and bowed deeply at the door. The chef nodded once. I walked into the Kyoto night feeling both ridiculous and, strangely, like I had passed some kind of test.",
+    imageUrl:
+      "https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=800&q=75",
+    attribution: "R., 2 years in Kyoto",
+    year: "2022",
+    tags: ["midnight", "ramen", "mistake", "alone", "fushimi"],
+  },
+  {
+    id: "unnamed-on-the-yamanote",
+    coordinates: [35.7298, 139.7110],
+    category: "loneliness",
+    city: "tokyo",
+    title: "Three Months Without My Name",
+    subtitle: "What the Yamanote taught me about disappearing",
+    story:
+      "Three months in, I realized I hadn't heard my name spoken by anyone in Japan. People called me sumimasen when they needed to get past me. Sometimes they didn't say anything at all — just a small movement, a suggestion, and I understood to move. You can become completely unnamed here. Not ignored, exactly. Just unnamed. It changes something in you slowly. I started introducing myself more aggressively, pushing my name into conversations. Then I stopped. Then I bought a notebook and wrote my own name on the first page. Just to see it. I still don't know what that was about.",
+    imageUrl:
+      "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800&q=75",
+    attribution: "Tobias H., first year in Tokyo",
+    year: "2023",
+    tags: ["identity", "unnamed", "yamanote", "invisible", "ikebukuro"],
+  },
+  {
+    id: "osaka-wifi-call",
+    coordinates: [34.6652, 135.5009],
+    category: "milestone",
+    city: "osaka",
+    title: "The McDonald's Call",
+    subtitle: "The first phone call home from Japan — and everything it couldn't hold",
+    story:
+      "The first time I called my mother from Osaka I was in a McDonald's because the wifi was free and I'd spent two hours trying to connect at the guesthouse. She asked if I was making friends. I said yes because I knew she wouldn't understand 'I'm making acquaintances and the distinction matters enormously here.' She asked if I was eating properly. I said yes, holding a teriyaki burger. She said she was proud of me. I said thank you and didn't tell her I'd cried twice that week and couldn't really explain why. There are things that don't travel over WiFi even when the connection is good.",
+    imageUrl:
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&q=75",
+    attribution: "Marta P., 18 months in Osaka",
+    year: "2021",
+    tags: ["calling home", "family", "loneliness", "namba", "wifi"],
+  },
 ];
 
 export const mapCenter: [number, number] = [36.5, 137.5];

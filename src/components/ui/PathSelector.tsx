@@ -6,37 +6,69 @@ import Link from "next/link";
 import { worlds, paths } from "@/lib/worlds";
 import type { PathId } from "@/lib/worlds";
 
+export interface PathTranslations {
+  student: { label: string; description: string };
+  work: { label: string; description: string };
+  travel: { label: string; description: string };
+  lost: { label: string; description: string };
+  culture: { label: string; description: string };
+  recommended: string;
+}
+
 interface PathSelectorProps {
   locale: string;
   labelText: string;
   titleText: string;
   subtitleText: string;
+  pathTranslations: PathTranslations;
 }
 
-export function PathSelector({ locale, labelText, titleText, subtitleText }: PathSelectorProps) {
+export function PathSelector({
+  locale,
+  labelText,
+  titleText,
+  subtitleText,
+  pathTranslations,
+}: PathSelectorProps) {
   const [selected, setSelected] = useState<PathId | null>(null);
 
   const selectedPath = selected ? paths.find((p) => p.id === selected) : null;
   const recommendedWorlds = selectedPath
-    ? selectedPath.worldIds.map((id) => worlds.find((w) => w.id === id)).filter(Boolean)
+    ? selectedPath.worldIds
+        .map((id) => worlds.find((w) => w.id === id))
+        .filter(Boolean)
     : [];
+
+  function getPathLabel(id: PathId): string {
+    return pathTranslations[id].label;
+  }
+
+  function getPathDesc(id: PathId): string {
+    return pathTranslations[id].description;
+  }
 
   return (
     <div>
       {/* Header */}
-      <p className="text-caption text-[var(--color-sand)] mb-3 tracking-[0.2em]">{labelText}</p>
-      <h2 className="text-display-lg text-[var(--color-parchment)] mb-2">{titleText}</h2>
-      <p className="text-[var(--color-muted)] mb-10 text-sm leading-relaxed">{subtitleText}</p>
+      <p className="text-caption text-[var(--color-sand)] mb-3 tracking-[0.2em]">
+        {labelText}
+      </p>
+      <h2 className="text-display-lg text-[var(--color-parchment)] mb-2">
+        {titleText}
+      </h2>
+      <p className="text-[var(--color-muted)] mb-10 text-sm leading-relaxed max-w-xl">
+        {subtitleText}
+      </p>
 
       {/* Path cards */}
-      <div className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1 scrollbar-none">
+      <div className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1" style={{ scrollbarWidth: "none" }}>
         {paths.map((path) => {
           const isSelected = selected === path.id;
           return (
             <button
               key={path.id}
               onClick={() => setSelected(isSelected ? null : path.id)}
-              className="flex-shrink-0 text-left transition-all duration-300"
+              className="flex-shrink-0 text-left"
               style={{
                 width: "200px",
                 padding: "20px 18px",
@@ -49,23 +81,22 @@ export function PathSelector({ locale, labelText, titleText, subtitleText }: Pat
               }}
               onMouseEnter={(e) => {
                 if (!isSelected) {
-                  (e.currentTarget as HTMLElement).style.borderLeftColor = `${path.color}60`;
-                  (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.04)";
+                  const el = e.currentTarget as HTMLElement;
+                  el.style.borderLeftColor = `${path.color}60`;
+                  el.style.background = "rgba(255,255,255,0.04)";
                 }
               }}
               onMouseLeave={(e) => {
                 if (!isSelected) {
-                  (e.currentTarget as HTMLElement).style.borderLeftColor = "rgba(200,184,154,0.12)";
-                  (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.02)";
+                  const el = e.currentTarget as HTMLElement;
+                  el.style.borderLeftColor = "rgba(200,184,154,0.12)";
+                  el.style.background = "rgba(255,255,255,0.02)";
                 }
               }}
             >
-              {/* Icon */}
               <span className="block text-2xl mb-3" aria-hidden="true">
                 {path.icon}
               </span>
-
-              {/* Label */}
               <p
                 className="font-display font-light leading-snug mb-2"
                 style={{
@@ -74,28 +105,21 @@ export function PathSelector({ locale, labelText, titleText, subtitleText }: Pat
                   transition: "color 0.2s",
                 }}
               >
-                {path.label}
+                {getPathLabel(path.id)}
               </p>
-
-              {/* Description */}
               <p
                 className="text-[var(--color-muted)] leading-snug"
                 style={{ fontSize: "0.72rem" }}
               >
-                {path.description}
+                {getPathDesc(path.id)}
               </p>
-
-              {/* Selected indicator */}
               {isSelected && (
                 <div
                   className="mt-4 flex items-center gap-1"
                   style={{ fontSize: "9px", letterSpacing: "0.1em", color: path.color }}
                 >
-                  <span
-                    className="w-1.5 h-1.5 rounded-full"
-                    style={{ background: path.color }}
-                  />
-                  SELECTED
+                  <span className="w-1.5 h-1.5 rounded-full" style={{ background: path.color }} />
+                  ▸
                 </div>
               )}
             </button>
@@ -105,15 +129,18 @@ export function PathSelector({ locale, labelText, titleText, subtitleText }: Pat
 
       {/* Recommended worlds strip */}
       {selectedPath && recommendedWorlds.length > 0 && (
-        <div className="mt-8">
+        <div className="mt-10">
           <p
-            className="text-caption mb-4"
-            style={{ color: selectedPath.color, opacity: 0.8 }}
+            className="text-caption mb-5"
+            style={{ color: selectedPath.color, opacity: 0.75 }}
           >
-            Recommended for your situation
+            {pathTranslations.recommended}
           </p>
 
-          <div className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1 scrollbar-none">
+          <div
+            className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1"
+            style={{ scrollbarWidth: "none" }}
+          >
             {recommendedWorlds.map((world) => {
               if (!world) return null;
               const href = locale === "en" ? world.path : `/${locale}${world.path}`;
@@ -122,21 +149,20 @@ export function PathSelector({ locale, labelText, titleText, subtitleText }: Pat
                   key={world.id}
                   href={href}
                   className="flex-shrink-0 relative overflow-hidden block group"
-                  style={{ width: "220px", height: "140px" }}
+                  style={{ width: "220px", height: "150px" }}
                 >
                   <Image
                     src={world.imageUrl}
                     alt={world.title}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    style={{
-                      filter: "saturate(0.65) brightness(0.45)",
-                    }}
+                    style={{ filter: "saturate(0.65) brightness(0.45)" }}
                   />
                   <div
                     className="absolute inset-0"
                     style={{
-                      background: "linear-gradient(to top, rgba(10,10,10,0.92) 0%, transparent 55%)",
+                      background:
+                        "linear-gradient(to top, rgba(10,10,10,0.92) 0%, transparent 55%)",
                     }}
                   />
                   <div className="absolute inset-0 p-4 flex flex-col justify-end">
@@ -158,7 +184,6 @@ export function PathSelector({ locale, labelText, titleText, subtitleText }: Pat
                       {world.title}
                     </p>
                   </div>
-                  {/* hover border */}
                   <div
                     className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                     style={{ border: `1px solid ${selectedPath.color}40` }}
