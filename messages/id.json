@@ -54,6 +54,74 @@
     "community_cta_body": "Platform berkembang melalui pengalaman nyata. Jika Anda pernah tinggal, bekerja, atau belajar di Jepang, cerita Anda milik di sini.",
     "community_cta_button": "Hubungi kami"
   },
+  "survival": {
+    "address-circle": {
+      "title": "Di Jepang, prosedur dokumen punya urutan yang ketat",
+      "hook": "Kantor kota dulu. Sisanya terkunci di belakangnya.",
+      "body": "Tanpa kartu residen, tidak bisa membuka rekening bank. Tanpa mendaftarkan alamat di kantor kota, tidak bisa dapat kartu residen. Tanpa paspor dan visa, kantor kota tidak menerima. Urutannya: tiba → kantor kota → kartu residen → rekening bank → semuanya. Salah urutan bisa buang waktu berminggu-minggu."
+    },
+    "three-month-wall": {
+      "title": "Bulan ketiga adalah saat banyak orang hampir menyerah",
+      "hook": "Kebaruan berakhir. Kesepian dimulai. Tapi bisa dilewati.",
+      "body": "Beberapa minggu pertama adalah adrenalin. Semuanya baru dan cukup menarik untuk membawa Anda maju. Sekitar bulan ketiga, adrenalin habis dan kenyataan datang: belum punya teman dekat, bahasa Jepang tidak bekerja seperti yang diharapkan, dan kota ini acuh. Ini normal. Hampir semua orang mengalaminya. Yang bertahan adalah yang sudah tahu hari itu akan datang."
+    },
+    "silence-not-disapproval": {
+      "title": "Diam bukan berarti tidak setuju",
+      "hook": "Mereka sedang berpikir. Bukan menolak Anda.",
+      "body": "Di banyak budaya Barat, diam dalam percakapan berarti ada yang salah. Di Jepang, jeda panjang sebelum seseorang menjawab sering berarti mereka menganggap serius pertanyaan Anda. Terburu-buru mengisi keheningan terlihat seperti menolak keseriusan mereka. Biarkan bernapas. Jawaban akan datang."
+    },
+    "keigo-hierarchy": {
+      "title": "Berbicara santai ke orang yang lebih senior menandakan tidak hormat",
+      "hook": "Salah register bukan hanya kesalahan tata bahasa. Itu kesalahan sosial.",
+      "body": "Bahasa Jepang punya keigo yang digunakan dengan atasan, guru, orang asing, dan siapa pun yang lebih tua. Menggunakan bahasa santai kepada senpai atau manajer seperti memanggil profesor dengan nama depan di hari pertama — itu berarti mengklaim posisi setara. Tidak ada yang akan menegur langsung. Mereka hanya akan semakin formal dan semakin jauh. Pelajari keigo lebih awal, meski belum sempurna."
+    },
+    "eating-alone": {
+      "title": "Makan sendirian di sini bukan hal menyedihkan. Itu infrastruktur.",
+      "hook": "Kursi counter ada dengan alasan.",
+      "body": "Jepang punya seluruh budaya yang dibangun untuk makan sendirian. Toko ramen punya kursi counter khusus untuk pelanggan sendiri. Kebanyakan sushi bar dirancang untuk satu orang. Konbini ada agar Anda bisa makan sepiring penuh sambil berdiri jam 11 malam tanpa ada yang berpikir aneh. Anda tidak akan pernah merasa dihakimi karena makan sendirian di Jepang. Ini mungkin negara paling nyaman di dunia untuk kesendirian."
+    },
+    "konbini-infrastructure": {
+      "title": "Toko serba ada bukan hanya toko serba ada",
+      "hook": "Itu bank, apotek, kantor pos, makanan panas, dan zona netral sosial.",
+      "body": "Anda bisa membayar tagihan listrik di konbini. Menarik uang tunai (ATM 7-Eleven menerima kartu asing; sebagian besar ATM Jepang tidak). Mengirim paket, mencetak dokumen, membeli obat, makan makanan panas lengkap, dan duduk di meja tanpa ada yang menyuruh Anda pergi. Di kota dengan ruang duduk publik yang langka, konbini adalah infrastruktur."
+    },
+    "line-not-optional": {
+      "title": "LINE bukan pilihan",
+      "hook": "Jika majikan, sekolah, atau teman Anda orang Jepang, pakai LINE atau Anda akan dikucilkan.",
+      "body": "Jepang berjalan dengan LINE seperti Amerika dengan iMessage dan Eropa dengan WhatsApp. Grup kerja, pengumuman sekolah, koordinasi acara, komunikasi sewa apartemen — semuanya terjadi di LINE. Tidak punya atau jarang cek berarti melewatkan banyak hal. Ada juga norma waktu: pesan yang dikirim malam biasanya dibalas keesokan paginya, bukan langsung. Tanda baca terbaca terlihat, yang menciptakan tekanan sosialnya sendiri."
+    },
+    "foreigner-network": {
+      "title": "Ada jaringan orang asing. Hanya perlu usaha untuk menemukannya.",
+      "hook": "Ada di setiap kota. Itulah perbedaan antara bertahan dan merasa memiliki.",
+      "body": "Setiap kota besar Jepang punya komunitas warga asing jangka panjang yang saling tumpang tindih — grup Facebook, pertukaran bahasa, bar internasional yang jadi pusat komunitas, pertemanan nyata dari thread Reddit. Jaringan ini terasa seperti rencana cadangan dari 'benar-benar hidup di Jepang', tapi inilah tempat sebagian besar orang menemukan pijakan. Teman Jepang pertama sering datang setelah teman warga asing memberikan kepercayaan diri untuk mencoba."
+    }
+  },
+  "voices": {
+    "sarah-tokyo": {
+      "quote": "Tidak ada yang bilang bahwa bagian tersulit hidup di Tokyo bukan bahasanya — tapi menemukan konbini milikmu. Begitu kamu punya itu, kamu punya rumah.",
+      "role": "Guru Bahasa Inggris"
+    },
+    "marcus-kyoto": {
+      "quote": "Aku pindah ke Kyoto untuk program riset dan tinggal karena pagi harinya. Jam 6 pagi, sebelum grup wisata datang, kota ini milikmu dengan cara yang terasa hampir tidak adil.",
+      "role": "Mahasiswa PhD"
+    },
+    "priya-osaka": {
+      "quote": "Osaka adalah tempat pertama di luar India di mana orang asing berbicara padaku saat antri di restoran. Bukan obrolan wisata. Obrolan sungguhan. Tentang makanan, tentang lingkungan, tentang asal usulku. Aku tidak menyangka itu.",
+      "role": "UX Designer"
+    },
+    "james-tokyo": {
+      "quote": "Kesepian datang di tahun kedua. Tahun pertama adalah euforia, tahun kedua adalah kenyataan. Yang membantu adalah menemukan Shimokitazawa — kawasan itu menyelamatkanku. Terasa seperti tempat yang memberi ruang bagi orang-orang ganjil.",
+      "role": "Software Engineer"
+    },
+    "elena-kyoto": {
+      "quote": "Gagal JLPT N4 dua kali sebelum aku sadar bahwa aku belajar untuk ujian, bukan untuk kehidupan. Hari aku berhenti belajar dan mulai berbicara dengan tetanggaku, segalanya berubah.",
+      "role": "Pelajar Bahasa Jepang"
+    },
+    "david-osaka": {
+      "quote": "Menemukan apartemenku di Osaka butuh empat bulan dan tiga penolakan karena aku orang asing. Ketika akhirnya dapat tempat di Namba, pemilik rumah minta maaf dan mengajakku makan kushikatsu. Jepang akan mematahkan hatimu lalu memberimu makan.",
+      "role": "Koki"
+    }
+  },
   "worlds": {
     "emotional-map": {
       "title": "Peta Emosi",

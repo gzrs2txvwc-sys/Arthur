@@ -25,6 +25,8 @@ export default async function HomePage({
   const { locale } = await params;
   const t = await getTranslations("home");
   const tw = await getTranslations("worlds");
+  const ts = await getTranslations("survival");
+  const tv = await getTranslations("voices");
 
   const worldTranslations = Object.fromEntries(
     ["emotional-map","tonight-tokyo","three-month-wall","language-keigo","visa-paperwork",
@@ -38,10 +40,22 @@ export default async function HomePage({
     ])
   );
 
+  const localizedSurvivalTruths = survivalTruths.map((truth) => ({
+    ...truth,
+    title: ts(`${truth.id as "address-circle"}.title`),
+    hook: ts(`${truth.id as "address-circle"}.hook`),
+    body: ts(`${truth.id as "address-circle"}.body`),
+  }));
+
+  const localizedVoices = communityVoices.slice(0, 3).map((v) => ({
+    ...v,
+    person: { ...v.person, role: tv(`${v.id as "sarah-tokyo"}.role`) },
+    quote: tv(`${v.id as "sarah-tokyo"}.quote`),
+  }));
+
   const cities = getAllCities();
   const experiences = getAllExperiences();
   const moments = getAllMoments().slice(0, 3);
-  const voices = communityVoices.slice(0, 3);
 
   return (
     <>
@@ -176,7 +190,7 @@ export default async function HomePage({
           className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/5"
           staggerDelay={0.08}
         >
-          {survivalTruths.map((truth) => (
+          {localizedSurvivalTruths.map((truth) => (
             <StaggerItem key={truth.id}>
               <SurvivalCard truth={truth} />
             </StaggerItem>
@@ -200,7 +214,7 @@ export default async function HomePage({
           className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/5"
           staggerDelay={0.1}
         >
-          {voices.map((voice, i) => (
+          {localizedVoices.map((voice, i) => (
             <StaggerItem key={voice.id}>
               <CommunityVoice voice={voice} accent={i === 1} />
             </StaggerItem>

@@ -54,6 +54,74 @@
     "community_cta_body": "La plataforma crece a través de experiencias reales. Si has vivido, trabajado o estudiado en Japón, tu historia pertenece aquí.",
     "community_cta_button": "Contáctanos"
   },
+  "survival": {
+    "address-circle": {
+      "title": "En Japón, los trámites tienen un orden estricto",
+      "hook": "Primero el Ayuntamiento. Todo lo demás está bloqueado detrás.",
+      "body": "Sin tarjeta de residencia, no puedes abrir una cuenta bancaria. Sin registrar tu dirección en el Ayuntamiento, no obtienes la tarjeta de residencia. Sin pasaporte y visa, el Ayuntamiento no te atiende. El orden es: llegar → Ayuntamiento → tarjeta de residencia → cuenta bancaria → todo lo demás. Hacerlo en orden incorrecto puede costarte semanas."
+    },
+    "three-month-wall": {
+      "title": "El tercer mes es cuando la mayoría casi se rinde",
+      "hook": "La novedad termina. La soledad empieza. Es superable.",
+      "body": "Las primeras semanas son adrenalina. Todo es nuevo e interesante, suficiente para mantenerte en marcha. Alrededor del tercer mes, la adrenalina se acaba y la realidad llega: no tienes amigos cercanos todavía, tu japonés no funciona como esperabas, y la ciudad es indiferente. Esto es normal. Casi todo el mundo lo atraviesa. Los que se quedan son los que sabían que ese día llegaría."
+    },
+    "silence-not-disapproval": {
+      "title": "El silencio no es desaprobación",
+      "hook": "Están pensando. No rechazándote.",
+      "body": "En muchas culturas occidentales, el silencio en una conversación significa que algo va mal. En Japón, una larga pausa antes de responder a menudo significa que están tomando tu pregunta en serio. Apresurarse a llenar el silencio parece ansiedad y puede hacer que la otra persona sienta que su reflexión no es bienvenida. Déjalo respirar. La respuesta llega."
+    },
+    "keigo-hierarchy": {
+      "title": "Usar japonés casual con mayores es señal de que no respetas la jerarquía",
+      "hook": "Los errores de registro no son solo errores gramaticales. Son errores sociales.",
+      "body": "El japonés tiene registros formales (keigo) que se usan con jefes, profesores, desconocidos, y cualquiera mayor. Usar el registro informal con un senpai o gerente es como llamar a tu profesor por su nombre el primer día — estás reclamando igualdad. Nadie te corregirá directamente. Solo se volverán un poco más formales y un poco más distantes. Aprende keigo pronto, aunque sea imperfectamente."
+    },
+    "eating-alone": {
+      "title": "Comer solo aquí no es triste. Es infraestructura.",
+      "hook": "Los asientos en la barra existen por una razón.",
+      "body": "Japón tiene toda una cultura construida alrededor de comer solo. Los ramen tienen asientos en la barra específicamente para comensales individuales. La mayoría de los bares de sushi están diseñados para uno. Las tiendas de conveniencia existen para que puedas comer una comida completa de pie a las 11pm sin que nadie piense nada. Nunca te sentirás juzgado por comer solo en Japón. Puede ser el país más cómodo del mundo para la soledad."
+    },
+    "konbini-infrastructure": {
+      "title": "La tienda de conveniencia no es una tienda de conveniencia",
+      "hook": "Es un banco, una farmacia, una oficina de correos, una comida caliente, y una zona neutral social.",
+      "body": "Puedes pagar tu factura de electricidad en un konbini. Sacar efectivo (los cajeros de 7-Eleven aceptan tarjetas extranjeras; la mayoría de los cajeros japoneses no). Enviar paquetes, imprimir documentos, comprar medicamentos, comer una comida caliente completa, y sentarte en una mesa sin que nadie te pida que te vayas. En una ciudad donde el espacio público para sentarse escasea, el konbini es infraestructura."
+    },
+    "line-not-optional": {
+      "title": "LINE no es opcional",
+      "hook": "Si tu empleador, escuela o amigos son japoneses, usarás LINE o quedarás excluido.",
+      "body": "Japón funciona con LINE como Estados Unidos funciona con iMessage y Europa con WhatsApp. Grupos de trabajo, anuncios escolares, coordinación de eventos, comunicación del contrato de arrendamiento — todo sucede en LINE. No tenerlo o revisarlo poco significa perderse cosas. También hay una norma de tiempo: los mensajes enviados por la noche generalmente se responden a la mañana siguiente, no de inmediato. Los recibos de lectura son visibles, lo que crea su propia presión social."
+    },
+    "foreigner-network": {
+      "title": "Existe una red de extranjeros. Solo hace falta esfuerzo para encontrarla.",
+      "hook": "Existe en cada ciudad. Es la diferencia entre sobrevivir y pertenecer.",
+      "body": "Cada ciudad importante de Japón tiene comunidades superpuestas de residentes extranjeros a largo plazo — grupos de Facebook, intercambios de idiomas, bares internacionales que se convirtieron en centros comunitarios, amistades reales nacidas de hilos de Reddit. Estas redes parecen secundarias para 'vivir de verdad en Japón', pero es donde la mayoría encuentra su lugar. Tus primeros amigos japoneses suelen llegar después de que los amigos residentes extranjeros te den la confianza para intentarlo."
+    }
+  },
+  "voices": {
+    "sarah-tokyo": {
+      "quote": "Nadie me dijo que la parte más difícil de vivir en Tokio no es el idioma — es encontrar tu tienda de conveniencia. Una vez que la tienes, tienes un hogar.",
+      "role": "Profesora de inglés"
+    },
+    "marcus-kyoto": {
+      "quote": "Me mudé a Kioto por un programa de investigación y me quedé por las mañanas. A las 6am, antes de que lleguen los grupos de turistas, esta ciudad es tuya de una manera que se siente casi injusta.",
+      "role": "Estudiante de doctorado"
+    },
+    "priya-osaka": {
+      "quote": "Osaka es el primer lugar fuera de India donde un extraño me habló en la fila de un restaurante. No fue charla de turista. Fue conversación real. Sobre la comida, sobre el barrio, sobre de dónde era. No lo esperaba.",
+      "role": "Diseñadora UX"
+    },
+    "james-tokyo": {
+      "quote": "La soledad llegó en el año dos. El año uno es euforia, el año dos es realidad. Lo que ayudó fue descubrir Shimokitazawa — ese barrio me salvó. Se sentía como un lugar que hacía espacio para la gente rara.",
+      "role": "Ingeniero de software"
+    },
+    "elena-kyoto": {
+      "quote": "Reprobé el JLPT N4 dos veces antes de darme cuenta de que estaba estudiando para un examen, no para una vida. El día que dejé de estudiar y simplemente empecé a hablar con mi vecino, todo cambió.",
+      "role": "Estudiante de japonés"
+    },
+    "david-osaka": {
+      "quote": "Encontrar mi apartamento en Osaka me llevó cuatro meses y tres rechazos por ser extranjero. Cuando finalmente conseguí el lugar en Namba, el propietario se disculpó y me llevó a comer kushikatsu. Japón te rompe el corazón y luego te alimenta.",
+      "role": "Chef"
+    }
+  },
   "worlds": {
     "emotional-map": {
       "title": "El Mapa Emocional",

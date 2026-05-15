@@ -54,6 +54,74 @@
     "community_cta_body": "Nền tảng phát triển qua những trải nghiệm thực tế. Nếu bạn đã sống, làm việc hoặc học tập ở Nhật Bản, câu chuyện của bạn thuộc về đây.",
     "community_cta_button": "Liên hệ"
   },
+  "survival": {
+    "address-circle": {
+      "title": "Ở Nhật Bản, thủ tục giấy tờ có thứ tự nghiêm ngặt",
+      "hook": "Đến Tòa thị chính trước. Mọi thứ khác đều bị khóa sau đó.",
+      "body": "Không có thẻ cư trú, không thể mở tài khoản ngân hàng. Không đăng ký địa chỉ tại Tòa thị chính, không có thẻ cư trú. Không có hộ chiếu và thị thực, Tòa thị chính không tiếp nhận. Thứ tự là: đến → Tòa thị chính → thẻ cư trú → tài khoản ngân hàng → mọi thứ khác. Làm sai thứ tự có thể mất cả tuần."
+    },
+    "three-month-wall": {
+      "title": "Tháng thứ ba là lúc nhiều người sụp đổ",
+      "hook": "Sự mới mẻ kết thúc. Sự cô đơn bắt đầu. Nhưng có thể vượt qua được.",
+      "body": "Những tuần đầu là adrenaline. Mọi thứ đều mới lạ và đủ thú vị để kéo bạn đi. Khoảng tháng thứ ba, adrenaline cạn kiệt và thực tế ập đến: chưa có bạn thân nào, tiếng Nhật không hiệu quả như mong đợi, và thành phố thờ ơ với bạn. Điều này là bình thường. Hầu hết mọi người đều trải qua. Những người ở lại là những người đã biết ngày đó sẽ đến."
+    },
+    "silence-not-disapproval": {
+      "title": "Im lặng không phải là từ chối",
+      "hook": "Họ đang suy nghĩ. Không phải đang từ chối bạn.",
+      "body": "Trong nhiều nền văn hóa phương Tây, im lặng trong cuộc trò chuyện có nghĩa là có điều gì đó không ổn. Ở Nhật Bản, một khoảng dừng dài trước khi trả lời thường có nghĩa là họ đang coi trọng câu hỏi của bạn. Vội vàng lấp đầy sự im lặng trông như thể bạn đang từ chối sự suy nghĩ cẩn thận của họ. Hãy để nó thở. Câu trả lời đang đến."
+    },
+    "keigo-hierarchy": {
+      "title": "Nói tiếng Nhật thông thường với người lớn hơn là thiếu tôn trọng",
+      "hook": "Sai ngôn ngữ không chỉ là lỗi ngữ pháp. Đó là lỗi xã hội.",
+      "body": "Tiếng Nhật có kính ngữ dùng với sếp, thầy giáo, người lạ, và người lớn tuổi. Dùng ngôn ngữ thông thường với senpai hoặc quản lý giống như gọi giáo sư bằng tên từ ngày đầu — tức là tự đặt mình ngang hàng. Không ai sẽ sửa bạn trực tiếp. Họ chỉ trở nên trang trọng hơn và xa cách hơn một chút. Hãy học kính ngữ sớm, dù chưa hoàn hảo."
+    },
+    "eating-alone": {
+      "title": "Ăn một mình ở đây không buồn. Đó là cơ sở hạ tầng.",
+      "hook": "Ghế quầy tồn tại vì lý do đó.",
+      "body": "Nhật Bản có cả một nền văn hóa được xây dựng xung quanh việc ăn một mình. Quán ramen có ghế quầy dành riêng cho khách đơn lẻ. Hầu hết sushi bar được thiết kế cho một người. Cửa hàng tiện lợi tồn tại để bạn có thể ăn một bữa đầy đủ lúc 11 giờ đêm trong khi đứng mà không ai nghĩ gì. Bạn sẽ không bao giờ cảm thấy bị xét xử vì ăn một mình ở Nhật. Đây có thể là đất nước thoải mái nhất thế giới cho sự cô độc."
+    },
+    "konbini-infrastructure": {
+      "title": "Cửa hàng tiện lợi không chỉ là cửa hàng tiện lợi",
+      "hook": "Đó là ngân hàng, nhà thuốc, bưu điện, bữa ăn nóng, và vùng trung lập xã hội.",
+      "body": "Bạn có thể thanh toán hóa đơn điện tại konbini. Rút tiền mặt (ATM 7-Eleven chấp nhận thẻ nước ngoài; hầu hết ATM Nhật không chấp nhận). Gửi bưu kiện, in tài liệu, mua thuốc, ăn một bữa đầy đủ, và ngồi ở bàn mà không ai thúc bạn đi. Trong một thành phố thiếu không gian ngồi công cộng, konbini là cơ sở hạ tầng."
+    },
+    "line-not-optional": {
+      "title": "LINE không phải lựa chọn",
+      "hook": "Nếu người thuê, trường học hay bạn bè của bạn là người Nhật, bạn dùng LINE hoặc bị loại trừ.",
+      "body": "Nhật Bản chạy bằng LINE như Mỹ chạy bằng iMessage và châu Âu chạy bằng WhatsApp. Nhóm công việc, thông báo trường học, phối hợp sự kiện, liên lạc thuê nhà — tất cả xảy ra trên LINE. Không có hoặc kiểm tra ít đồng nghĩa với việc bỏ lỡ mọi thứ. Cũng có quy tắc về thời gian: tin nhắn gửi tối nói chung được trả lời vào sáng hôm sau, không phải ngay lập tức. Đã đọc hiển thị, tạo ra áp lực xã hội riêng."
+    },
+    "foreigner-network": {
+      "title": "Có mạng lưới người nước ngoài. Chỉ cần nỗ lực để tìm.",
+      "hook": "Có ở mọi thành phố. Đó là sự khác biệt giữa tồn tại và thuộc về.",
+      "body": "Mọi thành phố lớn của Nhật đều có các cộng đồng người nước ngoài dài hạn chồng chéo — nhóm Facebook, giao lưu ngôn ngữ, quán bar quốc tế trở thành trung tâm cộng đồng, tình bạn từ Reddit threads. Những mạng lưới này có vẻ là kế hoạch dự phòng cho 'thực sự sống ở Nhật', nhưng đây là nơi hầu hết mọi người tìm thấy chỗ đứng. Người bạn Nhật đầu tiên thường xuất hiện sau khi bạn bè người nước ngoài đã cho bạn sự tự tin để thử."
+    }
+  },
+  "voices": {
+    "sarah-tokyo": {
+      "quote": "Không ai nói với tôi rằng phần khó nhất khi sống ở Tokyo không phải là ngôn ngữ — mà là tìm cửa hàng tiện lợi của riêng mình. Một khi tìm được, bạn có nhà.",
+      "role": "Giáo viên tiếng Anh"
+    },
+    "marcus-kyoto": {
+      "quote": "Tôi đến Kyoto vì chương trình nghiên cứu và ở lại vì những buổi sáng. Lúc 6 giờ sáng, trước khi đoàn khách du lịch đến, thành phố này thuộc về bạn theo cách gần như không công bằng.",
+      "role": "Nghiên cứu sinh tiến sĩ"
+    },
+    "priya-osaka": {
+      "quote": "Osaka là nơi đầu tiên bên ngoài Ấn Độ mà người lạ chủ động nói chuyện với tôi khi xếp hàng ở nhà hàng. Không phải nói chuyện kiểu du lịch. Nói chuyện thật. Về thức ăn, về khu phố, về tôi đến từ đâu. Tôi không ngờ điều đó.",
+      "role": "UX Designer"
+    },
+    "james-tokyo": {
+      "quote": "Sự cô đơn ập đến vào năm thứ hai. Năm đầu là hưng phấn, năm hai là thực tế. Điều giúp tôi là tìm ra Shimokitazawa — khu phố đó cứu tôi. Nó có cảm giác là nơi dành cho những người kỳ lạ.",
+      "role": "Kỹ sư phần mềm"
+    },
+    "elena-kyoto": {
+      "quote": "Thi JLPT N4 hai lần trượt trước khi tôi nhận ra mình đang học để thi, không phải để sống. Ngày tôi ngừng học và bắt đầu nói chuyện với hàng xóm, mọi thứ thay đổi.",
+      "role": "Học viên tiếng Nhật"
+    },
+    "david-osaka": {
+      "quote": "Tìm căn hộ ở Osaka mất bốn tháng và ba lần bị từ chối vì tôi là người nước ngoài. Khi cuối cùng tôi có được căn phòng ở Namba, chủ nhà xin lỗi và đưa tôi đi ăn kushikatsu. Nhật Bản sẽ làm vỡ tim bạn và sau đó cho bạn ăn.",
+      "role": "Đầu bếp"
+    }
+  },
   "worlds": {
     "emotional-map": {
       "title": "Bản Đồ Cảm Xúc",
