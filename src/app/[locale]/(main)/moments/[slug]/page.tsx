@@ -133,7 +133,7 @@ export default async function MomentPage({
             </Button>
             {city && (
               <Button href={`/${locale}/cities/${city.slug}`} variant="ghost">
-                More from {city.name}
+                {t("more_from", { city: city.name })}
               </Button>
             )}
           </div>

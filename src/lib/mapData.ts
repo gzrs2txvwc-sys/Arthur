@@ -21,52 +21,14 @@ export interface MapPin {
   tags: string[];
 }
 
-export const categoryMeta: Record<
-  PinCategory,
-  { label: string; color: string; glow: string; description: string }
-> = {
-  memory: {
-    label: "Memories",
-    color: "#e94560",
-    glow: "rgba(233,69,96,0.4)",
-    description: "Moments burned into memory",
-  },
-  loneliness: {
-    label: "Loneliness",
-    color: "#6B7FDB",
-    glow: "rgba(107,127,219,0.4)",
-    description: "The honest difficult hours",
-  },
-  belonging: {
-    label: "Belonging",
-    color: "#4ECDC4",
-    glow: "rgba(78,205,196,0.4)",
-    description: "Where it finally felt like home",
-  },
-  survival: {
-    label: "Survival",
-    color: "#C9A96E",
-    glow: "rgba(201,169,110,0.4)",
-    description: "What kept you going",
-  },
-  discovery: {
-    label: "Discovery",
-    color: "#FF6B35",
-    glow: "rgba(255,107,53,0.4)",
-    description: "Hidden spots no guidebook shows",
-  },
-  milestone: {
-    label: "Milestones",
-    color: "#A8E6CF",
-    glow: "rgba(168,230,207,0.4)",
-    description: "The moments that changed everything",
-  },
-  practical: {
-    label: "Local Knowledge",
-    color: "#7AADCA",
-    glow: "rgba(122,173,202,0.4)",
-    description: "What only insiders know",
-  },
+export const categoryMeta: Record<PinCategory, { color: string; glow: string }> = {
+  memory:     { color: "#e94560", glow: "rgba(233,69,96,0.4)" },
+  loneliness: { color: "#6B7FDB", glow: "rgba(107,127,219,0.4)" },
+  belonging:  { color: "#4ECDC4", glow: "rgba(78,205,196,0.4)" },
+  survival:   { color: "#C9A96E", glow: "rgba(201,169,110,0.4)" },
+  discovery:  { color: "#FF6B35", glow: "rgba(255,107,53,0.4)" },
+  milestone:  { color: "#A8E6CF", glow: "rgba(168,230,207,0.4)" },
+  practical:  { color: "#7AADCA", glow: "rgba(122,173,202,0.4)" },
 };
 
 export const mapPins: MapPin[] = [

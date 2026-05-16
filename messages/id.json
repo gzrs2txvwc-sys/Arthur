@@ -217,14 +217,16 @@
     "from": "Dari",
     "page_title": "Momen",
     "page_description": "Kiriman sastra dari dalam Jepang. Bukan tulisan perjalanan. Bukan panduan. Perasaan, diingat dengan jujur.",
-    "coming_soon": "Momen sedang ditulis. Kembali nanti."
+    "coming_soon": "Momen sedang ditulis. Kembali nanti.",
+    "more_from": "Lebih dari {city}"
   },
   "experiences": {
     "read_time": "{min} menit membaca",
     "all_experiences": "Semua pengalaman",
     "by": "Oleh",
     "years_in_japan": "{n} tahun di Jepang",
-    "back": "Kembali ke komunitas"
+    "back": "Kembali ke komunitas",
+    "living_in": "Tinggal di {city}"
   },
   "living": {
     "title": "Tinggal di Jepang",
@@ -285,10 +287,12 @@
     "stories": "Cerita",
     "community": "Komunitas",
     "about": "Tentang",
-    "rights": "Hak cipta dilindungi."
+    "rights": "Hak cipta dilindungi.",
+    "platform": "Platform"
   },
   "common": {
-    "years_japan": "{n}th"
+    "years_japan": "{n}th",
+    "scroll": "gulir"
   },
   "categories": {
     "work": {

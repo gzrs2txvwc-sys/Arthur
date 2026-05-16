@@ -217,14 +217,16 @@
     "from": "에서",
     "page_title": "순간들",
     "page_description": "일본 내부에서 보내는 문학적 편지. 여행기가 아니고, 가이드도 아니다. 솔직하게 기억한 감정.",
-    "coming_soon": "이야기가 쓰이고 있습니다. 곧 다시 오세요."
+    "coming_soon": "이야기가 쓰이고 있습니다. 곧 다시 오세요.",
+    "more_from": "{city} 더 보기"
   },
   "experiences": {
     "read_time": "{min}분 읽기",
     "all_experiences": "모든 경험",
     "by": "작성자",
     "years_in_japan": "일본 {n}년",
-    "back": "커뮤니티로 돌아가기"
+    "back": "커뮤니티로 돌아가기",
+    "living_in": "{city}에서의 생활"
   },
   "living": {
     "title": "일본에서 살기",
@@ -285,10 +287,12 @@
     "stories": "이야기",
     "community": "커뮤니티",
     "about": "소개",
-    "rights": "모든 권리 보유."
+    "rights": "모든 권리 보유.",
+    "platform": "플랫폼"
   },
   "common": {
-    "years_japan": "{n}년"
+    "years_japan": "{n}년",
+    "scroll": "스크롤"
   },
   "categories": {
     "work": {

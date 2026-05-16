@@ -160,7 +160,7 @@ export default async function ExperiencePage({
             </Button>
             {city && (
               <Button href={`/${locale}/cities/${city.slug}`} variant="ghost">
-                Living in {city.name}
+                {t("living_in", { city: city.name })}
               </Button>
             )}
           </div>

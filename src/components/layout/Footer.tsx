@@ -1,20 +1,37 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+
+const localeLinks = [
+  { code: "en",    label: "EN" },
+  { code: "ja",    label: "JA" },
+  { code: "zh-TW", label: "繁中" },
+  { code: "zh-CN", label: "简中" },
+  { code: "ko",    label: "KO" },
+  { code: "vi",    label: "VI" },
+  { code: "id",    label: "ID" },
+  { code: "th",    label: "TH" },
+  { code: "es",    label: "ES" },
+] as const;
+
+function localeHref(code: string): string {
+  return code === "en" ? "/" : `/${code}`;
+}
 
 interface FooterProps {
   locale: string;
-  messages: {
-    tagline: string;
-    living: string;
-    cities: string;
-    stories: string;
-    community: string;
-    about: string;
-    rights: string;
-  };
 }
 
-export function Footer({ locale, messages }: FooterProps) {
+export async function Footer({ locale }: FooterProps) {
+  const t = await getTranslations("footer");
+  const tCat = await getTranslations("categories");
   const year = new Date().getFullYear();
+
+  const livingLinks: [string, string][] = [
+    ["work",       tCat("work.label")],
+    ["study",      tCat("study.label")],
+    ["housing",    tCat("housing.label")],
+    ["daily-life", tCat("daily-life.label")],
+  ];
 
   return (
     <footer className="border-t border-white/5 bg-[var(--color-ink)]">
@@ -26,20 +43,15 @@ export function Footer({ locale, messages }: FooterProps) {
               間
             </p>
             <p className="text-[var(--color-muted)] text-sm leading-relaxed">
-              {messages.tagline}
+              {t("tagline")}
             </p>
           </div>
 
           {/* Living */}
           <div>
-            <p className="text-caption mb-6">{messages.living}</p>
+            <p className="text-caption mb-6">{t("living")}</p>
             <nav className="flex flex-col gap-3">
-              {[
-                ["work", "Working in Japan"],
-                ["study", "Student Life"],
-                ["housing", "Finding Housing"],
-                ["daily-life", "Daily Life"],
-              ].map(([slug, label]) => (
+              {livingLinks.map(([slug, label]) => (
                 <Link
                   key={slug}
                   href={`/${locale}/living#${slug}`}
@@ -54,7 +66,7 @@ export function Footer({ locale, messages }: FooterProps) {
 
           {/* Cities */}
           <div>
-            <p className="text-caption mb-6">{messages.cities}</p>
+            <p className="text-caption mb-6">{t("cities")}</p>
             <nav className="flex flex-col gap-3">
               {["tokyo", "kyoto", "osaka"].map((city) => (
                 <Link
@@ -71,12 +83,12 @@ export function Footer({ locale, messages }: FooterProps) {
 
           {/* Platform */}
           <div>
-            <p className="text-caption mb-6">Platform</p>
+            <p className="text-caption mb-6">{t("platform")}</p>
             <nav className="flex flex-col gap-3">
               {[
-                [`/${locale}/moments`, messages.stories],
-                [`/${locale}/community`, messages.community],
-                [`/${locale}/about`, messages.about],
+                [`/${locale}/moments`, t("stories")],
+                [`/${locale}/community`, t("community")],
+                [`/${locale}/about`, t("about")],
               ].map(([href, label]) => (
                 <Link
                   key={href}
@@ -95,15 +107,21 @@ export function Footer({ locale, messages }: FooterProps) {
 
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <p className="text-caption">
-            © {year} MA (間). {messages.rights}
+            © {year} MA (間). {t("rights")}
           </p>
-          <div className="flex gap-6">
-            <Link href="/" className="text-caption hover:text-[var(--color-sand)] transition-colors duration-300">
-              EN
-            </Link>
-            <Link href="/ja" className="text-caption hover:text-[var(--color-sand)] transition-colors duration-300">
-              日本語
-            </Link>
+          <div className="flex flex-wrap gap-3">
+            {localeLinks.map(({ code, label }) => (
+              <Link
+                key={code}
+                href={localeHref(code)}
+                className="text-caption transition-colors duration-300"
+                style={{
+                  color: code === locale ? "var(--color-sand)" : undefined,
+                }}
+              >
+                {label}
+              </Link>
+            ))}
           </div>
         </div>
       </div>

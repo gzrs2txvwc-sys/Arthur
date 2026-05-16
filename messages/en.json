@@ -217,14 +217,16 @@
     "from": "From",
     "page_title": "Moments",
     "page_description": "Literary dispatches from inside Japan. Not travel writing. Not guides. Feelings, honestly remembered.",
-    "coming_soon": "Moments are being written. Return soon."
+    "coming_soon": "Moments are being written. Return soon.",
+    "more_from": "More from {city}"
   },
   "experiences": {
     "read_time": "{min} min read",
     "all_experiences": "All experiences",
     "by": "By",
     "years_in_japan": "{n} years in Japan",
-    "back": "Back to community"
+    "back": "Back to community",
+    "living_in": "Living in {city}"
   },
   "living": {
     "title": "Living in Japan",
@@ -285,10 +287,12 @@
     "stories": "Stories",
     "community": "Community",
     "about": "About",
-    "rights": "All rights reserved."
+    "rights": "All rights reserved.",
+    "platform": "Platform"
   },
   "common": {
-    "years_japan": "{n}y"
+    "years_japan": "{n}y",
+    "scroll": "scroll"
   },
   "categories": {
     "work": {
@@ -323,6 +327,34 @@
       "label": "Hidden Spots",
       "description": "The places locals know but guidebooks miss. Shared by insiders, not algorithms."
     }
+  },
+  "map": {
+    "title": "Memory Map",
+    "subtitle": "Japan through emotion",
+    "all_memories": "All memories",
+    "memories_count": "{n} memories",
+    "click_pin": "Click a pin to read the story",
+    "loading": "Loading map…",
+    "mute": "Mute ambient",
+    "play": "Play ambient sound",
+    "ambient_on": "ambient on",
+    "ambient_off": "ambient",
+    "prev": "← Prev",
+    "next": "Next",
+    "category_memory": "Memories",
+    "category_loneliness": "Loneliness",
+    "category_belonging": "Belonging",
+    "category_survival": "Survival",
+    "category_discovery": "Discovery",
+    "category_milestone": "Milestones",
+    "category_practical": "Local Knowledge",
+    "cat_desc_memory": "Moments burned into memory",
+    "cat_desc_loneliness": "The honest difficult hours",
+    "cat_desc_belonging": "Where it finally felt like home",
+    "cat_desc_survival": "What kept you going",
+    "cat_desc_discovery": "Hidden spots no guidebook shows",
+    "cat_desc_milestone": "The moments that changed everything",
+    "cat_desc_practical": "What only insiders know"
   },
   "cities_content": {
     "tokyo": {

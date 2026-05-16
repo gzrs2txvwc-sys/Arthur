@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useRef, useCallback, useEffect } from "react";
+import { useTranslations } from "next-intl";
 
-// ── Pink noise: Paul Kellet's algorithm ────────────
 function makePinkNoise(ctx: AudioContext, seconds = 6): AudioBuffer {
   const n = ctx.sampleRate * seconds;
   const buf = ctx.createBuffer(1, n, ctx.sampleRate);
@@ -27,7 +27,6 @@ function makeWhiteNoise(ctx: AudioContext, seconds = 5): AudioBuffer {
   return buf;
 }
 
-// ── Konbini entry chime (G5 → E5 → G5) ────────────
 function playChime(ctx: AudioContext, dest: AudioNode, when = 0) {
   [783.99, 659.25, 783.99].forEach((freq, i) => {
     const t = when + i * 0.22;
@@ -46,13 +45,14 @@ function playChime(ctx: AudioContext, dest: AudioNode, when = 0) {
 }
 
 export function AmbientSoundscape() {
+  const t = useTranslations("map");
   const [active, setActive] = useState(false);
   const ctxRef   = useRef<AudioContext | null>(null);
   const masterRef = useRef<GainNode | null>(null);
   const chimeRef  = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const scheduleChime = useCallback((ctx: AudioContext, dest: AudioNode) => {
-    const delay = 32000 + Math.random() * 72000; // 32–104 s
+    const delay = 32000 + Math.random() * 72000;
     chimeRef.current = setTimeout(() => {
       if (ctxRef.current === ctx) {
         playChime(ctx, dest, ctx.currentTime);
@@ -77,7 +77,6 @@ export function AmbientSoundscape() {
 
       const now = ctx.currentTime;
 
-      // ── Rain: white noise → highpass → lowpass ──
       const rainSrc = ctx.createBufferSource();
       rainSrc.buffer = makeWhiteNoise(ctx);
       rainSrc.loop = true;
@@ -89,7 +88,6 @@ export function AmbientSoundscape() {
       rainSrc.connect(rhpf); rhpf.connect(rlpf); rlpf.connect(rGain); rGain.connect(master);
       rainSrc.start();
 
-      // ── City ambient: pink noise → lowpass ──────
       const citySrc = ctx.createBufferSource();
       citySrc.buffer = makePinkNoise(ctx);
       citySrc.loop = true;
@@ -100,7 +98,6 @@ export function AmbientSoundscape() {
       citySrc.connect(clpf); clpf.connect(cGain); cGain.connect(master);
       citySrc.start();
 
-      // ── Train hum: triangle osc + LFO + lowpass ─
       const trainOsc = ctx.createOscillator();
       trainOsc.type = "triangle";
       trainOsc.frequency.value = 58;
@@ -114,7 +111,6 @@ export function AmbientSoundscape() {
       trainOsc.connect(tlpf); tlpf.connect(tGain); tGain.connect(master);
       trainOsc.start(); lfo.start();
 
-      // ── First chime after a short pause ─────────
       setTimeout(() => {
         if (ctxRef.current === ctx) {
           playChime(ctx, master, ctx.currentTime);
@@ -143,13 +139,12 @@ export function AmbientSoundscape() {
     setActive(false);
   }, []);
 
-  // Cleanup on unmount
   useEffect(() => () => { stop(); }, [stop]);
 
   return (
     <button
       onClick={active ? stop : start}
-      title={active ? "Mute ambient" : "Play ambient sound"}
+      title={active ? t("mute") : t("play")}
       className="flex items-center gap-2 text-caption
         text-[var(--color-muted)] hover:text-[var(--color-sand)]
         transition-colors duration-300"
@@ -161,7 +156,6 @@ export function AmbientSoundscape() {
         borderRadius: "2px",
       }}
     >
-      {/* Visual indicator */}
       <span className="flex items-end gap-[3px]" style={{ height: 12 }}>
         {active ? (
           [1, 1.5, 0.7, 1.3].map((d, i) => (
@@ -184,7 +178,7 @@ export function AmbientSoundscape() {
       </span>
 
       <span style={{ fontSize: "9px", letterSpacing: "0.14em" }}>
-        {active ? "ambient on" : "ambient"}
+        {active ? t("ambient_on") : t("ambient_off")}
       </span>
     </button>
   );

@@ -26,6 +26,7 @@ export default async function HomePage({
   const t = await getTranslations("home");
   const tw = await getTranslations("worlds");
   const ts = await getTranslations("survival");
+  const tm = await getTranslations("moments");
 
   const urgencyLabels = {
     "day-one":   ts("urgency_day_one"),
@@ -313,7 +314,7 @@ export default async function HomePage({
                 <MomentCard
                   moment={moment}
                   locale={locale}
-                  readTimeLabel="{min} min read"
+                  readTimeLabel={tm("read_time")}
                 />
               </StaggerItem>
             ))}

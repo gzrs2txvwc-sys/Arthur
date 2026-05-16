@@ -1,7 +1,6 @@
 import { getMessages } from "next-intl/server";
 import { NavBar } from "@/components/layout/NavBar";
 
-// Full-screen pages (map): NavBar only, no footer, no scroll wrapper
 export default async function FullscreenLayout({
   children,
   params,
@@ -18,13 +17,13 @@ export default async function FullscreenLayout({
       <NavBar
         locale={locale}
         messages={{
-          map: nav.map ?? "Map",
-          living: nav.living ?? "Living",
-          cities: nav.cities ?? "Cities",
-          stories: nav.stories ?? "Stories",
-          community: nav.community ?? "Community",
-          about: nav.about ?? "About",
-          language: nav.language ?? "日本語",
+          map:       nav.map,
+          living:    nav.living,
+          cities:    nav.cities,
+          stories:   nav.stories,
+          community: nav.community,
+          about:     nav.about,
+          language:  nav.language,
         }}
       />
       {children}

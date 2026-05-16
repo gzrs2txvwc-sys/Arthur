@@ -217,14 +217,16 @@
     "from": "より",
     "page_title": "瞬間",
     "page_description": "日本の内側からの文学的な便り。旅行記でも、ガイドでもない。正直に思い出した感情。",
-    "coming_soon": "物語は今書かれています。またぜひ来てください。"
+    "coming_soon": "物語は今書かれています。またぜひ来てください。",
+    "more_from": "{city}からもっと読む"
   },
   "experiences": {
     "read_time": "{min}分で読む",
     "all_experiences": "すべての体験",
     "by": "著者",
     "years_in_japan": "在日{n}年",
-    "back": "コミュニティに戻る"
+    "back": "コミュニティに戻る",
+    "living_in": "{city}での生活"
   },
   "living": {
     "title": "日本での生活",
@@ -285,10 +287,12 @@
     "stories": "ストーリー",
     "community": "コミュニティ",
     "about": "について",
-    "rights": "全著作権所有。"
+    "rights": "全著作権所有。",
+    "platform": "プラットフォーム"
   },
   "common": {
-    "years_japan": "{n}年"
+    "years_japan": "{n}年",
+    "scroll": "スクロール"
   },
   "categories": {
     "work": {
@@ -323,6 +327,34 @@
       "label": "隠れた場所",
       "description": "地元民は知っているがガイドブックには載っていない場所。アルゴリズムではなく、インサイダーが共有。"
     }
+  },
+  "map": {
+    "title": "記憶の地図",
+    "subtitle": "感情で見る日本",
+    "all_memories": "すべての記憶",
+    "memories_count": "{n}件",
+    "click_pin": "ピンをクリックしてストーリーを読む",
+    "loading": "地図を読み込み中…",
+    "mute": "消音",
+    "play": "環境音を再生",
+    "ambient_on": "オン",
+    "ambient_off": "環境音",
+    "prev": "← 前",
+    "next": "次 →",
+    "category_memory": "記憶",
+    "category_loneliness": "孤独",
+    "category_belonging": "帰属感",
+    "category_survival": "サバイバル",
+    "category_discovery": "発見",
+    "category_milestone": "マイルストーン",
+    "category_practical": "地元の知識",
+    "cat_desc_memory": "心に刻まれた瞬間",
+    "cat_desc_loneliness": "正直な、困難な時間",
+    "cat_desc_belonging": "ようやく家だと感じた場所",
+    "cat_desc_survival": "あなたを支えたもの",
+    "cat_desc_discovery": "ガイドブックが知らない隠れた場所",
+    "cat_desc_milestone": "すべてが変わった瞬間",
+    "cat_desc_practical": "地元民だけが知ること"
   },
   "cities_content": {
     "tokyo": {

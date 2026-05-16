@@ -217,14 +217,16 @@
     "from": "Từ",
     "page_title": "Khoảnh khắc",
     "page_description": "Những bức thư văn học từ bên trong Nhật Bản. Không phải du ký. Không phải hướng dẫn. Là cảm xúc, được nhớ lại một cách trung thực.",
-    "coming_soon": "Câu chuyện đang được viết. Hãy quay lại sớm."
+    "coming_soon": "Câu chuyện đang được viết. Hãy quay lại sớm.",
+    "more_from": "Thêm từ {city}"
   },
   "experiences": {
     "read_time": "{min} phút đọc",
     "all_experiences": "Tất cả trải nghiệm",
     "by": "Bởi",
     "years_in_japan": "{n} năm ở Nhật Bản",
-    "back": "Quay lại cộng đồng"
+    "back": "Quay lại cộng đồng",
+    "living_in": "Sống tại {city}"
   },
   "living": {
     "title": "Sống ở Nhật Bản",
@@ -285,10 +287,12 @@
     "stories": "Câu chuyện",
     "community": "Cộng đồng",
     "about": "Giới thiệu",
-    "rights": "Bảo lưu mọi quyền."
+    "rights": "Bảo lưu mọi quyền.",
+    "platform": "Nền tảng"
   },
   "common": {
-    "years_japan": "{n}y"
+    "years_japan": "{n}y",
+    "scroll": "cuộn"
   },
   "categories": {
     "work": {

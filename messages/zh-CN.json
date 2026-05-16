@@ -217,14 +217,16 @@
     "from": "来自",
     "page_title": "时刻",
     "page_description": "从日本内部寄来的文学速写。不是旅游报道，不是攻略指南。是诚实回忆的感受。",
-    "coming_soon": "故事正在书写中。请再回来看看。"
+    "coming_soon": "故事正在书写中。请再回来看看。",
+    "more_from": "更多来自{city}"
   },
   "experiences": {
     "read_time": "{min} 分钟阅读",
     "all_experiences": "所有经验",
     "by": "作者",
     "years_in_japan": "在日本 {n} 年",
-    "back": "返回社区"
+    "back": "返回社区",
+    "living_in": "在{city}生活"
   },
   "living": {
     "title": "在日本生活",
@@ -285,10 +287,12 @@
     "stories": "故事",
     "community": "社区",
     "about": "关于",
-    "rights": "版权所有。"
+    "rights": "版权所有。",
+    "platform": "平台"
   },
   "common": {
-    "years_japan": "{n}年"
+    "years_japan": "{n}年",
+    "scroll": "滚动"
   },
   "categories": {
     "work": {

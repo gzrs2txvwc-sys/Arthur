@@ -217,14 +217,16 @@
     "from": "De",
     "page_title": "Momentos",
     "page_description": "Despachos literarios desde el interior de Japón. No escritura de viajes. No guías. Sentimientos, honestamente recordados.",
-    "coming_soon": "Los momentos se están escribiendo. Vuelve pronto."
+    "coming_soon": "Los momentos se están escribiendo. Vuelve pronto.",
+    "more_from": "Más de {city}"
   },
   "experiences": {
     "read_time": "{min} min de lectura",
     "all_experiences": "Todas las experiencias",
     "by": "Por",
     "years_in_japan": "{n} años en Japón",
-    "back": "Volver a la comunidad"
+    "back": "Volver a la comunidad",
+    "living_in": "Viviendo en {city}"
   },
   "living": {
     "title": "Vivir en Japón",
@@ -285,10 +287,12 @@
     "stories": "Historias",
     "community": "Comunidad",
     "about": "Acerca de",
-    "rights": "Todos los derechos reservados."
+    "rights": "Todos los derechos reservados.",
+    "platform": "Plataforma"
   },
   "common": {
-    "years_japan": "{n}a"
+    "years_japan": "{n}a",
+    "scroll": "desliza"
   },
   "categories": {
     "work": {
