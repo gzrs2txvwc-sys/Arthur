@@ -388,6 +388,83 @@ body {
   animation: pin-pulse 1.6s ease-out 0.8s infinite;
 }
 
+/* ─── Pin geo-exploration states ─────────────────── */
+.map-pin--locked {
+  opacity: 0.18;
+  filter: grayscale(0.9);
+  pointer-events: none;
+}
+
+.map-pin--nearby .map-pin__pulse {
+  animation: pin-pulse 2s ease-out infinite;
+}
+
+.map-pin--nearby .map-pin__pulse-2 {
+  animation: pin-pulse 2s ease-out 1s infinite;
+}
+
+.map-pin--unlocked .map-pin__dot {
+  width: 13px;
+  height: 13px;
+  box-shadow: 0 0 14px var(--pin-glow), 0 0 32px var(--pin-glow);
+}
+
+.map-pin--unlocked .map-pin__pulse {
+  animation: pin-pulse 1.1s ease-out infinite;
+}
+
+.map-pin--unlocked .map-pin__pulse-2 {
+  animation: pin-pulse 1.1s ease-out 0.55s infinite;
+}
+
+.map-pin--unlocked .map-pin__ring {
+  opacity: 0.9;
+  border-width: 2px;
+}
+
+.map-pin--collected .map-pin__dot {
+  width: 11px;
+  height: 11px;
+}
+
+.map-pin--collected .map-pin__pulse {
+  animation: pin-pulse 3.5s ease-out infinite;
+}
+
+/* ─── User GPS position marker ───────────────────── */
+.user-location-marker {
+  position: relative;
+  width: 24px;
+  height: 24px;
+}
+
+.user-location-marker__dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 11px;
+  height: 11px;
+  background: #4ecdc4;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  box-shadow: 0 0 14px rgba(78, 205, 196, 0.8), 0 0 28px rgba(78, 205, 196, 0.4);
+  z-index: 1;
+}
+
+.user-location-marker__ring {
+  position: absolute;
+  inset: 0;
+  border: 1.5px solid rgba(78, 205, 196, 0.4);
+  border-radius: 50%;
+  animation: user-pos-pulse 2.2s ease-out infinite;
+}
+
+@keyframes user-pos-pulse {
+  0%   { transform: scale(1);   opacity: 0.7; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+
 /* ─── Ken Burns image animation ──────────────────── */
 @keyframes ken-burns {
   from { transform: scale(1.03) translate(0%, 0%); }

@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { MapContainer, TileLayer, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, useMap, useMapEvents } from "react-leaflet";
 import * as L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { mapPins, categoryMeta, mapCenter, mapDefaultZoom } from "@/lib/mapData";
-import type { MapPin, PinCategory } from "@/lib/mapData";
+import type { MapPin, PinCategory, PinState } from "@/lib/mapData";
 
-// ── Fly-to helper (runs inside map context) ────────
+// ── Fly-to helper ──────────────────────────────────
 function MapController({ selectedPin }: { selectedPin: MapPin | null }) {
   const map = useMap();
   useEffect(() => {
@@ -21,7 +21,7 @@ function MapController({ selectedPin }: { selectedPin: MapPin | null }) {
   return null;
 }
 
-// ── Map instance bridge (exposes map to parent) ────
+// ── Map instance bridge ────────────────────────────
 function MapInstanceBridge({ onMapReady }: { onMapReady: (map: L.Map) => void }) {
   const map = useMap();
   useEffect(() => {
@@ -30,14 +30,90 @@ function MapInstanceBridge({ onMapReady }: { onMapReady: (map: L.Map) => void })
   return null;
 }
 
-// ── Custom div-icon factory ────────────────────────
-function createPinIcon(category: PinCategory, isActive: boolean, entering = false) {
+// ── Simulation click handler ───────────────────────
+function SimulationClickHandler({
+  enabled,
+  onMapClick,
+}: {
+  enabled: boolean;
+  onMapClick: (latlng: [number, number]) => void;
+}) {
+  useMapEvents({
+    click(e) {
+      if (enabled) {
+        onMapClick([e.latlng.lat, e.latlng.lng]);
+      }
+    },
+  });
+  return null;
+}
+
+// ── User position marker ───────────────────────────
+function UserMarker({ position }: { position: [number, number] }) {
+  const map = useMap();
+  const markerRef = useRef<L.Marker | null>(null);
+
+  useEffect(() => {
+    const icon = L.divIcon({
+      className: "",
+      html: `<div class="user-location-marker">
+        <div class="user-location-marker__ring"></div>
+        <div class="user-location-marker__dot"></div>
+      </div>`,
+      iconSize: [24, 24],
+      iconAnchor: [12, 12],
+    });
+
+    if (markerRef.current) {
+      markerRef.current.setLatLng(position);
+      markerRef.current.setIcon(icon);
+    } else {
+      markerRef.current = L.marker(position, { icon, zIndexOffset: 2000 }).addTo(map);
+    }
+
+    return () => {
+      markerRef.current?.remove();
+      markerRef.current = null;
+    };
+  }, [position, map]);
+
+  return null;
+}
+
+// ── Custom pin icon factory ────────────────────────
+function createPinIcon(
+  category: PinCategory,
+  isActive: boolean,
+  state: PinState = "locked",
+  geoModeOn: boolean,
+  entering = false
+) {
   const { color, glow } = categoryMeta[category];
+
+  const isCollected = state === "collected";
+  const isUnlocked = state === "unlocked";
+  const isNearby = state === "nearby";
+  const isLocked = geoModeOn && state === "locked";
+
+  const dotColor = isCollected ? "#C9A96E" : color;
+  const dotGlow = isCollected ? "rgba(201,169,110,0.55)" : glow;
+
+  const stateClass = [
+    isLocked ? "map-pin--locked" : "",
+    isNearby ? "map-pin--nearby" : "",
+    isUnlocked ? "map-pin--unlocked" : "",
+    isCollected ? "map-pin--collected" : "",
+    isActive ? "map-pin--active" : "",
+    entering ? "map-pin--entering" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return L.divIcon({
     className: "",
     html: `
-      <div class="map-pin${isActive ? " map-pin--active" : ""}${entering ? " map-pin--entering" : ""}"
-           style="--pin-color:${color};--pin-glow:${glow}">
+      <div class="map-pin ${stateClass}"
+           style="--pin-color:${dotColor};--pin-glow:${dotGlow}">
         <div class="map-pin__pulse"></div>
         <div class="map-pin__pulse-2"></div>
         <div class="map-pin__ring"></div>
@@ -54,6 +130,10 @@ interface JapanMapProps {
   activeCategory: PinCategory | "all";
   onPinSelect: (pin: MapPin) => void;
   onMapReady?: (map: L.Map) => void;
+  pinStates?: Record<string, PinState>;
+  userPosition?: [number, number] | null;
+  simulationMode?: boolean;
+  onSimulationClick?: (latlng: [number, number]) => void;
 }
 
 export default function JapanMap({
@@ -61,8 +141,13 @@ export default function JapanMap({
   activeCategory,
   onPinSelect,
   onMapReady,
+  pinStates = {},
+  userPosition,
+  simulationMode = false,
+  onSimulationClick,
 }: JapanMapProps) {
   const markersRef = useRef<Record<string, L.Marker>>({});
+  const geoModeOn = Object.keys(pinStates).length > 0;
 
   const visiblePins =
     activeCategory === "all"
@@ -75,9 +160,8 @@ export default function JapanMap({
       zoom={mapDefaultZoom}
       zoomControl={false}
       scrollWheelZoom
-      style={{ height: "100%", width: "100%" }}
+      style={{ height: "100%", width: "100%", cursor: simulationMode ? "crosshair" : undefined }}
     >
-      {/* CartoDB Dark Matter — no API key required */}
       <TileLayer
         url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>'
@@ -85,27 +169,30 @@ export default function JapanMap({
         maxZoom={19}
       />
 
-      {/* Fly controller */}
       <MapController selectedPin={selectedPin} />
-
-      {/* Expose map instance to parent */}
       {onMapReady && <MapInstanceBridge onMapReady={onMapReady} />}
-
-      {/* Zoom control — bottom right */}
       <ZoomControl />
 
-      {/* Pins */}
+      <SimulationClickHandler
+        enabled={simulationMode}
+        onMapClick={onSimulationClick ?? (() => {})}
+      />
+
+      {userPosition && <UserMarker position={userPosition} />}
+
       <PinLayer
         pins={visiblePins}
         selectedPin={selectedPin}
         markersRef={markersRef}
         onPinSelect={onPinSelect}
+        pinStates={pinStates}
+        geoModeOn={geoModeOn}
       />
     </MapContainer>
   );
 }
 
-// ── Zoom control placed bottom-right ──────────────
+// ── Zoom control ───────────────────────────────────
 function ZoomControl() {
   const map = useMap();
   useEffect(() => {
@@ -114,15 +201,17 @@ function ZoomControl() {
   return null;
 }
 
-// ── Pins layer — creates/updates Leaflet markers ──
+// ── Pins layer ─────────────────────────────────────
 interface PinLayerProps {
   pins: MapPin[];
   selectedPin: MapPin | null;
   markersRef: React.MutableRefObject<Record<string, L.Marker>>;
   onPinSelect: (pin: MapPin) => void;
+  pinStates: Record<string, PinState>;
+  geoModeOn: boolean;
 }
 
-function PinLayer({ pins, selectedPin, markersRef, onPinSelect }: PinLayerProps) {
+function PinLayer({ pins, selectedPin, markersRef, onPinSelect, pinStates, geoModeOn }: PinLayerProps) {
   const map = useMap();
   const isInitialRef = useRef(true);
 
@@ -135,17 +224,17 @@ function PinLayer({ pins, selectedPin, markersRef, onPinSelect }: PinLayerProps)
 
     pins.forEach((pin, index) => {
       const isActive = selectedPin?.id === pin.id;
-      const icon = createPinIcon(pin.category, isActive, entering);
+      const state = pinStates[pin.id] ?? "locked";
+      const icon = createPinIcon(pin.category, isActive, state, geoModeOn, entering);
+
       const marker = L.marker(pin.coordinates, { icon })
         .addTo(map)
         .on("click", () => onPinSelect(pin));
 
       if (entering) {
-        // Remove entrance class after stagger delay + animation duration
         const delay = 180 + index * 55;
         setTimeout(() => {
-          const el = marker.getElement()?.querySelector(".map-pin");
-          if (el) el.classList.remove("map-pin--entering");
+          marker.getElement()?.querySelector(".map-pin")?.classList.remove("map-pin--entering");
         }, delay + 650);
       }
 
@@ -156,7 +245,7 @@ function PinLayer({ pins, selectedPin, markersRef, onPinSelect }: PinLayerProps)
       Object.values(markersRef.current).forEach((m) => m.remove());
       markersRef.current = {};
     };
-  }, [pins, selectedPin, map, onPinSelect, markersRef]);
+  }, [pins, selectedPin, map, onPinSelect, pinStates, geoModeOn, markersRef]);
 
   return null;
 }

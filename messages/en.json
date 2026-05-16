@@ -356,7 +356,24 @@
     "cat_desc_survival": "What kept you going",
     "cat_desc_discovery": "Hidden spots no guidebook shows",
     "cat_desc_milestone": "The moments that changed everything",
-    "cat_desc_practical": "What only insiders know"
+    "cat_desc_practical": "What only insiders know",
+    "unlock_overlay_label": "Memory unlocked",
+    "collect_button": "Collect this memory",
+    "collected_label": "In your archive",
+    "archive_open": "Archive",
+    "archive_title": "Your Archive",
+    "archive_collected": "{n} collected",
+    "archive_empty": "Walk Japan to collect memories",
+    "archive_empty_sub": "Enable location mode and walk to the pins",
+    "city_progress": "{collected} of {total}",
+    "enable_gps": "Enable GPS",
+    "use_simulation": "Simulate",
+    "simulation_active": "Simulation active",
+    "simulation_hint": "Click map to place yourself",
+    "exit_geo": "Exit",
+    "nearby_label": "nearby",
+    "unlock_available": "Unlock available",
+    "distance_away": "{n}m away"
   },
   "neighborhoods": {
     "shimokitazawa": {

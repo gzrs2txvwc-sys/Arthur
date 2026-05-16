@@ -7,6 +7,8 @@ export type PinCategory =
   | "milestone"
   | "practical";
 
+export type PinState = "locked" | "nearby" | "unlocked" | "collected";
+
 export interface MapPin {
   id: string;
   coordinates: [number, number]; // [lat, lng]
