@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { Cormorant_Garamond } from "next/font/google";
 import { Noto_Serif_JP } from "next/font/google";
 import { JetBrains_Mono } from "next/font/google";
+import { getLocale } from "next-intl/server";
 import "./globals.css";
 
 const inter = Inter({
@@ -33,27 +34,44 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: {
-    template: "%s — MA (間)",
-    default: "MA (間) — Japan Lifestyle Platform",
-  },
-  description:
-    "Cinematic stories from the emotional geography of Japan. Not a travel guide. A feeling.",
-  keywords: ["Japan", "lifestyle", "culture", "Tokyo", "Kyoto", "Osaka"],
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    siteName: "MA (間)",
-  },
+const ogLocaleMap: Record<string, string> = {
+  en: "en_US",
+  ja: "ja_JP",
+  "zh-TW": "zh_TW",
+  "zh-CN": "zh_CN",
+  ko: "ko_KR",
+  vi: "vi_VN",
+  id: "id_ID",
+  th: "th_TH",
+  es: "es_ES",
 };
 
-export default function RootLayout({
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  return {
+    title: {
+      template: "%s — MA (間)",
+      default: "MA (間) — Japan Lifestyle Platform",
+    },
+    description:
+      "Cinematic stories from the emotional geography of Japan. Not a travel guide. A feeling.",
+    keywords: ["Japan", "lifestyle", "culture", "Tokyo", "Kyoto", "Osaka"],
+    openGraph: {
+      type: "website",
+      locale: ogLocaleMap[locale] ?? "en_US",
+      siteName: "MA (間)",
+    },
+  };
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const locale = await getLocale();
+
   return (
     <html
-      lang="en"
+      lang={locale}
       className={`
         ${inter.variable}
         ${cormorant.variable}

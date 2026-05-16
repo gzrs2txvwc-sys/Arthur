@@ -22,12 +22,16 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const city = getCity(slug);
   if (!city) return {};
+  const t = await getTranslations({ locale, namespace: "cities" });
+  const tCC = await getTranslations({ locale, namespace: "cities_content" });
+  const tagline = tCC(`${slug as "tokyo"}.tagline`);
+  const description = tCC(`${slug as "tokyo"}.description`);
   return {
-    title: `Living in ${city.name} — ${city.tagline}`,
-    description: city.description.substring(0, 160),
+    title: `${t("living_in", { city: city.name })} — ${tagline}`,
+    description: description.substring(0, 160),
   };
 }
 

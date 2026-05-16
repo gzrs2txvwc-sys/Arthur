@@ -3,8 +3,8 @@
 
 /* ─── Design Tokens ──────────────────────────────── */
 @theme {
-  --font-display: "Cormorant Garamond", Georgia, serif;
-  --font-body: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-display: "Cormorant Garamond", var(--font-noto), "Hiragino Mincho ProN", Georgia, serif;
+  --font-body: var(--font-inter), system-ui, "Hiragino Sans", "Noto Sans JP", -apple-system, sans-serif;
   --font-japanese: var(--font-noto), "Hiragino Mincho ProN", serif;
   --font-mono: var(--font-jetbrains), "Fira Code", monospace;
 
@@ -479,4 +479,55 @@ body {
 @keyframes audio-bar {
   from { transform: scaleY(0.22); }
   to   { transform: scaleY(1.0);  }
+}
+
+/* ─── CJK typography adjustments ────────────────── */
+
+/* Display headings — Latin uses tight tracking; CJK needs breathing room */
+:lang(ja) .text-display-xl,
+:lang(zh-TW) .text-display-xl,
+:lang(zh-CN) .text-display-xl,
+:lang(ko) .text-display-xl {
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+:lang(ja) .text-display-lg,
+:lang(zh-TW) .text-display-lg,
+:lang(zh-CN) .text-display-lg,
+:lang(ko) .text-display-lg {
+  line-height: 1.25;
+  letter-spacing: 0;
+}
+
+:lang(ja) .text-display-md,
+:lang(zh-TW) .text-display-md,
+:lang(zh-CN) .text-display-md,
+:lang(ko) .text-display-md {
+  line-height: 1.35;
+  letter-spacing: 0;
+}
+
+/* Caption mono class — reduce Latin-optimized letter-spacing for CJK */
+:lang(ja) .text-caption,
+:lang(zh-TW) .text-caption,
+:lang(zh-CN) .text-caption,
+:lang(ko) .text-caption {
+  letter-spacing: 0.04em;
+}
+
+/* Body text — increase line-height slightly for CJK readability */
+:lang(ja) body,
+:lang(zh-TW) body,
+:lang(zh-CN) body,
+:lang(ko) body {
+  line-height: 1.85;
+}
+
+/* Drop cap — ::first-letter float breaks CJK glyph metrics; disable it */
+:lang(ja) .drop-cap::first-letter,
+:lang(zh-TW) .drop-cap::first-letter,
+:lang(zh-CN) .drop-cap::first-letter,
+:lang(ko) .drop-cap::first-letter {
+  all: unset;
 }

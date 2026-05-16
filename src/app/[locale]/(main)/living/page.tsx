@@ -6,11 +6,18 @@ import { StaggerChildren, StaggerItem } from "@/components/motion/RevealText";
 import { Button } from "@/components/ui/Button";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Living in Japan — Practical insider guide",
-  description:
-    "The practical guide to actually living in Japan — work, housing, language, daily life, and what nobody warns you about.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "living" });
+  return {
+    title: t("title"),
+    description: t("subtitle"),
+  };
+}
 
 const iconMap: Record<string, string> = {
   briefcase: "💼",

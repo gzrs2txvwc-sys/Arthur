@@ -4,10 +4,18 @@ import { StaggerChildren, StaggerItem } from "@/components/motion/RevealText";
 import { Button } from "@/components/ui/Button";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "About MA — Manifesto",
-  description: "MA is not a travel guide. It is an attempt to capture what Japan actually feels like.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "about" });
+  return {
+    title: t("title"),
+    description: t("quote"),
+  };
+}
 
 export default async function AboutPage({
   params,

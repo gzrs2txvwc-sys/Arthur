@@ -65,7 +65,7 @@ export default async function HomePage({
         <div className="absolute inset-0 z-0">
           <Image
             src="https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?w=2000&q=75"
-            alt="Foreigners living in Japan"
+            alt={t("hero_image_alt")}
             fill
             priority
             className="object-cover object-center"

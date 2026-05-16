@@ -9,11 +9,18 @@ import { StaggerChildren, StaggerItem } from "@/components/motion/RevealText";
 import { Button } from "@/components/ui/Button";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Community — Foreigners living in Japan",
-  description:
-    "Real voices from foreigners living in Japan. Their stories, their knowledge, their honest experiences.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "community" });
+  return {
+    title: t("title"),
+    description: t("subtitle"),
+  };
+}
 
 export default async function CommunityPage({
   params,

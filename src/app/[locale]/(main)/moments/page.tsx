@@ -5,11 +5,18 @@ import { FadeIn } from "@/components/motion/FadeIn";
 import { StaggerChildren, StaggerItem } from "@/components/motion/RevealText";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Moments — Stories from Japan",
-  description:
-    "Literary dispatches from inside Japan. Not guides. Feelings.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "moments" });
+  return {
+    title: t("page_title"),
+    description: t("page_description"),
+  };
+}
 
 export default async function MomentsPage({
   params,
@@ -41,13 +48,19 @@ export default async function MomentsPage({
       <section className="px-6 lg:px-12 max-w-7xl mx-auto w-full mb-16">
         <FadeIn>
           <div className="flex flex-wrap gap-3">
-            {["all", "tokyo", "kyoto", "osaka"].map((filter) => (
+            <span
+              className="text-caption border border-white/10 px-4 py-2 rounded-sm
+                text-[var(--color-muted)] cursor-default"
+            >
+              {t("filter_all")}
+            </span>
+            {(["tokyo", "kyoto", "osaka"] as const).map((city) => (
               <span
-                key={filter}
+                key={city}
                 className="text-caption border border-white/10 px-4 py-2 rounded-sm
                   text-[var(--color-muted)] cursor-default capitalize"
               >
-                {filter}
+                {city}
               </span>
             ))}
           </div>

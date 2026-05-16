@@ -9,6 +9,7 @@
     "language": "日本語"
   },
   "home": {
+    "hero_image_alt": "Foreigners living in Japan",
     "hero_label": "Built by foreigners. For foreigners.",
     "hero_title": "Life in Japan,\nfrom the inside.",
     "hero_subtitle": "Not a travel guide. A community of people who actually live here — sharing what it feels like, what they wish they'd known, and what keeps them staying.",
@@ -218,7 +219,8 @@
     "page_title": "Moments",
     "page_description": "Literary dispatches from inside Japan. Not travel writing. Not guides. Feelings, honestly remembered.",
     "coming_soon": "Moments are being written. Return soon.",
-    "more_from": "More from {city}"
+    "more_from": "More from {city}",
+    "filter_all": "All"
   },
   "experiences": {
     "read_time": "{min} min read",

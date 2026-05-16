@@ -9,6 +9,7 @@
     "language": "English"
   },
   "home": {
+    "hero_image_alt": "日本に住む外国人たち",
     "hero_label": "外国人による、外国人のために。",
     "hero_title": "日本での生活を、\n内側から。",
     "hero_subtitle": "旅行ガイドではありません。実際にここに住んでいる人々のコミュニティ — どんな感じか、知っておきたかったこと、なぜ居続けるかを共有しています。",
@@ -218,7 +219,8 @@
     "page_title": "瞬間",
     "page_description": "日本の内側からの文学的な便り。旅行記でも、ガイドでもない。正直に思い出した感情。",
     "coming_soon": "物語は今書かれています。またぜひ来てください。",
-    "more_from": "{city}からもっと読む"
+    "more_from": "{city}からもっと読む",
+    "filter_all": "すべて"
   },
   "experiences": {
     "read_time": "{min}分で読む",
