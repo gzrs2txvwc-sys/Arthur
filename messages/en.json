@@ -356,6 +356,54 @@
     "cat_desc_milestone": "The moments that changed everything",
     "cat_desc_practical": "What only insiders know"
   },
+  "neighborhoods": {
+    "shimokitazawa": {
+      "vibe": "Bohemian & creative",
+      "description": "Vintage clothes, live music, tiny theatre, and the sense that it's 1992 in the best possible way. Where Tokyo's artists, students, and quiet rebels have always lived.",
+      "insiderTip": "The Sunday flea market behind Honda Theater starts at 9am. Go early — the good stuff is gone by 10."
+    },
+    "yanaka": {
+      "vibe": "Old Tokyo, preserved",
+      "description": "A neighborhood that survived the war and the real estate developers both. Cemetery walks, shotengai shopping streets, cats on every corner. The Tokyo that Tokyo forgot to modernize.",
+      "insiderTip": "Yanaka Ginza at dusk, when the shops are closing and the smell of yakitori fills the narrow street, is worth any detour."
+    },
+    "gion": {
+      "vibe": "Atmospheric & ancient",
+      "description": "Yes, the tourists come. But at 6am and 10pm, Gion belongs to the people who live in it. Cobbled lanes, wooden machiya houses, the sound of wooden sandals. It earns its reputation.",
+      "insiderTip": "Hanamikoji-dori at 7am on a weekday. You might be the only person on the street. Bring a camera. Don't use it."
+    },
+    "namba": {
+      "vibe": "Loud, human, alive",
+      "description": "The beating heart of Osaka. Overwhelming at first, then familiar, then something close to home. Street food, arcade sounds, the mechanical crab, and somehow underneath all of it, a genuine warmth.",
+      "insiderTip": "The ramen shops in the alleys east of Dotonbori — away from the canal — have lower prices and no queues. Locals eat there. Tourists eat near the water."
+    }
+  },
+  "tips": {
+    "tip-1": {
+      "tip": "Your local konbini is your second home. Learn the staff's faces. Smile. They remember.",
+      "context": "From James, 5 years in Shinjuku"
+    },
+    "tip-2": {
+      "tip": "Japan runs on cash. Keep ¥10,000 on you at all times. Not every restaurant takes cards, and the moment you're caught without cash will be embarrassing.",
+      "context": "From Sarah, 3 years in Tokyo"
+    },
+    "tip-3": {
+      "tip": "Live north of Oike-dori and east of Kawaramachi-dori. Tourist Kyoto is south. Real Kyoto is everywhere else.",
+      "context": "From Marcus, 2 years in Kyoto"
+    },
+    "tip-4": {
+      "tip": "The most useful Japanese phrase is not 'sumimasen'. It's knowing when to bow and when to be silent. Language is 30% words.",
+      "context": "From Elena, language student"
+    },
+    "tip-5": {
+      "tip": "Osaka locals eat standing up and fast. If a ramen shop has no chairs, that's a good sign, not a bad one.",
+      "context": "From David, 6 years in Namba"
+    },
+    "tip-6": {
+      "tip": "Get a guarantor service if you don't have a Japanese guarantor. They cost money (usually one month's rent) but open 80% of apartments that would otherwise reject foreign applicants.",
+      "context": "Community advice — confirmed by multiple members"
+    }
+  },
   "cities_content": {
     "tokyo": {
       "tagline": "Electric and lonely.",

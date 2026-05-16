@@ -20,7 +20,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const moment = getMoment(slug);
+  const moment = getMoment(slug, "en");
   if (!moment) return {};
   return {
     title: moment.title,
@@ -43,7 +43,7 @@ export default async function MomentPage({
   params: Promise<{ locale: string; slug: string }>;
 }) {
   const { locale, slug } = await params;
-  const moment = getMoment(slug);
+  const moment = getMoment(slug, locale);
   if (!moment) notFound();
 
   const t = await getTranslations("moments");

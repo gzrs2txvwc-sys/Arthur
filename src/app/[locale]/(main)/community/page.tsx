@@ -22,8 +22,9 @@ export default async function CommunityPage({
 }) {
   const { locale } = await params;
   const t = await getTranslations("community");
+  const tTip = await getTranslations("tips");
 
-  const experiences = getAllExperiences();
+  const experiences = getAllExperiences(locale);
 
   return (
     <>
@@ -101,8 +102,8 @@ export default async function CommunityPage({
           {insiderTips.map((tip) => (
             <StaggerItem key={tip.id}>
               <InsiderTip
-                tip={tip.tip}
-                context={tip.context}
+                tip={tTip(`${tip.id as "tip-1"}.tip`)}
+                context={tTip(`${tip.id as "tip-1"}.context`)}
                 variant={tip.city === "all" ? "highlighted" : "default"}
               />
             </StaggerItem>

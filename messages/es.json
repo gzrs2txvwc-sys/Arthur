@@ -328,6 +328,54 @@
       "description": "Los lugares que conocen los locales pero que los libros de viajes omiten. Compartidos por insiders, no por algoritmos."
     }
   },
+  "neighborhoods": {
+    "shimokitazawa": {
+      "vibe": "Bohemia & creativo",
+      "description": "Ropa vintage, música en vivo, pequeños teatros, y la sensación de que es 1992 de la mejor manera posible. Donde los artistas, estudiantes y rebeldes tranquilos de Tokio siempre han vivido.",
+      "insiderTip": "El mercadillo dominical detrás del Teatro Honda empieza a las 9am. Llega pronto — lo bueno desaparece antes de las 10."
+    },
+    "yanaka": {
+      "vibe": "El Tokio de siempre, conservado",
+      "description": "Un barrio que sobrevivió tanto a la guerra como a los promotores inmobiliarios. Paseos por cementerios, calles comerciales shotengai, gatos en cada esquina. El Tokio que Tokio olvidó modernizar.",
+      "insiderTip": "Yanaka Ginza al atardecer, cuando las tiendas cierran y el olor a yakitori llena la calle estrecha, merece cualquier desvío."
+    },
+    "gion": {
+      "vibe": "Atmosférico & antiguo",
+      "description": "Sí, los turistas vienen. Pero a las 6am y a las 10pm, Gion pertenece a quienes viven en él. Calles adoquinadas, casas machiya de madera, el sonido de las sandalias de madera. Se gana su reputación.",
+      "insiderTip": "Hanamikoji-dori a las 7am en día de semana. Puede que seas la única persona en la calle. Lleva cámara. No la uses."
+    },
+    "namba": {
+      "vibe": "Ruidoso, humano, vivo",
+      "description": "El corazón palpitante de Osaka. Abrumador al principio, luego familiar, luego algo parecido a casa. Comida callejera, sonidos de arcade, el cangrejo mecánico, y de algún modo por debajo de todo eso, un calor genuino.",
+      "insiderTip": "Los restaurantes de ramen en los callejones al este de Dotonbori — lejos del canal — tienen precios más bajos y sin colas. Los locales comen allí. Los turistas comen junto al agua."
+    }
+  },
+  "tips": {
+    "tip-1": {
+      "tip": "Tu konbini local es tu segundo hogar. Aprende las caras del personal. Sonríe. Ellos te recuerdan.",
+      "context": "De James, 5 años en Shinjuku"
+    },
+    "tip-2": {
+      "tip": "Japón funciona con efectivo. Lleva siempre ¥10,000 encima. No todos los restaurantes aceptan tarjetas, y quedarte sin efectivo en el momento equivocado es embarazoso.",
+      "context": "De Sarah, 3 años en Tokio"
+    },
+    "tip-3": {
+      "tip": "Vive al norte de Oike-dori y al este de Kawaramachi-dori. El Kioto turístico está al sur. El Kioto real está en todos los demás sitios.",
+      "context": "De Marcus, 2 años en Kioto"
+    },
+    "tip-4": {
+      "tip": "La frase japonesa más útil no es 'sumimasen'. Es saber cuándo inclinarse y cuándo guardar silencio. El lenguaje es 30% palabras.",
+      "context": "De Elena, estudiante de japonés"
+    },
+    "tip-5": {
+      "tip": "Los locales de Osaka comen de pie y rápido. Si un restaurante de ramen no tiene sillas, es buena señal, no mala.",
+      "context": "De David, 6 años en Namba"
+    },
+    "tip-6": {
+      "tip": "Usa un servicio de garante si no tienes uno japonés. Cuesta dinero (normalmente un mes de alquiler) pero abre el 80% de los apartamentos que de otro modo rechazarían a solicitantes extranjeros.",
+      "context": "Consejo de la comunidad — confirmado por varios miembros"
+    }
+  },
   "cities_content": {
     "tokyo": {
       "tagline": "Eléctrico y solitario.",

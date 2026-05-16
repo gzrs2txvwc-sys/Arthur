@@ -20,7 +20,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const exp = getExperience(slug);
+  const exp = getExperience(slug, "en");
   if (!exp) return {};
   return {
     title: exp.title,
@@ -43,7 +43,7 @@ export default async function ExperiencePage({
   params: Promise<{ locale: string; slug: string }>;
 }) {
   const { locale, slug } = await params;
-  const exp = getExperience(slug);
+  const exp = getExperience(slug, locale);
   if (!exp) notFound();
 
   const t = await getTranslations("experiences");

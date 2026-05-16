@@ -30,8 +30,9 @@ export default async function LivingPage({
 }) {
   const { locale } = await params;
   const t = await getTranslations("living");
-
-  const allTips = insiderTips;
+  const tCat = await getTranslations("categories");
+  const tN = await getTranslations("neighborhoods");
+  const tTip = await getTranslations("tips");
 
   return (
     <>
@@ -68,10 +69,10 @@ export default async function LivingPage({
                 </span>
                 <div>
                   <h2 className="text-lg font-medium text-[var(--color-parchment)] mb-2">
-                    {cat.label}
+                    {tCat(`${cat.slug as "work"}.label`)}
                   </h2>
                   <p className="text-[var(--color-muted)] text-sm leading-relaxed mb-4">
-                    {cat.description}
+                    {tCat(`${cat.slug as "work"}.description`)}
                   </p>
                   <Button
                     href={`/${locale}/community`}
@@ -107,11 +108,11 @@ export default async function LivingPage({
             className="lg:col-span-9 grid grid-cols-1 md:grid-cols-2 gap-4"
             staggerDelay={0.07}
           >
-            {allTips.map((tip) => (
+            {insiderTips.map((tip) => (
               <StaggerItem key={tip.id}>
                 <InsiderTip
-                  tip={tip.tip}
-                  context={tip.context}
+                  tip={tTip(`${tip.id as "tip-1"}.tip`)}
+                  context={tTip(`${tip.id as "tip-1"}.context`)}
                   variant={tip.city === "all" ? "highlighted" : "default"}
                 />
               </StaggerItem>
@@ -155,18 +156,18 @@ export default async function LivingPage({
                     </p>
                   </div>
                   <span className="text-caption border border-white/10 px-3 py-1.5 rounded-sm shrink-0">
-                    {n.vibe}
+                    {tN(`${n.slug as "shimokitazawa"}.vibe`)}
                   </span>
                 </div>
 
                 <p className="text-sm text-[var(--color-parchment-warm)] leading-relaxed mb-4">
-                  {n.description}
+                  {tN(`${n.slug as "shimokitazawa"}.description`)}
                 </p>
 
                 <div className="border-t border-white/5 pt-4 mt-4">
                   <p className="text-caption text-[var(--color-sand)] mb-2">{t("insider_tip")}</p>
                   <p className="text-sm text-[var(--color-muted)] italic leading-relaxed">
-                    {n.insiderTip}
+                    {tN(`${n.slug as "shimokitazawa"}.insiderTip`)}
                   </p>
                 </div>
 

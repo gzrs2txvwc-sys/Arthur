@@ -43,13 +43,15 @@ export default async function CityPage({
   const t = await getTranslations("cities");
   const tM = await getTranslations("moments");
   const tCC = await getTranslations("cities_content");
+  const tN = await getTranslations("neighborhoods");
+  const tTip = await getTranslations("tips");
 
   const localizedTagline = tCC(`${slug as "tokyo"}.tagline`);
   const localizedDescription = tCC(`${slug as "tokyo"}.description`);
   const localizedFeelings = tCC(`${slug as "tokyo"}.feelings`).split("|");
 
-  const moments = getMomentsByCity(city.slug as CitySlug);
-  const experiences = getExperiencesByCity(city.slug);
+  const moments = getMomentsByCity(city.slug as CitySlug, locale);
+  const experiences = getExperiencesByCity(city.slug, locale);
   const cityNeighborhoods = getNeighborhoodsByCity(city.slug);
   const cityTips = getTipsByCity(city.slug).slice(0, 3);
 
@@ -213,16 +215,16 @@ export default async function CityPage({
                       </p>
                     </div>
                     <span className="text-caption border border-white/10 px-3 py-1.5 shrink-0">
-                      {n.vibe}
+                      {tN(`${n.slug as "shimokitazawa"}.vibe`)}
                     </span>
                   </div>
                   <p className="text-sm text-[var(--color-parchment-warm)] leading-relaxed mb-4">
-                    {n.description}
+                    {tN(`${n.slug as "shimokitazawa"}.description`)}
                   </p>
                   <div className="border-t border-white/5 pt-4">
                     <p className="text-caption text-[var(--color-sand)] mb-2">{t("insider_tip")}</p>
                     <p className="text-sm text-[var(--color-muted)] italic leading-relaxed">
-                      {n.insiderTip}
+                      {tN(`${n.slug as "shimokitazawa"}.insiderTip`)}
                     </p>
                   </div>
                 </div>
@@ -251,7 +253,11 @@ export default async function CityPage({
             <StaggerChildren className="lg:col-span-8 flex flex-col gap-4" staggerDelay={0.1}>
               {cityTips.map((tip) => (
                 <StaggerItem key={tip.id}>
-                  <InsiderTip tip={tip.tip} context={tip.context} variant="highlighted" />
+                  <InsiderTip
+                    tip={tTip(`${tip.id as "tip-1"}.tip`)}
+                    context={tTip(`${tip.id as "tip-1"}.context`)}
+                    variant="highlighted"
+                  />
                 </StaggerItem>
               ))}
             </StaggerChildren>

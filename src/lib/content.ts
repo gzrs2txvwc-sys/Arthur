@@ -5,17 +5,27 @@ import readingTime from "reading-time";
 import type { Moment, MomentFrontmatter, Experience, ExperienceFrontmatter } from "./types";
 
 const MOMENTS_DIR = path.join(process.cwd(), "src/content/moments");
+const EXPERIENCES_DIR = path.join(process.cwd(), "src/content/experiences");
+
+function resolveLocalePath(baseDir: string, locale: string, slug: string): string {
+  const localePath = path.join(baseDir, locale, `${slug}.mdx`);
+  if (fs.existsSync(localePath)) return localePath;
+  return path.join(baseDir, "en", `${slug}.mdx`);
+}
+
+// ─── Moments ──────────────────────────────────────
 
 export function getMomentSlugs(): string[] {
-  if (!fs.existsSync(MOMENTS_DIR)) return [];
+  const enDir = path.join(MOMENTS_DIR, "en");
+  if (!fs.existsSync(enDir)) return [];
   return fs
-    .readdirSync(MOMENTS_DIR)
+    .readdirSync(enDir)
     .filter((f) => f.endsWith(".mdx"))
     .map((f) => f.replace(/\.mdx$/, ""));
 }
 
-export function getMoment(slug: string): Moment | null {
-  const filePath = path.join(MOMENTS_DIR, `${slug}.mdx`);
+export function getMoment(slug: string, locale = "en"): Moment | null {
+  const filePath = resolveLocalePath(MOMENTS_DIR, locale, slug);
   if (!fs.existsSync(filePath)) return null;
 
   const raw = fs.readFileSync(filePath, "utf-8");
@@ -38,31 +48,30 @@ export function getMoment(slug: string): Moment | null {
   };
 }
 
-export function getAllMoments(): Moment[] {
+export function getAllMoments(locale = "en"): Moment[] {
   return getMomentSlugs()
-    .map((slug) => getMoment(slug))
+    .map((slug) => getMoment(slug, locale))
     .filter((m): m is Moment => m !== null)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
-export function getMomentsByCity(citySlug: string): Moment[] {
-  return getAllMoments().filter((m) => m.city === citySlug);
+export function getMomentsByCity(citySlug: string, locale = "en"): Moment[] {
+  return getAllMoments(locale).filter((m) => m.city === citySlug);
 }
 
 // ─── Experiences ──────────────────────────────────
 
-const EXPERIENCES_DIR = path.join(process.cwd(), "src/content/experiences");
-
 export function getExperienceSlugs(): string[] {
-  if (!fs.existsSync(EXPERIENCES_DIR)) return [];
+  const enDir = path.join(EXPERIENCES_DIR, "en");
+  if (!fs.existsSync(enDir)) return [];
   return fs
-    .readdirSync(EXPERIENCES_DIR)
+    .readdirSync(enDir)
     .filter((f) => f.endsWith(".mdx"))
     .map((f) => f.replace(/\.mdx$/, ""));
 }
 
-export function getExperience(slug: string): Experience | null {
-  const filePath = path.join(EXPERIENCES_DIR, `${slug}.mdx`);
+export function getExperience(slug: string, locale = "en"): Experience | null {
+  const filePath = resolveLocalePath(EXPERIENCES_DIR, locale, slug);
   if (!fs.existsSync(filePath)) return null;
 
   const raw = fs.readFileSync(filePath, "utf-8");
@@ -96,15 +105,15 @@ export function getExperience(slug: string): Experience | null {
   };
 }
 
-export function getAllExperiences(): Experience[] {
+export function getAllExperiences(locale = "en"): Experience[] {
   return getExperienceSlugs()
-    .map((slug) => getExperience(slug))
+    .map((slug) => getExperience(slug, locale))
     .filter((e): e is Experience => e !== null)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
-export function getExperiencesByCity(citySlug: string): Experience[] {
-  return getAllExperiences().filter((e) => e.city === citySlug);
+export function getExperiencesByCity(citySlug: string, locale = "en"): Experience[] {
+  return getAllExperiences(locale).filter((e) => e.city === citySlug);
 }
 
 // ─── Shared helpers ────────────────────────────────

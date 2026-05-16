@@ -18,7 +18,7 @@ export default async function MomentsPage({
 }) {
   const { locale } = await params;
   const t = await getTranslations("moments");
-  const moments = getAllMoments();
+  const moments = getAllMoments(locale);
 
   return (
     <>

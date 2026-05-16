@@ -55,8 +55,8 @@ export default async function HomePage({
   }));
 
   const cities = getAllCities();
-  const experiences = getAllExperiences();
-  const moments = getAllMoments().slice(0, 3);
+  const experiences = getAllExperiences(locale);
+  const moments = getAllMoments(locale).slice(0, 3);
 
   return (
     <>
