@@ -360,6 +360,7 @@
     "unlock_overlay_label": "Memory unlocked",
     "collect_button": "Collect this memory",
     "collected_label": "In your archive",
+    "browse_collect_hint": "walk here to collect",
     "archive_open": "Archive",
     "archive_title": "Your Archive",
     "archive_collected": "{n} collected",
@@ -372,8 +373,18 @@
     "simulation_hint": "Click map to place yourself",
     "exit_geo": "Exit",
     "nearby_label": "nearby",
-    "unlock_available": "Unlock available",
-    "distance_away": "{n}m away"
+    "unlock_available": "unlockable",
+    "distance_away": "{n}m away",
+    "mood_solitude": "Solitude",
+    "mood_wandering": "Wandering",
+    "mood_homesick": "Homesick",
+    "mood_belonging": "Belonging",
+    "mood_quiet": "Quiet",
+    "mood_restless": "Restless",
+    "mood_invisible": "Invisible",
+    "mood_tender": "Tender",
+    "mood_adrift": "Adrift",
+    "mood_anchored": "Anchored"
   },
   "neighborhoods": {
     "shimokitazawa": {

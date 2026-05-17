@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { categoryMeta, mapPins } from "@/lib/mapData";
+import { moodMeta, memoryPostcards } from "@/lib/mapData";
 import { type ArchiveEntry, clearArchive } from "@/lib/userArchive";
 
 interface MemoryArchiveDrawerProps {
@@ -14,13 +14,13 @@ interface MemoryArchiveDrawerProps {
 }
 
 const CITIES = [
-  { key: "tokyo", label: "Tokyo" },
-  { key: "kyoto", label: "Kyoto" },
-  { key: "osaka", label: "Osaka" },
+  { key: "tokyo",  label: "Tokyo" },
+  { key: "kyoto",  label: "Kyoto" },
+  { key: "osaka",  label: "Osaka" },
 ] as const;
 
 function cityTotal(city: string) {
-  return mapPins.filter((p) => p.city === city).length;
+  return memoryPostcards.filter((p) => p.city === city).length;
 }
 
 export function MemoryArchiveDrawer({
@@ -49,7 +49,7 @@ export function MemoryArchiveDrawer({
             style={{
               background:
                 "linear-gradient(160deg, rgba(10,10,16,0.99) 0%, rgba(8,8,12,0.99) 100%)",
-              borderRight: "1px solid rgba(200,184,154,0.08)",
+              borderRight: "1px solid rgba(200,184,154,0.07)",
             }}
             initial={{ x: "-100%" }}
             animate={{ x: 0 }}
@@ -97,7 +97,6 @@ export function MemoryArchiveDrawer({
 
                     return (
                       <div key={city}>
-                        {/* City header + progress */}
                         <div className="flex items-center justify-between mb-2">
                           <h3 className="text-caption text-[var(--color-sand)] tracking-[0.18em]">
                             {label}
@@ -106,12 +105,13 @@ export function MemoryArchiveDrawer({
                             {t("city_progress", { collected: collected.length, total })}
                           </span>
                         </div>
-                        <div className="h-px bg-white/6 mb-4 rounded-full overflow-hidden">
+
+                        {/* Progress bar */}
+                        <div className="h-px bg-white/5 mb-4 rounded-full overflow-hidden">
                           <motion.div
                             className="h-full rounded-full"
                             style={{
-                              background:
-                                "linear-gradient(90deg, #C9A96E 0%, #E8D5A3 100%)",
+                              background: "linear-gradient(90deg, #C9A96E 0%, #E8D5A3 100%)",
                             }}
                             initial={{ width: 0 }}
                             animate={{ width: `${pct}%` }}
@@ -122,8 +122,7 @@ export function MemoryArchiveDrawer({
                         {/* Memory list */}
                         <div className="space-y-2">
                           {collected.map((entry) => {
-                            const meta =
-                              categoryMeta[entry.category as keyof typeof categoryMeta];
+                            const meta = moodMeta[entry.category as keyof typeof moodMeta];
                             const date = new Date(entry.collectedAt);
                             return (
                               <div

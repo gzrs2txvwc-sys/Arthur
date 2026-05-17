@@ -5,15 +5,14 @@ import { useState, useCallback, useMemo, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import type { Map as LeafletMap } from "leaflet";
-import { mapPins, categoryMeta } from "@/lib/mapData";
-import type { MapPin, PinCategory, PinState } from "@/lib/mapData";
+import { memoryPostcards, moodMeta } from "@/lib/mapData";
+import type { MemoryPostcard, FragmentMood, PinState } from "@/lib/mapData";
 import { haversineDistance, getPinState, UNLOCK_RADIUS } from "@/lib/geoProximity";
 import { getArchive, addToArchive } from "@/lib/userArchive";
 import type { ArchiveEntry } from "@/lib/userArchive";
 import { MapFilters } from "./MapFilters";
-import { PinStory } from "./PinStory";
 import { MapAtmosphere } from "./MapAtmosphere";
-import { UnlockOverlay } from "./UnlockOverlay";
+import { PostcardView } from "./PostcardView";
 import { MemoryArchiveDrawer } from "./MemoryArchiveDrawer";
 import { FilmGrain } from "@/components/ui/FilmGrain";
 import { AmbientSoundscape } from "./AmbientSoundscape";
@@ -36,8 +35,8 @@ export function MapExperience() {
   const t = useTranslations("map");
 
   // ── Browse state ──────────────────────────────────
-  const [selectedPin, setSelectedPin] = useState<MapPin | null>(null);
-  const [activeCategory, setActiveCategory] = useState<PinCategory | "all">("all");
+  const [selectedPostcard, setSelectedPostcard] = useState<MemoryPostcard | null>(null);
+  const [activeMood, setActiveMood] = useState<FragmentMood | "all">("all");
   const [introGone, setIntroGone] = useState(false);
   const mapRef = useRef<LeafletMap | null>(null) as { current: LeafletMap | null };
 
@@ -46,7 +45,7 @@ export function MapExperience() {
   const [userPosition, setUserPosition] = useState<[number, number] | null>(null);
   const [collectedIds, setCollectedIds] = useState<Set<string>>(new Set());
   const [archiveEntries, setArchiveEntries] = useState<ArchiveEntry[]>([]);
-  const [unlockTarget, setUnlockTarget] = useState<MapPin | null>(null);
+  const [unlockTarget, setUnlockTarget] = useState<MemoryPostcard | null>(null);
   const [archiveOpen, setArchiveOpen] = useState(false);
   const watchIdRef = useRef<number | null>(null);
 
@@ -66,81 +65,80 @@ export function MapExperience() {
     };
   }, []);
 
-  // ── Computed pin states (only when geo is active) ─
+  // ── Pin states (computed only in geo mode) ────────
   const pinStates = useMemo((): Record<string, PinState> => {
     if (geoMode === "off") return {};
     const states: Record<string, PinState> = {};
-    mapPins.forEach((pin) => {
-      states[pin.id] = getPinState(
+    memoryPostcards.forEach((p) => {
+      states[p.id] = getPinState(
         userPosition,
-        pin.coordinates,
-        collectedIds.has(pin.id)
+        p.coordinates,
+        collectedIds.has(p.id),
+        p.unlockRadius ?? UNLOCK_RADIUS
       );
     });
     return states;
   }, [geoMode, userPosition, collectedIds]);
 
-  // ── Unlockable count for display ──────────────────
-  const unlockableCount = useMemo(
+  // ── Visible postcards (filter by mood) ───────────
+  const visiblePostcards = useMemo(
     () =>
-      Object.values(pinStates).filter((s) => s === "unlocked" || s === "nearby").length,
-    [pinStates]
+      activeMood === "all"
+        ? memoryPostcards
+        : memoryPostcards.filter((p) => p.mood === activeMood),
+    [activeMood]
   );
 
-  // ── Visible pins for browse navigation ───────────
-  const visiblePins = useMemo(
-    () => (activeCategory === "all" ? mapPins : mapPins.filter((p) => p.category === activeCategory)),
-    [activeCategory]
-  );
-
-  const selectedIndex = selectedPin
-    ? visiblePins.findIndex((p) => p.id === selectedPin.id)
+  const selectedIndex = selectedPostcard
+    ? visiblePostcards.findIndex((p) => p.id === selectedPostcard.id)
     : -1;
+
+  const counts = useMemo(() => {
+    const c: Record<string, number> = { all: memoryPostcards.length };
+    (Object.keys(moodMeta) as FragmentMood[]).forEach((mood) => {
+      c[mood] = memoryPostcards.filter((p) => p.mood === mood).length;
+    });
+    return c;
+  }, []);
 
   const handleMapReady = useCallback((map: LeafletMap) => {
     mapRef.current = map;
   }, []);
 
   const handleNext = useCallback(() => {
-    if (selectedIndex < visiblePins.length - 1) setSelectedPin(visiblePins[selectedIndex + 1]);
-  }, [selectedIndex, visiblePins]);
+    if (selectedIndex < visiblePostcards.length - 1)
+      setSelectedPostcard(visiblePostcards[selectedIndex + 1]);
+  }, [selectedIndex, visiblePostcards]);
 
   const handlePrev = useCallback(() => {
-    if (selectedIndex > 0) setSelectedPin(visiblePins[selectedIndex - 1]);
-  }, [selectedIndex, visiblePins]);
+    if (selectedIndex > 0)
+      setSelectedPostcard(visiblePostcards[selectedIndex - 1]);
+  }, [selectedIndex, visiblePostcards]);
 
-  const counts = useMemo(() => {
-    const c: Record<string, number> = { all: mapPins.length };
-    (Object.keys(categoryMeta) as PinCategory[]).forEach((cat) => {
-      c[cat] = mapPins.filter((p) => p.category === cat).length;
-    });
-    return c;
-  }, []);
-
-  // ── Pin select handler (geo-aware) ────────────────
-  const handlePinSelect = useCallback(
-    (pin: MapPin) => {
+  // ── Postcard select (geo-aware) ───────────────────
+  const handleSelect = useCallback(
+    (postcard: MemoryPostcard) => {
       if (geoMode === "off") {
-        setSelectedPin(pin);
+        setSelectedPostcard(postcard);
         return;
       }
-      const state = pinStates[pin.id] ?? "locked";
+      const state = pinStates[postcard.id] ?? "locked";
       if (state === "unlocked" || state === "collected") {
-        setUnlockTarget(pin);
+        setUnlockTarget(postcard);
       }
-      // locked / nearby: silently ignore (must physically walk there)
+      // locked / nearby: silently ignore (walk there)
     },
     [geoMode, pinStates]
   );
 
-  // ── Collect a memory ──────────────────────────────
-  const handleCollect = useCallback((pin: MapPin) => {
+  // ── Collect ───────────────────────────────────────
+  const handleCollect = useCallback((postcard: MemoryPostcard) => {
     const entry: ArchiveEntry = {
-      pinId: pin.id,
+      pinId: postcard.id,
       collectedAt: new Date().toISOString(),
-      city: pin.city,
-      title: pin.title,
-      category: pin.category,
+      city: postcard.city,
+      title: postcard.title,
+      category: postcard.mood,
     };
     addToArchive(entry);
     const updated = getArchive();
@@ -149,12 +147,10 @@ export function MapExperience() {
     setUnlockTarget(null);
   }, []);
 
-  // ── GPS enable ────────────────────────────────────
+  // ── GPS ───────────────────────────────────────────
   const enableGPS = useCallback(() => {
     if (!navigator.geolocation) return;
-    if (watchIdRef.current !== null) {
-      navigator.geolocation.clearWatch(watchIdRef.current);
-    }
+    if (watchIdRef.current !== null) navigator.geolocation.clearWatch(watchIdRef.current);
     const id = navigator.geolocation.watchPosition(
       (pos) => setUserPosition([pos.coords.latitude, pos.coords.longitude]),
       () => {},
@@ -162,24 +158,22 @@ export function MapExperience() {
     );
     watchIdRef.current = id;
     setGeoMode("gps");
-    setSelectedPin(null);
+    setSelectedPostcard(null);
   }, []);
 
-  // ── Simulation mode ───────────────────────────────
   const enableSimulation = useCallback(() => {
     if (watchIdRef.current !== null && navigator.geolocation) {
       navigator.geolocation.clearWatch(watchIdRef.current);
       watchIdRef.current = null;
     }
     setGeoMode("simulation");
-    setSelectedPin(null);
+    setSelectedPostcard(null);
   }, []);
 
   const handleSimulationClick = useCallback((latlng: [number, number]) => {
     setUserPosition(latlng);
   }, []);
 
-  // ── Exit geo ──────────────────────────────────────
   const disableGeo = useCallback(() => {
     if (watchIdRef.current !== null && navigator.geolocation) {
       navigator.geolocation.clearWatch(watchIdRef.current);
@@ -189,26 +183,29 @@ export function MapExperience() {
     setUserPosition(null);
   }, []);
 
-  // ── Archive helpers ───────────────────────────────
   const handleArchiveClear = useCallback(() => {
     setArchiveEntries([]);
     setCollectedIds(new Set());
   }, []);
 
-  // ── Nearest unlockable pin distance ──────────────
+  // ── Nearest unlockable distance ───────────────────
   const nearestDistance = useMemo(() => {
     if (!userPosition || geoMode === "off") return null;
     let min = Infinity;
-    mapPins.forEach((pin) => {
-      if (collectedIds.has(pin.id)) return;
-      const d = haversineDistance(userPosition, pin.coordinates);
+    memoryPostcards.forEach((p) => {
+      if (collectedIds.has(p.id)) return;
+      const d = haversineDistance(userPosition, p.coordinates);
       if (d < min) min = d;
     });
     return min === Infinity ? null : min;
   }, [userPosition, geoMode, collectedIds]);
 
+  const unlockableCount = useMemo(
+    () => Object.values(pinStates).filter((s) => s === "unlocked").length,
+    [pinStates]
+  );
+
   const isSimulation = geoMode === "simulation";
-  const isGPSOn = geoMode === "gps";
 
   return (
     <div className="relative w-full h-[100dvh] overflow-hidden bg-[#0a0a0a]">
@@ -224,9 +221,9 @@ export function MapExperience() {
 
       <div className="absolute inset-0 z-0">
         <JapanMap
-          selectedPin={selectedPin}
-          activeCategory={activeCategory}
-          onPinSelect={handlePinSelect}
+          selected={selectedPostcard}
+          activeMood={activeMood}
+          onSelect={handleSelect}
           onMapReady={handleMapReady}
           pinStates={pinStates}
           userPosition={userPosition}
@@ -251,7 +248,7 @@ export function MapExperience() {
             {t("title")}
           </h1>
         </div>
-        <MapFilters active={activeCategory} onChange={setActiveCategory} counts={counts} />
+        <MapFilters active={activeMood} onChange={setActiveMood} counts={counts} />
       </div>
 
       {/* ── Soundscape ──────────────────────────── */}
@@ -259,10 +256,10 @@ export function MapExperience() {
         <AmbientSoundscape />
       </div>
 
-      {/* ── Bottom-left status bar ──────────────── */}
+      {/* ── Bottom-left controls ─────────────────── */}
       <div className="absolute bottom-6 left-4 md:left-8 z-[450] flex flex-col gap-2 items-start">
-        {/* Memory count + archive toggle */}
-        <div className="flex items-center gap-3">
+        {/* Count + archive */}
+        <div className="flex items-center gap-2">
           <div
             className="px-4 py-2 rounded-sm text-caption text-[var(--color-muted)]"
             style={{
@@ -272,16 +269,15 @@ export function MapExperience() {
             }}
           >
             {geoMode !== "off" && unlockableCount > 0
-              ? t("memories_count", { n: unlockableCount }) + " " + t("nearby_label")
-              : t("memories_count", { n: visiblePins.length })}
-            {activeCategory !== "all" && (
+              ? `${unlockableCount} ${t("unlock_available")}`
+              : t("memories_count", { n: visiblePostcards.length })}
+            {activeMood !== "all" && (
               <span className="ml-2 opacity-60">
-                · {t(`category_${activeCategory as "memory"}`)}
+                · {t(`mood_${activeMood as "solitude"}`)}
               </span>
             )}
           </div>
 
-          {/* Archive button */}
           <button
             onClick={() => setArchiveOpen(true)}
             className="flex items-center gap-2 px-3 py-2 rounded-sm text-caption
@@ -306,7 +302,7 @@ export function MapExperience() {
         </div>
 
         {/* Geo controls */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           {geoMode === "off" ? (
             <>
               <button
@@ -326,7 +322,6 @@ export function MapExperience() {
                 className="px-3 py-1.5 rounded-sm text-caption transition-colors duration-200"
                 style={{
                   background: "rgba(78,205,196,0.1)",
-                  backdropFilter: "blur(12px)",
                   border: "1px solid rgba(78,205,196,0.25)",
                   color: "#4ECDC4",
                 }}
@@ -339,32 +334,26 @@ export function MapExperience() {
               <div
                 className="flex items-center gap-2 px-3 py-1.5 rounded-sm text-caption"
                 style={{
-                  background: isSimulation
-                    ? "rgba(201,169,110,0.1)"
-                    : "rgba(78,205,196,0.1)",
+                  background: isSimulation ? "rgba(201,169,110,0.1)" : "rgba(78,205,196,0.1)",
                   border: isSimulation
                     ? "1px solid rgba(201,169,110,0.3)"
                     : "1px solid rgba(78,205,196,0.3)",
                   color: isSimulation ? "#C9A96E" : "#4ECDC4",
                 }}
               >
-                <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "currentColor" }} />
+                <span
+                  className="w-1.5 h-1.5 rounded-full animate-pulse"
+                  style={{ background: "currentColor" }}
+                />
                 {isSimulation
                   ? userPosition
                     ? t("simulation_active")
                     : t("simulation_hint")
                   : t("enable_gps")}
               </div>
-              {isSimulation && !userPosition && (
-                <span className="text-caption text-[var(--color-muted)] opacity-60 hidden md:block">
-                  {t("simulation_hint")}
-                </span>
-              )}
-              {userPosition && nearestDistance !== null && (
+              {userPosition && nearestDistance !== null && nearestDistance > UNLOCK_RADIUS && (
                 <span className="text-caption text-[var(--color-muted)] hidden md:block">
-                  {nearestDistance < UNLOCK_RADIUS
-                    ? t("unlock_available")
-                    : `${Math.round(nearestDistance)}m to nearest`}
+                  {`${Math.round(nearestDistance)}m`}
                 </span>
               )}
               <button
@@ -384,30 +373,24 @@ export function MapExperience() {
         </div>
       </div>
 
-      {/* ── Browse click hint (only in browse mode) ─ */}
-      {geoMode === "off" && !selectedPin && (
-        <div className="absolute bottom-6 right-20 z-[450] hidden md:block">
-          <p className="text-caption text-[var(--color-muted)] opacity-60">
-            {t("click_pin")}
-          </p>
-        </div>
-      )}
+      {/* ── Postcard view (browse mode) ─────────── */}
+      <PostcardView
+        postcard={geoMode === "off" ? selectedPostcard : null}
+        mode="browse"
+        onClose={() => setSelectedPostcard(null)}
+        onNext={handleNext}
+        onPrev={handlePrev}
+        hasNext={selectedIndex < visiblePostcards.length - 1}
+        hasPrev={selectedIndex > 0}
+        alreadyCollected={
+          selectedPostcard ? collectedIds.has(selectedPostcard.id) : false
+        }
+      />
 
-      {/* ── PinStory (browse mode only) ─────────── */}
-      {geoMode === "off" && (
-        <PinStory
-          pin={selectedPin}
-          onClose={() => setSelectedPin(null)}
-          onNext={handleNext}
-          onPrev={handlePrev}
-          hasNext={selectedIndex < visiblePins.length - 1}
-          hasPrev={selectedIndex > 0}
-        />
-      )}
-
-      {/* ── Unlock overlay (geo mode) ───────────── */}
-      <UnlockOverlay
-        pin={unlockTarget}
+      {/* ── Postcard view (unlock mode) ─────────── */}
+      <PostcardView
+        postcard={unlockTarget}
+        mode="unlock"
         onClose={() => setUnlockTarget(null)}
         onCollect={handleCollect}
         alreadyCollected={unlockTarget ? collectedIds.has(unlockTarget.id) : false}

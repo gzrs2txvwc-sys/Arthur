@@ -465,6 +465,12 @@ body {
   100% { transform: scale(2.8); opacity: 0; }
 }
 
+/* ─── Postcard image treatment ───────────────────── */
+/* Makes any image feel like real street photography */
+.postcard-img {
+  filter: saturate(0.65) contrast(1.06) brightness(0.88);
+}
+
 /* ─── Ken Burns image animation ──────────────────── */
 @keyframes ken-burns {
   from { transform: scale(1.03) translate(0%, 0%); }

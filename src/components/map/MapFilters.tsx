@@ -1,12 +1,12 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { categoryMeta } from "@/lib/mapData";
-import type { PinCategory } from "@/lib/mapData";
+import { moodMeta } from "@/lib/mapData";
+import type { FragmentMood } from "@/lib/mapData";
 
 interface MapFiltersProps {
-  active: PinCategory | "all";
-  onChange: (cat: PinCategory | "all") => void;
+  active: FragmentMood | "all";
+  onChange: (mood: FragmentMood | "all") => void;
   counts: Record<string, number>;
 }
 
@@ -35,14 +35,14 @@ export function MapFilters({ active, onChange, counts }: MapFiltersProps) {
         <span className="opacity-60">{counts["all"] ?? 0}</span>
       </button>
 
-      {(Object.keys(categoryMeta) as PinCategory[]).map((cat) => {
-        const { color } = categoryMeta[cat];
-        const isActive = active === cat;
+      {(Object.keys(moodMeta) as FragmentMood[]).map((mood) => {
+        const { color } = moodMeta[mood];
+        const isActive = active === mood;
         return (
           <button
-            key={cat}
-            onClick={() => onChange(cat)}
-            className="map-filter-pill map-filter-pill--active"
+            key={mood}
+            onClick={() => onChange(mood)}
+            className="map-filter-pill"
             style={
               isActive
                 ? { background: color, color: "#0a0a0a", borderColor: "transparent" }
@@ -53,8 +53,8 @@ export function MapFilters({ active, onChange, counts }: MapFiltersProps) {
               className="w-1.5 h-1.5 rounded-full"
               style={{ background: isActive ? "#0a0a0a" : color }}
             />
-            {t(`category_${cat as "memory"}`)}
-            <span className="opacity-60">{counts[cat] ?? 0}</span>
+            {t(`mood_${mood as "solitude"}`)}
+            <span className="opacity-60">{counts[mood] ?? 0}</span>
           </button>
         );
       })}

@@ -4,20 +4,20 @@ import { useEffect, useRef } from "react";
 import { MapContainer, TileLayer, useMap, useMapEvents } from "react-leaflet";
 import * as L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { mapPins, categoryMeta, mapCenter, mapDefaultZoom } from "@/lib/mapData";
-import type { MapPin, PinCategory, PinState } from "@/lib/mapData";
+import { memoryPostcards, moodMeta, mapCenter, mapDefaultZoom } from "@/lib/mapData";
+import type { MemoryPostcard, FragmentMood, PinState } from "@/lib/mapData";
 
 // ── Fly-to helper ──────────────────────────────────
-function MapController({ selectedPin }: { selectedPin: MapPin | null }) {
+function MapController({ selected }: { selected: MemoryPostcard | null }) {
   const map = useMap();
   useEffect(() => {
-    if (selectedPin) {
-      map.flyTo(selectedPin.coordinates, Math.max(map.getZoom(), 12), {
+    if (selected) {
+      map.flyTo(selected.coordinates, Math.max(map.getZoom(), 13), {
         duration: 1.4,
         easeLinearity: 0.3,
       });
     }
-  }, [selectedPin, map]);
+  }, [selected, map]);
   return null;
 }
 
@@ -40,9 +40,7 @@ function SimulationClickHandler({
 }) {
   useMapEvents({
     click(e) {
-      if (enabled) {
-        onMapClick([e.latlng.lat, e.latlng.lng]);
-      }
+      if (enabled) onMapClick([e.latlng.lat, e.latlng.lng]);
     },
   });
   return null;
@@ -80,16 +78,15 @@ function UserMarker({ position }: { position: [number, number] }) {
   return null;
 }
 
-// ── Custom pin icon factory ────────────────────────
+// ── Pin icon factory ───────────────────────────────
 function createPinIcon(
-  category: PinCategory,
+  mood: FragmentMood,
   isActive: boolean,
-  state: PinState = "locked",
+  state: PinState,
   geoModeOn: boolean,
   entering = false
 ) {
-  const { color, glow } = categoryMeta[category];
-
+  const { color, glow } = moodMeta[mood];
   const isCollected = state === "collected";
   const isUnlocked = state === "unlocked";
   const isNearby = state === "nearby";
@@ -98,7 +95,8 @@ function createPinIcon(
   const dotColor = isCollected ? "#C9A96E" : color;
   const dotGlow = isCollected ? "rgba(201,169,110,0.55)" : glow;
 
-  const stateClass = [
+  const cls = [
+    "map-pin",
     isLocked ? "map-pin--locked" : "",
     isNearby ? "map-pin--nearby" : "",
     isUnlocked ? "map-pin--unlocked" : "",
@@ -111,14 +109,12 @@ function createPinIcon(
 
   return L.divIcon({
     className: "",
-    html: `
-      <div class="map-pin ${stateClass}"
-           style="--pin-color:${dotColor};--pin-glow:${dotGlow}">
-        <div class="map-pin__pulse"></div>
-        <div class="map-pin__pulse-2"></div>
-        <div class="map-pin__ring"></div>
-        <div class="map-pin__dot"></div>
-      </div>`,
+    html: `<div class="${cls}" style="--pin-color:${dotColor};--pin-glow:${dotGlow}">
+      <div class="map-pin__pulse"></div>
+      <div class="map-pin__pulse-2"></div>
+      <div class="map-pin__ring"></div>
+      <div class="map-pin__dot"></div>
+    </div>`,
     iconSize: [28, 28],
     iconAnchor: [14, 14],
   });
@@ -126,9 +122,9 @@ function createPinIcon(
 
 // ── Props ──────────────────────────────────────────
 interface JapanMapProps {
-  selectedPin: MapPin | null;
-  activeCategory: PinCategory | "all";
-  onPinSelect: (pin: MapPin) => void;
+  selected: MemoryPostcard | null;
+  activeMood: FragmentMood | "all";
+  onSelect: (postcard: MemoryPostcard) => void;
   onMapReady?: (map: L.Map) => void;
   pinStates?: Record<string, PinState>;
   userPosition?: [number, number] | null;
@@ -137,9 +133,9 @@ interface JapanMapProps {
 }
 
 export default function JapanMap({
-  selectedPin,
-  activeCategory,
-  onPinSelect,
+  selected,
+  activeMood,
+  onSelect,
   onMapReady,
   pinStates = {},
   userPosition,
@@ -149,10 +145,10 @@ export default function JapanMap({
   const markersRef = useRef<Record<string, L.Marker>>({});
   const geoModeOn = Object.keys(pinStates).length > 0;
 
-  const visiblePins =
-    activeCategory === "all"
-      ? mapPins
-      : mapPins.filter((p) => p.category === activeCategory);
+  const visible =
+    activeMood === "all"
+      ? memoryPostcards
+      : memoryPostcards.filter((p) => p.mood === activeMood);
 
   return (
     <MapContainer
@@ -160,7 +156,11 @@ export default function JapanMap({
       zoom={mapDefaultZoom}
       zoomControl={false}
       scrollWheelZoom
-      style={{ height: "100%", width: "100%", cursor: simulationMode ? "crosshair" : undefined }}
+      style={{
+        height: "100%",
+        width: "100%",
+        cursor: simulationMode ? "crosshair" : undefined,
+      }}
     >
       <TileLayer
         url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
@@ -169,7 +169,7 @@ export default function JapanMap({
         maxZoom={19}
       />
 
-      <MapController selectedPin={selectedPin} />
+      <MapController selected={selected} />
       {onMapReady && <MapInstanceBridge onMapReady={onMapReady} />}
       <ZoomControl />
 
@@ -181,10 +181,10 @@ export default function JapanMap({
       {userPosition && <UserMarker position={userPosition} />}
 
       <PinLayer
-        pins={visiblePins}
-        selectedPin={selectedPin}
+        postcards={visible}
+        selected={selected}
         markersRef={markersRef}
-        onPinSelect={onPinSelect}
+        onSelect={onSelect}
         pinStates={pinStates}
         geoModeOn={geoModeOn}
       />
@@ -203,15 +203,15 @@ function ZoomControl() {
 
 // ── Pins layer ─────────────────────────────────────
 interface PinLayerProps {
-  pins: MapPin[];
-  selectedPin: MapPin | null;
+  postcards: MemoryPostcard[];
+  selected: MemoryPostcard | null;
   markersRef: React.MutableRefObject<Record<string, L.Marker>>;
-  onPinSelect: (pin: MapPin) => void;
+  onSelect: (postcard: MemoryPostcard) => void;
   pinStates: Record<string, PinState>;
   geoModeOn: boolean;
 }
 
-function PinLayer({ pins, selectedPin, markersRef, onPinSelect, pinStates, geoModeOn }: PinLayerProps) {
+function PinLayer({ postcards, selected, markersRef, onSelect, pinStates, geoModeOn }: PinLayerProps) {
   const map = useMap();
   const isInitialRef = useRef(true);
 
@@ -222,14 +222,14 @@ function PinLayer({ pins, selectedPin, markersRef, onPinSelect, pinStates, geoMo
     const entering = isInitialRef.current;
     isInitialRef.current = false;
 
-    pins.forEach((pin, index) => {
-      const isActive = selectedPin?.id === pin.id;
-      const state = pinStates[pin.id] ?? "locked";
-      const icon = createPinIcon(pin.category, isActive, state, geoModeOn, entering);
+    postcards.forEach((postcard, index) => {
+      const isActive = selected?.id === postcard.id;
+      const state = pinStates[postcard.id] ?? "locked";
+      const icon = createPinIcon(postcard.mood, isActive, state, geoModeOn, entering);
 
-      const marker = L.marker(pin.coordinates, { icon })
+      const marker = L.marker(postcard.coordinates, { icon })
         .addTo(map)
-        .on("click", () => onPinSelect(pin));
+        .on("click", () => onSelect(postcard));
 
       if (entering) {
         const delay = 180 + index * 55;
@@ -238,14 +238,14 @@ function PinLayer({ pins, selectedPin, markersRef, onPinSelect, pinStates, geoMo
         }, delay + 650);
       }
 
-      markersRef.current[pin.id] = marker;
+      markersRef.current[postcard.id] = marker;
     });
 
     return () => {
       Object.values(markersRef.current).forEach((m) => m.remove());
       markersRef.current = {};
     };
-  }, [pins, selectedPin, map, onPinSelect, pinStates, geoModeOn, markersRef]);
+  }, [postcards, selected, map, onSelect, pinStates, geoModeOn, markersRef]);
 
   return null;
 }
