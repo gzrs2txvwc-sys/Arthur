@@ -3,11 +3,18 @@
 import { useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { X, ArrowLeft, ArrowRight } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { moodMeta } from "@/lib/mapData";
 import type { MemoryPostcard } from "@/lib/mapData";
 import { FilmGrain } from "@/components/ui/FilmGrain";
+
+const WORLD_EXITS = [
+  { label: "Tonight", href: "/today",   color: "#7B8DB3" },
+  { label: "Stories", href: "/moments", color: "#C9A96E" },
+  { label: "Daily Life", href: "/living",  color: "#A8B5A0" },
+] as const;
 
 interface PostcardViewProps {
   postcard: MemoryPostcard | null;
@@ -54,6 +61,8 @@ export function PostcardView({
   onPrev,
 }: PostcardViewProps) {
   const t = useTranslations("map");
+  const locale = useLocale();
+  const prefix = locale === "en" ? "" : `/${locale}`;
   const meta = postcard ? moodMeta[postcard.mood] : null;
   const rotation = useMemo(() => (postcard ? cardRotation(postcard.id) : 0), [postcard]);
 
@@ -286,6 +295,29 @@ export function PostcardView({
                         : t("browse_collect_hint")}
                     </span>
                   )}
+                </div>
+
+                {/* ── Exit to another world ─────────────── */}
+                <div
+                  className="px-4 pb-4 pt-3 flex items-center gap-5"
+                  style={{ borderTop: "1px solid rgba(255,255,255,0.03)" }}
+                >
+                  {WORLD_EXITS.map(({ label, href, color }) => (
+                    <Link
+                      key={href}
+                      href={`${prefix}${href}`}
+                      className="flex items-center gap-1 transition-opacity duration-150 hover:opacity-100"
+                      style={{
+                        fontSize: "9px",
+                        fontFamily: "var(--font-mono, monospace)",
+                        letterSpacing: "0.16em",
+                        color,
+                        opacity: 0.4,
+                      }}
+                    >
+                      {label} →
+                    </Link>
+                  ))}
                 </div>
               </div>
             </motion.div>
