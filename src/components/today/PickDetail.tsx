@@ -245,25 +245,85 @@ export function PickDetail({
         </section>
       )}
 
-      {/* ── Official link ────────────────────────── */}
-      {pick.officialUrl && (
+      {/* ── Real-world links ─────────────────────── */}
+      {(pick.officialUrl || pick.instagramUrl || pick.googleMapsUrl) && (
         <div
-          className="rounded-sm px-5 py-4 mt-8"
+          className="rounded-sm px-5 py-5 mt-8 flex flex-col gap-3"
           style={{
             background: "rgba(255,255,255,0.02)",
             border: "1px solid rgba(200,184,154,0.07)",
           }}
         >
-          <SectionLabel>Official</SectionLabel>
-          <a
-            href={pick.officialUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[10px] font-mono tracking-[0.1em] transition-opacity hover:opacity-100 break-all"
-            style={{ color: "var(--color-sand)", opacity: 0.8 }}
-          >
-            {pick.officialUrl} ↗
-          </a>
+          <SectionLabel>Continue deeper</SectionLabel>
+
+          {pick.googleMapsUrl && (
+            <a
+              href={pick.googleMapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 text-[10px] font-mono tracking-[0.1em] transition-opacity hover:opacity-100 group"
+              style={{ color: "var(--color-muted)", opacity: 0.7 }}
+            >
+              <span
+                className="text-[8px] px-1.5 py-0.5 rounded-sm flex-shrink-0"
+                style={{
+                  background: "rgba(107,158,138,0.12)",
+                  color: "#6B9E8A",
+                  border: "1px solid rgba(107,158,138,0.2)",
+                }}
+              >
+                MAPS
+              </span>
+              <span className="group-hover:underline truncate">{pick.neighborhood}</span>
+              <span className="ml-auto flex-shrink-0">↗</span>
+            </a>
+          )}
+
+          {pick.officialUrl && (
+            <a
+              href={pick.officialUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 text-[10px] font-mono tracking-[0.1em] transition-opacity hover:opacity-100 group"
+              style={{ color: "var(--color-muted)", opacity: 0.7 }}
+            >
+              <span
+                className="text-[8px] px-1.5 py-0.5 rounded-sm flex-shrink-0"
+                style={{
+                  background: "rgba(201,169,110,0.1)",
+                  color: "#C9A96E",
+                  border: "1px solid rgba(201,169,110,0.2)",
+                }}
+              >
+                WEB
+              </span>
+              <span className="group-hover:underline truncate">{pick.officialUrl.replace(/^https?:\/\//, "")}</span>
+              <span className="ml-auto flex-shrink-0">↗</span>
+            </a>
+          )}
+
+          {pick.instagramUrl && (
+            <a
+              href={pick.instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 text-[10px] font-mono tracking-[0.1em] transition-opacity hover:opacity-100 group"
+              style={{ color: "var(--color-muted)", opacity: 0.7 }}
+            >
+              <span
+                className="text-[8px] px-1.5 py-0.5 rounded-sm flex-shrink-0"
+                style={{
+                  background: "rgba(123,141,179,0.1)",
+                  color: "#7B8DB3",
+                  border: "1px solid rgba(123,141,179,0.2)",
+                }}
+              >
+                IG
+              </span>
+              <span className="group-hover:underline truncate">Instagram</span>
+              <span className="ml-auto flex-shrink-0">↗</span>
+            </a>
+          )}
         </div>
       )}
 

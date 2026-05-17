@@ -8,6 +8,8 @@ interface DailyPickCardProps {
   title: string;
   hook: string;
   body: string;       // \n\n-separated paragraphs
+  whyToday?: string;
+  weatherNote?: string;  // shown when weather affects this pick
 }
 
 function TimePrice({
@@ -59,8 +61,35 @@ function GoDeeper({ pickId }: { pickId: string }) {
   );
 }
 
+function WeatherBadge({ note }: { note: string }) {
+  return (
+    <p
+      className="text-[9px] font-mono tracking-[0.12em] mt-4 mb-1"
+      style={{ color: "#5B7FA6", opacity: 0.8 }}
+    >
+      {note}
+    </p>
+  );
+}
+
+function WhyToday({ text }: { text: string }) {
+  return (
+    <p
+      className="text-[11px] leading-relaxed mt-5 pt-5"
+      style={{
+        color: "var(--color-muted)",
+        opacity: 0.55,
+        borderTop: "1px solid rgba(200,184,154,0.07)",
+        fontStyle: "italic",
+      }}
+    >
+      {text}
+    </p>
+  );
+}
+
 // Feature card — the day's main event. Image-first, editorial text below.
-function FeatureCard({ pick, typeLabel, title, hook, body }: DailyPickCardProps) {
+function FeatureCard({ pick, typeLabel, title, hook, body, whyToday, weatherNote }: DailyPickCardProps) {
   const mood = moodMeta[pick.mood];
   const paragraphs = body.split("\n\n").filter(Boolean);
 
@@ -141,6 +170,9 @@ function FeatureCard({ pick, typeLabel, title, hook, body }: DailyPickCardProps)
           price={pick.price}
         />
 
+        {weatherNote && <WeatherBadge note={weatherNote} />}
+        {whyToday && <WhyToday text={whyToday} />}
+
         <GoDeeper pickId={pick.id} />
       </div>
     </article>
@@ -148,7 +180,7 @@ function FeatureCard({ pick, typeLabel, title, hook, body }: DailyPickCardProps)
 }
 
 // Task card — personal exploration mission. More text-forward, intimate.
-function TaskCard({ pick, typeLabel, title, hook, body }: DailyPickCardProps) {
+function TaskCard({ pick, typeLabel, title, hook, body, whyToday, weatherNote }: DailyPickCardProps) {
   const mood = moodMeta[pick.mood];
   const paragraphs = body.split("\n\n").filter(Boolean);
 
@@ -228,6 +260,9 @@ function TaskCard({ pick, typeLabel, title, hook, body }: DailyPickCardProps) {
         </div>
 
         <TimePrice price={pick.price} />
+
+        {weatherNote && <WeatherBadge note={weatherNote} />}
+        {whyToday && <WhyToday text={whyToday} />}
 
         <GoDeeper pickId={pick.id} />
       </div>

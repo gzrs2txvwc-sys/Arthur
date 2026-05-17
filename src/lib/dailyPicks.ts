@@ -20,6 +20,14 @@ export interface DailyPickMeta {
   walkingMinutes: number;
   officialUrl?: string;
 
+  // Real-world links
+  instagramUrl?: string;
+  googleMapsUrl?: string;
+
+  // Weather suitability: 'any' | 'clear' | 'cloudy' | 'rainy' | 'foggy' | 'snowy'
+  // Used to flag weather mismatch without hiding the pick
+  weatherSuitability: string[];
+
   // Event-specific extras
   performers?: string[];
   vendors?: string[];
@@ -51,6 +59,8 @@ const picks: DailyPickMeta[] = [
     nearestStation: "Harajuku Station",
     stationExit: "Omotesando Exit (表参道口)",
     walkingMinutes: 5,
+    googleMapsUrl: "https://maps.app.goo.gl/yoyogi",
+    weatherSuitability: ["clear", "cloudy"],
   },
   {
     id: "shimokitazawa-sunday-task",
@@ -65,6 +75,8 @@ const picks: DailyPickMeta[] = [
     nearestStation: "Shimokitazawa Station",
     stationExit: "North Exit (北口)",
     walkingMinutes: 3,
+    googleMapsUrl: "https://maps.app.goo.gl/shimokitazawa",
+    weatherSuitability: ["any"],
   },
 
   // ── MONDAY ─────────────────────────────────────────────
@@ -85,6 +97,8 @@ const picks: DailyPickMeta[] = [
     stationExit: "Exit 1 (Kaminarimon side)",
     walkingMinutes: 5,
     officialUrl: "https://www.senso-ji.jp/",
+    googleMapsUrl: "https://maps.app.goo.gl/sensoji",
+    weatherSuitability: ["any"],
   },
   {
     id: "nakameguro-monday-task",
@@ -99,6 +113,9 @@ const picks: DailyPickMeta[] = [
     nearestStation: "Nakameguro Station",
     stationExit: "Main Exit (正面口)",
     walkingMinutes: 2,
+    instagramUrl: "https://www.instagram.com/explore/tags/nakameguro/",
+    googleMapsUrl: "https://maps.app.goo.gl/nakameguro",
+    weatherSuitability: ["clear", "cloudy"],
   },
 
   // ── TUESDAY ────────────────────────────────────────────
@@ -119,6 +136,9 @@ const picks: DailyPickMeta[] = [
     stationExit: "East Exit (東口)",
     walkingMinutes: 12,
     officialUrl: "https://topmuseum.jp/",
+    instagramUrl: "https://www.instagram.com/topmuseum_jp/",
+    googleMapsUrl: "https://maps.app.goo.gl/topmuseum",
+    weatherSuitability: ["any"],
   },
   {
     id: "kuramae-tuesday-task",
@@ -133,6 +153,8 @@ const picks: DailyPickMeta[] = [
     nearestStation: "Kuramae Station",
     stationExit: "A3 Exit (Oedo Line side)",
     walkingMinutes: 5,
+    googleMapsUrl: "https://maps.app.goo.gl/kuramae",
+    weatherSuitability: ["any"],
   },
 
   // ── WEDNESDAY ──────────────────────────────────────────
@@ -152,6 +174,8 @@ const picks: DailyPickMeta[] = [
     nearestStation: "Shimokitazawa Station",
     stationExit: "South Exit (南口)",
     walkingMinutes: 5,
+    googleMapsUrl: "https://maps.app.goo.gl/shimokitazawa-south",
+    weatherSuitability: ["any"],
   },
   {
     id: "yanaka-wednesday-task",
@@ -166,6 +190,8 @@ const picks: DailyPickMeta[] = [
     nearestStation: "Nippori Station",
     stationExit: "West Exit (西口)",
     walkingMinutes: 8,
+    googleMapsUrl: "https://maps.app.goo.gl/yanaka",
+    weatherSuitability: ["clear", "cloudy"],
   },
 
   // ── THURSDAY ───────────────────────────────────────────
@@ -184,6 +210,8 @@ const picks: DailyPickMeta[] = [
     nearestStation: "Kōenji Station",
     stationExit: "South Exit (南口)",
     walkingMinutes: 5,
+    googleMapsUrl: "https://maps.app.goo.gl/koenji-south",
+    weatherSuitability: ["any"],
   },
   {
     id: "arakawa-thursday-task",
@@ -198,6 +226,8 @@ const picks: DailyPickMeta[] = [
     nearestStation: "Nishi-Arakawa Station",
     stationExit: "Main exit (Toden Arakawa Line)",
     walkingMinutes: 3,
+    googleMapsUrl: "https://maps.app.goo.gl/arakawa-river",
+    weatherSuitability: ["clear", "cloudy"],
   },
 
   // ── FRIDAY ─────────────────────────────────────────────
@@ -217,6 +247,8 @@ const picks: DailyPickMeta[] = [
     nearestStation: "Shimokitazawa Station",
     stationExit: "South Exit (南口)",
     walkingMinutes: 5,
+    googleMapsUrl: "https://maps.app.goo.gl/shimokitazawa-music",
+    weatherSuitability: ["any"],
   },
   {
     id: "golden-gai-friday-task",
@@ -231,6 +263,8 @@ const picks: DailyPickMeta[] = [
     nearestStation: "Shinjuku Station",
     stationExit: "East Exit (東口)",
     walkingMinutes: 8,
+    googleMapsUrl: "https://maps.app.goo.gl/golden-gai",
+    weatherSuitability: ["any"],
   },
 
   // ── SATURDAY ───────────────────────────────────────────
@@ -250,6 +284,8 @@ const picks: DailyPickMeta[] = [
     nearestStation: "Kōenji Station",
     stationExit: "North Exit (北口)",
     walkingMinutes: 10,
+    googleMapsUrl: "https://maps.app.goo.gl/koenji-market",
+    weatherSuitability: ["clear", "cloudy"],
   },
   {
     id: "nishi-ogikubo-saturday-task",
@@ -264,6 +300,8 @@ const picks: DailyPickMeta[] = [
     nearestStation: "Nishi-Ogikubo Station",
     stationExit: "North Exit (北口)",
     walkingMinutes: 3,
+    googleMapsUrl: "https://maps.app.goo.gl/nishi-ogikubo",
+    weatherSuitability: ["any"],
   },
 ];
 
