@@ -132,7 +132,12 @@ export default async function TodayDetailPage({
         )}
 
         {/* ── World bridge ────────────────────────── */}
-        <WorldBridge exclude="tonight" locale={locale} />
+        <WorldBridge
+          exclude="tonight"
+          locale={locale}
+          mood={pick.mood}
+          seed={id.charCodeAt(0) % 3}
+        />
 
       </div>
     </div>

@@ -7,6 +7,7 @@ import Link from "next/link";
 import { X, ArrowLeft, ArrowRight } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
 import { moodMeta } from "@/lib/mapData";
+import { getDriftLine } from "@/lib/moodThread";
 import type { MemoryPostcard } from "@/lib/mapData";
 import { FilmGrain } from "@/components/ui/FilmGrain";
 
@@ -296,11 +297,24 @@ export function PostcardView({
                   )}
                 </div>
 
-                {/* ── Exit to another world ─────────────── */}
+                {/* ── Drift line + world exits ──────────── */}
                 <div
-                  className="px-4 pb-4 pt-3 flex items-center gap-5"
+                  className="px-4 pb-4 pt-3"
                   style={{ borderTop: "1px solid rgba(255,255,255,0.03)" }}
                 >
+                  {/* Mood-specific atmospheric pull */}
+                  <p
+                    className="italic mb-3"
+                    style={{
+                      fontSize: "10px",
+                      color: "var(--color-muted)",
+                      opacity: 0.3,
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    {getDriftLine(postcard.mood, postcard.id.charCodeAt(0))}
+                  </p>
+                  <div className="flex items-center gap-5">
                   {/* Stories link — city-filtered */}
                   <Link
                     href={`${prefix}/moments`}
@@ -331,6 +345,7 @@ export function PostcardView({
                       {label} →
                     </Link>
                   ))}
+                  </div>
                 </div>
               </div>
             </motion.div>

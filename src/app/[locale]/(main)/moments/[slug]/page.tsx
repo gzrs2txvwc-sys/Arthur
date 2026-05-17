@@ -6,13 +6,14 @@ import { compileMDX } from "next-mdx-remote/rsc";
 import { getMoment, getMomentSlugs, getAllMoments, formatDate } from "@/lib/content";
 import { getCity } from "@/lib/cities";
 import { memoryPostcards, moodMeta } from "@/lib/mapData";
+import { getMoodFromTags, MOOD_CONNECTOR, MOOD_NEIGHBORS } from "@/lib/moodThread";
 import { PullQuote } from "@/components/content/PullQuote";
 import { FadeIn } from "@/components/motion/FadeIn";
-import { Button } from "@/components/ui/Button";
 import { Tag } from "@/components/ui/Tag";
 import { WorldBridge } from "@/components/ui/WorldBridge";
 import type { Moment } from "@/lib/types";
 import type { MemoryPostcard } from "@/lib/mapData";
+import type { FragmentMood } from "@/lib/postcards";
 import type { Metadata } from "next";
 
 export function generateStaticParams() {
@@ -155,16 +156,18 @@ export default async function MomentPage({
   const nextMoment = currentIndex < allMoments.length - 1 ? allMoments[currentIndex + 1] : allMoments[0];
   const prevMoment = currentIndex > 0 ? allMoments[currentIndex - 1] : null;
 
-  // Related map fragments: same city first, then any Tokyo fragments
-  const cityFragments = memoryPostcards.filter((p) => p.city === moment.city);
-  const fallbackFragments = memoryPostcards.filter((p) => p.city === "tokyo");
-  const fragmentPool = cityFragments.length >= 2 ? cityFragments : fallbackFragments;
-  // Deterministic selection based on slug hash so it's stable across requests
+  // Derive story mood from tags — powers all emotional threading below
+  const storyMood: FragmentMood = getMoodFromTags(moment.tags);
+  const neighborMoods = MOOD_NEIGHBORS[storyMood];
+
+  // Mood-matched map fragment: same mood first, then neighboring mood
   const slugHash = slug.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
-  const relatedFragments = [
-    fragmentPool[slugHash % fragmentPool.length],
-    fragmentPool[(slugHash + 7) % fragmentPool.length],
-  ].filter((f, i, arr) => f && arr.findIndex((x) => x?.id === f.id) === i);
+  const moodPool = memoryPostcards.filter((p) => p.mood === storyMood);
+  const neighborPool = memoryPostcards.filter((p) => neighborMoods.includes(p.mood));
+  const fragmentPool = moodPool.length > 0 ? moodPool : neighborPool;
+  const relatedFragment = fragmentPool.length > 0
+    ? fragmentPool[slugHash % fragmentPool.length]
+    : memoryPostcards[slugHash % memoryPostcards.length];
 
   const { content } = await compileMDX({
     source: moment.content ?? "",
@@ -244,24 +247,17 @@ export default async function MomentPage({
           </div>
         </FadeIn>
 
-        {/* Related map fragments */}
-        {relatedFragments.length > 0 && (
-          <FadeIn delay={0.12} className="mt-10">
-            <div
-              className="pt-8"
-              style={{ borderTop: "1px solid rgba(200,184,154,0.06)" }}
-            >
+        {/* Mood connector + one emotionally matched map fragment */}
+        {relatedFragment && (
+          <FadeIn delay={0.12} className="mt-12">
+            <div style={{ borderTop: "1px solid rgba(200,184,154,0.05)" }}>
               <p
-                className="font-mono mb-4"
-                style={{ fontSize: "9px", letterSpacing: "0.28em", color: "#7A9E7E", opacity: 0.5 }}
+                className="text-sm italic pt-7 pb-5"
+                style={{ color: "var(--color-muted)", opacity: 0.4 }}
               >
-                ON THE MAP
+                {MOOD_CONNECTOR[storyMood]}
               </p>
-              <div className="flex flex-col divide-y divide-white/[0.04]">
-                {relatedFragments.map((fragment) => (
-                  <MapFragmentTeaser key={fragment.id} postcard={fragment} locale={locale} />
-                ))}
-              </div>
+              <MapFragmentTeaser postcard={relatedFragment} locale={locale} />
             </div>
           </FadeIn>
         )}
@@ -284,9 +280,14 @@ export default async function MomentPage({
           <NextStoryCard story={nextMoment} locale={locale} />
         </FadeIn>
 
-        {/* World bridge */}
+        {/* World bridge — mood-aware connector */}
         <FadeIn delay={0.25}>
-          <WorldBridge exclude="stories" locale={locale} />
+          <WorldBridge
+            exclude="stories"
+            locale={locale}
+            mood={storyMood}
+            seed={slugHash % 3}
+          />
         </FadeIn>
       </article>
     </>

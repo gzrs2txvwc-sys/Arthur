@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { MOOD_CONNECTOR, getDriftLine } from "@/lib/moodThread";
+import type { FragmentMood } from "@/lib/postcards";
 
 interface WorldDef {
   key: "tonight" | "wander" | "stories" | "living";
@@ -42,20 +44,27 @@ const WORLDS: WorldDef[] = [
 interface WorldBridgeProps {
   exclude?: WorldDef["key"];
   locale: string;
+  mood?: FragmentMood;
+  seed?: number;
 }
 
-export function WorldBridge({ exclude, locale }: WorldBridgeProps) {
+export function WorldBridge({ exclude, locale, mood, seed = 0 }: WorldBridgeProps) {
   const prefix = locale === "en" ? "" : `/${locale}`;
   const visible = WORLDS.filter((w) => w.key !== exclude);
+
+  // Atmospheric connector — mood-specific if provided, generic otherwise
+  const connectorText = mood
+    ? getDriftLine(mood, seed)
+    : "Tokyo has more rooms than you've seen.";
 
   return (
     <div className="mt-16" style={{ borderTop: "1px solid rgba(200,184,154,0.06)" }}>
       <div className="pt-10 pb-2">
         <p
-          className="font-mono mb-6"
-          style={{ fontSize: "9px", letterSpacing: "0.32em", color: "var(--color-muted)", opacity: 0.3 }}
+          className="text-sm italic mb-7 max-w-sm"
+          style={{ color: "var(--color-muted)", opacity: 0.38, fontStyle: "italic" }}
         >
-          OR WANDER DEEPER
+          {connectorText}
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[rgba(200,184,154,0.04)]">
           {visible.map((w) => (
