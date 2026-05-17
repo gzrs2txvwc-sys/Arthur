@@ -10,12 +10,10 @@ interface NavBarProps {
   messages: {
     today: string;
     map: string;
-    living: string;
-    cities: string;
     stories: string;
-    community: string;
-    about: string;
+    living: string;
     language: string;
+    about: string;
   };
 }
 
@@ -132,11 +130,10 @@ export function NavBar({ locale, messages }: NavBarProps) {
   const prefix = locale === "en" ? "" : `/${locale}`;
 
   const links = [
-    { href: `${prefix}/today`, label: messages.today, pulse: true },
-    { href: `${prefix}/map`, label: messages.map },
-    { href: `${prefix}/living`, label: messages.living },
-    { href: `${prefix}/cities/tokyo`, label: messages.cities },
-    { href: `${prefix}/community`, label: messages.community },
+    { href: `${prefix}/today`,   label: messages.today,   pulse: true },
+    { href: `${prefix}/map`,     label: messages.map },
+    { href: `${prefix}/moments`, label: messages.stories },
+    { href: `${prefix}/living`,  label: messages.living },
   ];
 
   return (

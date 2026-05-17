@@ -1,7 +1,7 @@
 {
   "nav": {
-    "today": "Today",
-    "map": "Map",
+    "today": "Tonight",
+    "map": "Wander",
     "living": "Living",
     "cities": "Cities",
     "stories": "Stories",
@@ -54,7 +54,34 @@
     "community_cta_label": "Share your story",
     "community_cta_title": "Have you lived in Japan?",
     "community_cta_body": "The platform grows through real experiences. If you've lived, worked, or studied in Japan, your story belongs here.",
-    "community_cta_button": "Get in touch"
+    "community_cta_button": "Get in touch",
+    "tagline": "Japan is not a place to visit.\nIt is a place to enter.",
+    "worlds": {
+      "tonight": {
+        "numeral": "I",
+        "title": "Tonight in Tokyo",
+        "tagline": "The city has prepared something for you.",
+        "enter": "Enter tonight"
+      },
+      "wander": {
+        "numeral": "II",
+        "title": "Wander",
+        "tagline": "Lost on purpose. The map rewards it.",
+        "enter": "Start wandering"
+      },
+      "stories": {
+        "numeral": "III",
+        "title": "Stories & Memories",
+        "tagline": "What it actually feels like to be here.",
+        "enter": "Read the voices"
+      },
+      "living": {
+        "numeral": "IV",
+        "title": "Living Here",
+        "tagline": "Not how to visit. How to stay.",
+        "enter": "The inside knowledge"
+      }
+    }
   },
   "survival": {
     "address-circle": {
