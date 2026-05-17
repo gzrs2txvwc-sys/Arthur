@@ -6,7 +6,8 @@
     "stories": "Cerita",
     "community": "Komunitas",
     "about": "Tentang",
-    "language": "Bahasa Indonesia"
+    "language": "Bahasa Indonesia",
+    "today": "Hari ini"
   },
   "home": {
     "hero_label": "Dibuat oleh orang asing. Untuk orang asing.",
@@ -343,6 +344,86 @@
       "tagline": "Hangat dan energik.",
       "description": "Osaka tidak menahan diri. Ia memberi makan Anda, menggoda Anda, menarik Anda ke dalam percakapan yang tidak Anda sadari sedang terjadi. Ini adalah Jepang tanpa formalitas — di mana orang asing berbagi meja, di mana makanan adalah agama, di mana kota menertawai dirinya sendiri. Dotonbori tengah malam adalah tempat paling manusiawi di dunia: kacau, hangat, dan sepenuhnya jujur tentang apa yang diinginkannya.",
       "feelings": "Kehangatan makanan jalanan|Dotonbori tengah malam|Tawa tanpa alasan|Demokrasi kelaparan"
+    }
+  },
+  "today": {
+    "title": "Tokyo sudah menyiapkan sesuatu yang kecil untukmu hari ini.",
+    "tagline": "Hanya dua hal. Dipilih dengan cermat.",
+    "event_label": "ACARA HARI INI",
+    "task_label": "MISI HARI INI",
+    "map_bridge": "Saat kamu sedang berjalan keluar, kota ini menyimpan kenangan di setiap sudutnya. Jelajahi lingkungan ini dan mungkin kamu akan menemukan potongan Tokyo orang lain.",
+    "map_link": "Buka peta memori",
+    "picks": {
+      "yoyogi-sunday": {
+        "title": "Yoyogi Minggu — ketika Tokyo benar-benar bersantai",
+        "hook": "Hari ini Yoyogi Park milik semua orang. Termasuk kamu.",
+        "body": "Tidak banyak kota di dunia yang bisa melakukan ini: di tengah hiruk-pikuk metropolis, tiba-tiba ada hamparan rumput luas di mana orang-orang duduk, berbaring, bermain gitar, dan tidak ada yang terburu-buru. Yoyogi hari Minggu adalah Tokyo yang melepas dasi.\n\nBawa tikar kalau ada, atau langsung duduk di rumput. Kamu tidak perlu kenalan dengan siapa pun untuk merasa jadi bagian dari ini. Cukup duduk, dengarkan musik yang melayang-layang di udara, dan biarkan hari Minggumu terasa seperti hari Minggu yang seharusnya."
+      },
+      "shimokitazawa-sunday-task": {
+        "title": "Shimokitazawa sebelum ramai",
+        "hook": "Sebelum tengah hari, lorong-lorong Shimokitazawa masih tenang.",
+        "body": "Shimokitazawa punya dua wajah: yang ramai dan yang sepi. Kalau kamu datang sebelum jam 10, kamu dapat yang sepi — gang-gang sempit yang bisa kamu nikmati sendiri, toko baju bekas yang barangnya belum berantakan diobrak-abrik, dan kopi pagi yang bisa diminum tanpa antre.\n\nMisimu: masuk ke minimal tiga toko vintage, pegang sesuatu yang menarik perhatianmu, dan bayangkan siapa yang pernah memakainya. Kamu tidak harus beli apa-apa. Cukup jadi pelancong waktu sebentar."
+      },
+      "sensoji-monday": {
+        "title": "Sensoji sebelum jam 9",
+        "hook": "Versi Sensoji yang tidak ada di foto-foto wisata: tenang, sakral, dan hanya untuk yang mau bangun pagi.",
+        "body": "Kebanyakan orang melihat Sensoji yang penuh sesak. Tapi kalau kamu tiba sebelum jam 9 pagi, kamu akan melihat sesuatu yang berbeda — asap dupa mengepul pelan di udara dingin, orang-orang tua setempat menunduk berdoa dengan tenang, cahaya pagi yang miring menyentuh atap candi dengan warna emas.\n\nBerdiri sebentar di halaman depan. Tidak perlu berdoa kalau tidak mau. Cukup perhatikan betapa kota ini punya ritme yang jauh lebih tenang dari yang kamu kira — dan pagi ini, kamu adalah salah satu dari sedikit orang yang menyaksikannya."
+      },
+      "nakameguro-monday-task": {
+        "title": "Kanal Nakameguro malam hari",
+        "hook": "Setelah matahari terbenam, Nakameguro berubah menjadi sesuatu yang tidak ada di tempat lain.",
+        "body": "Nakameguro siang hari memang cantik, tapi malam hari dia punya keindahan yang berbeda. Cahaya lampion dan lampu toko memantul di permukaan kanal yang gelap, menciptakan jalur cahaya yang bergerak pelan. Sesekali seekor kucing melintas di tepian.\n\nJalan pelan-pelan di sepanjang kanal. Tidak perlu tujuan khusus — cukup berjalan, lihat pantulan cahaya di air, dan izinkan malam Senin ini terasa sedikit lebih lembut dari yang kamu bayangkan."
+      },
+      "top-museum-tuesday": {
+        "title": "Museum Foto Tokyo (Yebisu)",
+        "hook": "Di dalam kompleks Yebisu yang elegan, ada museum yang lebih banyak bicara daripada kelihatannya.",
+        "body": "Tokyo Photographic Art Museum bukan tempat yang berisik. Justru sebaliknya — begitu masuk, suasananya langsung berubah jadi tenang dan fokus. Foto-foto di dinding bercerita tentang waktu, tentang manusia, tentang kota yang terus berubah tapi tidak pernah benar-benar melupakan masa lalunya.\n\nNikmati sendiri dan jangan terburu-buru. Pilih satu foto yang paling menarik perhatianmu dan berdiri di depannya lebih lama dari yang kamu rasa perlu.\n\nHarga tiket ¥500–900. Stasiun Yebisu, jalan kaki 8 menit."
+      },
+      "kuramae-tuesday-task": {
+        "title": "Kuramae — kampung pengrajin yang berkembang diam-diam",
+        "hook": "Di Kuramae, setiap toko kecil adalah juga sebuah studio yang sedang bekerja.",
+        "body": "Dulu Kuramae adalah gudang beras zaman Edo. Sekarang jadi tempat di mana seniman dan pengrajin muda Tokyo membuka studio sekaligus toko — keramik, kulit, kertas washi, tinta. Kamu bisa melihat tangan mereka bekerja di balik etalase, langsung di depan matamu.\n\nMisimu hari ini: masuk ke satu studio-toko yang paling membuatmu penasaran. Di Indonesia kita punya tradisi kerajinan tangan yang kaya — di sini kamu akan melihat versi Tokyo dari rasa cinta yang sama terhadap hal-hal yang dibuat dengan tangan."
+      },
+      "language-exchange-wednesday": {
+        "title": "Language exchange Rabu malam",
+        "hook": "Malam ini jam 18:30, ada kafe di mana semua orang datang dengan bahasa berbeda.",
+        "body": "Language exchange itu bukan kelas. Tidak ada guru, tidak ada ujian, tidak ada yang menilai cara kamu bicara. Yang ada cuma orang-orang yang sama-sama mau belajar — kamu bawa Bahasa Indonesia, mereka bawa Bahasa Jepang, dan di tengah-tengah itu banyak hal lucu dan menarik yang bisa terjadi.\n\nKalau kamu sudah lama tidak ngobrol dengan nyaman, malam ini bisa jadi awal yang bagus. Datang saja. Sisanya akan mengalir sendiri."
+      },
+      "yanaka-wednesday-task": {
+        "title": "Yanaka saat senja",
+        "hook": "Ketika matahari mulai turun, Yanaka berubah jadi seperti mimpi dari Tokyo yang lain.",
+        "body": "Yanaka adalah salah satu dari sedikit kawasan Tokyo yang tidak pernah diratakan oleh perang atau pembangunan modern. Rumah-rumah kayu tua, gang berliku, toko tahu yang masih buka, kucing yang berkeliaran seolah mereka pemilik asli tempat ini.\n\nDatang saat sore menjelang malam dan berjalan tanpa rute yang jelas. Belok ke gang yang menarik perhatianmu. Inilah Tokyo yang tersembunyi di balik Tokyo yang terkenal — dan malam ini, kamu yang menemukannya."
+      },
+      "koenji-jazz-thursday": {
+        "title": "Jazz di Koenji — datang sendiri, itu justru lebih baik",
+        "hook": "Malam ini, bar jazz di Koenji sudah siap menyambutmu — sendirian pun tidak masalah.",
+        "body": "Koenji punya karakter yang tidak dimiliki area Tokyo lainnya — lebih santai dari Shibuya, lebih otentik dari Roppongi, dan punya scene musik jazz yang sudah berjalan puluhan tahun. Bar-bar jazz di sini kecil, hangat, dan entah bagaimana caranya selalu terasa seperti tempat yang sudah kamu kenal.\n\nPergi sendiri justru lebih enak. Minta satu gelas whisky, duduk, dan biarkan malam Kamis ini terasa berbeda dari biasanya.\n\nBiaya masuk ¥500–1.500 + minuman. Kamis–Sabtu, mulai pukul 20.00."
+      },
+      "arakawa-thursday-task": {
+        "title": "Bantaran sungai Arakawa — langit yang lebih luas",
+        "hook": "Sebagian besar Tokyo tertutup gedung. Di sini, langit akhirnya terbuka lebar.",
+        "body": "Arakawa bukan tempat wisata. Ini tempat di mana warga sekitar jogging pagi, kakek-nenek memancing sore, anak-anak main bola di lapangan rumput. Yang ada cuma sungai, angin, dan langit yang terasa jauh lebih besar dari biasanya.\n\nDuduk di pinggir sungai dan lihat ke arah kejauhan. Terkadang yang kita butuhkan bukan pengalaman yang instagramable — tapi cukup satu tempat di mana kita bisa bernapas dengan lega."
+      },
+      "shimokitazawa-music-friday": {
+        "title": "Jumat malam di Shimokitazawa — musik hidup",
+        "hook": "Malam Jumat adalah malam Shimokitazawa. Musik keluar dari setiap pintu.",
+        "body": "Di Shimokitazawa, ada lebih banyak live house per kilometer persegi dari kawasan mana pun di Tokyo. Jumat malam semuanya ramai — band indie, folk, jazz, rock tampil di panggung kecil di depan puluhan penonton yang benar-benar mendengarkan.\n\nIzinkan dirimu keluar malam ini. Pilih satu venue yang musiknya terdengar menarik dari luar, masuk, dan nikmati. Malam ini adalah milikmu.\n\n¥1.500–3.000 termasuk 1 minuman. Pintu selatan Stasiun Shimokitazawa."
+      },
+      "golden-gai-friday-task": {
+        "title": "Golden Gai — lebih dari 200 bar kecil",
+        "hook": "Shinjuku Golden Gai: bares yang cuma muat enam orang. Pergi sendiri, itu memang caranya.",
+        "body": "Jangan panik dengan angka 200+. Caranya gampang: masuk ke gang-gangnya, jalan pelan-pelan, dan biarkan satu pintu menarik perhatianmu — mungkin dari namanya yang lucu, mungkin dari musik yang keluar. Masuk saja.\n\nBar di Golden Gai memang dibuat untuk orang yang datang sendiri. Bartendernya biasanya ramah dan suka ngobrol. Ini adalah Tokyo yang manusiawi — kamu hanya perlu melewati pintunya dulu."
+      },
+      "koenji-market-saturday": {
+        "title": "Pasar loak Sabtu pagi di Koenji",
+        "hook": "Sabtu pagi di Koenji, pasar loak menggelar hal-hal yang pernah dicintai kota ini.",
+        "body": "Pasar loak Jepang punya keistimewaan tersendiri: semuanya tertata rapi, bersih, dan sering kali penjualnya bisa bercerita tentang setiap barang yang dijual. Piringan hitam era 70an, set cangkir teh, kartu pos yang tidak pernah sempat dikirim.\n\nDatang sebelum jam 9 ketika pilihan masih banyak dan udara masih segar. Tidak harus beli apa-apa — cukup jalan, lihat, dan bertanya-tanya tentang orang-orang yang pernah memiliki semua ini.\n\nPintu selatan Stasiun Koenji. Gratis."
+      },
+      "nishi-ogikubo-saturday-task": {
+        "title": "Nishi-Ogikubo — distrik antik yang waktu seperti lupa melewatinya",
+        "hook": "Sementara semua orang pergi ke Harajuku, Nishi-Ogikubo menyimpan Tokyo yang paling tua.",
+        "body": "Nishi-Ogikubo tidak ada di itinerary wisata kebanyakan orang, dan itu persis yang membuatnya spesial. Toko-toko antiknya serius — keramik Jepang asli, furnitur era Meiji, perkakas rumah tangga dari Tokyo yang sudah tidak ada.\n\nJalan tanpa rencana dan masuk ke toko mana pun yang menarik matamu dari jendela. Kalau ada barang yang membuatmu penasaran, tanya penjualnya — mereka biasanya senang bercerita."
+      }
     }
   }
 }

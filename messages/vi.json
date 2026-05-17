@@ -6,7 +6,8 @@
     "stories": "Câu chuyện",
     "community": "Cộng đồng",
     "about": "Giới thiệu",
-    "language": "Tiếng Việt"
+    "language": "Tiếng Việt",
+    "today": "Hôm nay"
   },
   "home": {
     "hero_label": "Được xây dựng bởi người nước ngoài. Cho người nước ngoài.",
@@ -343,6 +344,86 @@
       "tagline": "Ấm áp và sôi động.",
       "description": "Osaka không giữ lại. Nó cho bạn ăn, trêu bạn, kéo bạn vào một cuộc trò chuyện mà bạn không biết mình đang có. Đây là Nhật Bản không có sự trang trọng — nơi người lạ chia bàn ăn, nơi thức ăn là tôn giáo, nơi thành phố tự cười nhạo bản thân. Dotonbori lúc nửa đêm là nơi nhân văn nhất thế giới: hỗn loạn, ấm áp, và hoàn toàn trung thực về những gì nó muốn.",
       "feelings": "Hơi ấm của thức ăn đường phố|Dotonbori lúc nửa đêm|Tiếng cười không có lý do|Sự dân chủ của cơn đói"
+    }
+  },
+  "today": {
+    "title": "Tokyo đã chuẩn bị một điều nhỏ cho bạn hôm nay.",
+    "tagline": "Chỉ hai thứ. Được chọn cẩn thận.",
+    "event_label": "SỰ KIỆN HÔM NAY",
+    "task_label": "NHIỆM VỤ HÔM NAY",
+    "map_bridge": "Khi bạn ra ngoài, thành phố này có những ký ức gắn liền với từng địa điểm. Hãy đi bộ qua những khu phố này và có thể bạn sẽ tìm thấy những mảnh ghép Tokyo của người khác.",
+    "map_link": "Mở bản đồ ký ức",
+    "picks": {
+      "yoyogi-sunday": {
+        "title": "Yoyogi Chủ Nhật — khi Tokyo thở ra",
+        "hook": "Hôm nay công viên Yoyogi thuộc về tất cả mọi người. Kể cả bạn.",
+        "body": "Chủ Nhật ở Yoyogi không giống bất cứ nơi nào bạn từng thấy. Những ban nhạc tự phát kéo đàn dưới tán cây, những chú chó chạy nhảy tung tăng, tiếng cười xen tiếng nhạc bay lên giữa bầu trời xanh. Không ai hỏi bạn đến từ đâu hay bạn đang làm gì ở đây.\n\nBạn đã làm việc chăm chỉ cả tuần rồi. Hôm nay hãy để thành phố này ôm bạn một chút — trải ra một chỗ trên bãi cỏ, nhìn mây trôi, và nhận ra rằng ở đây, bạn không hề một mình."
+      },
+      "shimokitazawa-sunday-task": {
+        "title": "Shimokitazawa trước khi đám đông đến",
+        "hook": "Trước trưa, khu này vẫn còn là của riêng những ai biết đến sớm.",
+        "body": "Shimokitazawa có một phiên bản ban sáng mà ít người biết đến — những con hẻm nhỏ vắng lặng, cửa hàng đồ cũ vừa mở cửa, ánh sáng buổi sáng còn trong vắt. Đây là lúc bạn có thể thực sự nhìn thấy từng chiếc áo, từng cuốn sách cũ mà không bị xô đẩy.\n\nHãy ra đi trước 10 giờ sáng. Bước vào một tiệm đồ vintage, cầm lên một món đồ và thử tưởng tượng ai đã từng dùng nó. Đây là cách Tokyo kể chuyện cho bạn nghe — qua những vật nhỏ bé còn sót lại từ cuộc đời người khác."
+      },
+      "sensoji-monday": {
+        "title": "Sensoji lúc bình minh",
+        "hook": "Trước 9 giờ sáng, Sensoji thuộc về những người địa phương và ánh sáng buổi sáng.",
+        "body": "Phần lớn du khách đến Sensoji vào giữa ngày và thấy một biển người. Nhưng nếu bạn đến trước 9 giờ sáng, bạn sẽ thấy một ngôi đền hoàn toàn khác — khói nhang bay nhẹ trong không khí yên tĩnh, những cụ già địa phương chắp tay cầu nguyện, ánh nắng sớm chiếu vàng lên mái đền cong.\n\nĐứng ở đó một lúc. Không cần cầu nguyện điều gì lớn lao. Chỉ cần để không gian này nhắc bạn rằng cuộc sống ở đây cũng có nhịp điệu của nó — và bạn đang là một phần của nhịp điệu đó."
+      },
+      "nakameguro-monday-task": {
+        "title": "Nakameguro về đêm",
+        "hook": "Ban đêm, dòng kênh Nakameguro phản chiếu ánh đèn như một bức tranh di động.",
+        "body": "Ban ngày Nakameguro đông đúc và thời thượng. Nhưng sau 9 giờ tối, khi đám đông rút đi, con kênh trở nên thật sự đẹp — mặt nước đen láng phản chiếu những dây đèn vàng lung linh, và đôi khi một chú mèo lang thang xuất hiện bên đường.\n\nĐi bộ dọc theo bờ kênh một mình. Nghe nhạc nếu bạn muốn, hoặc đừng nghe gì cả. Đây là loại khoảnh khắc mà bạn sẽ nhớ mãi khi về nhà — không phải vì nó hoành tráng, mà vì nó khiến bạn cảm thấy được sống thật sự."
+      },
+      "top-museum-tuesday": {
+        "title": "Bảo tàng Nhiếp ảnh Tokyo (Yebisu)",
+        "hook": "Hôm nay có một triển lãm đang chờ bạn.",
+        "body": "Tokyo Photographic Art Museum nằm trong khu Yebisu Garden Place, nhưng bên trong lại có một không gian yên tĩnh đến bất ngờ. Những bức ảnh trên tường kể về Tokyo của những năm qua, về con người, về thời gian.\n\nVào một mình và đi chậm. Đứng trước những bức ảnh bạn không hiểu ngay và cứ để mình đứng đó. Nghệ thuật không cần được hiểu ngay lập tức — đôi khi chỉ cần được cảm nhận.\n\nVé vào cửa 500–900 yên. Ga Yebisu, đi bộ 8 phút."
+      },
+      "kuramae-tuesday-task": {
+        "title": "Kuramae — khu phố của những người làm bằng tay",
+        "hook": "Ở Kuramae, mỗi cửa hiệu nhỏ là một xưởng thủ công đang hoạt động.",
+        "body": "Kuramae từng là kho thóc của Edo, bây giờ là nơi những nghệ nhân trẻ Tokyo chọn làm tổ. Những tiệm gốm, tiệm da, tiệm giấy washi — mỗi nơi đều vừa là cửa hàng vừa là xưởng sản xuất. Bạn có thể nhìn thấy người ta đang làm việc ngay phía sau quầy hàng.\n\nHãy bước vào ít nhất một tiệm và nhìn kỹ vào cách người thợ làm ra sản phẩm của họ. Ở Việt Nam, chúng ta cũng có truyền thống thủ công rất lâu đời — và ở đây, bạn sẽ thấy tinh thần đó qua một hình dạng khác."
+      },
+      "language-exchange-wednesday": {
+        "title": "Buổi trao đổi ngôn ngữ thứ Tư",
+        "hook": "Tối nay lúc 18:30, có một quán cà phê nơi mọi người đến để học và lắng nghe nhau.",
+        "body": "Language exchange không chỉ là học ngoại ngữ — đó là cách tìm thấy những người cũng đang cố gắng hiểu một thế giới mới như bạn. Bạn mang theo tiếng Việt, họ mang theo tiếng Nhật, và ở giữa đó, có rất nhiều điều thú vị xảy ra.\n\nBạn không cần nói hoàn hảo. Chỉ cần đến, mỉm cười, và để cuộc trò chuyện tự tìm đường. Đôi khi một buổi tối như thế này có thể thay đổi cả tuần của bạn.\n\nMiễn phí + tiền nước. Thứ Tư, 18:30."
+      },
+      "yanaka-wednesday-task": {
+        "title": "Yanaka lúc hoàng hôn",
+        "hook": "Khi ánh chiều tàn, những con phố Yanaka trở nên giống như một giấc mơ cũ.",
+        "body": "Yanaka là một trong số ít khu phố Tokyo còn giữ được bộ mặt trước chiến tranh — những ngôi nhà gỗ nhỏ, những con ngõ hẹp uốn khúc, và mèo — rất nhiều mèo lang thang đủng đỉnh.\n\nĐến vào lúc hoàng hôn và đi không có đích đến. Để chân dẫn bạn qua những con hẻm. Đây là kiểu Tokyo mà không có trong sách hướng dẫn — nó chỉ thuộc về những người chịu đến chậm và đi chậm."
+      },
+      "koenji-jazz-thursday": {
+        "title": "Jazz ở Koenji",
+        "hook": "Tối nay, những quán jazz ở Koenji đang mở cửa — chỉ một mình bạn thôi cũng được.",
+        "body": "Koenji có một tâm hồn riêng — ít thời thượng hơn Shibuya, ít đám đông hơn Shinjuku. Những quán jazz ở đây nhỏ đến mức bạn gần như ngồi trong âm nhạc. Kéo ghế lên, gọi một ly whisky, và để tiếng nhạc làm nốt phần còn lại.\n\nĐây là cách Tokyo chữa lành những buổi tối cô đơn — bằng âm thanh và ánh đèn vàng ấm.\n\nPhí vào cửa 500–1.500 yên + đồ uống. Tối thứ Năm đến thứ Bảy."
+      },
+      "arakawa-thursday-task": {
+        "title": "Bờ sông Arakawa — bầu trời rộng hơn bạn tưởng",
+        "hook": "Hầu hết Tokyo đều bị che khuất bởi tòa nhà. Ở đây thì không.",
+        "body": "Sông Arakawa không phải điểm du lịch. Nó là nơi người dân địa phương ra tập thể dục, nơi ông bà câu cá chiều tà. Và bầu trời ở đây — rộng đến mức bạn có thể thở một hơi thật dài mà không thấy bị chặn lại.\n\nĐến đây và ngồi xuống một lúc. Đôi khi cái bạn cần không phải là làm gì đó đặc biệt — mà chỉ là một khoảng trời đủ lớn để nhắc rằng thế giới vẫn đang tiếp tục."
+      },
+      "shimokitazawa-music-friday": {
+        "title": "Shimokitazawa thứ Sáu — nhạc sống, đêm thật sự bắt đầu",
+        "hook": "Tối thứ Sáu ở Shimokitazawa, âm nhạc tràn ra từ mọi ngõ ngách.",
+        "body": "Shimokitazawa có nhiều live house trên mỗi cây số vuông hơn bất kỳ nơi nào ở Tokyo. Thứ Sáu tối là đêm của nó — những ban nhạc indie, folk, jazz, rock chen nhau biểu diễn ở những sân khấu nhỏ. Vé vào cửa thường không đắt.\n\nHãy đi thôi. Bạn đã làm việc cả tuần, và thứ Sáu này thành phố đang gọi tên bạn. Chọn một quán có tiếng nhạc bạn nghe thích từ ngoài đường, bước vào, và để phần còn lại diễn ra tự nhiên.\n\n1.500–3.000 yên (có đồ uống). Cổng phía Nam ga Shimokitazawa."
+      },
+      "golden-gai-friday-task": {
+        "title": "Golden Gai — những quán bar nhỏ nhất thế giới",
+        "hook": "Shinjuku Golden Gai: hơn 200 quán bar vừa đủ chỗ cho sáu người. Đêm nay hãy ghé một mình.",
+        "body": "Đừng để con số 200 quán bar làm bạn choáng ngợp. Cứ đi vào trong những con hẻm chật hẹp đó, và để một cánh cửa nào đó thu hút bạn — có thể là ánh đèn, có thể là âm nhạc. Bước vào và gọi bất cứ thứ gì.\n\nNhững quán bar ở Golden Gai được làm ra cho những người đến một mình. Bartender ở đây thường hay chuyện, và người bên cạnh bạn cũng thường sẵn lòng bắt chuyện. Đây là nơi Tokyo cho bạn thấy nó không phải là thành phố lạnh lùng — nó chỉ cần bạn bước vào trước."
+      },
+      "koenji-market-saturday": {
+        "title": "Chợ trời Koenji sáng thứ Bảy",
+        "hook": "Sáng sớm thứ Bảy, chợ trời Koenji bày ra những thứ mà thành phố đã từng yêu thích.",
+        "body": "Chợ trời Nhật Bản không giống chợ trời ở đâu khác — mọi thứ được bày biện gọn gàng, sạch sẽ, và thường đi kèm một câu chuyện nhỏ nếu bạn hỏi người bán. Những đĩa nhạc vinyl từ thập niên 70, những bộ chén trà cũ, những tấm bưu thiếp chưa bao giờ được gửi đi.\n\nĐến sớm trước 9 giờ khi hàng còn đầy và không khí còn mát. Chỉ tiền mặt. Cổng phía Nam ga Koenji. Miễn phí vào."
+      },
+      "nishi-ogikubo-saturday-task": {
+        "title": "Nishi-Ogikubo — khu phố đồ cổ mà thời gian quên mất",
+        "hook": "Trong khi mọi người đổ về Harajuku, Nishi-Ogikubo vẫn lặng lẽ giữ những thứ cũ kỹ đẹp nhất.",
+        "body": "Nishi-Ogikubo không nằm trong danh sách du lịch phổ biến, và đó chính là điều làm nó đặc biệt. Những tiệm đồ cổ ở đây nghiêm túc — đồ gốm Nhật thật sự, đồ nội thất Minh Trị, những vật dụng đời thường của Tokyo cũ.\n\nĐi khám phá không cần kế hoạch. Ghé vào một tiệm mà cửa sổ trưng bày thứ gì đó bắt mắt bạn. Thứ Bảy này, để Nishi-Ogikubo kể cho bạn nghe Tokyo đã từng là thế nào."
+      }
     }
   }
 }

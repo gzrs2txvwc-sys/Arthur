@@ -1,134 +1,139 @@
-import { getTranslations } from "next-intl/server";
-import { getEventsForDay, groupEventsByPeriod, getAfterWorkEvent } from "@/lib/events";
-import { EventCard } from "@/components/events/EventCard";
-import { AfterWorkBanner } from "@/components/events/AfterWorkBanner";
+import { getMessages, getTranslations } from "next-intl/server";
+import { getPicksForDay } from "@/lib/dailyPicks";
+import { DailyPickCard } from "@/components/today/DailyPickCard";
 import { FilmGrain } from "@/components/ui/FilmGrain";
 import Link from "next/link";
 
-const PERIOD_LABELS = {
-  morning:   { en: "Morning",   range: "Before noon" },
-  afternoon: { en: "Afternoon", range: "12:00 – 17:00" },
-  evening:   { en: "Evening",   range: "After 17:00" },
-} as const;
+const DAY_NAMES_EN = [
+  "Sunday", "Monday", "Tuesday", "Wednesday",
+  "Thursday", "Friday", "Saturday",
+] as const;
 
-const DAY_NAMES = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"] as const;
+function tokyoDayIndex(): 0 | 1 | 2 | 3 | 4 | 5 | 6 {
+  const tokyoMs = Date.now() + 9 * 60 * 60 * 1000;
+  return new Date(tokyoMs).getUTCDay() as 0 | 1 | 2 | 3 | 4 | 5 | 6;
+}
+
+type PickMessages = Record<string, { title: string; hook: string; body: string }>;
 
 export default async function TodayPage({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  await params; // locale unused for now — events are in English only
+  await params;
   const t = await getTranslations("today");
+  const messages = await getMessages();
+  // Access pick editorial copy via raw messages to avoid dynamic-key TS issues
+  const pickMessages = (
+    (messages as Record<string, unknown>).today as Record<string, unknown>
+  )?.picks as PickMessages | undefined ?? {} as PickMessages;
 
-  // Compute Tokyo local day (UTC+9)
-  const nowUtcMs = Date.now();
-  const tokyoMs = nowUtcMs + 9 * 60 * 60 * 1000;
-  const tokyoDate = new Date(tokyoMs);
-  const dayIndex = tokyoDate.getUTCDay(); // 0=Sun
-  const dayName = DAY_NAMES[dayIndex];
+  const dayIndex = tokyoDayIndex();
+  const picks = getPicksForDay(dayIndex);
+  const dayName = DAY_NAMES_EN[dayIndex];
 
-  const todayEvents = getEventsForDay(dayIndex, "tokyo");
-  const groups = groupEventsByPeriod(todayEvents);
-  const afterWork = getAfterWorkEvent(todayEvents);
-
-  const periodKeys = ["morning", "afternoon", "evening"] as const;
+  const eventCopy = pickMessages[picks.event.id] ?? {
+    title: picks.event.id,
+    hook: "",
+    body: "",
+  };
+  const taskCopy = pickMessages[picks.task.id] ?? {
+    title: picks.task.id,
+    hook: "",
+    body: "",
+  };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] pt-24 pb-20">
+    <div className="min-h-screen bg-[#0a0a0a] pt-24 pb-24">
       <FilmGrain opacity={0.04} className="z-0 pointer-events-none" />
 
-      <div className="max-w-2xl mx-auto px-4 md:px-8">
+      <div className="max-w-xl mx-auto px-5 md:px-8">
 
-        {/* ── Header ──────────────────────────────────── */}
-        <div className="mb-10">
+        {/* ── Header ─────────────────────────────────── */}
+        <header className="mb-12">
           <p
-            className="text-caption mb-2 tracking-[0.2em]"
-            style={{ color: "var(--color-sand)" }}
+            className="text-[9px] font-mono tracking-[0.25em] uppercase mb-3"
+            style={{ color: "var(--color-muted)", opacity: 0.5 }}
           >
-            {t("eyebrow")}
+            {dayName} · Tokyo
           </p>
           <h1
-            className="font-display text-3xl md:text-4xl font-light mb-2"
+            className="font-display text-3xl md:text-4xl font-light leading-tight mb-4"
             style={{ color: "var(--color-parchment)" }}
           >
             {t("title")}
           </h1>
           <p
             className="text-sm"
-            style={{ color: "var(--color-muted)" }}
+            style={{ color: "var(--color-muted)", opacity: 0.6 }}
           >
-            {dayName} · {t("city_tokyo")} · {todayEvents.length} {t("events_count_suffix")}
+            {t("tagline")}
           </p>
-        </div>
 
-        {/* ── After-work banner (client: time-aware) ── */}
-        <div className="mb-8">
-          <AfterWorkBanner
-            event={afterWork}
-            label={t("after_work_label")}
-            subLabel={t("after_work_sub")}
-            noEventLabel={t("after_work_empty")}
+          {/* Divider */}
+          <div
+            className="mt-8"
+            style={{
+              height: "1px",
+              background: "linear-gradient(to right, rgba(200,184,154,0.15), transparent)",
+            }}
           />
-        </div>
+        </header>
 
-        {/* ── Event groups by period ─────────────────── */}
-        {periodKeys.map((period) => {
-          const events = groups[period];
-          if (events.length === 0) return null;
+        {/* ── Today's Event ──────────────────────────── */}
+        <section className="mb-16">
+          <DailyPickCard
+            pick={picks.event}
+            typeLabel={t("event_label")}
+            title={eventCopy.title}
+            hook={eventCopy.hook}
+            body={eventCopy.body}
+          />
+        </section>
 
-          return (
-            <section key={period} className="mb-10">
-              <div className="flex items-baseline gap-3 mb-4">
-                <h2
-                  className="font-display text-lg font-light"
-                  style={{ color: "var(--color-parchment)" }}
-                >
-                  {t(`period_${period}`)}
-                </h2>
-                <span
-                  className="text-[10px] font-mono"
-                  style={{ color: "var(--color-muted)", opacity: 0.5 }}
-                >
-                  {PERIOD_LABELS[period].range}
-                </span>
-              </div>
-
-              <div className="flex flex-col gap-3">
-                {events.map((event) => (
-                  <EventCard
-                    key={event.id}
-                    event={event}
-                    highlighted={event.id === afterWork?.id}
-                  />
-                ))}
-              </div>
-            </section>
-          );
-        })}
-
-        {/* ── Map link ──────────────────────────────── */}
+        {/* ── Section divider ────────────────────────── */}
         <div
-          className="rounded-sm px-6 py-5 flex flex-col gap-3"
+          className="mb-14"
+          style={{
+            height: "1px",
+            background: "rgba(200,184,154,0.08)",
+          }}
+        />
+
+        {/* ── Today's Task ───────────────────────────── */}
+        <section className="mb-16">
+          <DailyPickCard
+            pick={picks.task}
+            typeLabel={t("task_label")}
+            title={taskCopy.title}
+            hook={taskCopy.hook}
+            body={taskCopy.body}
+          />
+        </section>
+
+        {/* ── Map bridge ─────────────────────────────── */}
+        <footer
+          className="rounded-sm px-6 py-6"
           style={{
             background: "rgba(255,255,255,0.02)",
-            border: "1px solid rgba(200,184,154,0.08)",
+            border: "1px solid rgba(200,184,154,0.07)",
           }}
         >
           <p
-            className="text-sm leading-relaxed"
-            style={{ color: "var(--color-muted)" }}
+            className="text-sm leading-relaxed mb-4"
+            style={{ color: "var(--color-muted)", opacity: 0.7 }}
           >
-            {t("map_cta_body")}
+            {t("map_bridge")}
           </p>
           <Link
             href="/map"
-            className="self-start text-caption tracking-[0.12em] uppercase transition-colors duration-200"
-            style={{ color: "var(--color-sand)" }}
+            className="text-[10px] font-mono tracking-[0.15em] uppercase transition-opacity duration-200 hover:opacity-100"
+            style={{ color: "var(--color-sand)", opacity: 0.8 }}
           >
-            {t("map_cta_link")} →
+            {t("map_link")} →
           </Link>
-        </div>
+        </footer>
 
       </div>
     </div>

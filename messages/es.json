@@ -6,7 +6,8 @@
     "stories": "Historias",
     "community": "Comunidad",
     "about": "Acerca de",
-    "language": "Español"
+    "language": "Español",
+    "today": "Hoy"
   },
   "home": {
     "hero_label": "Creado por extranjeros. Para extranjeros.",
@@ -391,6 +392,86 @@
       "tagline": "Cálido y enérgico.",
       "description": "Osaka no se contiene. Te alimenta, te provoca, te arrastra a una conversación que no sabías que estabas teniendo. Este es Japón sin la formalidad — donde los desconocidos comparten mesas, donde la comida es religión, donde la ciudad se ríe de sí misma. Dotonbori a medianoche es el lugar más humano del mundo: caótico, cálido y completamente honesto sobre lo que quiere.",
       "feelings": "Calidez de la comida callejera|Dotonbori a medianoche|Risa sin motivo|La democracia del hambre"
+    }
+  },
+  "today": {
+    "title": "Tokio preparó algo pequeño para ti hoy.",
+    "tagline": "Solo dos cosas. Elegidas con cuidado.",
+    "event_label": "EL EVENTO DE HOY",
+    "task_label": "LA MISIÓN DE HOY",
+    "map_bridge": "Mientras estás afuera, esta ciudad guarda memorias en cada lugar. Camina por estos barrios y quizás encuentres los fragmentos de Tokio de otras personas.",
+    "map_link": "Abrir el mapa de memorias",
+    "picks": {
+      "yoyogi-sunday": {
+        "title": "Yoyogi en domingo",
+        "hook": "Hoy el parque Yoyogi pertenece a todo el mundo. Tú incluido.",
+        "body": "Hay algo que Tokio hace los domingos en Yoyogi que pocas ciudades del mundo son capaces de hacer: de repente, en medio de la metrópolis más ordenada del planeta, aparece este caos tranquilo y hermoso — bandas tocando bajo los árboles, perros corriendo sin rumbo, familias enteras tumbadas en el pasto mirando el cielo. Nadie te va a preguntar de dónde eres ni qué haces aquí.\n\nLleva algo para sentarte, o simplemente siéntate en el pasto. Deja que el parque te absorba durante un par de horas. Hay una generosidad particular en este tipo de tarde, y hoy es tuya."
+      },
+      "shimokitazawa-sunday-task": {
+        "title": "Shimokitazawa antes de la multitud",
+        "hook": "Antes del mediodía, las callejuelas de Shimokitazawa todavía son tuyas.",
+        "body": "Shimokitazawa tiene dos versiones: la de la tarde, que es gloriosa pero apretada, y la de la mañana, que pocos conocen. Antes de las diez, los callejones están casi vacíos, las tiendas vintage acaban de abrir, y todavía puedes ver bien cada prenda sin ser empujado.\n\nSal antes de las diez. Entra a por lo menos tres tiendas de segunda mano. Toma algo que te llame la atención y piensa en quién lo habrá tenido antes. No tienes que comprar nada. Solo sé un viajero del tiempo por un rato."
+      },
+      "sensoji-monday": {
+        "title": "Sensoji antes de las nueve",
+        "hook": "Antes de las 9 de la mañana, Sensoji pertenece a los locales y a la luz del amanecer.",
+        "body": "La mayoría de la gente ve Sensoji abarrotado de turistas. Pero si llegas antes de las nueve, ves otro templo completamente distinto: el humo del incienso sube lento en el aire frío, ancianos locales rezan en silencio con los ojos cerrados, la luz oblicua de la mañana tiñe de dorado los tejados curvos.\n\nQuédate parado un momento en el patio. No tienes que rezar si no quieres. Solo nota que este lugar tiene cientos de años, y que esta mañana tú eres uno de los pocos que lo están viendo así."
+      },
+      "nakameguro-monday-task": {
+        "title": "El canal de Nakameguro de noche",
+        "hook": "Después del atardecer, el canal de Nakameguro se convierte en algo que no existe en ningún otro lugar.",
+        "body": "Nakameguro de día ya es bonito. De noche tiene otra cosa — las luces de los locales se reflejan en el agua oscura del canal, creando esas líneas de luz que se mueven suavemente. Y a veces, aparece un gato caminando tranquilo por el borde.\n\nCamina despacio a lo largo del canal. Elige el lado más silencioso si puedes. No necesitas un destino concreto; solo camina y permite que este lunes por la noche sea un poco más suave de lo que esperabas."
+      },
+      "top-museum-tuesday": {
+        "title": "El Museo de Fotografía de Tokio (Yebisu)",
+        "hook": "Hoy hay una exposición que te espera, en un edificio que quizás nunca hayas entrado.",
+        "body": "El Tokyo Photographic Art Museum está dentro del complejo elegante de Yebisu Garden Place, pero adentro hay una quietud inesperada. Las fotografías en las paredes cuentan historias sobre el tiempo, sobre la gente, sobre una ciudad que cambia sin cesar pero nunca termina de olvidar.\n\nEntra solo y sin prisa. Elige una foto que te detenga más que las demás, y quédate delante de ella más de lo que consideres necesario.\n\n¥500–900. Estación Yebisu, 8 minutos a pie."
+      },
+      "kuramae-tuesday-task": {
+        "title": "Kuramae — el barrio de los artesanos",
+        "hook": "En Kuramae, cada tienda pequeña es también un taller que está trabajando ahora mismo.",
+        "body": "Kuramae fue el almacén de arroz del Edo histórico. Ahora es donde los jóvenes artesanos de Tokio abren estudios que también son tiendas: cerámica, cuero, papel washi, tinta. Puedes ver sus manos trabajando al otro lado del mostrador, en tiempo real.\n\nTu misión: entra a por lo menos un estudio-tienda que te genere curiosidad genuina. En Japón, la atención al detalle no es perfeccionismo vacío — es una forma de cuidar. En Kuramae, lo vas a ver con tus propios ojos."
+      },
+      "language-exchange-wednesday": {
+        "title": "El intercambio de idiomas del miércoles",
+        "hook": "Esta noche a las 18:30, hay un café donde todo el mundo llega con idiomas distintos.",
+        "body": "Un intercambio de idiomas no es una clase. No hay profesor, no hay examen, no hay nadie juzgando cómo hablas. Solo hay gente que quiere aprender — tú traes el español, ellos traen el japonés, y en el espacio intermedio pasan muchas cosas interesantes.\n\nSi llevas tiempo sin tener una conversación que de verdad fluya, esta noche puede ser un buen punto de partida. Solo aparece. Lo demás se arregla solo."
+      },
+      "yanaka-wednesday-task": {
+        "title": "Yanaka al atardecer",
+        "hook": "Cuando la luz empieza a bajar, las calles de Yanaka se convierten en algo parecido a un sueño de otro Tokio.",
+        "body": "Yanaka es uno de los pocos barrios de Tokio que sobrevivió intacto a la guerra y al desarrollo moderno. Casas de madera viejas, callejones que se tuercen sin previo aviso, gatos que deambulan como si fueran los verdaderos dueños del lugar.\n\nLlega al atardecer y camina sin ruta fija. Dobla en los callejones que te llamen. Este es el Tokio que se esconde detrás del Tokio famoso, y esta noche eres tú quien lo encuentra."
+      },
+      "koenji-jazz-thursday": {
+        "title": "Jazz en Koenji",
+        "hook": "Esta noche los bares de jazz de Koenji están abiertos y listos para recibirte — aunque vayas solo.",
+        "body": "Koenji tiene un carácter que el resto de Tokio no tiene: menos fashion que Shibuya, menos pose que Roppongi, y una escena de jazz que lleva décadas enraizada aquí. Los bares son pequeños, cálidos, y por alguna razón siempre se sienten como un lugar que ya conocías.\n\nIr solo es, honestamente, mejor. Pide un whisky, siéntate, y permite que este jueves por la noche sea un poco diferente.\n\n¥500–1.500 + bebida. Jueves–sábado desde las 20.00."
+      },
+      "arakawa-thursday-task": {
+        "title": "La ribera del río Arakawa",
+        "hook": "La mayor parte de Tokio está tapada por edificios. Aquí no.",
+        "body": "Arakawa no es un sitio turístico. Es donde los vecinos salen a correr por las mañanas, donde los abuelos pescan por las tardes, donde los niños juegan al fútbol. No hay tiendas interesantes ni restaurantes con onda. Solo el río, el viento, y un cielo que de repente parece mucho más grande.\n\nSiéntate en la orilla un rato. A veces lo que necesitamos no es una experiencia especial — solo suficiente cielo para recordar que el mundo sigue ahí."
+      },
+      "shimokitazawa-music-friday": {
+        "title": "Shimokitazawa el viernes por la noche",
+        "hook": "El viernes por la noche es la noche de Shimokitazawa. La música sale por cada puerta.",
+        "body": "Shimokitazawa tiene más live houses por kilómetro cuadrado que cualquier otro barrio de Tokio. Los viernes todo está lleno — bandas indie, folk, jazz, rock actuando en escenarios pequeños ante decenas de personas que de verdad escuchan.\n\nDate permiso de salir esta noche. Has trabajado toda la semana, y la ciudad está pronunciando tu nombre. Elige un local cuya música te suene bien desde fuera, entra, y disfruta.\n\n¥1.500–3.000 incluida una bebida. Salida sur de Shimokitazawa."
+      },
+      "golden-gai-friday-task": {
+        "title": "Golden Gai — dos cientos bares, entra a uno",
+        "hook": "Shinjuku Golden Gai: bares que caben seis personas. Ve solo. Así es exactamente como funciona.",
+        "body": "No te agobies con el número de doscientos y pico bares. La manera de hacerlo es simple: entra en los callejones estrechos, camina despacio, y deja que una puerta te atraiga por cualquier razón — el nombre, la música que sale, la luz cálida dentro. Entra y ya.\n\nLos bares de Golden Gai están hechos para la gente que viene sola. Los bartenders suelen tener ganas de hablar. Este es el Tokio humano — solo tienes que cruzar la puerta primero."
+      },
+      "koenji-market-saturday": {
+        "title": "El mercadillo del sábado en Koenji",
+        "hook": "El sábado por la mañana en Koenji, el mercadillo saca a la luz lo que esta ciudad alguna vez amó.",
+        "body": "Los mercadillos japoneses tienen algo que los distingue de todos los demás: todo está ordenado con cuidado, y los vendedores suelen tener una historia para cada objeto si les preguntas. Vinilos de los años 70, juegos de tazas de té que pasaron por muchas manos, postales que nunca llegaron a enviarse.\n\nLlega antes de las nueve cuando todavía hay buena selección. No tienes que comprar nada — solo camina, mira, y deja que tu mente se pregunte por las personas que tuvieron todo esto.\n\nSalida sur de Koenji. Entrada gratuita."
+      },
+      "nishi-ogikubo-saturday-task": {
+        "title": "Nishi-Ogikubo — el barrio de antigüedades",
+        "hook": "Mientras todos van a Harajuku, Nishi-Ogikubo guarda en silencio el Tokio más antiguo.",
+        "body": "Nishi-Ogikubo no aparece en los itinerarios turísticos habituales, y eso es exactamente lo que lo hace especial. Las tiendas de antigüedades aquí son serias — no decoración hipster, sino cerámica japonesa de verdad, muebles de la era Meiji, objetos cotidianos de un Tokio que ya no existe.\n\nCamina sin plan y entra al local cuya vitrina te detenga. Si algún objeto te genera curiosidad, pregunta al dueño — suelen estar encantados de contarte."
+      }
     }
   }
 }
