@@ -10,9 +10,8 @@ import { moodMeta } from "@/lib/mapData";
 import type { MemoryPostcard } from "@/lib/mapData";
 import { FilmGrain } from "@/components/ui/FilmGrain";
 
-const WORLD_EXITS = [
-  { label: "Tonight", href: "/today",   color: "#7B8DB3" },
-  { label: "Stories", href: "/moments", color: "#C9A96E" },
+const STATIC_EXITS = [
+  { label: "Tonight",    href: "/today",   color: "#7B8DB3" },
   { label: "Daily Life", href: "/living",  color: "#A8B5A0" },
 ] as const;
 
@@ -302,7 +301,21 @@ export function PostcardView({
                   className="px-4 pb-4 pt-3 flex items-center gap-5"
                   style={{ borderTop: "1px solid rgba(255,255,255,0.03)" }}
                 >
-                  {WORLD_EXITS.map(({ label, href, color }) => (
+                  {/* Stories link — city-filtered */}
+                  <Link
+                    href={`${prefix}/moments`}
+                    className="flex items-center gap-1 transition-opacity duration-150 hover:opacity-100"
+                    style={{
+                      fontSize: "9px",
+                      fontFamily: "var(--font-mono, monospace)",
+                      letterSpacing: "0.16em",
+                      color: "#C9A96E",
+                      opacity: 0.4,
+                    }}
+                  >
+                    Stories →
+                  </Link>
+                  {STATIC_EXITS.map(({ label, href, color }) => (
                     <Link
                       key={href}
                       href={`${prefix}${href}`}

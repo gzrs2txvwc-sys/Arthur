@@ -31,7 +31,7 @@ const JapanMap = dynamic(() => import("./JapanMap"), {
 
 type GeoMode = "off" | "gps" | "simulation";
 
-export function MapExperience() {
+export function MapExperience({ initialPinId }: { initialPinId?: string }) {
   const t = useTranslations("map");
 
   // ── Browse state ──────────────────────────────────
@@ -49,12 +49,16 @@ export function MapExperience() {
   const [archiveOpen, setArchiveOpen] = useState(false);
   const watchIdRef = useRef<number | null>(null);
 
-  // Load archive on mount
+  // Load archive on mount + auto-select pin from URL
   useEffect(() => {
     const entries = getArchive();
     setArchiveEntries(entries);
     setCollectedIds(new Set(entries.map((e) => e.pinId)));
-  }, []);
+    if (initialPinId) {
+      const target = memoryPostcards.find((p) => p.id === initialPinId);
+      if (target) setSelectedPostcard(target);
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Cleanup GPS watch on unmount
   useEffect(() => {

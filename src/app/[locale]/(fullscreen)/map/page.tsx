@@ -17,9 +17,12 @@ export async function generateMetadata({
 
 export default async function MapPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ pin?: string }>;
 }) {
   await params;
-  return <MapExperience />;
+  const { pin } = await searchParams;
+  return <MapExperience initialPinId={pin} />;
 }

@@ -5,12 +5,14 @@ import Link from "next/link";
 import { compileMDX } from "next-mdx-remote/rsc";
 import { getMoment, getMomentSlugs, getAllMoments, formatDate } from "@/lib/content";
 import { getCity } from "@/lib/cities";
+import { memoryPostcards, moodMeta } from "@/lib/mapData";
 import { PullQuote } from "@/components/content/PullQuote";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { Button } from "@/components/ui/Button";
 import { Tag } from "@/components/ui/Tag";
 import { WorldBridge } from "@/components/ui/WorldBridge";
 import type { Moment } from "@/lib/types";
+import type { MemoryPostcard } from "@/lib/mapData";
 import type { Metadata } from "next";
 
 export function generateStaticParams() {
@@ -39,6 +41,54 @@ const mdxComponents = {
     <PullQuote>{children}</PullQuote>
   ),
 };
+
+function MapFragmentTeaser({
+  postcard,
+  locale,
+}: {
+  postcard: MemoryPostcard;
+  locale: string;
+}) {
+  const prefix = locale === "en" ? "" : `/${locale}`;
+  const mood = moodMeta[postcard.mood];
+  return (
+    <Link
+      href={`${prefix}/map?pin=${postcard.id}`}
+      className="group flex gap-4 items-start py-4 transition-opacity hover:opacity-100"
+      style={{ opacity: 0.8 }}
+    >
+      <div className="w-14 h-14 rounded-sm overflow-hidden flex-shrink-0">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={postcard.imageUrl}
+          alt={postcard.caption}
+          className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500"
+          style={{ filter: "saturate(0.45) brightness(0.48) contrast(1.1)" }}
+        />
+      </div>
+      <div className="flex flex-col gap-1 min-w-0">
+        <span
+          className="font-mono"
+          style={{ fontSize: "9px", letterSpacing: "0.18em", color: mood.color, opacity: 0.65 }}
+        >
+          {(postcard.neighborhood ?? postcard.city).toUpperCase()}
+        </span>
+        <p
+          className="text-sm font-display font-light leading-snug"
+          style={{ color: "var(--color-parchment)", opacity: 0.85 }}
+        >
+          {postcard.caption}
+        </p>
+        <span
+          className="font-mono flex items-center gap-1 group-hover:gap-1.5 transition-all"
+          style={{ fontSize: "9px", letterSpacing: "0.14em", color: "#7A9E7E", opacity: 0.55 }}
+        >
+          Find on map →
+        </span>
+      </div>
+    </Link>
+  );
+}
 
 function NextStoryCard({ story, locale }: { story: Moment; locale: string }) {
   const prefix = locale === "en" ? "" : `/${locale}`;
@@ -104,6 +154,17 @@ export default async function MomentPage({
   const currentIndex = allMoments.findIndex((m) => m.slug === slug);
   const nextMoment = currentIndex < allMoments.length - 1 ? allMoments[currentIndex + 1] : allMoments[0];
   const prevMoment = currentIndex > 0 ? allMoments[currentIndex - 1] : null;
+
+  // Related map fragments: same city first, then any Tokyo fragments
+  const cityFragments = memoryPostcards.filter((p) => p.city === moment.city);
+  const fallbackFragments = memoryPostcards.filter((p) => p.city === "tokyo");
+  const fragmentPool = cityFragments.length >= 2 ? cityFragments : fallbackFragments;
+  // Deterministic selection based on slug hash so it's stable across requests
+  const slugHash = slug.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
+  const relatedFragments = [
+    fragmentPool[slugHash % fragmentPool.length],
+    fragmentPool[(slugHash + 7) % fragmentPool.length],
+  ].filter((f, i, arr) => f && arr.findIndex((x) => x?.id === f.id) === i);
 
   const { content } = await compileMDX({
     source: moment.content ?? "",
@@ -182,6 +243,28 @@ export default async function MomentPage({
             ))}
           </div>
         </FadeIn>
+
+        {/* Related map fragments */}
+        {relatedFragments.length > 0 && (
+          <FadeIn delay={0.12} className="mt-10">
+            <div
+              className="pt-8"
+              style={{ borderTop: "1px solid rgba(200,184,154,0.06)" }}
+            >
+              <p
+                className="font-mono mb-4"
+                style={{ fontSize: "9px", letterSpacing: "0.28em", color: "#7A9E7E", opacity: 0.5 }}
+              >
+                ON THE MAP
+              </p>
+              <div className="flex flex-col divide-y divide-white/[0.04]">
+                {relatedFragments.map((fragment) => (
+                  <MapFragmentTeaser key={fragment.id} postcard={fragment} locale={locale} />
+                ))}
+              </div>
+            </div>
+          </FadeIn>
+        )}
 
         {/* Small back link */}
         <FadeIn delay={0.15} className="mt-8">
