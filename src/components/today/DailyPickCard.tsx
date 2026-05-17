@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { DailyPickMeta } from "@/lib/dailyPicks";
 import { moodMeta } from "@/lib/mapData";
 
@@ -42,6 +43,19 @@ function TimePrice({
         </span>
       )}
     </div>
+  );
+}
+
+function GoDeeper({ pickId }: { pickId: string }) {
+  return (
+    <Link
+      href={`/today/${pickId}`}
+      className="inline-flex items-center gap-2 mt-7 text-[9px] font-mono tracking-[0.2em] uppercase transition-opacity hover:opacity-100 group"
+      style={{ color: "var(--color-sand)", opacity: 0.7 }}
+    >
+      <span>How to get there</span>
+      <span className="transition-transform group-hover:translate-x-0.5">→</span>
+    </Link>
   );
 }
 
@@ -126,6 +140,8 @@ function FeatureCard({ pick, typeLabel, title, hook, body }: DailyPickCardProps)
           endTime={pick.endTime}
           price={pick.price}
         />
+
+        <GoDeeper pickId={pick.id} />
       </div>
     </article>
   );
@@ -212,6 +228,8 @@ function TaskCard({ pick, typeLabel, title, hook, body }: DailyPickCardProps) {
         </div>
 
         <TimePrice price={pick.price} />
+
+        <GoDeeper pickId={pick.id} />
       </div>
     </article>
   );
