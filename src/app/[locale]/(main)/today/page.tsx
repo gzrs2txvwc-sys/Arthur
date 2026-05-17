@@ -2,9 +2,9 @@ import { getMessages, getTranslations } from "next-intl/server";
 import { getPicksForDay } from "@/lib/dailyPicks";
 import { DailyPickCard } from "@/components/today/DailyPickCard";
 import { FilmGrain } from "@/components/ui/FilmGrain";
+import { WorldBridge } from "@/components/ui/WorldBridge";
 import { getTokyoWeather, weatherLabel, isWeatherMismatch } from "@/lib/weather";
 import { tokyoDate, getDayType, getTokyoSeason, shouldPreviewTomorrow } from "@/lib/season";
-import Link from "next/link";
 
 export const revalidate = 1800; // weather cache: refresh every 30 min
 
@@ -25,7 +25,7 @@ export default async function TodayPage({
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  await params;
+  const { locale } = await params;
 
   const now = Date.now();
   const tokyo = tokyoDate(now);
@@ -218,28 +218,8 @@ export default async function TodayPage({
           </>
         )}
 
-        {/* ── Map bridge ─────────────────────────────── */}
-        <footer
-          className="rounded-sm px-6 py-6"
-          style={{
-            background: "rgba(255,255,255,0.02)",
-            border: "1px solid rgba(200,184,154,0.07)",
-          }}
-        >
-          <p
-            className="text-sm leading-relaxed mb-4"
-            style={{ color: "var(--color-muted)", opacity: 0.7 }}
-          >
-            {t("map_bridge")}
-          </p>
-          <Link
-            href="/map"
-            className="text-[10px] font-mono tracking-[0.15em] uppercase transition-opacity duration-200 hover:opacity-100"
-            style={{ color: "var(--color-sand)", opacity: 0.8 }}
-          >
-            {t("map_link")} →
-          </Link>
-        </footer>
+        {/* ── World bridge ───────────────────────────── */}
+        <WorldBridge exclude="tonight" locale={locale} />
 
       </div>
     </div>

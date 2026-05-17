@@ -4,6 +4,7 @@ import { MomentCard } from "@/components/cards/MomentCard";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { StaggerChildren, StaggerItem } from "@/components/motion/RevealText";
 import { FilmGrain } from "@/components/ui/FilmGrain";
+import { WorldBridge } from "@/components/ui/WorldBridge";
 import type { Metadata } from "next";
 
 export async function generateMetadata({
@@ -118,6 +119,11 @@ export default async function MomentsPage({
             </p>
           </FadeIn>
         )}
+      </section>
+
+      {/* ── World bridge ─────────────────────────── */}
+      <section className="px-6 lg:px-12 max-w-4xl mx-auto w-full pb-20">
+        <WorldBridge exclude="stories" locale={locale} />
       </section>
     </>
   );

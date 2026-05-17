@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { FilmGrain } from "@/components/ui/FilmGrain";
+import { WorldBridge } from "@/components/ui/WorldBridge";
 import type { Metadata } from "next";
 
 export async function generateMetadata({
@@ -128,7 +129,7 @@ export default async function LivingPage({
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  await params;
+  const { locale } = await params;
 
   return (
     <div className="min-h-screen bg-[#0a0a0a]">
@@ -252,6 +253,9 @@ export default async function LivingPage({
             </div>
           ))}
         </div>
+
+        {/* ── World bridge ──────────────────── */}
+        <WorldBridge exclude="living" locale={locale} />
       </div>
     </div>
   );

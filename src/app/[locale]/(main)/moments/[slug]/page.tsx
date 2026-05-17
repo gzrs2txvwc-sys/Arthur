@@ -1,13 +1,16 @@
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
+import Link from "next/link";
 import { compileMDX } from "next-mdx-remote/rsc";
-import { getMoment, getMomentSlugs, formatDate } from "@/lib/content";
+import { getMoment, getMomentSlugs, getAllMoments, formatDate } from "@/lib/content";
 import { getCity } from "@/lib/cities";
 import { PullQuote } from "@/components/content/PullQuote";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { Button } from "@/components/ui/Button";
 import { Tag } from "@/components/ui/Tag";
+import { WorldBridge } from "@/components/ui/WorldBridge";
+import type { Moment } from "@/lib/types";
 import type { Metadata } from "next";
 
 export function generateStaticParams() {
@@ -37,6 +40,53 @@ const mdxComponents = {
   ),
 };
 
+function NextStoryCard({ story, locale }: { story: Moment; locale: string }) {
+  const prefix = locale === "en" ? "" : `/${locale}`;
+  return (
+    <Link
+      href={`${prefix}/moments/${story.slug}`}
+      className="group relative block overflow-hidden"
+      style={{ minHeight: "clamp(200px, 28vh, 300px)" }}
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={story.imageUrl}
+        alt={story.title}
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+        style={{ filter: "saturate(0.22) brightness(0.24) contrast(1.14) sepia(0.3)" }}
+      />
+      <div className="absolute inset-0" style={{ background: "rgba(48, 32, 12, 0.22)" }} />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/96 via-[#0a0a0a]/25 to-transparent" />
+      <div className="absolute inset-0 flex flex-col justify-end p-7 md:p-8">
+        <span
+          className="font-mono block mb-3"
+          style={{ fontSize: "9px", letterSpacing: "0.28em", color: "#C9A96E", opacity: 0.55 }}
+        >
+          NEXT STORY
+        </span>
+        <h3
+          className="font-display font-light leading-snug mb-2"
+          style={{ fontSize: "clamp(1.2rem, 2.5vw, 1.8rem)", color: "var(--color-parchment)" }}
+        >
+          {story.title}
+        </h3>
+        <p
+          className="text-sm leading-relaxed mb-4 line-clamp-2"
+          style={{ color: "var(--color-muted)", opacity: 0.6 }}
+        >
+          {story.excerpt}
+        </p>
+        <span
+          className="font-mono flex items-center gap-2 group-hover:gap-3 transition-all duration-300"
+          style={{ fontSize: "10px", letterSpacing: "0.16em", color: "#C9A96E", opacity: 0.7 }}
+        >
+          Read →
+        </span>
+      </div>
+    </Link>
+  );
+}
+
 export default async function MomentPage({
   params,
 }: {
@@ -48,6 +98,12 @@ export default async function MomentPage({
 
   const t = await getTranslations("moments");
   const city = getCity(moment.city);
+
+  // Next/prev story
+  const allMoments = getAllMoments(locale);
+  const currentIndex = allMoments.findIndex((m) => m.slug === slug);
+  const nextMoment = currentIndex < allMoments.length - 1 ? allMoments[currentIndex + 1] : allMoments[0];
+  const prevMoment = currentIndex > 0 ? allMoments[currentIndex - 1] : null;
 
   const { content } = await compileMDX({
     source: moment.content ?? "",
@@ -118,7 +174,7 @@ export default async function MomentPage({
         </FadeIn>
 
         {/* Tags */}
-        <FadeIn delay={0.1} className="mt-16">
+        <FadeIn delay={0.1} className="mt-10">
           <div className="hr-sand mb-8" />
           <div className="flex flex-wrap gap-2">
             {moment.tags.map((tag) => (
@@ -127,18 +183,27 @@ export default async function MomentPage({
           </div>
         </FadeIn>
 
-        {/* Navigation */}
-        <FadeIn delay={0.15} className="mt-12">
-          <div className="flex items-center justify-between flex-wrap gap-4">
-            <Button href={`/${locale}/moments`} variant="ghost">
-              ← {t("all_moments")}
-            </Button>
-            {city && (
-              <Button href={`/${locale}/cities/${city.slug}`} variant="ghost">
-                {t("more_from", { city: city.name })}
-              </Button>
-            )}
-          </div>
+        {/* Small back link */}
+        <FadeIn delay={0.15} className="mt-8">
+          {prevMoment && (
+            <Link
+              href={`/${locale}/moments/${prevMoment.slug}`}
+              className="text-[9px] font-mono tracking-[0.2em] transition-opacity hover:opacity-100"
+              style={{ color: "var(--color-muted)", opacity: 0.4 }}
+            >
+              ← {prevMoment.title}
+            </Link>
+          )}
+        </FadeIn>
+
+        {/* Next story — full-width pull */}
+        <FadeIn delay={0.2} className="mt-12">
+          <NextStoryCard story={nextMoment} locale={locale} />
+        </FadeIn>
+
+        {/* World bridge */}
+        <FadeIn delay={0.25}>
+          <WorldBridge exclude="stories" locale={locale} />
         </FadeIn>
       </article>
     </>
