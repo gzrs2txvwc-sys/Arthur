@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useState, useCallback, useMemo, useRef, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
 import type { Map as LeafletMap } from "leaflet";
 import { memoryPostcards, moodMeta } from "@/lib/mapData";
@@ -10,6 +10,7 @@ import type { MemoryPostcard, FragmentMood, PinState } from "@/lib/mapData";
 import { haversineDistance, getPinState, UNLOCK_RADIUS } from "@/lib/geoProximity";
 import { getArchive, addToArchive } from "@/lib/userArchive";
 import type { ArchiveEntry } from "@/lib/userArchive";
+import { logPostcardVisit, getQuietObservation } from "@/lib/visitLog";
 import { MapFilters } from "./MapFilters";
 import { MapAtmosphere } from "./MapAtmosphere";
 import { PostcardView } from "./PostcardView";
@@ -39,6 +40,27 @@ export function MapExperience({ initialPinId }: { initialPinId?: string }) {
   const [activeMood, setActiveMood] = useState<FragmentMood | "all">("all");
   const [introGone, setIntroGone] = useState(false);
   const mapRef = useRef<LeafletMap | null>(null) as { current: LeafletMap | null };
+
+  // ── Tokyo time (drives hidden fragment visibility) ─
+  const [tokyoHour, setTokyoHour] = useState(0);
+  useEffect(() => {
+    const hour = () => (new Date().getUTCHours() + 9) % 24;
+    setTokyoHour(hour());
+    const interval = setInterval(() => setTokyoHour(hour()), 5 * 60 * 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // ── Quiet observation ──────────────────────────────
+  const [observation, setObservation] = useState<string | null>(null);
+  const [showObservation, setShowObservation] = useState(false);
+  useEffect(() => {
+    const obs = getQuietObservation();
+    if (!obs) return;
+    setObservation(obs);
+    const t1 = setTimeout(() => setShowObservation(true), 2200);
+    const t2 = setTimeout(() => setShowObservation(false), 7000);
+    return () => { clearTimeout(t1); clearTimeout(t2); };
+  }, []);
 
   // ── Geo / exploration state ───────────────────────
   const [geoMode, setGeoMode] = useState<GeoMode>("off");
@@ -84,14 +106,20 @@ export function MapExperience({ initialPinId }: { initialPinId?: string }) {
     return states;
   }, [geoMode, userPosition, collectedIds]);
 
-  // ── Visible postcards (filter by mood) ───────────
-  const visiblePostcards = useMemo(
-    () =>
-      activeMood === "all"
-        ? memoryPostcards
-        : memoryPostcards.filter((p) => p.mood === activeMood),
-    [activeMood]
-  );
+  // ── Visible postcards (filter by mood + time visibility) ─
+  const visiblePostcards = useMemo(() => {
+    const isVisible = (p: MemoryPostcard) => {
+      if (!p.visibility) return true;
+      if (p.visibility === "night")     return tokyoHour >= 21 || tokyoHour < 6;
+      if (p.visibility === "latenight") return tokyoHour >= 23 || tokyoHour < 5;
+      if (p.visibility === "dawn")      return tokyoHour >= 4 && tokyoHour < 7;
+      return true;
+    };
+    const base = activeMood === "all"
+      ? memoryPostcards
+      : memoryPostcards.filter((p) => p.mood === activeMood);
+    return base.filter(isVisible);
+  }, [activeMood, tokyoHour]);
 
   const selectedIndex = selectedPostcard
     ? visiblePostcards.findIndex((p) => p.id === selectedPostcard.id)
@@ -122,6 +150,12 @@ export function MapExperience({ initialPinId }: { initialPinId?: string }) {
   // ── Postcard select (geo-aware) ───────────────────
   const handleSelect = useCallback(
     (postcard: MemoryPostcard) => {
+      logPostcardVisit(
+        postcard.id,
+        postcard.neighborhood ?? postcard.city,
+        postcard.mood,
+        tokyoHour,
+      );
       if (geoMode === "off") {
         setSelectedPostcard(postcard);
         return;
@@ -132,7 +166,7 @@ export function MapExperience({ initialPinId }: { initialPinId?: string }) {
       }
       // locked / nearby: silently ignore (walk there)
     },
-    [geoMode, pinStates]
+    [geoMode, pinStates, tokyoHour]
   );
 
   // ── Collect ───────────────────────────────────────
@@ -232,6 +266,23 @@ export function MapExperience({ initialPinId }: { initialPinId?: string }) {
           onAnimationComplete={() => setIntroGone(true)}
         />
       )}
+
+      {/* ── Quiet observation ───────────────────── */}
+      <AnimatePresence>
+        {showObservation && observation && (
+          <motion.p
+            className="absolute bottom-36 left-0 right-0 text-center z-[200] pointer-events-none
+              font-mono tracking-[0.18em]"
+            style={{ fontSize: "10px", color: "var(--color-muted)" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.42 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.8 }}
+          >
+            {observation}
+          </motion.p>
+        )}
+      </AnimatePresence>
 
       <div className="absolute inset-0 z-0">
         <JapanMap

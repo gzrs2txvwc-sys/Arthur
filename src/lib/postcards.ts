@@ -79,6 +79,8 @@ export interface MemoryPostcard {
 
   // Discovery mechanics
   unlockRadius?: number; // meters, defaults to 120
+  visibility?: "night" | "latenight" | "dawn"; // time-gated; "night"=21-6, "latenight"=23-5, "dawn"=4-7
+  footprint?: string; // quiet anonymous evidence of others having been here
 
   tags: string[];
 }

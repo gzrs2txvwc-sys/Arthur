@@ -10,6 +10,7 @@ import { moodMeta } from "@/lib/mapData";
 import { getDriftLine } from "@/lib/moodThread";
 import type { MemoryPostcard } from "@/lib/mapData";
 import { FilmGrain } from "@/components/ui/FilmGrain";
+import { getNeighborhoodCount } from "@/lib/visitLog";
 
 const STATIC_EXITS = [
   { label: "Tonight",    href: "/today",   color: "#7B8DB3" },
@@ -81,6 +82,10 @@ export function PostcardView({
   const prefix = locale === "en" ? "" : `/${locale}`;
   const meta = postcard ? moodMeta[postcard.mood] : null;
   const rotation = useMemo(() => (postcard ? cardRotation(postcard.id) : 0), [postcard]);
+  const familiarityCount = useMemo(
+    () => (postcard ? getNeighborhoodCount(postcard.neighborhood ?? postcard.city) : 0),
+    [postcard],
+  );
 
   return (
     <AnimatePresence>
@@ -244,6 +249,24 @@ export function PostcardView({
                 {postcard.author && (
                   <p className="px-4 pt-2 text-[11px] font-mono text-[var(--color-muted)] opacity-40">
                     — {postcard.author}
+                  </p>
+                )}
+
+                {/* Footprint — quiet anonymous presence */}
+                {postcard.footprint && (
+                  <p className="px-4 pt-1 text-[9px] font-mono tracking-[0.12em]"
+                    style={{ color: "var(--color-muted)", opacity: 0.22 }}>
+                    {postcard.footprint}
+                  </p>
+                )}
+
+                {/* District familiarity — appears after 3+ visits to this neighborhood */}
+                {familiarityCount >= 3 && (
+                  <p className="px-4 pt-1 text-[9px] font-mono tracking-[0.12em]"
+                    style={{ color: "var(--color-muted)", opacity: 0.28 }}>
+                    {familiarityCount >= 7
+                      ? "You know this part of the city well."
+                      : "This neighborhood is becoming familiar."}
                   </p>
                 )}
 

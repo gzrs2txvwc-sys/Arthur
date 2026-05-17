@@ -19,6 +19,8 @@ export const memoryPostcards: MemoryPostcard[] = [
     imageAlt: "Quiet street at night, vending machine glow",
     author: "Anonymous",
     year: "2021",
+    visibility: "latenight",
+    footprint: "23 people found this after midnight.",
     tags: ["2am", "vending-machine", "koenji", "walking"],
   },
   {
@@ -37,6 +39,7 @@ export const memoryPostcards: MemoryPostcard[] = [
     imageUrl: "https://images.unsplash.com/photo-1520520731457-9283dd14aa66?w=800&q=75",
     imageAlt: "Narrow alley with small shops",
     year: "2019",
+    footprint: "12 people have been lost in this alley.",
     tags: ["shimokitazawa", "alley", "lost", "music", "coffee"],
   },
   {
@@ -55,6 +58,8 @@ export const memoryPostcards: MemoryPostcard[] = [
     imageUrl: "https://images.unsplash.com/photo-1580822184713-fc5400e7fe10?w=800&q=75",
     imageAlt: "Convenience store interior, fluorescent light",
     year: "2023",
+    visibility: "latenight",
+    footprint: "Someone stayed here for two hours once.",
     tags: ["3am", "konbini", "shinjuku", "silence", "onigiri"],
   },
   {
@@ -1161,6 +1166,8 @@ export const memoryPostcards: MemoryPostcard[] = [
     imageUrl: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=800&q=75",
     imageAlt: "Canal at night, café lights in water, quiet",
     year: "2021",
+    visibility: "night",
+    footprint: "8 people came here the week the cold started.",
     tags: ["nakameguro", "canal", "bench", "11pm", "heron"],
   },
   {
@@ -1292,6 +1299,7 @@ export const memoryPostcards: MemoryPostcard[] = [
     imageUrl: "https://images.unsplash.com/photo-1493619419691-4f352a4b28bf?w=800&q=75",
     imageAlt: "Wide river embankment path, morning light, sparse figures",
     year: "2023",
+    footprint: "Some people walk here every morning.",
     tags: ["setagaya", "tamagawa", "river", "morning", "routine", "walking"],
   },
   {
@@ -1346,6 +1354,7 @@ export const memoryPostcards: MemoryPostcard[] = [
     imageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=75",
     imageAlt: "Multi-story parking structure at night, city view, empty levels",
     year: "2021",
+    visibility: "night",
     tags: ["jimbocho", "books", "night", "accidental", "view"],
   },
   {
@@ -1382,6 +1391,7 @@ export const memoryPostcards: MemoryPostcard[] = [
     imageUrl: "https://images.unsplash.com/photo-1558618047-3e28c99c6a0a?w=800&q=75",
     imageAlt: "Coin laundry interior, rows of machines, flat light",
     year: "2022",
+    footprint: "14 people found this on rainy Sundays.",
     tags: ["nakano", "laundromat", "sunday", "routine", "quiet"],
   },
   {
@@ -1418,6 +1428,7 @@ export const memoryPostcards: MemoryPostcard[] = [
     imageUrl: "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=800&q=75",
     imageAlt: "Quiet residential street at night, Japan, sparse streetlights",
     year: "2022",
+    visibility: "night",
     tags: ["nerima", "residential", "night", "lost", "ordinary"],
   },
 ];
