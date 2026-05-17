@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 interface NavBarProps {
   locale: string;
   messages: {
+    today: string;
     map: string;
     living: string;
     cities: string;
@@ -131,6 +132,7 @@ export function NavBar({ locale, messages }: NavBarProps) {
   const prefix = locale === "en" ? "" : `/${locale}`;
 
   const links = [
+    { href: `${prefix}/today`, label: messages.today, pulse: true },
     { href: `${prefix}/map`, label: messages.map },
     { href: `${prefix}/living`, label: messages.living },
     { href: `${prefix}/cities/tokyo`, label: messages.cities },
@@ -161,8 +163,14 @@ export function NavBar({ locale, messages }: NavBarProps) {
                 key={link.href}
                 href={link.href}
                 className="text-caption text-[var(--color-muted)] hover:text-[var(--color-parchment)]
-                  transition-colors duration-300"
+                  transition-colors duration-300 flex items-center gap-1.5"
               >
+                {link.pulse && (
+                  <span
+                    className="w-1 h-1 rounded-full animate-pulse flex-shrink-0"
+                    style={{ background: "#4ECDC4" }}
+                  />
+                )}
                 {link.label}
               </Link>
             ))}
@@ -197,8 +205,15 @@ export function NavBar({ locale, messages }: NavBarProps) {
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
                 className="text-display-md text-[var(--color-parchment)]
-                  hover:text-[var(--color-sand)] transition-colors duration-300"
+                  hover:text-[var(--color-sand)] transition-colors duration-300
+                  flex items-center gap-3"
               >
+                {link.pulse && (
+                  <span
+                    className="w-1.5 h-1.5 rounded-full animate-pulse flex-shrink-0"
+                    style={{ background: "#4ECDC4" }}
+                  />
+                )}
                 {link.label}
               </Link>
             ))}

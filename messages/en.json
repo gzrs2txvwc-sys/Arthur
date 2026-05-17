@@ -1,5 +1,6 @@
 {
   "nav": {
+    "today": "Today",
     "map": "Map",
     "living": "Living",
     "cities": "Cities",
@@ -433,6 +434,20 @@
       "tip": "Get a guarantor service if you don't have a Japanese guarantor. They cost money (usually one month's rent) but open 80% of apartments that would otherwise reject foreign applicants.",
       "context": "Community advice — confirmed by multiple members"
     }
+  },
+  "today": {
+    "eyebrow": "DAILY DISCOVERY",
+    "title": "Step outside today.",
+    "city_tokyo": "Tokyo",
+    "events_count_suffix": "things happening",
+    "period_morning": "Morning",
+    "period_afternoon": "Afternoon",
+    "period_evening": "Evening",
+    "after_work_label": "Step outside tonight",
+    "after_work_sub": "Recommended after school / work",
+    "after_work_empty": "No evening events today — try exploring the map.",
+    "map_cta_body": "While you're out, unlock emotional fragments of the city. Places with memories attached. The ordinary streets that feel like something when you know how to look.",
+    "map_cta_link": "Open the memory map"
   },
   "cities_content": {
     "tokyo": {

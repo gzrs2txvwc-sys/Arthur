@@ -17,6 +17,7 @@ export default async function FullscreenLayout({
       <NavBar
         locale={locale}
         messages={{
+          today:     nav.today,
           map:       nav.map,
           living:    nav.living,
           cities:    nav.cities,
