@@ -3,6 +3,7 @@ import { getAllMoments } from "@/lib/content";
 import { MomentCard } from "@/components/cards/MomentCard";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { StaggerChildren, StaggerItem } from "@/components/motion/RevealText";
+import { FilmGrain } from "@/components/ui/FilmGrain";
 import type { Metadata } from "next";
 
 export async function generateMetadata({
@@ -29,23 +30,49 @@ export default async function MomentsPage({
 
   return (
     <>
-      {/* ── Header ─────────────────────────────── */}
-      <section className="pt-32 pb-16 px-6 lg:px-12 max-w-7xl mx-auto w-full">
-        <FadeIn>
-          <p className="text-caption text-[var(--color-sand)] mb-4">
-            {t("all_moments")}
-          </p>
-          <h1 className="text-display-xl text-[var(--color-parchment)] mb-6">
+      <FilmGrain opacity={0.04} className="z-0 pointer-events-none" />
+
+      {/* ── Cinematic header ───────────────────── */}
+      <div
+        className="relative overflow-hidden"
+        style={{ height: "clamp(260px, 42vh, 480px)" }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?w=1600&q=75"
+          alt="Stories from Tokyo"
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ filter: "saturate(0.22) brightness(0.24) contrast(1.14) sepia(0.3)" }}
+        />
+        <div className="absolute inset-0" style={{ background: "rgba(48, 32, 12, 0.22)" }} />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/25 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 px-6 lg:px-12 pb-12">
+          <span
+            className="font-mono block mb-4"
+            style={{ fontSize: "9px", letterSpacing: "0.3em", color: "#C9A96E", opacity: 0.5 }}
+          >
+            III · STORIES & MEMORIES
+          </span>
+          <h1
+            className="font-display font-light leading-tight"
+            style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)", color: "var(--color-parchment)" }}
+          >
             {t("page_title")}
           </h1>
-          <p className="text-lg text-[var(--color-muted)] max-w-xl leading-relaxed">
+        </div>
+      </div>
+
+      {/* ── Intro ──────────────────────────────── */}
+      <section className="pt-12 pb-10 px-6 lg:px-12 max-w-4xl mx-auto w-full">
+        <FadeIn>
+          <p className="text-sm leading-relaxed max-w-xl" style={{ color: "var(--color-muted)", opacity: 0.6 }}>
             {t("page_description")}
           </p>
         </FadeIn>
       </section>
 
       {/* ── Filter strip (city) ─────────────────── */}
-      <section className="px-6 lg:px-12 max-w-7xl mx-auto w-full mb-16">
+      <section className="px-6 lg:px-12 max-w-4xl mx-auto w-full mb-12">
         <FadeIn>
           <div className="flex flex-wrap gap-3">
             <span
@@ -68,10 +95,10 @@ export default async function MomentsPage({
       </section>
 
       {/* ── Grid ───────────────────────────────── */}
-      <section className="pb-24 px-6 lg:px-12 max-w-7xl mx-auto w-full">
+      <section className="pb-24 px-6 lg:px-12 max-w-4xl mx-auto w-full">
         {moments.length > 0 ? (
           <StaggerChildren
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
+            className="grid grid-cols-1 md:grid-cols-2 gap-10"
             staggerDelay={0.1}
           >
             {moments.map((moment) => (

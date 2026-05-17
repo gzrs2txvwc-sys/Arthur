@@ -9,9 +9,15 @@ interface WorldPortalProps {
   href: string;
   imageUrl: string;
   enterLabel: string;
+  imageFilter: string;
+  tint: string;
+  accentColor: string;
 }
 
-function WorldPortal({ numeral, title, tagline, href, imageUrl, enterLabel }: WorldPortalProps) {
+function WorldPortal({
+  numeral, title, tagline, href, imageUrl, enterLabel,
+  imageFilter, tint, accentColor,
+}: WorldPortalProps) {
   return (
     <Link
       href={href}
@@ -23,13 +29,16 @@ function WorldPortal({ numeral, title, tagline, href, imageUrl, enterLabel }: Wo
         src={imageUrl}
         alt={title}
         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-        style={{ filter: "saturate(0.4) brightness(0.28) contrast(1.1)" }}
+        style={{ filter: imageFilter }}
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/95 via-[#0a0a0a]/20 to-transparent" />
+      {/* World-specific tint */}
+      <div className="absolute inset-0" style={{ background: tint }} />
+      {/* Bottom gradient */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/95 via-[#0a0a0a]/15 to-transparent" />
       <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-10">
         <span
           className="font-mono mb-4 block"
-          style={{ fontSize: "9px", letterSpacing: "0.3em", color: "var(--color-muted)", opacity: 0.4 }}
+          style={{ fontSize: "9px", letterSpacing: "0.3em", color: accentColor, opacity: 0.5 }}
         >
           {numeral}
         </span>
@@ -47,7 +56,7 @@ function WorldPortal({ numeral, title, tagline, href, imageUrl, enterLabel }: Wo
         </p>
         <span
           className="font-mono flex items-center gap-2 group-hover:gap-3 transition-all duration-300"
-          style={{ fontSize: "10px", letterSpacing: "0.18em", color: "var(--color-sand)", opacity: 0.7 }}
+          style={{ fontSize: "10px", letterSpacing: "0.18em", color: accentColor, opacity: 0.75 }}
         >
           {enterLabel} <span>→</span>
         </span>
@@ -67,36 +76,52 @@ export default async function HomePage({
 
   const portals: WorldPortalProps[] = [
     {
-      numeral:    t("worlds.tonight.numeral"),
-      title:      t("worlds.tonight.title"),
-      tagline:    t("worlds.tonight.tagline"),
-      enterLabel: t("worlds.tonight.enter"),
-      href:       `${prefix}/today`,
-      imageUrl:   "https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?w=1600&q=75",
+      numeral:     t("worlds.tonight.numeral"),
+      title:       t("worlds.tonight.title"),
+      tagline:     t("worlds.tonight.tagline"),
+      enterLabel:  t("worlds.tonight.enter"),
+      href:        `${prefix}/today`,
+      imageUrl:    "https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?w=1600&q=75",
+      // Night: high contrast, deep cool blue
+      imageFilter: "saturate(0.28) brightness(0.22) contrast(1.2)",
+      tint:        "rgba(18, 28, 52, 0.28)",
+      accentColor: "#7B8DB3",
     },
     {
-      numeral:    t("worlds.wander.numeral"),
-      title:      t("worlds.wander.title"),
-      tagline:    t("worlds.wander.tagline"),
-      enterLabel: t("worlds.wander.enter"),
-      href:       `${prefix}/map`,
-      imageUrl:   "https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=1600&q=75",
+      numeral:     t("worlds.wander.numeral"),
+      title:       t("worlds.wander.title"),
+      tagline:     t("worlds.wander.tagline"),
+      enterLabel:  t("worlds.wander.enter"),
+      href:        `${prefix}/map`,
+      imageUrl:    "https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=1600&q=75",
+      // Movement: slightly richer, cartographic green
+      imageFilter: "saturate(0.48) brightness(0.3) contrast(1.06)",
+      tint:        "rgba(14, 32, 22, 0.18)",
+      accentColor: "#7A9E7E",
     },
     {
-      numeral:    t("worlds.stories.numeral"),
-      title:      t("worlds.stories.title"),
-      tagline:    t("worlds.stories.tagline"),
-      enterLabel: t("worlds.stories.enter"),
-      href:       `${prefix}/moments`,
-      imageUrl:   "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?w=1600&q=75",
+      numeral:     t("worlds.stories.numeral"),
+      title:       t("worlds.stories.title"),
+      tagline:     t("worlds.stories.tagline"),
+      enterLabel:  t("worlds.stories.enter"),
+      href:        `${prefix}/moments`,
+      imageUrl:    "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?w=1600&q=75",
+      // Archival: warm sepia, paper feel
+      imageFilter: "saturate(0.22) brightness(0.24) contrast(1.14) sepia(0.3)",
+      tint:        "rgba(48, 32, 12, 0.22)",
+      accentColor: "#C9A96E",
     },
     {
-      numeral:    t("worlds.living.numeral"),
-      title:      t("worlds.living.title"),
-      tagline:    t("worlds.living.tagline"),
-      enterLabel: t("worlds.living.enter"),
-      href:       `${prefix}/living`,
-      imageUrl:   "https://images.unsplash.com/photo-1580822184713-fc5400e7fe10?w=1600&q=75",
+      numeral:     t("worlds.living.numeral"),
+      title:       t("worlds.living.title"),
+      tagline:     t("worlds.living.tagline"),
+      enterLabel:  t("worlds.living.enter"),
+      href:        `${prefix}/living`,
+      imageUrl:    "https://images.unsplash.com/photo-1580822184713-fc5400e7fe10?w=1600&q=75",
+      // Ordinary: slightly more present, cool fluorescent
+      imageFilter: "saturate(0.52) brightness(0.34) contrast(1.04)",
+      tint:        "rgba(12, 18, 38, 0.14)",
+      accentColor: "#A8B5A0",
     },
   ];
 

@@ -65,9 +65,11 @@ export default async function MomentPage({
             fill
             priority
             className="object-cover"
-            style={{ filter: "saturate(0.7) brightness(0.35)" }}
+            style={{ filter: "saturate(0.22) brightness(0.26) contrast(1.12) sepia(0.3)" }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/40 to-transparent" />
+          {/* Archival amber tint — paper/library feeling */}
+          <div className="absolute inset-0" style={{ background: "rgba(48, 32, 12, 0.2)" }} />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/35 to-transparent" />
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto px-6 lg:px-12 pb-16 w-full">
