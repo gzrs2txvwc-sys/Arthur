@@ -16,6 +16,18 @@ const STATIC_EXITS = [
   { label: "Daily Life", href: "/living",  color: "#A8B5A0" },
 ] as const;
 
+interface NearbyHint {
+  postcard: MemoryPostcard;
+  distanceM: number;
+}
+
+function walkingMinutes(distanceM: number): string {
+  const mins = Math.round(distanceM / 80);
+  if (mins < 2) return "2 min walk";
+  if (mins < 60) return `${mins} min walk`;
+  return `${(distanceM / 1000).toFixed(1)} km`;
+}
+
 interface PostcardViewProps {
   postcard: MemoryPostcard | null;
   mode: "browse" | "unlock";
@@ -26,6 +38,8 @@ interface PostcardViewProps {
   hasPrev?: boolean;
   onNext?: () => void;
   onPrev?: () => void;
+  nearbyPostcards?: NearbyHint[];
+  onSelectNearby?: (postcard: MemoryPostcard) => void;
 }
 
 // Deterministic subtle rotation per postcard id
@@ -59,6 +73,8 @@ export function PostcardView({
   hasPrev = false,
   onNext,
   onPrev,
+  nearbyPostcards = [],
+  onSelectNearby,
 }: PostcardViewProps) {
   const t = useTranslations("map");
   const locale = useLocale();
@@ -296,6 +312,49 @@ export function PostcardView({
                     </span>
                   )}
                 </div>
+
+                {/* ── Nearby walking hints (browse mode) ── */}
+                {mode === "browse" && nearbyPostcards.length > 0 && (
+                  <div
+                    className="px-4 pt-3 pb-2"
+                    style={{ borderTop: "1px solid rgba(255,255,255,0.03)" }}
+                  >
+                    {nearbyPostcards.map(({ postcard: nearby, distanceM }) => {
+                      const nearbyMoodColor = moodMeta[nearby.mood].color;
+                      return (
+                        <button
+                          key={nearby.id}
+                          onClick={() => onSelectNearby?.(nearby)}
+                          className="w-full text-left flex items-center gap-2 py-1 transition-opacity duration-200 hover:opacity-80"
+                          style={{ opacity: 0.28 }}
+                        >
+                          <span
+                            className="font-mono"
+                            style={{ fontSize: "9px", color: "var(--color-muted)" }}
+                          >
+                            ↳
+                          </span>
+                          <span
+                            className="w-1 h-1 rounded-full flex-shrink-0"
+                            style={{ background: nearbyMoodColor }}
+                          />
+                          <span
+                            className="font-mono tracking-[0.1em]"
+                            style={{ fontSize: "9px", color: "var(--color-muted)" }}
+                          >
+                            {(nearby.neighborhood ?? nearby.city).toUpperCase()}
+                          </span>
+                          <span
+                            className="font-mono"
+                            style={{ fontSize: "9px", color: "var(--color-muted)", opacity: 0.6 }}
+                          >
+                            · {walkingMinutes(distanceM)}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
 
                 {/* ── Drift line + world exits ──────────── */}
                 <div

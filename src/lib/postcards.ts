@@ -37,7 +37,12 @@ export type UrbanFragmentType =
   | "laundromat"
   | "bridge"
   | "park-bench"
-  | "street-corner";
+  | "street-corner"
+  | "bicycle-parking"
+  | "family-restaurant"
+  | "supermarket"
+  | "parking-structure"
+  | "embankment";
 
 export type PinState = "locked" | "nearby" | "unlocked" | "collected";
 

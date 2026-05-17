@@ -209,6 +209,16 @@ export function MapExperience({ initialPinId }: { initialPinId?: string }) {
     [pinStates]
   );
 
+  // Nearest 2 postcards to the currently selected one — powers the walking hints
+  const nearbyPostcards = useMemo(() => {
+    if (!selectedPostcard) return [];
+    return visiblePostcards
+      .filter((p) => p.id !== selectedPostcard.id)
+      .map((p) => ({ postcard: p, distanceM: haversineDistance(selectedPostcard.coordinates, p.coordinates) }))
+      .sort((a, b) => a.distanceM - b.distanceM)
+      .slice(0, 2);
+  }, [selectedPostcard, visiblePostcards]);
+
   const isSimulation = geoMode === "simulation";
 
   return (
@@ -389,6 +399,8 @@ export function MapExperience({ initialPinId }: { initialPinId?: string }) {
         alreadyCollected={
           selectedPostcard ? collectedIds.has(selectedPostcard.id) : false
         }
+        nearbyPostcards={nearbyPostcards}
+        onSelectNearby={setSelectedPostcard}
       />
 
       {/* ── Postcard view (unlock mode) ─────────── */}
