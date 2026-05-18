@@ -1,12 +1,13 @@
 import { getTranslations } from "next-intl/server";
 import { FilmGrain } from "@/components/ui/FilmGrain";
 import { DailyNudge } from "@/components/ui/DailyNudge";
-import { AnchorMoment } from "@/components/ui/AnchorMoment";
+import { OpeningHero } from "@/components/ui/OpeningHero";
 import { HomepagePortals } from "@/components/ui/HomepagePortals";
 import type { PortalData } from "@/components/ui/HomepagePortals";
 import { getTokyoWeather } from "@/lib/weather";
 import { tokyoHour, tokyoTimeString, computeAtmosphere } from "@/lib/atmosphere";
 import { getOpeningLine } from "@/lib/openingLine";
+import { getOpeningPhoto, WEATHER_JP } from "@/lib/openingPhoto";
 
 const WEATHER_LABEL: Partial<Record<string, string>> = {
   clear:    "Clear",
@@ -29,12 +30,14 @@ export default async function HomePage({
   const t = await getTranslations("home");
   const prefix = locale === "en" ? "" : `/${locale}`;
 
-  const weather     = await getTokyoWeather();
-  const hour        = tokyoHour();
-  const timeStr     = tokyoTimeString();
-  const { period }  = computeAtmosphere(hour, weather.condition, weather.feeling);
-  const openingLine = getOpeningLine(period, weather.condition);
+  const weather      = await getTokyoWeather();
+  const hour         = tokyoHour();
+  const timeStr      = tokyoTimeString();
+  const { period }   = computeAtmosphere(hour, weather.condition, weather.feeling);
+  const openingLine  = getOpeningLine(period, weather.condition);
+  const photo        = getOpeningPhoto(period);
   const weatherLabel = WEATHER_LABEL[weather.condition] ?? "";
+  const weatherJp    = WEATHER_JP[weather.condition] ?? "";
 
   const portals: PortalData[] = [
     {
@@ -85,59 +88,21 @@ export default async function HomePage({
 
   return (
     <div className="min-h-screen bg-[var(--color-ink)]">
-      <FilmGrain opacity={0.04} className="z-0 pointer-events-none" />
+      {/* Page-level grain — also applies beneath the hero overlay */}
+      <FilmGrain opacity={0.032} className="z-0 pointer-events-none" />
 
-      {/* ── Opening moment ────────────────────────────────────────────────────
-          First 3-5 seconds. Almost empty. Time, weather, one observation.
-          Portals are in the DOM below but hidden — they surface after a delay. */}
-      <div
-        className="relative flex flex-col items-center justify-center pt-40 pb-32 px-6 text-center overflow-hidden"
-        style={{ minHeight: "30rem" }}
-      >
-        {/* 間 — ambient watermark */}
-        <span
-          className="font-display font-light select-none pointer-events-none absolute"
-          style={{
-            fontSize: "clamp(10rem, 28vw, 22rem)",
-            color: "var(--color-sand)",
-            opacity: 0.04,
-            lineHeight: 1,
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -40%)",
-          }}
-          aria-hidden="true"
-        >
-          間
-        </span>
+      {/* ── Cinematic opening — full viewport, photo background ── */}
+      <OpeningHero
+        timeStr={timeStr}
+        weatherLabel={weatherLabel}
+        weatherJp={weatherJp}
+        openingLine={openingLine}
+        photo={photo}
+        period={period}
+        condition={weather.condition}
+      />
 
-        {/* Tokyo time + weather — very quiet, anchors the moment in reality */}
-        <div className="relative animate-fade-up">
-          <span
-            className="font-mono"
-            style={{ fontSize: "10px", letterSpacing: "0.24em", color: "var(--color-muted)", opacity: 0.3 }}
-          >
-            {timeStr}{weatherLabel ? `  ·  ${weatherLabel}` : ""}
-          </span>
-        </div>
-
-        {/* Observation — one real thought about Tokyo right now */}
-        <p
-          className="relative mt-6 leading-relaxed max-w-[18rem] animate-fade-up delay-100"
-          style={{
-            color: "var(--color-parchment)",
-            opacity: 0.7,
-            fontSize: "clamp(0.88rem, 1.5vw, 1rem)",
-          }}
-        >
-          {openingLine}
-        </p>
-
-        {/* Anchor moment — surfaces quietly on second session */}
-        <AnchorMoment />
-      </div>
-
-      {/* ── World Portals — fade in after opening moment has had its moment */}
+      {/* ── World Portals — revealed after 3.5s, just below fold ── */}
       <HomepagePortals portals={portals} />
 
       {/* ── Daily nudge — chapter-aware, scrolled to ──── */}
