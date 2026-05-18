@@ -104,3 +104,11 @@ export function computeAtmosphere(
 export function tokyoHour(): number {
   return (new Date().getUTCHours() + 9) % 24;
 }
+
+export function tokyoTimeString(): string {
+  const ms = Date.now() + 9 * 3600 * 1000;
+  const d  = new Date(ms);
+  const h  = String(d.getUTCHours()).padStart(2, "0");
+  const m  = String(d.getUTCMinutes()).padStart(2, "0");
+  return `${h}:${m}`;
+}

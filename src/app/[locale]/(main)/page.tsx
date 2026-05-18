@@ -1,76 +1,24 @@
-import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { FilmGrain } from "@/components/ui/FilmGrain";
 import { DailyNudge } from "@/components/ui/DailyNudge";
 import { AnchorMoment } from "@/components/ui/AnchorMoment";
+import { HomepagePortals } from "@/components/ui/HomepagePortals";
+import type { PortalData } from "@/components/ui/HomepagePortals";
 import { getTokyoWeather } from "@/lib/weather";
-import { tokyoHour, computeAtmosphere } from "@/lib/atmosphere";
+import { tokyoHour, tokyoTimeString, computeAtmosphere } from "@/lib/atmosphere";
+import { getOpeningLine } from "@/lib/openingLine";
 
-interface WorldPortalProps {
-  numeral: string;
-  title: string;
-  tagline: string;
-  href: string;
-  imageUrl: string;
-  enterLabel: string;
-  imageFilter: string;
-  tint: string;
-  accentColor: string;
-}
-
-function WorldPortal({
-  numeral, title, tagline, href, imageUrl, enterLabel,
-  imageFilter, tint, accentColor,
-}: WorldPortalProps) {
-  return (
-    <Link
-      href={href}
-      className="relative overflow-hidden group block"
-      style={{ minHeight: "clamp(280px, 44vh, 520px)" }}
-    >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={imageUrl}
-        alt={title}
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-        style={{ filter: imageFilter }}
-      />
-      {/* World-specific tint */}
-      <div className="absolute inset-0" style={{ background: tint }} />
-      {/* Bottom gradient */}
-      <div
-        className="absolute inset-0"
-        style={{ background: "linear-gradient(to top, color-mix(in srgb, var(--color-ink) 95%, transparent), color-mix(in srgb, var(--color-ink) 15%, transparent), transparent)" }}
-      />
-      <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-10">
-        <span
-          className="font-mono mb-4 block"
-          style={{ fontSize: "9px", letterSpacing: "0.3em", color: accentColor, opacity: 0.5 }}
-        >
-          {numeral}
-        </span>
-        <h2
-          className="font-display font-light leading-tight mb-3"
-          style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)", color: "var(--color-parchment)" }}
-        >
-          {title}
-        </h2>
-        <p
-          className="text-sm leading-relaxed mb-5 max-w-xs"
-          style={{ color: "var(--color-muted)", opacity: 0.65 }}
-        >
-          {tagline}
-        </p>
-        <span
-          className="font-mono flex items-center gap-2 group-hover:gap-3 transition-all duration-300"
-          style={{ fontSize: "10px", letterSpacing: "0.18em", color: accentColor, opacity: 0.75 }}
-        >
-          {enterLabel} <span>→</span>
-        </span>
-      </div>
-    </Link>
-  );
-}
+const WEATHER_LABEL: Partial<Record<string, string>> = {
+  clear:    "Clear",
+  sunny:    "Clear",
+  cloudy:   "Cloudy",
+  overcast: "Overcast",
+  rainy:    "Rain",
+  foggy:    "Fog",
+  snowy:    "Snow",
+  cold:     "Cold",
+  humid:    "Humid",
+};
 
 export default async function HomePage({
   params,
@@ -81,11 +29,14 @@ export default async function HomePage({
   const t = await getTranslations("home");
   const prefix = locale === "en" ? "" : `/${locale}`;
 
-  const weather = await getTokyoWeather();
-  const hour = tokyoHour();
-  const { period } = computeAtmosphere(hour, weather.condition, weather.feeling);
+  const weather     = await getTokyoWeather();
+  const hour        = tokyoHour();
+  const timeStr     = tokyoTimeString();
+  const { period }  = computeAtmosphere(hour, weather.condition, weather.feeling);
+  const openingLine = getOpeningLine(period, weather.condition);
+  const weatherLabel = WEATHER_LABEL[weather.condition] ?? "";
 
-  const portals: WorldPortalProps[] = [
+  const portals: PortalData[] = [
     {
       numeral:     t("worlds.tonight.numeral"),
       title:       t("worlds.tonight.title"),
@@ -136,12 +87,14 @@ export default async function HomePage({
     <div className="min-h-screen bg-[var(--color-ink)]">
       <FilmGrain opacity={0.04} className="z-0 pointer-events-none" />
 
-      {/* ── Intro ─────────────────────────────────── */}
-      {/* min-height reserves space so AnchorMoment never pushes portals */}
+      {/* ── Opening moment ────────────────────────────────────────────────────
+          First 3-5 seconds. Almost empty. Time, weather, one observation.
+          Portals are in the DOM below but hidden — they surface after a delay. */}
       <div
-        className="relative flex flex-col items-center justify-center pt-40 pb-20 px-6 text-center overflow-hidden"
-        style={{ minHeight: "22rem" }}
+        className="relative flex flex-col items-center justify-center pt-40 pb-32 px-6 text-center overflow-hidden"
+        style={{ minHeight: "30rem" }}
       >
+        {/* 間 — ambient watermark */}
         <span
           className="font-display font-light select-none pointer-events-none absolute"
           style={{
@@ -157,33 +110,37 @@ export default async function HomePage({
         >
           間
         </span>
+
+        {/* Tokyo time + weather — very quiet, anchors the moment in reality */}
+        <div className="relative animate-fade-up">
+          <span
+            className="font-mono"
+            style={{ fontSize: "10px", letterSpacing: "0.24em", color: "var(--color-muted)", opacity: 0.3 }}
+          >
+            {timeStr}{weatherLabel ? `  ·  ${weatherLabel}` : ""}
+          </span>
+        </div>
+
+        {/* Observation — one real thought about Tokyo right now */}
         <p
-          className="relative text-sm leading-loose whitespace-pre-line max-w-[22rem]"
-          style={{ color: "var(--color-muted)", opacity: 0.55, fontStyle: "italic" }}
+          className="relative mt-6 leading-relaxed max-w-[18rem] animate-fade-up delay-100"
+          style={{
+            color: "var(--color-parchment)",
+            opacity: 0.7,
+            fontSize: "clamp(0.88rem, 1.5vw, 1rem)",
+          }}
         >
-          {t("tagline")}
+          {openingLine}
         </p>
 
-        {/* Anchor moment — appears quietly on second session, absolute so it
-            doesn't affect layout flow */}
+        {/* Anchor moment — surfaces quietly on second session */}
         <AnchorMoment />
       </div>
 
-      {/* ── World Portals ─────────────────────────── */}
-      <div className="flex flex-col gap-px">
-        {/* Row 1: Tonight (wide) | Wander (narrow) */}
-        <div className="grid grid-cols-1 md:grid-cols-[58fr_42fr] gap-px">
-          <WorldPortal {...portals[0]} />
-          <WorldPortal {...portals[1]} />
-        </div>
-        {/* Row 2: Stories (narrow) | Living (wide) */}
-        <div className="grid grid-cols-1 md:grid-cols-[42fr_58fr] gap-px">
-          <WorldPortal {...portals[2]} />
-          <WorldPortal {...portals[3]} />
-        </div>
-      </div>
+      {/* ── World Portals — fade in after opening moment has had its moment */}
+      <HomepagePortals portals={portals} />
 
-      {/* ── Daily nudge — chapter-aware, client-rendered ──── */}
+      {/* ── Daily nudge — chapter-aware, scrolled to ──── */}
       <div className="py-16 flex justify-center px-6">
         <DailyNudge period={period} condition={weather.condition} />
       </div>

@@ -60,25 +60,25 @@
       "tonight": {
         "numeral": "I",
         "title": "Tonight in Tokyo",
-        "tagline": "The city has prepared something for you.",
+        "tagline": "Somewhere to go after today.",
         "enter": "Enter tonight"
       },
       "wander": {
         "numeral": "II",
         "title": "Wander",
-        "tagline": "Lost on purpose. The map rewards it.",
+        "tagline": "Parts of Tokyo people usually walk past.",
         "enter": "Start wandering"
       },
       "stories": {
         "numeral": "III",
         "title": "Stories & Memories",
-        "tagline": "What it actually feels like to be here.",
+        "tagline": "Things the city holds onto quietly.",
         "enter": "Read the voices"
       },
       "living": {
         "numeral": "IV",
         "title": "Living Here",
-        "tagline": "Not how to visit. How to stay.",
+        "tagline": "The version of Tokyo people slowly grow into.",
         "enter": "The inside knowledge"
       }
     }
