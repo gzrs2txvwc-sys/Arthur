@@ -78,7 +78,10 @@ export default async function CityPage({
             className={`absolute inset-0 opacity-45 ${gradientClass}`}
             style={{ mixBlendMode: "hard-light" }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent" />
+          <div
+            className="absolute inset-0"
+            style={{ background: "linear-gradient(to top, var(--color-ink), transparent, transparent)" }}
+          />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 pb-20 pt-32 w-full">

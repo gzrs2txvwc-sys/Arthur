@@ -71,7 +71,7 @@ export default async function TodayPage({
     undefined;
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] pt-24 pb-24">
+    <div className="min-h-screen bg-[var(--color-ink)] pt-24 pb-24">
       <FilmGrain opacity={0.04} className="z-0 pointer-events-none" />
 
       <div className="max-w-xl mx-auto px-5 md:px-8">

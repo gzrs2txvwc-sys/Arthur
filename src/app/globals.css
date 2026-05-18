@@ -34,6 +34,11 @@
   box-sizing: border-box;
 }
 
+/* Semantic surface token — overridden by atmosphere system per time period */
+:root {
+  --bg-elevated: #0d0c0e;  /* slightly above --color-ink, used by cards/drawers */
+}
+
 html {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;

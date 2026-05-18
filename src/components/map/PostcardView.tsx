@@ -143,7 +143,10 @@ export function PostcardView({
                 </AnimatePresence>
 
                 {/* Gradient fade to text section */}
-                <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#0d0c0e] to-transparent" />
+                <div
+                  className="absolute inset-x-0 bottom-0 h-20"
+                  style={{ background: "linear-gradient(to top, var(--bg-elevated), transparent)" }}
+                />
                 <FilmGrain opacity={0.07} className="z-[4]" />
 
                 {/* Mood badge — top left */}
@@ -197,7 +200,7 @@ export function PostcardView({
               <div
                 className="flex flex-col"
                 style={{
-                  background: "#0d0c0e",
+                  background: "var(--bg-elevated)",
                   borderTop: `1px solid ${meta.color}22`,
                 }}
               >

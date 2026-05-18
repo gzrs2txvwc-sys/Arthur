@@ -1,5 +1,9 @@
 import { getMessages } from "next-intl/server";
 import { NavBar } from "@/components/layout/NavBar";
+import { getTokyoWeather } from "@/lib/weather";
+import { computeAtmosphere, tokyoHour } from "@/lib/atmosphere";
+
+export const revalidate = 1800;
 
 export default async function FullscreenLayout({
   children,
@@ -12,8 +16,15 @@ export default async function FullscreenLayout({
   const messages = await getMessages();
   const nav = (messages as Record<string, Record<string, string>>).nav ?? {};
 
+  const weather = await getTokyoWeather();
+  const hour = tokyoHour();
+  const atm = computeAtmosphere(hour, weather.condition, weather.feeling);
+
   return (
     <>
+      {atm.cssVars && (
+        <style dangerouslySetInnerHTML={{ __html: atm.cssVars }} />
+      )}
       <NavBar
         locale={locale}
         messages={{

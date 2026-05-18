@@ -73,7 +73,10 @@ export default async function ExperiencePage({
             className="object-cover"
             style={{ filter: "saturate(0.6) brightness(0.3)" }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/30 to-transparent" />
+          <div
+            className="absolute inset-0"
+            style={{ background: "linear-gradient(to top, color-mix(in srgb, var(--color-ink) 100%, transparent), color-mix(in srgb, var(--color-ink) 30%, transparent), transparent)" }}
+          />
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto px-6 lg:px-12 pb-14 w-full">

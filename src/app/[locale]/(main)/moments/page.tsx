@@ -46,7 +46,10 @@ export default async function MomentsPage({
           style={{ filter: "saturate(0.22) brightness(0.24) contrast(1.14) sepia(0.3)" }}
         />
         <div className="absolute inset-0" style={{ background: "rgba(48, 32, 12, 0.22)" }} />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/25 to-transparent" />
+        <div
+          className="absolute inset-0"
+          style={{ background: "linear-gradient(to top, color-mix(in srgb, var(--color-ink) 100%, transparent), color-mix(in srgb, var(--color-ink) 25%, transparent), transparent)" }}
+        />
         <div className="absolute bottom-0 left-0 right-0 px-6 lg:px-12 pb-12">
           <span
             className="font-mono block mb-4"

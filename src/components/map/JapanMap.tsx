@@ -120,6 +120,11 @@ function createPinIcon(
   });
 }
 
+const TILE_URLS = {
+  dark:  "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+  light: "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
+} as const;
+
 // ── Props ──────────────────────────────────────────
 interface JapanMapProps {
   selected: MemoryPostcard | null;
@@ -130,6 +135,7 @@ interface JapanMapProps {
   userPosition?: [number, number] | null;
   simulationMode?: boolean;
   onSimulationClick?: (latlng: [number, number]) => void;
+  tileStyle?: "dark" | "light";
 }
 
 export default function JapanMap({
@@ -141,6 +147,7 @@ export default function JapanMap({
   userPosition,
   simulationMode = false,
   onSimulationClick,
+  tileStyle = "dark",
 }: JapanMapProps) {
   const markersRef = useRef<Record<string, L.Marker>>({});
   const geoModeOn = Object.keys(pinStates).length > 0;
@@ -163,7 +170,8 @@ export default function JapanMap({
       }}
     >
       <TileLayer
-        url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+        key={tileStyle}
+        url={TILE_URLS[tileStyle]}
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>'
         subdomains="abcd"
         maxZoom={19}

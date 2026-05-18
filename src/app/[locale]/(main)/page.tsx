@@ -37,7 +37,10 @@ function WorldPortal({
       {/* World-specific tint */}
       <div className="absolute inset-0" style={{ background: tint }} />
       {/* Bottom gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/95 via-[#0a0a0a]/15 to-transparent" />
+      <div
+        className="absolute inset-0"
+        style={{ background: "linear-gradient(to top, color-mix(in srgb, var(--color-ink) 95%, transparent), color-mix(in srgb, var(--color-ink) 15%, transparent), transparent)" }}
+      />
       <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-10">
         <span
           className="font-mono mb-4 block"
@@ -131,7 +134,7 @@ export default async function HomePage({
   ];
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a]">
+    <div className="min-h-screen bg-[var(--color-ink)]">
       <FilmGrain opacity={0.04} className="z-0 pointer-events-none" />
 
       {/* ── Intro ─────────────────────────────────── */}

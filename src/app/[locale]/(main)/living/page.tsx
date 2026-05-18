@@ -132,7 +132,7 @@ export default async function LivingPage({
   const { locale } = await params;
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a]">
+    <div className="min-h-screen bg-[var(--color-ink)]">
       <FilmGrain opacity={0.04} className="z-0 pointer-events-none" />
 
       {/* ── Cinematic header ──────────────────────────── */}
@@ -152,7 +152,10 @@ export default async function LivingPage({
           className="absolute inset-0"
           style={{ background: "rgba(12, 18, 38, 0.18)" }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/30 to-transparent" />
+        <div
+          className="absolute inset-0"
+          style={{ background: "linear-gradient(to top, color-mix(in srgb, var(--color-ink) 100%, transparent), color-mix(in srgb, var(--color-ink) 30%, transparent), transparent)" }}
+        />
         <div className="absolute bottom-0 left-0 right-0 px-6 md:px-12 pb-12">
           <span
             className="font-mono block mb-5"

@@ -43,7 +43,7 @@ export default async function TodayDetailPage({
   const otherCopy = otherPick ? (pickMessages[otherPick.id] ?? { title: otherPick.id, hook: "" }) : null;
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] pt-20 pb-24">
+    <div className="min-h-screen bg-[var(--color-ink)] pt-20 pb-24">
       <div className="max-w-xl mx-auto px-5 md:px-8">
 
         {/* Back link */}

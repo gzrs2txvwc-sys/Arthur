@@ -24,6 +24,10 @@ export default async function MainLayout({
 
   return (
     <div className="flex flex-col min-h-screen">
+      {/* CSS variable overrides — true environmental shift for this time period */}
+      {atm.cssVars && (
+        <style dangerouslySetInnerHTML={{ __html: atm.cssVars }} />
+      )}
       {/* Full-page atmospheric tint overlay — pointer-events-none so it never blocks clicks */}
       {atm.tintColor && (
         <div

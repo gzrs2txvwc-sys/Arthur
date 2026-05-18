@@ -22,7 +22,7 @@ import { AmbientSoundscape } from "./AmbientSoundscape";
 const JapanMap = dynamic(() => import("./JapanMap"), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-full flex items-center justify-center bg-[#0a0a0a]">
+    <div className="w-full h-full flex items-center justify-center bg-[var(--color-ink)]">
       <div className="flex flex-col items-center gap-4">
         <div className="w-12 h-12 rounded-full border border-[var(--color-sand)]/30 animate-pulse" />
         <p className="text-caption text-[var(--color-muted)]">Loading map…</p>
@@ -263,12 +263,13 @@ export function MapExperience({
   }, [selectedPostcard, visiblePostcards]);
 
   const isSimulation = geoMode === "simulation";
+  const tileStyle: "dark" | "light" = (tokyoHour >= 7 && tokyoHour < 18) ? "light" : "dark";
 
   return (
-    <div className="relative w-full h-[100dvh] overflow-hidden bg-[#0a0a0a]">
+    <div className="relative w-full h-[100dvh] overflow-hidden bg-[var(--color-ink)]">
       {!introGone && (
         <motion.div
-          className="absolute inset-0 z-[900] bg-[#0a0a0a] pointer-events-none"
+          className="absolute inset-0 z-[900] bg-[var(--color-ink)] pointer-events-none"
           initial={{ opacity: 1 }}
           animate={{ opacity: 0 }}
           transition={{ duration: 1.2, delay: 0.6 }}
@@ -303,6 +304,7 @@ export function MapExperience({
           userPosition={userPosition}
           simulationMode={isSimulation}
           onSimulationClick={handleSimulationClick}
+          tileStyle={tileStyle}
         />
       </div>
 

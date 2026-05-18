@@ -107,7 +107,10 @@ function NextStoryCard({ story, locale }: { story: Moment; locale: string }) {
         style={{ filter: "saturate(0.22) brightness(0.24) contrast(1.14) sepia(0.3)" }}
       />
       <div className="absolute inset-0" style={{ background: "rgba(48, 32, 12, 0.22)" }} />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/96 via-[#0a0a0a]/25 to-transparent" />
+      <div
+        className="absolute inset-0"
+        style={{ background: "linear-gradient(to top, color-mix(in srgb, var(--color-ink) 96%, transparent), color-mix(in srgb, var(--color-ink) 25%, transparent), transparent)" }}
+      />
       <div className="absolute inset-0 flex flex-col justify-end p-7 md:p-8">
         <span
           className="font-mono block mb-3"
@@ -189,7 +192,10 @@ export default async function MomentPage({
           />
           {/* Archival amber tint — paper/library feeling */}
           <div className="absolute inset-0" style={{ background: "rgba(48, 32, 12, 0.2)" }} />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/35 to-transparent" />
+          <div
+            className="absolute inset-0"
+            style={{ background: "linear-gradient(to top, color-mix(in srgb, var(--color-ink) 100%, transparent), color-mix(in srgb, var(--color-ink) 35%, transparent), transparent)" }}
+          />
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto px-6 lg:px-12 pb-16 w-full">
