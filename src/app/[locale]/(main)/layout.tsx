@@ -3,6 +3,7 @@ import { NavBar } from "@/components/layout/NavBar";
 import { Footer } from "@/components/layout/Footer";
 import { getTokyoWeather } from "@/lib/weather";
 import { computeAtmosphere, tokyoHour } from "@/lib/atmosphere";
+import { RelationshipTracker } from "@/components/ui/RelationshipTracker";
 
 export const revalidate = 1800; // re-render every 30 min to shift atmosphere
 
@@ -43,6 +44,7 @@ export default async function MainLayout({
           }}
         />
       )}
+      <RelationshipTracker />
       <NavBar
         locale={locale}
         messages={{

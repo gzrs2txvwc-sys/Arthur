@@ -11,6 +11,7 @@ import { haversineDistance, getPinState, UNLOCK_RADIUS } from "@/lib/geoProximit
 import { getArchive, addToArchive } from "@/lib/userArchive";
 import type { ArchiveEntry } from "@/lib/userArchive";
 import { logPostcardVisit, getQuietObservation } from "@/lib/visitLog";
+import { touchSession, consumeReturnSignal } from "@/lib/tokyoRelationship";
 import type { WeatherCondition } from "@/lib/weather";
 import { MapFilters } from "./MapFilters";
 import { MapAtmosphere } from "./MapAtmosphere";
@@ -57,11 +58,21 @@ export function MapExperience({
     return () => clearInterval(interval);
   }, []);
 
-  // ── Quiet observation ──────────────────────────────
+  // ── Quiet observation — chapter-aware, return-sensitive ───────────────────
   const [observation, setObservation] = useState<string | null>(null);
   const [showObservation, setShowObservation] = useState(false);
   useEffect(() => {
-    const obs = getQuietObservation();
+    touchSession();
+    // Return recognition takes precedence over generic mood observations
+    const { returning, gapDays } = consumeReturnSignal();
+    let obs: string | null = null;
+    if (returning) {
+      if (gapDays >= 30)     obs = "Coming back after a long time.";
+      else if (gapDays >= 14) obs = "You were away for a while.";
+      else                   obs = "The city is still here.";
+    } else {
+      obs = getQuietObservation();
+    }
     if (!obs) return;
     setObservation(obs);
     const t1 = setTimeout(() => setShowObservation(true), 2200);

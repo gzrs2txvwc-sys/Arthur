@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { FilmGrain } from "@/components/ui/FilmGrain";
+import { DailyNudge } from "@/components/ui/DailyNudge";
+import { AnchorMoment } from "@/components/ui/AnchorMoment";
 import { getTokyoWeather } from "@/lib/weather";
 import { tokyoHour, computeAtmosphere } from "@/lib/atmosphere";
-import { getDailyNudge } from "@/lib/dailyNudge";
 
 interface WorldPortalProps {
   numeral: string;
@@ -80,11 +81,9 @@ export default async function HomePage({
   const t = await getTranslations("home");
   const prefix = locale === "en" ? "" : `/${locale}`;
 
-  // Daily nudge — weather + time aware, same all day, changes tomorrow
   const weather = await getTokyoWeather();
   const hour = tokyoHour();
   const { period } = computeAtmosphere(hour, weather.condition, weather.feeling);
-  const nudge = getDailyNudge(period, weather.condition);
 
   const portals: WorldPortalProps[] = [
     {
@@ -138,7 +137,11 @@ export default async function HomePage({
       <FilmGrain opacity={0.04} className="z-0 pointer-events-none" />
 
       {/* ── Intro ─────────────────────────────────── */}
-      <div className="relative flex flex-col items-center justify-center pt-40 pb-16 px-6 text-center overflow-hidden">
+      {/* min-height reserves space so AnchorMoment never pushes portals */}
+      <div
+        className="relative flex flex-col items-center justify-center pt-40 pb-20 px-6 text-center overflow-hidden"
+        style={{ minHeight: "22rem" }}
+      >
         <span
           className="font-display font-light select-none pointer-events-none absolute"
           style={{
@@ -160,6 +163,10 @@ export default async function HomePage({
         >
           {t("tagline")}
         </p>
+
+        {/* Anchor moment — appears quietly on second session, absolute so it
+            doesn't affect layout flow */}
+        <AnchorMoment />
       </div>
 
       {/* ── World Portals ─────────────────────────── */}
@@ -176,21 +183,9 @@ export default async function HomePage({
         </div>
       </div>
 
-      {/* ── Daily nudge ───────────────────────────── */}
+      {/* ── Daily nudge — chapter-aware, client-rendered ──── */}
       <div className="py-16 flex justify-center px-6">
-        <p
-          className="font-mono text-center"
-          style={{
-            fontSize: "10px",
-            letterSpacing: "0.18em",
-            color: "var(--color-muted)",
-            opacity: 0.28,
-            maxWidth: "32rem",
-            lineHeight: 1.9,
-          }}
-        >
-          {nudge}
-        </p>
+        <DailyNudge period={period} condition={weather.condition} />
       </div>
     </div>
   );

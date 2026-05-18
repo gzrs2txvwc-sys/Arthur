@@ -1,3 +1,5 @@
+import { recordNeighborhoodVisit } from "./tokyoRelationship";
+
 const VISIT_KEY = "arthur:visit-log";
 const MAX_ENTRIES = 200;
 
@@ -36,6 +38,7 @@ export function logPostcardVisit(
   if (recent) return;
   entries.push({ postcardId, neighborhood, mood, tokyoHour, ts: Date.now() });
   saveEntries(entries);
+  recordNeighborhoodVisit(neighborhood);
 }
 
 export function getNeighborhoodCount(neighborhood: string): number {
