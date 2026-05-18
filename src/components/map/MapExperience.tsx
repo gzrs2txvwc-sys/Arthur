@@ -14,6 +14,8 @@ import { logPostcardVisit, getQuietObservation } from "@/lib/visitLog";
 import { touchSession, consumeReturnSignal, getChapter } from "@/lib/tokyoRelationship";
 import type { TokyoChapter } from "@/lib/tokyoRelationship";
 import { getChapterResonance } from "@/lib/chapterResonance";
+import { getStoryInfluences } from "@/lib/storyMemory";
+import type { StoryInfluences } from "@/lib/storyMemory";
 import type { WeatherCondition } from "@/lib/weather";
 import { MapFilters } from "./MapFilters";
 import { MapAtmosphere } from "./MapAtmosphere";
@@ -54,6 +56,10 @@ export function MapExperience({
   // ── Tokyo chapter — drives emotional surfacing, never shown to user ──────
   const [chapter, setChapter] = useState<TokyoChapter>("arriving");
   useEffect(() => { setChapter(getChapter()); }, []);
+
+  // ── Story influences — reading history echoes into map resonance ──────────
+  const [storyInfluences, setStoryInfluences] = useState<StoryInfluences | null>(null);
+  useEffect(() => { setStoryInfluences(getStoryInfluences()); }, []);
 
   // ── Tokyo time (drives hidden fragment visibility) ─
   const [tokyoHour, setTokyoHour] = useState(0);
@@ -154,9 +160,11 @@ export function MapExperience({
     // Resonance sort — higher score enters the animation first and
     // appears earlier in sequential browsing
     return [...filtered].sort(
-      (a, b) => getChapterResonance(b, chapter) - getChapterResonance(a, chapter),
+      (a, b) =>
+        getChapterResonance(b, chapter, storyInfluences ?? undefined) -
+        getChapterResonance(a, chapter, storyInfluences ?? undefined),
     );
-  }, [activeMood, tokyoHour, initialCondition, chapter]);
+  }, [activeMood, tokyoHour, initialCondition, chapter, storyInfluences]);
 
   const selectedIndex = selectedPostcard
     ? visiblePostcards.findIndex((p) => p.id === selectedPostcard.id)
@@ -293,15 +301,15 @@ export function MapExperience({
       .map((p) => {
         const distanceM   = haversineDistance(selectedPostcard.coordinates, p.coordinates);
         const distScore   = Math.max(0, 1 - distanceM / MAX_DIST);
-        const resonance   = getChapterResonance(p, chapter);
-        const resScore    = resonance / 6; // normalize raw score (max ~6)
+        const resonance   = getChapterResonance(p, chapter, storyInfluences ?? undefined);
+        const resScore    = resonance / 7; // normalize (max ~7 with story boost)
         const blended     = distScore * 0.6 + resScore * 0.4;
         return { postcard: p, distanceM, blended };
       })
       .sort((a, b) => b.blended - a.blended)
       .slice(0, 2)
       .map(({ postcard, distanceM }) => ({ postcard, distanceM }));
-  }, [selectedPostcard, visiblePostcards, chapter]);
+  }, [selectedPostcard, visiblePostcards, chapter, storyInfluences]);
 
   const isSimulation = geoMode === "simulation";
   const tileStyle: "dark" | "light" = (tokyoHour >= 7 && tokyoHour < 18) ? "light" : "dark";

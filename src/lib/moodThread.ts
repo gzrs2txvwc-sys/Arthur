@@ -88,6 +88,15 @@ export function getDriftLine(mood: FragmentMood, seed = 0): string {
   return lines[seed % lines.length];
 }
 
+// Emotional adjacency between two moods (0 = unrelated, 3 = same).
+// Directional: A→B adjacency may differ from B→A.
+export function getMoodAdjacency(moodA: FragmentMood, moodB: FragmentMood): 0 | 1 | 2 | 3 {
+  if (moodA === moodB) return 3;
+  if (MOOD_NEIGHBORS[moodA].includes(moodB)) return 2;
+  if (MOOD_NEIGHBORS[moodB].includes(moodA)) return 1;
+  return 0;
+}
+
 // Derive a mood from story tags — ordered by specificity
 const TAG_MOOD: Record<string, FragmentMood> = {
   solitude:  "solitude",

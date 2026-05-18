@@ -1,5 +1,6 @@
 import type { MemoryPostcard, FragmentMood, UrbanFragmentType } from "@/lib/mapData";
 import type { TokyoChapter } from "@/lib/tokyoRelationship";
+import type { StoryInfluences } from "@/lib/storyMemory";
 
 // ── Mood resonance per chapter ─────────────────────────────────────────────
 // 0 = neutral  1 = mild  2 = present  3 = strongly resonant
@@ -131,14 +132,27 @@ function dailyNoise(postcardId: string): number {
 }
 
 // ── Public scoring function ────────────────────────────────────────────────
-// Returns a raw score (0–~7). Higher = stronger emotional resonance with
-// the chapter. Includes daily noise so ties sort differently each day.
-// The score is only meaningful comparatively — not as an absolute value.
-export function getChapterResonance(postcard: MemoryPostcard, chapter: TokyoChapter): number {
+// Returns a raw score (0–~8). Higher = stronger emotional resonance with
+// the chapter + reading history. Includes daily noise so ties sort differently
+// each day. The score is only meaningful comparatively — not as an absolute.
+export function getChapterResonance(
+  postcard:         MemoryPostcard,
+  chapter:          TokyoChapter,
+  storyInfluences?: StoryInfluences,
+): number {
   const moodScore     = MOOD_RESONANCE[chapter][postcard.mood] ?? 0;
   const fragmentScore = FRAGMENT_RESONANCE[chapter]?.[postcard.fragmentType] ?? 0;
   const noise         = dailyNoise(postcard.id);
 
-  // Mood (0–3) + fragment (0–2) + noise (0–1) = 0–6 effective range
-  return moodScore + fragmentScore + noise;
+  // Story reading echoes add a small boost when the map carries moods or
+  // cities from stories the user has recently read. Maximum boost is small
+  // (~1 point) so it shapes rather than overrides chapter resonance.
+  let storyBoost = 0;
+  if (storyInfluences) {
+    storyBoost += (storyInfluences.moodBoosts[postcard.mood] ?? 0) * 0.4;
+    storyBoost += (storyInfluences.cityBoosts[postcard.city] ?? 0) * 0.3;
+  }
+
+  // Mood (0–3) + fragment (0–2) + story (0–~1) + noise (0–1) = 0–7 range
+  return moodScore + fragmentScore + storyBoost + noise;
 }

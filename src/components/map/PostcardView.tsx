@@ -7,10 +7,11 @@ import Link from "next/link";
 import { X, ArrowLeft, ArrowRight } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
 import { moodMeta } from "@/lib/mapData";
-import { getDriftLine } from "@/lib/moodThread";
+import { getDriftLine, getMoodAdjacency, MOOD_CONNECTOR, MOOD_NEIGHBORS } from "@/lib/moodThread";
 import type { MemoryPostcard } from "@/lib/mapData";
 import { FilmGrain } from "@/components/ui/FilmGrain";
 import { getNeighborhoodCount } from "@/lib/visitLog";
+import { getStoryInfluences } from "@/lib/storyMemory";
 
 const STATIC_EXITS = [
   { label: "Tonight",    href: "/today",   color: "#7B8DB3" },
@@ -86,6 +87,23 @@ export function PostcardView({
     () => (postcard ? getNeighborhoodCount(postcard.neighborhood ?? postcard.city) : 0),
     [postcard],
   );
+
+  // Story echo — if the user has recently read a story with this mood (or an
+  // adjacent mood), the MOOD_CONNECTOR line replaces the generic drift line.
+  // The city quietly surfaces something it remembers.
+  const storyEcho = useMemo((): string | null => {
+    if (!postcard) return null;
+    const { recentMoods } = getStoryInfluences();
+    if (recentMoods.length === 0) return null;
+    // Direct mood match
+    if (recentMoods.includes(postcard.mood)) return MOOD_CONNECTOR[postcard.mood];
+    // Adjacent mood match (weaker signal — still earns the echo)
+    const hasAdjacentRead = MOOD_NEIGHBORS[postcard.mood].some((m) =>
+      recentMoods.includes(m),
+    );
+    if (hasAdjacentRead) return MOOD_CONNECTOR[postcard.mood];
+    return null;
+  }, [postcard]);
 
   return (
     <AnimatePresence>
@@ -387,17 +405,19 @@ export function PostcardView({
                   className="px-4 pb-4 pt-3"
                   style={{ borderTop: "1px solid rgba(255,255,255,0.03)" }}
                 >
-                  {/* Mood-specific atmospheric pull */}
+                  {/* Atmospheric pull — story echo when earned, drift line otherwise.
+                      The echo means the city is surfacing something it remembers
+                      from a story the user read recently. */}
                   <p
                     className="italic mb-3"
                     style={{
                       fontSize: "10px",
                       color: "var(--color-muted)",
-                      opacity: 0.3,
+                      opacity: storyEcho ? 0.35 : 0.3,
                       lineHeight: 1.5,
                     }}
                   >
-                    {getDriftLine(postcard.mood, postcard.id.charCodeAt(0))}
+                    {storyEcho ?? getDriftLine(postcard.mood, postcard.id.charCodeAt(0))}
                   </p>
                   <div className="flex items-center gap-5">
                   {/* Stories link — city-filtered */}

@@ -6,7 +6,8 @@ import { compileMDX } from "next-mdx-remote/rsc";
 import { getMoment, getMomentSlugs, getAllMoments, formatDate } from "@/lib/content";
 import { getCity } from "@/lib/cities";
 import { memoryPostcards, moodMeta } from "@/lib/mapData";
-import { getMoodFromTags, MOOD_CONNECTOR, MOOD_NEIGHBORS } from "@/lib/moodThread";
+import { getMoodFromTags, getMoodAdjacency, MOOD_CONNECTOR, MOOD_NEIGHBORS } from "@/lib/moodThread";
+import { StoryTracker } from "@/components/ui/StoryTracker";
 import { PullQuote } from "@/components/content/PullQuote";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { Tag } from "@/components/ui/Tag";
@@ -153,18 +154,32 @@ export default async function MomentPage({
   const t = await getTranslations("moments");
   const city = getCity(moment.city);
 
-  // Next/prev story
   const allMoments = getAllMoments(locale);
   const currentIndex = allMoments.findIndex((m) => m.slug === slug);
-  const nextMoment = currentIndex < allMoments.length - 1 ? allMoments[currentIndex + 1] : allMoments[0];
   const prevMoment = currentIndex > 0 ? allMoments[currentIndex - 1] : null;
 
-  // Derive story mood from tags — powers all emotional threading below
+  const slugHash = slug.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
   const storyMood: FragmentMood = getMoodFromTags(moment.tags);
   const neighborMoods = MOOD_NEIGHBORS[storyMood];
 
+  // Emotional next story — mood-adjacent rather than sequential.
+  // Same mood = 3pts, neighboring mood = 2pts, same city = 1pt.
+  // Slug hash picks from tied candidates for consistent-but-discovered feel.
+  const others = allMoments.filter((m) => m.slug !== slug);
+  const scored = others.map((m) => ({
+    moment: m,
+    score:
+      getMoodAdjacency(storyMood, getMoodFromTags(m.tags)) +
+      (m.city === moment.city ? 1 : 0),
+  }));
+  scored.sort((a, b) => b.score - a.score);
+  const topScore = scored[0]?.score ?? 0;
+  const topCandidates = scored.filter((s) => s.score >= topScore);
+  const nextMoment =
+    topCandidates[slugHash % topCandidates.length]?.moment ??
+    allMoments[(currentIndex + 1) % allMoments.length];
+
   // Mood-matched map fragment: same mood first, then neighboring mood
-  const slugHash = slug.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
   const moodPool = memoryPostcards.filter((p) => p.mood === storyMood);
   const neighborPool = memoryPostcards.filter((p) => neighborMoods.includes(p.mood));
   const fragmentPool = moodPool.length > 0 ? moodPool : neighborPool;
@@ -179,6 +194,7 @@ export default async function MomentPage({
 
   return (
     <>
+      <StoryTracker slug={slug} mood={storyMood} city={moment.city} tags={moment.tags} />
       {/* ── Hero ──────────────────────────────── */}
       <section className="relative h-[70vh] min-h-[500px] flex items-end overflow-hidden">
         <div className="absolute inset-0 z-0">
