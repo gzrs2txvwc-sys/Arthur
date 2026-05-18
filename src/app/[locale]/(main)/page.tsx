@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { FilmGrain } from "@/components/ui/FilmGrain";
+import { getTokyoWeather } from "@/lib/weather";
+import { tokyoHour, computeAtmosphere } from "@/lib/atmosphere";
+import { getDailyNudge } from "@/lib/dailyNudge";
 
 interface WorldPortalProps {
   numeral: string;
@@ -74,6 +77,12 @@ export default async function HomePage({
   const t = await getTranslations("home");
   const prefix = locale === "en" ? "" : `/${locale}`;
 
+  // Daily nudge — weather + time aware, same all day, changes tomorrow
+  const weather = await getTokyoWeather();
+  const hour = tokyoHour();
+  const { period } = computeAtmosphere(hour, weather.condition, weather.feeling);
+  const nudge = getDailyNudge(period, weather.condition);
+
   const portals: WorldPortalProps[] = [
     {
       numeral:     t("worlds.tonight.numeral"),
@@ -82,7 +91,6 @@ export default async function HomePage({
       enterLabel:  t("worlds.tonight.enter"),
       href:        `${prefix}/today`,
       imageUrl:    "https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?w=1600&q=75",
-      // Night: high contrast, deep cool blue
       imageFilter: "saturate(0.28) brightness(0.22) contrast(1.2)",
       tint:        "rgba(18, 28, 52, 0.28)",
       accentColor: "#7B8DB3",
@@ -94,7 +102,6 @@ export default async function HomePage({
       enterLabel:  t("worlds.wander.enter"),
       href:        `${prefix}/map`,
       imageUrl:    "https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=1600&q=75",
-      // Movement: slightly richer, cartographic green
       imageFilter: "saturate(0.48) brightness(0.3) contrast(1.06)",
       tint:        "rgba(14, 32, 22, 0.18)",
       accentColor: "#7A9E7E",
@@ -106,7 +113,6 @@ export default async function HomePage({
       enterLabel:  t("worlds.stories.enter"),
       href:        `${prefix}/moments`,
       imageUrl:    "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?w=1600&q=75",
-      // Archival: warm sepia, paper feel
       imageFilter: "saturate(0.22) brightness(0.24) contrast(1.14) sepia(0.3)",
       tint:        "rgba(48, 32, 12, 0.22)",
       accentColor: "#C9A96E",
@@ -118,7 +124,6 @@ export default async function HomePage({
       enterLabel:  t("worlds.living.enter"),
       href:        `${prefix}/living`,
       imageUrl:    "https://images.unsplash.com/photo-1580822184713-fc5400e7fe10?w=1600&q=75",
-      // Ordinary: slightly more present, cool fluorescent
       imageFilter: "saturate(0.52) brightness(0.34) contrast(1.04)",
       tint:        "rgba(12, 18, 38, 0.14)",
       accentColor: "#A8B5A0",
@@ -166,6 +171,23 @@ export default async function HomePage({
           <WorldPortal {...portals[2]} />
           <WorldPortal {...portals[3]} />
         </div>
+      </div>
+
+      {/* ── Daily nudge ───────────────────────────── */}
+      <div className="py-16 flex justify-center px-6">
+        <p
+          className="font-mono text-center"
+          style={{
+            fontSize: "10px",
+            letterSpacing: "0.18em",
+            color: "var(--color-muted)",
+            opacity: 0.28,
+            maxWidth: "32rem",
+            lineHeight: 1.9,
+          }}
+        >
+          {nudge}
+        </p>
       </div>
     </div>
   );

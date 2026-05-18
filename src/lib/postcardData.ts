@@ -133,6 +133,7 @@ export const memoryPostcards: MemoryPostcard[] = [
     imageUrl: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=800&q=75",
     imageAlt: "Canal path at evening, wet pavement",
     year: "2020",
+    visibility: "rain",
     tags: ["nakameguro", "rain", "umbrella", "kindness"],
   },
   {
@@ -507,6 +508,8 @@ export const memoryPostcards: MemoryPostcard[] = [
     imageUrl: "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&q=75",
     imageAlt: "Tiny alley at night, smoke and rain, warm glow of stall",
     year: "2023",
+    visibility: "rain",
+    footprint: "Most people find this on rainy nights.",
     tags: ["shinjuku", "omoide-yokocho", "rain", "yakitori", "night"],
   },
   {

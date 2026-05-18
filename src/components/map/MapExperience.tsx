@@ -11,6 +11,7 @@ import { haversineDistance, getPinState, UNLOCK_RADIUS } from "@/lib/geoProximit
 import { getArchive, addToArchive } from "@/lib/userArchive";
 import type { ArchiveEntry } from "@/lib/userArchive";
 import { logPostcardVisit, getQuietObservation } from "@/lib/visitLog";
+import type { WeatherCondition } from "@/lib/weather";
 import { MapFilters } from "./MapFilters";
 import { MapAtmosphere } from "./MapAtmosphere";
 import { PostcardView } from "./PostcardView";
@@ -32,7 +33,13 @@ const JapanMap = dynamic(() => import("./JapanMap"), {
 
 type GeoMode = "off" | "gps" | "simulation";
 
-export function MapExperience({ initialPinId }: { initialPinId?: string }) {
+export function MapExperience({
+  initialPinId,
+  initialCondition = "clear",
+}: {
+  initialPinId?: string;
+  initialCondition?: WeatherCondition;
+}) {
   const t = useTranslations("map");
 
   // ── Browse state ──────────────────────────────────
@@ -106,20 +113,22 @@ export function MapExperience({ initialPinId }: { initialPinId?: string }) {
     return states;
   }, [geoMode, userPosition, collectedIds]);
 
-  // ── Visible postcards (filter by mood + time visibility) ─
+  // ── Visible postcards (filter by mood + time/weather visibility) ─
   const visiblePostcards = useMemo(() => {
+    const isRaining = initialCondition === "rainy" || initialCondition === "foggy";
     const isVisible = (p: MemoryPostcard) => {
       if (!p.visibility) return true;
       if (p.visibility === "night")     return tokyoHour >= 21 || tokyoHour < 6;
       if (p.visibility === "latenight") return tokyoHour >= 23 || tokyoHour < 5;
       if (p.visibility === "dawn")      return tokyoHour >= 4 && tokyoHour < 7;
+      if (p.visibility === "rain")      return isRaining;
       return true;
     };
     const base = activeMood === "all"
       ? memoryPostcards
       : memoryPostcards.filter((p) => p.mood === activeMood);
     return base.filter(isVisible);
-  }, [activeMood, tokyoHour]);
+  }, [activeMood, tokyoHour, initialCondition]);
 
   const selectedIndex = selectedPostcard
     ? visiblePostcards.findIndex((p) => p.id === selectedPostcard.id)

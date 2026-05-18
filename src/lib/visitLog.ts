@@ -42,6 +42,20 @@ export function getNeighborhoodCount(neighborhood: string): number {
   return loadEntries().filter((e) => e.neighborhood === neighborhood).length;
 }
 
+// What emotional mood does this user gravitate toward?
+function getMoodPattern(entries: VisitEntry[]): string | null {
+  if (entries.length < 6) return null;
+  const counts: Record<string, number> = {};
+  entries.forEach((e) => { counts[e.mood] = (counts[e.mood] ?? 0) + 1; });
+  const [[top, count]] = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+  if (count < 3) return null;
+  if (["quiet", "solitude", "anchored"].includes(top))   return "You've been finding quiet places lately.";
+  if (["wandering", "restless"].includes(top))           return "You keep moving.";
+  if (["adrift", "invisible", "homesick"].includes(top)) return "You've been spending time alone in the city.";
+  if (["tender", "belonging"].includes(top))             return "You've been drawn to warmer parts of the city.";
+  return null;
+}
+
 // Returns a quiet observational sentence, or null if nothing meaningful yet
 export function getQuietObservation(): string | null {
   const entries = loadEntries();
@@ -58,19 +72,21 @@ export function getQuietObservation(): string | null {
   entries.forEach((e) => {
     neighborhoodCounts[e.neighborhood] = (neighborhoodCounts[e.neighborhood] ?? 0) + 1;
   });
-  const sorted = Object.entries(neighborhoodCounts).sort((a, b) => b[1] - a[1]);
-  const [topNeighborhood, topCount] = sorted[0] ?? [null, 0];
+  const [[topNeighborhood, topCount]] = Object.entries(neighborhoodCounts)
+    .sort((a, b) => b[1] - a[1]).concat([["", 0]]);
 
   const lastTs = entries[entries.length - 2]?.ts;
   const daysSinceLast = lastTs ? (now - lastTs) / (1000 * 3600 * 24) : 0;
 
-  if (isLate && nightThisWeek.length >= 2) return "Third night outside this week.";
+  // Priority order: most specific / most earned first
+  if (isLate && nightThisWeek.length >= 2) return `${nightThisWeek.length}rd night outside this week.`;
   if (nightThisWeek.length >= 3) return "You've been out late more than usual this week.";
-  if (entries.length >= 10 && topNeighborhood && topCount >= 4)
-    return `You keep coming back to ${topNeighborhood}.`;
+  if (entries.length >= 10 && topCount >= 4) return `You keep coming back to ${topNeighborhood}.`;
   if (thisWeek.length >= 5) return "You've been walking more lately.";
-  if (daysSinceLast > 10) return "You were away for a while.";
+  if (daysSinceLast > 30) return "It's been a while.";
+  if (daysSinceLast > 7) return "You were away for a while.";
   if (entries.length >= 3 && isLate) return "Still out this late.";
 
-  return null;
+  // Mood pattern is last — requires more data to be meaningful
+  return getMoodPattern(entries);
 }

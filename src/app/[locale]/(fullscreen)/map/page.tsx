@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { MapExperience } from "@/components/map/MapExperience";
+import { getTokyoWeather } from "@/lib/weather";
+
+export const revalidate = 1800;
 
 export async function generateMetadata({
   params,
@@ -24,5 +27,6 @@ export default async function MapPage({
 }) {
   await params;
   const { pin } = await searchParams;
-  return <MapExperience initialPinId={pin} />;
+  const weather = await getTokyoWeather();
+  return <MapExperience initialPinId={pin} initialCondition={weather.condition} />;
 }
