@@ -1,4 +1,5 @@
 import { recordNeighborhoodVisit } from "./tokyoRelationship";
+import type { TokyoChapter } from "./tokyoRelationship";
 
 const VISIT_KEY = "arthur:visit-log";
 const MAX_ENTRIES = 200;
@@ -59,8 +60,9 @@ function getMoodPattern(entries: VisitEntry[]): string | null {
   return null;
 }
 
-// Returns a quiet observational sentence, or null if nothing meaningful yet
-export function getQuietObservation(): string | null {
+// Returns a quiet observational sentence, or null if nothing meaningful yet.
+// Accepts an optional chapter to shape which observation feels most true right now.
+export function getQuietObservation(chapter?: TokyoChapter): string | null {
   const entries = loadEntries();
   if (entries.length < 2) return null;
 
@@ -77,12 +79,40 @@ export function getQuietObservation(): string | null {
   });
   const [[topNeighborhood, topCount]] = Object.entries(neighborhoodCounts)
     .sort((a, b) => b[1] - a[1]).concat([["", 0]]);
+  const uniqueNeighborhoods = Object.keys(neighborhoodCounts).length;
 
   const lastTs = entries[entries.length - 2]?.ts;
   const daysSinceLast = lastTs ? (now - lastTs) / (1000 * 3600 * 24) : 0;
 
-  // Priority order: most specific / most earned first
-  if (isLate && nightThisWeek.length >= 2) return `${nightThisWeek.length}rd night outside this week.`;
+  // ── Chapter-weighted observations ──────────────────────────────────────
+  // Certain truths are more visible at certain stages.
+
+  if (chapter === "arriving") {
+    if (uniqueNeighborhoods >= 5 && entries.length >= 4) return "You've been finding your way around.";
+    if (entries.length >= 3 && isLate) return "Still finding things at this hour.";
+  }
+
+  if (chapter === "adjusting") {
+    if (isLate && nightThisWeek.length >= 2) return "Out late again this week.";
+    const heavyMoods = entries.filter(
+      (e) => e.mood === "adrift" || e.mood === "invisible" || e.mood === "homesick",
+    );
+    if (heavyMoods.length >= 3) return "You've been spending time alone in the city.";
+    if (nightThisWeek.length >= 3) return "You've been out late more than usual this week.";
+  }
+
+  if (chapter === "feeling") {
+    if (entries.length >= 8 && topCount >= 3) return `You keep coming back to ${topNeighborhood}.`;
+    if (thisWeek.length >= 4) return "You've been walking more lately.";
+  }
+
+  if (chapter === "belonging" || chapter === "home") {
+    if (topCount >= 6) return `${topNeighborhood} has started to feel like yours.`;
+    if (entries.length >= 10 && topCount >= 4) return `You keep coming back to ${topNeighborhood}.`;
+  }
+
+  // ── Generic observations (chapter-agnostic, threshold-gated) ───────────
+  if (isLate && nightThisWeek.length >= 2) return "Out late again this week.";
   if (nightThisWeek.length >= 3) return "You've been out late more than usual this week.";
   if (entries.length >= 10 && topCount >= 4) return `You keep coming back to ${topNeighborhood}.`;
   if (thisWeek.length >= 5) return "You've been walking more lately.";
@@ -90,6 +120,5 @@ export function getQuietObservation(): string | null {
   if (daysSinceLast > 7) return "You were away for a while.";
   if (entries.length >= 3 && isLate) return "Still out this late.";
 
-  // Mood pattern is last — requires more data to be meaningful
   return getMoodPattern(entries);
 }

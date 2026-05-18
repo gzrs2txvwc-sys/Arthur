@@ -11,7 +11,9 @@ import { haversineDistance, getPinState, UNLOCK_RADIUS } from "@/lib/geoProximit
 import { getArchive, addToArchive } from "@/lib/userArchive";
 import type { ArchiveEntry } from "@/lib/userArchive";
 import { logPostcardVisit, getQuietObservation } from "@/lib/visitLog";
-import { touchSession, consumeReturnSignal } from "@/lib/tokyoRelationship";
+import { touchSession, consumeReturnSignal, getChapter } from "@/lib/tokyoRelationship";
+import type { TokyoChapter } from "@/lib/tokyoRelationship";
+import { getChapterResonance } from "@/lib/chapterResonance";
 import type { WeatherCondition } from "@/lib/weather";
 import { MapFilters } from "./MapFilters";
 import { MapAtmosphere } from "./MapAtmosphere";
@@ -49,6 +51,10 @@ export function MapExperience({
   const [introGone, setIntroGone] = useState(false);
   const mapRef = useRef<LeafletMap | null>(null) as { current: LeafletMap | null };
 
+  // ── Tokyo chapter — drives emotional surfacing, never shown to user ──────
+  const [chapter, setChapter] = useState<TokyoChapter>("arriving");
+  useEffect(() => { setChapter(getChapter()); }, []);
+
   // ── Tokyo time (drives hidden fragment visibility) ─
   const [tokyoHour, setTokyoHour] = useState(0);
   useEffect(() => {
@@ -63,15 +69,17 @@ export function MapExperience({
   const [showObservation, setShowObservation] = useState(false);
   useEffect(() => {
     touchSession();
+    // Read chapter directly (not from state — state may not be set yet)
+    const ch = getChapter();
     // Return recognition takes precedence over generic mood observations
     const { returning, gapDays } = consumeReturnSignal();
     let obs: string | null = null;
     if (returning) {
-      if (gapDays >= 30)     obs = "Coming back after a long time.";
+      if (gapDays >= 30)      obs = "Coming back after a long time.";
       else if (gapDays >= 14) obs = "You were away for a while.";
-      else                   obs = "The city is still here.";
+      else                    obs = "The city is still here.";
     } else {
-      obs = getQuietObservation();
+      obs = getQuietObservation(ch);
     }
     if (!obs) return;
     setObservation(obs);
@@ -124,7 +132,11 @@ export function MapExperience({
     return states;
   }, [geoMode, userPosition, collectedIds]);
 
-  // ── Visible postcards (filter by mood + time/weather visibility) ─
+  // ── Visible postcards (filter by mood + time/weather visibility) ─────────
+  // Sorted by chapter resonance so emotionally relevant pins animate in first
+  // and appear earlier in prev/next navigation. Daily noise prevents the sort
+  // from feeling mechanical — the same chapter maps to slightly different
+  // orderings each day.
   const visiblePostcards = useMemo(() => {
     const isRaining = initialCondition === "rainy" || initialCondition === "foggy";
     const isVisible = (p: MemoryPostcard) => {
@@ -138,8 +150,13 @@ export function MapExperience({
     const base = activeMood === "all"
       ? memoryPostcards
       : memoryPostcards.filter((p) => p.mood === activeMood);
-    return base.filter(isVisible);
-  }, [activeMood, tokyoHour, initialCondition]);
+    const filtered = base.filter(isVisible);
+    // Resonance sort — higher score enters the animation first and
+    // appears earlier in sequential browsing
+    return [...filtered].sort(
+      (a, b) => getChapterResonance(b, chapter) - getChapterResonance(a, chapter),
+    );
+  }, [activeMood, tokyoHour, initialCondition, chapter]);
 
   const selectedIndex = selectedPostcard
     ? visiblePostcards.findIndex((p) => p.id === selectedPostcard.id)
@@ -263,15 +280,28 @@ export function MapExperience({
     [pinStates]
   );
 
-  // Nearest 2 postcards to the currently selected one — powers the walking hints
+  // Walking hints — 2 suggested postcards from the selected one.
+  // Blends physical proximity (60%) with chapter resonance (40%) so the
+  // suggestions feel geographically real but emotionally weighted.
+  // A slightly further postcard that resonates with the current chapter
+  // will surface over a closer one that doesn't.
   const nearbyPostcards = useMemo(() => {
     if (!selectedPostcard) return [];
+    const MAX_DIST = 4000; // normalize over 4km
     return visiblePostcards
       .filter((p) => p.id !== selectedPostcard.id)
-      .map((p) => ({ postcard: p, distanceM: haversineDistance(selectedPostcard.coordinates, p.coordinates) }))
-      .sort((a, b) => a.distanceM - b.distanceM)
-      .slice(0, 2);
-  }, [selectedPostcard, visiblePostcards]);
+      .map((p) => {
+        const distanceM   = haversineDistance(selectedPostcard.coordinates, p.coordinates);
+        const distScore   = Math.max(0, 1 - distanceM / MAX_DIST);
+        const resonance   = getChapterResonance(p, chapter);
+        const resScore    = resonance / 6; // normalize raw score (max ~6)
+        const blended     = distScore * 0.6 + resScore * 0.4;
+        return { postcard: p, distanceM, blended };
+      })
+      .sort((a, b) => b.blended - a.blended)
+      .slice(0, 2)
+      .map(({ postcard, distanceM }) => ({ postcard, distanceM }));
+  }, [selectedPostcard, visiblePostcards, chapter]);
 
   const isSimulation = geoMode === "simulation";
   const tileStyle: "dark" | "light" = (tokyoHour >= 7 && tokyoHour < 18) ? "light" : "dark";
