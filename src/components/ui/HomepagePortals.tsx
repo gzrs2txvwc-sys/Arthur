@@ -90,9 +90,9 @@ export function HomepagePortals({ portals }: { portals: PortalData[] }) {
         {portals.slice(0, 2).map((p, i) => (
           <motion.div
             key={p.href}
-            initial={{ opacity: 0, y: 14 }}
-            animate={revealed ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
-            transition={{ duration: 1.5, delay: i * 0.2, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, y: 32 }}
+            animate={revealed ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 }}
+            transition={{ duration: 1.8, delay: i * 0.22, ease: [0.16, 1, 0.3, 1] }}
           >
             <WorldPortal {...p} />
           </motion.div>
@@ -102,9 +102,9 @@ export function HomepagePortals({ portals }: { portals: PortalData[] }) {
         {portals.slice(2, 4).map((p, i) => (
           <motion.div
             key={p.href}
-            initial={{ opacity: 0, y: 14 }}
-            animate={revealed ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
-            transition={{ duration: 1.5, delay: (i + 2) * 0.2 + 0.06, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, y: 32 }}
+            animate={revealed ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 }}
+            transition={{ duration: 1.8, delay: (i + 2) * 0.22 + 0.08, ease: [0.16, 1, 0.3, 1] }}
           >
             <WorldPortal {...p} />
           </motion.div>

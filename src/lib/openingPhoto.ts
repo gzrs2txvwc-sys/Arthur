@@ -7,60 +7,173 @@ export interface OpeningPhoto {
   objectPosition?: string;
 }
 
+type Season  = "spring" | "summer" | "autumn" | "winter";
+type DayType = "weekday" | "friday" | "saturday" | "sunday";
+
 interface PhotoEntry {
-  photo:   OpeningPhoto;
-  periods: AtmospherePeriod[];
+  photo:       OpeningPhoto;
+  periods?:    AtmospherePeriod[];
+  conditions?: WeatherCondition[];
+  days?:       DayType[];
+  seasons?:    Season[];
+}
+
+function tokyoSeason(): Season {
+  const month = new Date(Date.now() + 9 * 3600 * 1000).getUTCMonth() + 1;
+  if (month >= 3 && month <= 5) return "spring";
+  if (month >= 6 && month <= 8) return "summer";
+  if (month >= 9 && month <= 11) return "autumn";
+  return "winter";
+}
+
+function tokyoDayType(): DayType {
+  const ms  = Date.now() + 9 * 3600 * 1000;
+  const day = new Date(ms).getUTCDay();
+  if (day === 0) return "sunday";
+  if (day === 5) return "friday";
+  if (day === 6) return "saturday";
+  return "weekday";
 }
 
 // ── Photo pool ─────────────────────────────────────────────────────────────────
-// Photos that feel like someone who actually lives in Tokyo took them —
-// not tourist shots. Each period has 1-2 options; the daily seed rotates.
-// objectPosition anchors the focal point when the image crops.
+// Photos chosen for everyday Tokyo life — not tourist shots. The same source
+// photo appears with different objectPosition values to create genuine variety.
+// Photos marked "(unverified)" may not load; the overlay + dark filter still look
+// intentional when they don't. Swap any id freely in this file.
 const PHOTOS: PhotoEntry[] = [
-  // Latenight — empty streets, vending machine glow, the city past midnight
+
+  // ── Late night ─────────────────────────────────────────────────────────────
   {
     photo: { id: "photo-1536098561742-ca998e48cbcc", alt: "Tokyo at night", objectPosition: "center 55%" },
     periods: ["latenight", "night"],
   },
   {
-    photo: { id: "photo-1540959733332-eab4deabeeaf", alt: "Tokyo night street", objectPosition: "center 60%" },
+    // Sunday quiet — tighter, lonelier crop
+    photo: { id: "photo-1536098561742-ca998e48cbcc", alt: "Tokyo late on a Sunday night", objectPosition: "center 40%" },
     periods: ["latenight"],
+    days: ["sunday"],
+  },
+  {
+    photo: { id: "photo-1540959733332-eab4deabeeaf", alt: "Tokyo night rain", objectPosition: "center 60%" }, // (unverified)
+    periods: ["latenight"],
+    conditions: ["rainy", "foggy"],
   },
 
-  // Dawn — empty train cars, platforms before the city starts
+  // ── Dawn ───────────────────────────────────────────────────────────────────
   {
-    photo: { id: "photo-1554797589-7241bb691973", alt: "Empty train car at dawn", objectPosition: "center" },
+    photo: { id: "photo-1554797589-7241bb691973", alt: "Empty train car at dawn", objectPosition: "center" }, // (unverified)
     periods: ["dawn"],
   },
-
-  // Morning — streets waking up, light arriving
   {
-    photo: { id: "photo-1506748686214-e9df14d4d9d0", alt: "Tokyo morning", objectPosition: "center 35%" },
-    periods: ["morning"],
+    // Winter dawn — colder crop of the night cityscape
+    photo: { id: "photo-1536098561742-ca998e48cbcc", alt: "Tokyo before the city wakes", objectPosition: "center 70%" },
+    periods: ["dawn"],
+    seasons: ["winter"],
   },
 
-  // Daytime — alleys, ordinary streets, the city working
+  // ── Morning ────────────────────────────────────────────────────────────────
+  {
+    photo: { id: "photo-1528360983277-13d401cdc186", alt: "Tokyo street in the morning", objectPosition: "center 45%" }, // (unverified)
+    periods: ["morning"],
+    conditions: ["clear", "cloudy"],
+  },
+  {
+    photo: { id: "photo-1506748686214-e9df14d4d9d0", alt: "Morning light in Tokyo", objectPosition: "center 30%" },
+    periods: ["morning", "dawn"],
+  },
+  {
+    // Weekend morning — street-level, slower feeling
+    photo: { id: "photo-1542051841857-5f90071e7989", alt: "Tokyo alley on a quiet morning", objectPosition: "center 55%" },
+    periods: ["morning"],
+    days: ["saturday", "sunday"],
+  },
+  {
+    // Rainy morning — wet street
+    photo: { id: "photo-1574169208507-84376144848b", alt: "Tokyo street in the rain", objectPosition: "center" }, // (unverified)
+    periods: ["morning"],
+    conditions: ["rainy"],
+  },
+
+  // ── Daytime ────────────────────────────────────────────────────────────────
   {
     photo: { id: "photo-1542051841857-5f90071e7989", alt: "Tokyo street", objectPosition: "center 50%" },
-    periods: ["daytime", "morning"],
+    periods: ["daytime"],
   },
-
-  // Sunset / evening — city shifting registers
   {
+    // Weekday afternoon — daily life crop
     photo: { id: "photo-1580822184713-fc5400e7fe10", alt: "Tokyo daily life", objectPosition: "center 40%" },
-    periods: ["sunset", "evening"],
+    periods: ["daytime"],
+    days: ["weekday"],
+  },
+  {
+    // Rainy afternoon — wet street
+    photo: { id: "photo-1574169208507-84376144848b", alt: "Tokyo in the rain", objectPosition: "center 50%" }, // (unverified)
+    periods: ["daytime"],
+    conditions: ["rainy"],
+  },
+  {
+    // Summer daytime — brighter crop
+    photo: { id: "photo-1542051841857-5f90071e7989", alt: "Tokyo street in summer", objectPosition: "center 35%" },
+    periods: ["daytime"],
+    seasons: ["summer"],
   },
 
-  // Night — after dark, just before last trains
+  // ── Sunset ─────────────────────────────────────────────────────────────────
   {
-    photo: { id: "photo-1542051841857-5f90071e7989", alt: "Tokyo at night", objectPosition: "center 65%" },
-    periods: ["night", "evening"],
+    photo: { id: "photo-1580822184713-fc5400e7fe10", alt: "Tokyo at golden hour", objectPosition: "center 35%" },
+    periods: ["sunset"],
+  },
+  {
+    // Friday golden hour — alley crop
+    photo: { id: "photo-1542051841857-5f90071e7989", alt: "Light through a Tokyo alley at sunset", objectPosition: "center 60%" },
+    periods: ["sunset"],
+    days: ["friday"],
+  },
+  {
+    photo: { id: "photo-1506748686214-e9df14d4d9d0", alt: "Tokyo at dusk", objectPosition: "center 50%" },
+    periods: ["sunset"],
+    conditions: ["clear"],
+  },
+
+  // ── Evening ────────────────────────────────────────────────────────────────
+  {
+    photo: { id: "photo-1536098561742-ca998e48cbcc", alt: "Tokyo in the evening", objectPosition: "center 50%" },
+    periods: ["evening"],
+  },
+  {
+    // Sunday evening — residential quiet
+    photo: { id: "photo-1580822184713-fc5400e7fe10", alt: "Quiet Tokyo residential evening", objectPosition: "center 55%" },
+    periods: ["evening"],
+    days: ["sunday"],
+  },
+  {
+    // Rainy evening
+    photo: { id: "photo-1574169208507-84376144848b", alt: "Tokyo in the rain at evening", objectPosition: "center 40%" }, // (unverified)
+    periods: ["evening"],
+    conditions: ["rainy"],
+  },
+
+  // ── Night ──────────────────────────────────────────────────────────────────
+  {
+    photo: { id: "photo-1536098561742-ca998e48cbcc", alt: "Tokyo at night", objectPosition: "center 55%" },
+    periods: ["night"],
+  },
+  {
+    // Clear night — street-level detail
+    photo: { id: "photo-1542051841857-5f90071e7989", alt: "Tokyo street at night", objectPosition: "center 65%" },
+    periods: ["night"],
+    conditions: ["clear"],
+  },
+  {
+    // Rainy night
+    photo: { id: "photo-1540959733332-eab4deabeeaf", alt: "Tokyo at night in the rain", objectPosition: "center 55%" }, // (unverified)
+    periods: ["night"],
+    conditions: ["rainy"],
   },
 ];
 
 // ── Photo filter per period ────────────────────────────────────────────────────
-// Aggressive desaturation and darkening — the photo becomes texture,
-// not illustration. Text and atmosphere are primary.
+// Aggressive desaturation — the photo becomes emotional texture, not illustration.
 export const PERIOD_PHOTO_FILTER: Record<AtmospherePeriod, string> = {
   latenight: "saturate(0.1) brightness(0.28) contrast(1.25)",
   dawn:      "saturate(0.18) brightness(0.38) contrast(1.12)",
@@ -72,7 +185,6 @@ export const PERIOD_PHOTO_FILTER: Record<AtmospherePeriod, string> = {
 };
 
 // ── Japanese weather kanji ────────────────────────────────────────────────────
-// Small detail that makes the opening line feel bilingual, not translated.
 export const WEATHER_JP: Partial<Record<string, string>> = {
   rainy:    "雨",
   clear:    "晴",
@@ -86,7 +198,6 @@ export const WEATHER_JP: Partial<Record<string, string>> = {
 };
 
 // ── Condition overlay ─────────────────────────────────────────────────────────
-// Adds a cool blue-grey tint for rain/fog over the photo filter.
 export function getConditionTint(condition: WeatherCondition): string | null {
   if (condition === "rainy")  return "rgba(18, 38, 72, 0.16)";
   if (condition === "foggy")  return "rgba(70, 80, 100, 0.14)";
@@ -95,10 +206,38 @@ export function getConditionTint(condition: WeatherCondition): string | null {
 }
 
 // ── Photo selection ───────────────────────────────────────────────────────────
-// Daily seed picks from period-matched photos; same photo all day.
-export function getOpeningPhoto(period: AtmospherePeriod): OpeningPhoto {
-  const seed    = Math.floor((Date.now() + 9 * 3600 * 1000) / (24 * 3600 * 1000));
-  const matches = PHOTOS.filter((e) => e.periods.includes(period));
-  if (matches.length === 0) return PHOTOS[0].photo;
-  return matches[seed % matches.length].photo;
+// Most-specific match wins (period+condition+day+season = highest score).
+// Daily seed picks from tied top-score candidates — same photo all day.
+export function getOpeningPhoto(
+  period:    AtmospherePeriod,
+  condition: WeatherCondition,
+): OpeningPhoto {
+  const seed   = Math.floor((Date.now() + 9 * 3600 * 1000) / (24 * 3600 * 1000));
+  const day    = tokyoDayType();
+  const season = tokyoSeason();
+
+  const scored = PHOTOS
+    .map((entry) => {
+      const ok =
+        (!entry.periods    || entry.periods.includes(period))    &&
+        (!entry.conditions || entry.conditions.includes(condition)) &&
+        (!entry.days       || entry.days.includes(day))          &&
+        (!entry.seasons    || entry.seasons.includes(season));
+      if (!ok) return null;
+
+      const specificity =
+        (entry.periods    ? 2 : 0) +
+        (entry.conditions ? 2 : 0) +
+        (entry.days       ? 1 : 0) +
+        (entry.seasons    ? 1 : 0);
+
+      return { entry, specificity };
+    })
+    .filter(Boolean) as { entry: PhotoEntry; specificity: number }[];
+
+  if (scored.length === 0) return PHOTOS[0].photo;
+
+  const maxSpec = Math.max(...scored.map((s) => s.specificity));
+  const top     = scored.filter((s) => s.specificity >= maxSpec);
+  return top[seed % top.length].entry.photo;
 }

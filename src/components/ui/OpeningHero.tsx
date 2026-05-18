@@ -16,21 +16,44 @@ interface Props {
   condition:    WeatherCondition;
 }
 
-// Server component — all cinematic logic computable at render time.
+// Server component — all cinematic values computable at render time.
 export function OpeningHero({
   timeStr, weatherLabel, weatherJp,
   openingLine, photo, period, condition,
 }: Props) {
-  const photoFilter    = PERIOD_PHOTO_FILTER[period];
-  const conditionTint  = getConditionTint(condition);
+  const photoFilter   = PERIOD_PHOTO_FILTER[period];
+  const conditionTint = getConditionTint(condition);
 
   return (
     <section
-      className="relative flex flex-col justify-end overflow-hidden"
-      // 100svh = viewport-aware height (excludes browser chrome on mobile)
+      // Mobile: content centered. Desktop: content anchored at bottom.
+      className="relative flex flex-col justify-center md:justify-end overflow-hidden"
       style={{ height: "100svh", minHeight: "600px" }}
     >
-      {/* ── Background photo ── cinematic, heavily desaturated */}
+      {/* Responsive font sizes injected as scoped CSS — avoids large inline-style duplication */}
+      <style>{`
+        .oph-time {
+          font-size: clamp(4.5rem, 28vw, 8rem);
+          letter-spacing: -0.04em;
+          line-height: 1;
+        }
+        @media (min-width: 768px) {
+          .oph-time { font-size: clamp(5rem, 16vw, 12rem); }
+        }
+        .oph-obs {
+          font-size: 1.05rem;
+          line-height: 1.9;
+          max-width: min(33rem, 90vw);
+        }
+        @media (min-width: 768px) {
+          .oph-obs {
+            font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+            max-width: 33rem;
+          }
+        }
+      `}</style>
+
+      {/* ── Background photo ── cinematic, period-filtered */}
       <Image
         src={`https://images.unsplash.com/${photo.id}?w=2400&q=80&fit=crop`}
         alt={photo.alt}
@@ -43,7 +66,7 @@ export function OpeningHero({
         }}
       />
 
-      {/* ── Film grain over photo ─────────────────────────────── */}
+      {/* ── Film grain directly over photo ─────────────────────── */}
       <FilmGrain opacity={0.055} className="z-10 pointer-events-none" />
 
       {/* ── Top vignette — cinematic framing ───────────────────── */}
@@ -52,18 +75,25 @@ export function OpeningHero({
         style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.32) 0%, transparent 38%)" }}
       />
 
-      {/* ── Bottom gradient — text legibility zone ─────────────── */}
+      {/* ── Bottom gradient — anchors desktop text at bottom ────── */}
       <div
         className="absolute inset-0 z-10 pointer-events-none"
         style={{ background: "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.74) 16%, rgba(0,0,0,0.36) 40%, transparent 65%)" }}
       />
 
-      {/* ── Weather/condition tint ──────────────────────────────── */}
+      {/* ── Mobile center overlay — ensures centered text is always legible
+           regardless of what the photo shows at the vertical midpoint ─── */}
+      <div
+        className="absolute inset-0 z-10 pointer-events-none md:hidden"
+        style={{ background: "rgba(0,0,0,0.38)" }}
+      />
+
+      {/* ── Condition tint ───────────────────────────────────────── */}
       {conditionTint && (
         <div className="absolute inset-0 z-10 pointer-events-none" style={{ background: conditionTint }} />
       )}
 
-      {/* ── 間 — barely-there watermark over the photo ────────── */}
+      {/* ── 間 — barely-visible watermark over the photo ─────────── */}
       <span
         aria-hidden="true"
         className="absolute z-10 select-none pointer-events-none"
@@ -81,27 +111,30 @@ export function OpeningHero({
         間
       </span>
 
-      {/* ── Main content — lives at the bottom ────────────────── */}
-      <div className="relative z-20 w-full max-w-screen-xl mx-auto px-8 md:px-16 pb-16 md:pb-24">
-
-        {/* Time — monumental, film-clock */}
+      {/* ── Content block ─────────────────────────────────────────
+           Mobile:  centered horizontally and vertically, text-center
+           Desktop: left-aligned, pinned to bottom via justify-end   */}
+      <div
+        className="
+          relative z-20 w-full max-w-screen-xl mx-auto
+          px-8 md:px-16
+          pb-8 md:pb-24
+          flex flex-col items-center text-center
+          md:items-start md:text-left
+        "
+      >
+        {/* Time — dominant, film-clock weight */}
         <div className="animate-fade-up">
           <span
-            className="font-mono block"
-            style={{
-              fontSize: "clamp(5rem, 16vw, 12rem)",
-              color: "var(--color-parchment)",
-              opacity: 0.93,
-              letterSpacing: "-0.04em",
-              lineHeight: 1,
-            }}
+            className="font-mono block oph-time"
+            style={{ color: "var(--color-parchment)", opacity: 0.93 }}
           >
             {timeStr}
           </span>
         </div>
 
-        {/* Weather kanji + label + city — bilingual micro-label */}
-        <div className="mt-5 mb-9 md:mb-10 animate-fade-up delay-75">
+        {/* Weather kanji + English label + city — bilingual micro-detail */}
+        <div className="mt-4 mb-6 md:mt-5 md:mb-9 animate-fade-up delay-75">
           <span
             className="font-mono"
             style={{
@@ -116,22 +149,16 @@ export function OpeningHero({
           </span>
         </div>
 
-        {/* Observation — Cormorant Garamond, light, generous breathing */}
+        {/* Observation — Cormorant Garamond, light weight, generous leading */}
         <p
-          className="font-display font-light animate-fade-up delay-150"
-          style={{
-            fontSize: "clamp(0.95rem, 1.5vw, 1.1rem)",
-            color: "var(--color-parchment)",
-            opacity: 0.68,
-            maxWidth: "33rem",
-            lineHeight: 1.9,
-          }}
+          className="font-display font-light animate-fade-up delay-150 oph-obs"
+          style={{ color: "var(--color-parchment)", opacity: 0.68 }}
         >
           {openingLine}
         </p>
       </div>
 
-      {/* ── Scroll hint — single descending line ──────────────── */}
+      {/* ── Scroll hint — always at bottom regardless of layout ────── */}
       <div
         className="absolute bottom-8 inset-x-0 flex justify-center z-20 animate-fade-up"
         style={{ animationDelay: "2.4s", animationFillMode: "backwards" }}
@@ -146,7 +173,7 @@ export function OpeningHero({
         />
       </div>
 
-      {/* Anchor moment — one-time question on session 2+ */}
+      {/* Anchor moment — one-time question, session 2+ */}
       <AnchorMoment />
     </section>
   );

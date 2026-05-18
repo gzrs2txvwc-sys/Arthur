@@ -35,7 +35,7 @@ export default async function HomePage({
   const timeStr      = tokyoTimeString();
   const { period }   = computeAtmosphere(hour, weather.condition, weather.feeling);
   const openingLine  = getOpeningLine(period, weather.condition);
-  const photo        = getOpeningPhoto(period);
+  const photo        = getOpeningPhoto(period, weather.condition);
   const weatherLabel = WEATHER_LABEL[weather.condition] ?? "";
   const weatherJp    = WEATHER_JP[weather.condition] ?? "";
 
