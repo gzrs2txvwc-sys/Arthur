@@ -6,6 +6,12 @@ import type { WeatherCondition } from "@/lib/weather";
 import type { OpeningPhoto } from "@/lib/openingPhoto";
 import { PERIOD_PHOTO_FILTER, getConditionTint } from "@/lib/openingPhoto";
 
+const CITY_LABEL: Record<string, string> = {
+  ja:      "東京",
+  "zh-TW": "東京",
+  ko:      "도쿄",
+};
+
 interface Props {
   timeStr:      string;
   weatherLabel: string;
@@ -14,15 +20,17 @@ interface Props {
   photo:        OpeningPhoto;
   period:       AtmospherePeriod;
   condition:    WeatherCondition;
+  locale?:      string;
 }
 
 // Server component — all cinematic values computable at render time.
 export function OpeningHero({
   timeStr, weatherLabel, weatherJp,
-  openingLine, photo, period, condition,
+  openingLine, photo, period, condition, locale = "en",
 }: Props) {
   const photoFilter   = PERIOD_PHOTO_FILTER[period];
   const conditionTint = getConditionTint(condition);
+  const cityLabel     = CITY_LABEL[locale] ?? "TOKYO";
 
   return (
     <section
@@ -145,7 +153,7 @@ export function OpeningHero({
             }}
           >
             {weatherJp && <>{weatherJp}&ensp;</>}
-            {weatherLabel ? `${weatherLabel.toUpperCase()}  ·  ` : ""}TOKYO
+            {weatherLabel ? `${weatherLabel.toUpperCase()}  ·  ` : ""}{cityLabel}
           </span>
         </div>
 

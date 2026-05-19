@@ -34,7 +34,7 @@ export default async function HomePage({
   const hour         = tokyoHour();
   const timeStr      = tokyoTimeString();
   const { period }   = computeAtmosphere(hour, weather.condition, weather.feeling);
-  const openingLine  = getOpeningLine(period, weather.condition);
+  const openingLine  = getOpeningLine(period, weather.condition, locale);
   const photo        = getOpeningPhoto(period, weather.condition);
   const weatherLabel = WEATHER_LABEL[weather.condition] ?? "";
   const weatherJp    = WEATHER_JP[weather.condition] ?? "";
@@ -100,6 +100,7 @@ export default async function HomePage({
         photo={photo}
         period={period}
         condition={weather.condition}
+        locale={locale}
       />
 
       {/* ── World Portals — revealed after 3.5s, just below fold ── */}

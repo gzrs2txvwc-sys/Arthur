@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import { useState, useCallback, useMemo, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import type { Map as LeafletMap } from "leaflet";
 import { memoryPostcards, moodMeta } from "@/lib/mapData";
 import type { MemoryPostcard, FragmentMood, PinState } from "@/lib/mapData";
@@ -46,6 +46,7 @@ export function MapExperience({
   initialCondition?: WeatherCondition;
 }) {
   const t = useTranslations("map");
+  const locale = useLocale();
 
   // ── Browse state ──────────────────────────────────
   const [selectedPostcard, setSelectedPostcard] = useState<MemoryPostcard | null>(null);
@@ -79,13 +80,20 @@ export function MapExperience({
     const ch = getChapter();
     // Return recognition takes precedence over generic mood observations
     const { returning, gapDays } = consumeReturnSignal();
+    const RETURN_OBS: Record<string, [string, string, string]> = {
+      en:      ["Coming back after a long time.", "You were away for a while.", "The city is still here."],
+      ja:      ["長い時間が経った後に戻ってきた。", "少し離れていた。", "街はまだここにある。"],
+      "zh-TW": ["過了很長時間才回來。", "離開了一陣子。", "城市還在這裡。"],
+      ko:      ["오랜만에 돌아왔어.", "잠깐 자리를 비웠어.", "도시는 아직 여기 있어."],
+    };
+    const returnObs = RETURN_OBS[locale] ?? RETURN_OBS.en;
     let obs: string | null = null;
     if (returning) {
-      if (gapDays >= 30)      obs = "Coming back after a long time.";
-      else if (gapDays >= 14) obs = "You were away for a while.";
-      else                    obs = "The city is still here.";
+      if (gapDays >= 30)      obs = returnObs[0];
+      else if (gapDays >= 14) obs = returnObs[1];
+      else                    obs = returnObs[2];
     } else {
-      obs = getQuietObservation(ch);
+      obs = getQuietObservation(ch, locale);
     }
     if (!obs) return;
     setObservation(obs);

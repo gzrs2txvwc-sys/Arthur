@@ -54,7 +54,34 @@
     "community_cta_label": "あなたのストーリーを共有する",
     "community_cta_title": "日本に住んだことがありますか？",
     "community_cta_body": "プラットフォームはリアルな体験を通じて成長します。日本で生活、仕事、または勉強した経験があれば、あなたのストーリーはここに属します。",
-    "community_cta_button": "お問い合わせ"
+    "community_cta_button": "お問い合わせ",
+    "tagline": "日本は訪れる場所ではない。\n入り込む場所だ。",
+    "worlds": {
+      "tonight": {
+        "numeral": "I",
+        "title": "今夜の東京",
+        "tagline": "今日が終わった後の、どこか。",
+        "enter": "今夜に入る"
+      },
+      "wander": {
+        "numeral": "II",
+        "title": "さまよう",
+        "tagline": "みんなが通り過ぎる東京の断片。",
+        "enter": "歩き始める"
+      },
+      "stories": {
+        "numeral": "III",
+        "title": "声と記憶",
+        "tagline": "街が静かに保っているもの。",
+        "enter": "声を読む"
+      },
+      "living": {
+        "numeral": "IV",
+        "title": "ここで生きる",
+        "tagline": "人が時間をかけて育てていく、東京との関係。",
+        "enter": "内側の知識"
+      }
+    }
   },
   "survival": {
     "address-circle": {

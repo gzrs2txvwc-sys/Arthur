@@ -7,7 +7,7 @@ import Link from "next/link";
 import { X, ArrowLeft, ArrowRight } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
 import { moodMeta } from "@/lib/mapData";
-import { getDriftLine, getMoodAdjacency, MOOD_CONNECTOR, MOOD_NEIGHBORS } from "@/lib/moodThread";
+import { getDriftLine, getMoodConnector, getMoodAdjacency, MOOD_CONNECTOR, MOOD_NEIGHBORS } from "@/lib/moodThread";
 import type { MemoryPostcard } from "@/lib/mapData";
 import { FilmGrain } from "@/components/ui/FilmGrain";
 import { getNeighborhoodCount } from "@/lib/visitLog";
@@ -95,15 +95,13 @@ export function PostcardView({
     if (!postcard) return null;
     const { recentMoods } = getStoryInfluences();
     if (recentMoods.length === 0) return null;
-    // Direct mood match
-    if (recentMoods.includes(postcard.mood)) return MOOD_CONNECTOR[postcard.mood];
-    // Adjacent mood match (weaker signal — still earns the echo)
+    if (recentMoods.includes(postcard.mood)) return getMoodConnector(postcard.mood, locale);
     const hasAdjacentRead = MOOD_NEIGHBORS[postcard.mood].some((m) =>
       recentMoods.includes(m),
     );
-    if (hasAdjacentRead) return MOOD_CONNECTOR[postcard.mood];
+    if (hasAdjacentRead) return getMoodConnector(postcard.mood, locale);
     return null;
-  }, [postcard]);
+  }, [postcard, locale]);
 
   return (
     <AnimatePresence>
@@ -417,7 +415,7 @@ export function PostcardView({
                       lineHeight: 1.5,
                     }}
                   >
-                    {storyEcho ?? getDriftLine(postcard.mood, postcard.id.charCodeAt(0))}
+                    {storyEcho ?? getDriftLine(postcard.mood, postcard.id.charCodeAt(0), locale)}
                   </p>
                   <div className="flex items-center gap-5">
                   {/* Stories link — city-filtered */}

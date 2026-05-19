@@ -53,7 +53,34 @@
     "community_cta_label": "分享你的故事",
     "community_cta_title": "你在日本住過嗎？",
     "community_cta_body": "平台透過真實經驗成長。如果你曾在日本生活、工作或學習，你的故事屬於這裡。",
-    "community_cta_button": "聯絡我們"
+    "community_cta_button": "聯絡我們",
+    "tagline": "日本不是一個用來拜訪的地方。\n是一個用來進入的地方。",
+    "worlds": {
+      "tonight": {
+        "numeral": "I",
+        "title": "今夜的東京",
+        "tagline": "今天結束之後，還有個地方可以去。",
+        "enter": "進入今夜"
+      },
+      "wander": {
+        "numeral": "II",
+        "title": "漫遊",
+        "tagline": "東京那些人們通常走過去不停留的角落。",
+        "enter": "開始漂流"
+      },
+      "stories": {
+        "numeral": "III",
+        "title": "聲音與記憶",
+        "tagline": "城市靜靜記住的那些事。",
+        "enter": "讀進那些聲音"
+      },
+      "living": {
+        "numeral": "IV",
+        "title": "住在這裡",
+        "tagline": "人們慢慢長成的那個東京版本。",
+        "enter": "內部人的視角"
+      }
+    }
   },
   "survival": {
     "address-circle": {

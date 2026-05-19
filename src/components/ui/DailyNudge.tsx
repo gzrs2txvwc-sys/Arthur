@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLocale } from "next-intl";
 import { getDailyNudge } from "@/lib/dailyNudge";
 import { getChapter, consumeReturnSignal } from "@/lib/tokyoRelationship";
 import type { AtmospherePeriod } from "@/lib/atmosphere";
@@ -16,13 +17,14 @@ interface DailyNudgeProps {
 // then selects the appropriate line. Fades in gently to avoid a hydration flash.
 export function DailyNudge({ period, condition }: DailyNudgeProps) {
   const [nudge, setNudge] = useState<string | null>(null);
+  const locale = useLocale();
 
   useEffect(() => {
     const chapter = getChapter();
     const { returning, gapDays } = consumeReturnSignal();
-    const text = getDailyNudge(period, condition, chapter, returning, gapDays);
-    setNudge(text);
-  }, [period, condition]);
+    const text = getDailyNudge(period, condition, chapter, returning, gapDays, locale);
+    setNudge(text ?? null);
+  }, [period, condition, locale]);
 
   return (
     <AnimatePresence>
