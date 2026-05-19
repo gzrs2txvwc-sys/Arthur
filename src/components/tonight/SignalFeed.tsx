@@ -15,6 +15,8 @@ import {
   getSignalRecentBuzz,
   getSignalStationLine,
   getSignalMapsUrl,
+  getSignalApproachNote,
+  getSignalApproachMinutes,
 } from "@/lib/tonightSignals";
 import { TonightSignalDetail } from "./TonightSignalDetail";
 
@@ -32,9 +34,15 @@ function formatTime(d: Date): string {
   return `${h}:${m}`;
 }
 
+function approachTimeLabel(minutes: number, g: string): string {
+  if (g === "ja") return `${minutes} 分`;
+  if (g === "zh") return `${minutes} 分鐘`;
+  return `${minutes} minutes from here.`;
+}
+
 export function SignalFeed({ signals }: SignalFeedProps) {
   const locale = useLocale();
-  const [now, setNow] = useState<Date | null>(null);
+  const [now, setNow]           = useState<Date | null>(null);
   const [detailOpen, setDetailOpen] = useState(false);
 
   useEffect(() => {
@@ -46,16 +54,18 @@ export function SignalFeed({ signals }: SignalFeedProps) {
   const signal = signals[0];
   if (!signal) return null;
 
-  const g = getLocaleGroup(locale);
-  const venueName = getSignalVenueName(signal, g);
+  const g            = getLocaleGroup(locale);
+  const venueName    = getSignalVenueName(signal, g);
   const neighborhood = getSignalNeighborhood(signal, g);
-  const observation = getSignalObservation(signal, g);
-  const crowdReason = getSignalCrowdReason(signal, g);
-  const limitedItem = getSignalLimitedItem(signal, g);
-  const crowdNote = getSignalCrowdNote(signal, g);
-  const recentBuzz = getSignalRecentBuzz(signal, g);
-  const stationLine = getSignalStationLine(signal, g);
-  const mapsUrl = getSignalMapsUrl(signal);
+  const observation  = getSignalObservation(signal, g);
+  const crowdReason  = getSignalCrowdReason(signal, g);
+  const limitedItem  = getSignalLimitedItem(signal, g);
+  const crowdNote    = getSignalCrowdNote(signal, g);
+  const recentBuzz   = getSignalRecentBuzz(signal, g);
+  const stationLine  = getSignalStationLine(signal, g);
+  const mapsUrl      = getSignalMapsUrl(signal);
+  const approachNote = getSignalApproachNote(signal, g);
+  const approachMins = getSignalApproachMinutes(signal);
 
   const credentialLine = [
     signal.rating ? `${signal.rating}` : null,
@@ -145,6 +155,37 @@ export function SignalFeed({ signals }: SignalFeedProps) {
         >
           {observation}
         </p>
+
+        {/* Walking approach — the city gently unfolding toward you */}
+        {(approachMins || approachNote) && (
+          <div className="mb-3 mt-1">
+            {approachMins && (
+              <p
+                className="font-mono mb-1"
+                style={{
+                  fontSize: "10px",
+                  letterSpacing: "0.14em",
+                  color: "rgba(200,150,42,0.42)",
+                }}
+              >
+                {approachTimeLabel(approachMins, g)}
+              </p>
+            )}
+            {approachNote && (
+              <p
+                className="font-sans leading-relaxed"
+                style={{
+                  fontSize: "13px",
+                  color: "var(--color-muted)",
+                  opacity: 0.48,
+                  lineHeight: 1.72,
+                }}
+              >
+                {approachNote}
+              </p>
+            )}
+          </div>
+        )}
 
         {/* Limited item */}
         {limitedItem && (

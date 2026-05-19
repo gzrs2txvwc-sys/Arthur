@@ -1394,3 +1394,227 @@ export function getTonightSignals(
   const single = getTonightSignal(hour, condition, period, dayType);
   return single ? [single] : [];
 }
+
+// ── Approach feeling ──────────────────────────────────────────────────────────
+// The city gently unfolding toward you.
+// Not navigation. Not directions. Just the sense of going.
+
+interface ApproachData {
+  minutes?: number;
+  note?: string;    // ja
+  noteEn?: string;
+  noteZh?: string;
+}
+
+const APPROACH: Record<string, ApproachData> = {
+  "onibus-nakameguro": {
+    minutes: 12,
+    note: "川沿いを歩いていくと、水面に灯りが映っている。",
+    noteEn: "Along the canal, lights are already reflecting on the water.",
+    noteZh: "沿著運河走，水面已經映著燈光了。",
+  },
+  "coffee-amp-koenji": {
+    minutes: 9,
+    note: "高架下を抜けてから右に入る。誰かの窓から音楽が聞こえる。",
+    noteEn: "Through the underpass, then right. Music from someone's window somewhere.",
+    noteZh: "穿過高架橋下，然後右轉。某個窗戶裡有音樂。",
+  },
+  "shinjuku-pit-inn": {
+    minutes: 7,
+    note: "新宿通りから脇道に入る。地下への入口は通り過ぎやすい。",
+    noteEn: "Off Shinjuku-dori into the side street. The basement entrance is easy to walk past.",
+    noteZh: "從新宿通轉進小巷。地下室的入口很容易就走過了。",
+  },
+  "bonus-track-shimokita": {
+    minutes: 11,
+    note: "新しい商業施設の脇を通って、少し先に行くと雰囲気が変わる。",
+    noteEn: "Past the new development, and then the feel changes. Old Shimokita is still there.",
+    noteZh: "經過新的商業設施，再往前走感覺就不同了。老下北澤還在。",
+  },
+  "nakameguro-taproom": {
+    minutes: 10,
+    note: "目黒川沿いを歩く。いつも、自分より歩くのが遅い人が前にいる。",
+    noteEn: "Along the Meguro River. There's always someone walking slower than you ahead.",
+    noteZh: "沿著目黒川走。前面總是有人走得比你慢。",
+  },
+  "bar-bossa-shibuya": {
+    minutes: 14,
+    note: "宇田川町の坂を下りる。夜は昼より静かだ。音楽が先に聞こえてくる。",
+    noteEn: "Down the slope into Udagawacho. Quieter than the daytime. The music arrives before you do.",
+    noteZh: "走下宇田川町的坡道。夜晚比白天安靜。音樂比你先到。",
+  },
+  "dug-shinjuku": {
+    minutes: 8,
+    note: "新宿三丁目の路地を入る。本屋の先を右に曲がる。",
+    noteEn: "Into the back streets of Shinjuku-sanchome. Right after the bookshop.",
+    noteZh: "進入新宿三丁目的小巷。書店過後右轉。",
+  },
+  "yanaka-beer-hall": {
+    minutes: 18,
+    note: "墓地の脇を通っても、回っても着く。夜の谷中は静かだ。",
+    noteEn: "Past the cemetery, or around it. Yanaka is quiet at night either way.",
+    noteZh: "從墓地旁邊走過，或繞過去，都到得了。夜晚的谷中很安靜。",
+  },
+  "disk-union-koenji": {
+    minutes: 11,
+    note: "商店街を抜けて、居酒屋の匂いの脇を通る。",
+    noteEn: "Through the shotengai. Past the izakaya smells on the right.",
+    noteZh: "穿過商店街，旁邊是居酒屋的味道。",
+  },
+  "houkiboshi-ogikubo": {
+    minutes: 13,
+    note: "駅の裏手から路地に入る。段々暗くなる。それでいい。",
+    noteEn: "Into the alley behind the station. It gets darker as you go. That's fine.",
+    noteZh: "從車站後面進入小巷。越走越暗。這樣就對了。",
+  },
+  "daikanyama-tsite": {
+    minutes: 15,
+    note: "代官山の静かな路地を歩く。住宅街の中に急に現れる。",
+    noteEn: "Through Daikanyama's quiet residential streets. It appears suddenly.",
+    noteZh: "走過代官山安靜的住宅街。突然就出現了。",
+  },
+  "nishi-ogikubo-antique": {
+    minutes: 14,
+    note: "住宅街を抜けてから、裸電球の列が見えてくる。",
+    noteEn: "Through the residential streets, then the row of bare bulbs appears.",
+    noteZh: "穿過住宅街，然後看到一排裸燈泡。",
+  },
+  "meguro-river-night": {
+    minutes: 9,
+    note: "駅を出て川の方向へ。すぐ着く。それが良い。",
+    noteEn: "Out of the station, toward the water. You're there quickly. That's the point.",
+    noteZh: "出站後走向河邊。很快就到了。這就是好的地方。",
+  },
+  "shimokita-shelter": {
+    minutes: 13,
+    note: "改札を出て、人込みを抜けて、坂を下りると聞こえてくる。",
+    noteEn: "Out of the gate, through the crowd, down the slope — and then you can hear it.",
+    noteZh: "出票口，穿過人群，走下坡道，然後就能聽到了。",
+  },
+  "bar-trench-ebisu": {
+    minutes: 16,
+    note: "恵比寿の西側の住宅街に入る。路地の奥に灯りが見える。",
+    noteEn: "Into the residential streets west of Ebisu. A light at the end of the alley.",
+    noteZh: "進入惠比壽站西側的住宅街。小巷深處有一盞燈。",
+  },
+  "montblanc-jiyugaoka": {
+    minutes: 19,
+    note: "自由が丘の駅から並木道を歩く。すぐに着く。",
+    noteEn: "From Jiyugaoka station, along the tree-lined street. A short walk.",
+    noteZh: "從自由が丘站沿著林蔭道走。很快就到。",
+  },
+  "kagurazaka-kakurenbo": {
+    minutes: 12,
+    note: "神楽坂を坂の上まで歩く。路地は右にある。見落としやすい。",
+    noteEn: "Up the slope of Kagurazaka. The alley is on the right. Easy to miss.",
+    noteZh: "走上神楽坂的坡道。巷子在右邊。容易錯過。",
+  },
+  "koenji-middle-arcade": {
+    minutes: 10,
+    note: "駅のアーケードを抜けると、夜の高円寺になる。",
+    noteEn: "Through the station arcade, and you're in nighttime Koenji.",
+    noteZh: "穿過車站的拱廊，就進入夜晚的高円寺。",
+  },
+  "kita-senju-izakaya-alley": {
+    minutes: 11,
+    note: "北千住駅を出ると、もうその匂いがする方向が分かる。",
+    noteEn: "Out of Kita-Senju station, you can already tell which direction by the smell.",
+    noteZh: "出了北千住站，靠氣味就知道往哪邊走。",
+  },
+  "kamata-gyoza": {
+    minutes: 14,
+    note: "蒲田の駅前を抜けて少し歩く。工場帰りの人と同じ方向に歩いている。",
+    noteEn: "Past the station area, a short walk. You're going the same direction as the shift workers.",
+    noteZh: "過了車站前廣場，走一小段。你和下班的工人走同一個方向。",
+  },
+  "akabane-ichibangai": {
+    minutes: 8,
+    note: "赤羽駅の地下通路を出て右。昼でも夜でも同じ感じの場所。",
+    noteEn: "Right out of the Akabane station underpass. A place that feels the same at noon and midnight.",
+    noteZh: "出了赤羽站地下通道右轉。一個中午和深夜感覺一樣的地方。",
+  },
+  "musashi-koyama-palm": {
+    minutes: 7,
+    note: "改札を出るとすぐアーケードに入れる。そのまま歩けばいい。",
+    noteEn: "Right out of the gate into the arcade. Just keep walking.",
+    noteZh: "出票口就進入拱廊了。直走就好。",
+  },
+  "oyama-happy-road": {
+    minutes: 9,
+    note: "大山駅を出て、アーケードに入る。雨でも濡れない。",
+    noteEn: "Out of Oyama station and into the arcade. You stay dry even in rain.",
+    noteZh: "出了大山站就進入拱廊。就算下雨也不會淋濕。",
+  },
+  "nerima-sento": {
+    minutes: 16,
+    note: "住宅街を少し歩く。煙突が見えたら近い。",
+    noteEn: "A short walk through the residential streets. If you see a chimney stack, you're close.",
+    noteZh: "在住宅街走一小段。如果看到煙囪，就快到了。",
+  },
+  "kameari-shotengai": {
+    minutes: 14,
+    note: "亀有駅を出て、銅像の方向に歩く。商店街はそこから始まる。",
+    noteEn: "Out of Kameari station, toward the statue. The shopping street begins there.",
+    noteZh: "出了亀有站，往銅像的方向走。商店街從那裡開始。",
+  },
+  "higashi-nakano-guard-shita": {
+    minutes: 10,
+    note: "東中野駅を出てすぐ高架下に入る。電車の音が頭上で鳴る。",
+    noteEn: "Right out of Higashi-Nakano station, under the tracks. Trains pass above you immediately.",
+    noteZh: "出了東中野站馬上就在高架橋下。電車的聲音在頭頂。",
+  },
+  "sengawa-keio-evening": {
+    minutes: 22,
+    note: "京王線の各駅停車で。急行が止まらない駅だから、少し余計に乗る。",
+    noteEn: "Keio local train. The express doesn't stop here — you ride a little further.",
+    noteZh: "搭京王線普通車去。急行不停這站，所以要再多坐一段。",
+  },
+  "chitose-karasuyama-shotengai": {
+    minutes: 20,
+    note: "京王線の各駅停車で。急行が止まらない分、窓の外の景色がある。",
+    noteEn: "Keio local train. The express skips this stop. There are things to see out the window.",
+    noteZh: "搭京王線普通車去。急行不停。有些窗外風景只有搭普通車才看得到。",
+  },
+  "shakujii-park-pond": {
+    minutes: 18,
+    note: "池に向かって歩いていくと、静かになってくる。",
+    noteEn: "Walking toward the pond. It gradually gets quieter as you go.",
+    noteZh: "朝池子方向走。漸漸安靜下來。",
+  },
+  "oizumi-gakuen-kita": {
+    minutes: 24,
+    note: "西武池袋線で終点近くまで乗る。車内の人が減っていく。",
+    noteEn: "Toward the end of the Seibu Ikebukuro line. The carriage gradually empties.",
+    noteZh: "搭西武池袋線到快要終點的地方。車廂裡的人漸漸少了。",
+  },
+  "takashimadaira-danchi": {
+    minutes: 27,
+    note: "都営三田線で。少し遠くなる。でも、着いた時の静けさがある。",
+    noteEn: "On the Toei Mita line. A little further out. But when you arrive, it's quiet.",
+    noteZh: "搭都營三田線去。有點遠。但到了的時候，那裡很安靜。",
+  },
+  "ojima-station-area": {
+    minutes: 22,
+    note: "都営新宿線で。賑やかな停車駅を過ぎると、車内が落ち着く。",
+    noteEn: "Toei Shinjuku line. After the busier stops, the carriage settles.",
+    noteZh: "搭都營新宿線去。過了比較熱鬧的站之後，車廂安靜下來。",
+  },
+  "mizue-end-of-line": {
+    minutes: 30,
+    note: "都営新宿線の終点近く。乗っている人が全員、ここまで来る人だ。",
+    noteEn: "Near the end of the Toei Shinjuku line. Everyone still on the train lives out here.",
+    noteZh: "都營新宿線快到終點了。車上剩下的人，全都是住在這裡的人。",
+  },
+};
+
+export function getSignalApproachNote(s: TonightSignal, g: LocaleGroup): string | undefined {
+  const d = APPROACH[s.id];
+  if (!d) return undefined;
+  if (g === "ja") return d.note;
+  if (g === "zh") return d.noteZh ?? d.noteEn;
+  return d.noteEn;
+}
+
+export function getSignalApproachMinutes(s: TonightSignal): number | undefined {
+  return APPROACH[s.id]?.minutes;
+}
