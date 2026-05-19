@@ -5,6 +5,9 @@ import { FilmGrain } from "@/components/ui/FilmGrain";
 import { WorldBridge } from "@/components/ui/WorldBridge";
 import { getTokyoWeather, weatherLabel, isWeatherMismatch } from "@/lib/weather";
 import { tokyoDate, getDayType, getTokyoSeason, shouldPreviewTomorrow } from "@/lib/season";
+import { tokyoHour, computeAtmosphere } from "@/lib/atmosphere";
+import { getTonightSignals } from "@/lib/tonightSignals";
+import { SignalFeed } from "@/components/tonight/SignalFeed";
 
 export const revalidate = 1800; // weather cache: refresh every 30 min
 
@@ -57,6 +60,17 @@ export default async function TodayPage({
     title: tomorrowPicks.task.id, hook: "",
   };
   const tomorrowDayName = DAY_NAMES_EN[tomorrowIndex];
+
+  // Tonight Signals
+  const hour = tokyoHour();
+  const { period } = computeAtmosphere(hour, weather.condition, weather.feeling);
+  const dayOfWeek = tokyo.getUTCDay();
+  const signalDayType =
+    dayOfWeek === 5 ? "friday" :
+    dayOfWeek === 6 ? "saturday" :
+    dayOfWeek === 0 ? "sunday" :
+    "weekday";
+  const signals = getTonightSignals(hour, weather.condition, period, signalDayType);
 
   const eventWeatherMismatch = isWeatherMismatch(picks.event.weatherSuitability, weather.condition);
   const taskWeatherMismatch  = isWeatherMismatch(picks.task.weatherSuitability, weather.condition);
@@ -128,6 +142,23 @@ export default async function TodayPage({
             }}
           />
         </header>
+
+        {/* ── Tonight in Tokyo signal feed ────────────── */}
+        {signals.length > 0 && (
+          <>
+            <div className="mb-10">
+              <SignalFeed signals={signals} />
+            </div>
+
+            <div
+              className="mb-12"
+              style={{
+                height: "1px",
+                background: "linear-gradient(to right, rgba(200,184,154,0.10), transparent)",
+              }}
+            />
+          </>
+        )}
 
         {/* ── WEEKEND: Event + Task ──────────────────── */}
         {dayType === "weekend" && (
