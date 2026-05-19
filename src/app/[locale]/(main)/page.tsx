@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { FilmGrain } from "@/components/ui/FilmGrain";
 import { DailyNudge } from "@/components/ui/DailyNudge";
+import { QuietPresence } from "@/components/ui/QuietPresence";
 import { OpeningHero } from "@/components/ui/OpeningHero";
 import { HomepagePortals } from "@/components/ui/HomepagePortals";
 import type { PortalData } from "@/components/ui/HomepagePortals";
@@ -120,6 +121,11 @@ export default async function HomePage({
       {/* ── Daily nudge — chapter-aware, scrolled to ──── */}
       <div className="py-16 flex justify-center px-6">
         <DailyNudge period={period} condition={weather.condition} />
+      </div>
+
+      {/* ── Quiet presence — small evidence other people are here too ── */}
+      <div className="pb-28 flex justify-center px-6">
+        <QuietPresence />
       </div>
 
       {/* ── Tonight signal — floats in after portals, bottom-left ── */}
