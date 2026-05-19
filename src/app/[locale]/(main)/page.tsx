@@ -4,10 +4,13 @@ import { DailyNudge } from "@/components/ui/DailyNudge";
 import { OpeningHero } from "@/components/ui/OpeningHero";
 import { HomepagePortals } from "@/components/ui/HomepagePortals";
 import type { PortalData } from "@/components/ui/HomepagePortals";
+import { TonightSignalFloat } from "@/components/tonight/TonightSignalFloat";
 import { getTokyoWeather } from "@/lib/weather";
 import { tokyoHour, tokyoTimeString, computeAtmosphere } from "@/lib/atmosphere";
 import { getOpeningLine } from "@/lib/openingLine";
 import { getOpeningPhoto, WEATHER_JP } from "@/lib/openingPhoto";
+import { getTonightSignal } from "@/lib/tonightSignals";
+import { tokyoDate, getDayType } from "@/lib/season";
 
 const WEATHER_LABEL: Partial<Record<string, string>> = {
   clear:    "Clear",
@@ -38,6 +41,14 @@ export default async function HomePage({
   const photo        = getOpeningPhoto(period, weather.condition);
   const weatherLabel = WEATHER_LABEL[weather.condition] ?? "";
   const weatherJp    = WEATHER_JP[weather.condition] ?? "";
+
+  const tokyo    = tokyoDate(Date.now());
+  const dayOfWeek = tokyo.getUTCDay();
+  const signalDayType =
+    dayOfWeek === 5 ? "friday" :
+    dayOfWeek === 6 ? "saturday" :
+    dayOfWeek === 0 ? "sunday" : "weekday";
+  const tonightSignal = getTonightSignal(hour, weather.condition, period, signalDayType);
 
   const portals: PortalData[] = [
     {
@@ -110,6 +121,9 @@ export default async function HomePage({
       <div className="py-16 flex justify-center px-6">
         <DailyNudge period={period} condition={weather.condition} />
       </div>
+
+      {/* ── Tonight signal — floats in after portals, bottom-left ── */}
+      <TonightSignalFloat signal={tonightSignal} />
     </div>
   );
 }
