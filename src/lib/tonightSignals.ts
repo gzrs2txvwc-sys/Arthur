@@ -854,6 +854,13 @@ function seededRng(seed: number): () => number {
   };
 }
 
+// ── Pulse window ──────────────────────────────────────────────────────────────
+
+/** Tokyo hour (0–23) at which the current pulse window started. */
+export function getPulseHour(): number {
+  return Math.floor((Date.now() + 9 * 3600 * 1000) / (3600 * 1000)) % 24;
+}
+
 // ── Active check ──────────────────────────────────────────────────────────────
 
 function isSignalActive(s: TonightSignal, hour: number): boolean {
@@ -913,8 +920,8 @@ export function getTonightSignal(
   const active = ALL_SIGNALS.filter((s) => isSignalActive(s, hour));
   if (active.length === 0) return null;
 
-  const dailySeed = Math.floor((Date.now() + 9 * 3600 * 1000) / (24 * 3600 * 1000));
-  const rng = seededRng(dailySeed);
+  const hourlySeed = Math.floor((Date.now() + 9 * 3600 * 1000) / (3600 * 1000));
+  const rng = seededRng(hourlySeed);
 
   if (rng() > getShowProbability(period)) return null;
 

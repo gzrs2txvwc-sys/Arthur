@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocale } from "next-intl";
 import type { TonightSignal } from "@/lib/tonightSignals";
@@ -27,36 +27,81 @@ function formatTime(d: Date): string {
   return `${h}:${m}`;
 }
 
-export function TonightSignalFloat({ signal }: Props) {
-  const locale = useLocale();
-  const [shown, setShown] = useState(false);
-  const [detailOpen, setDetailOpen] = useState(false);
-  const [dismissed, setDismissed] = useState(false);
-  const [time, setTime] = useState<string | null>(null);
+function pulseLabel(g: string): string {
+  const h = String(tokyoNow().getUTCHours()).padStart(2, "0");
+  if (g === "ja") return `${h}:00 のシグナル`;
+  if (g === "zh") return `${h}:00 訊號`;
+  return `signal at ${h}:00`;
+}
 
+async function fetchSignal(): Promise<TonightSignal | null> {
+  try {
+    const res = await fetch("/api/tonight-signal", { cache: "no-store" });
+    if (!res.ok) return null;
+    const data = await res.json();
+    return (data.signal as TonightSignal) ?? null;
+  } catch {
+    return null;
+  }
+}
+
+export function TonightSignalFloat({ signal: initialSignal }: Props) {
+  const locale = useLocale();
+  const [signal, setSignal]         = useState<TonightSignal | null>(initialSignal);
+  const [shown, setShown]           = useState(false);
+  const [detailOpen, setDetailOpen] = useState(false);
+  const [dismissed, setDismissed]   = useState(false);
+  const [pulsing, setPulsing]       = useState(false);
+  const [time, setTime]             = useState<string | null>(null);
+  const lastSignalId                = useRef<string | null>(initialSignal?.id ?? null);
+
+  // Live clock
   useEffect(() => {
     setTime(formatTime(tokyoNow()));
     const tick = setInterval(() => setTime(formatTime(tokyoNow())), 60_000);
     return () => clearInterval(tick);
   }, []);
 
+  // Delayed entrance
   useEffect(() => {
     const t = setTimeout(() => setShown(true), 4500);
     return () => clearTimeout(t);
   }, []);
 
+  // Poll for signal changes every 5 minutes
+  const refresh = useCallback(async () => {
+    const fresh = await fetchSignal();
+    if (!fresh) return;
+    if (fresh.id !== lastSignalId.current) {
+      lastSignalId.current = fresh.id;
+      // Flash glow, then swap content
+      setPulsing(true);
+      setTimeout(() => {
+        setSignal(fresh);
+        setPulsing(false);
+      }, 400);
+    }
+  }, []);
+
+  useEffect(() => {
+    const id = setInterval(refresh, 5 * 60 * 1000);
+    return () => clearInterval(id);
+  }, [refresh]);
+
   if (!signal || dismissed) return null;
 
-  const g = getLocaleGroup(locale);
-  const venueName = getSignalVenueName(signal, g);
+  const g           = getLocaleGroup(locale);
+  const venueName   = getSignalVenueName(signal, g);
   const neighborhood = getSignalNeighborhood(signal, g);
   const primaryText = getSignalCrowdReason(signal, g) ?? getSignalLimitedItem(signal, g);
+  const pulse       = pulseLabel(g);
 
   return (
     <>
       <AnimatePresence>
         {shown && !detailOpen && (
           <motion.div
+            key={signal.id}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 6, transition: { duration: 0.3 } }}
@@ -71,16 +116,25 @@ export function TonightSignalFloat({ signal }: Props) {
             }}
             onClick={() => setDetailOpen(true)}
           >
-            {/* Breathing glow wrapper */}
+            {/* Breathing / pulse glow */}
             <motion.div
-              animate={{
+              animate={pulsing ? {
+                boxShadow: [
+                  "0 0 18px rgba(200,150,42,0.05), 0 4px 20px rgba(0,0,0,0.38)",
+                  "0 0 52px rgba(200,150,42,0.28), 0 4px 20px rgba(0,0,0,0.38)",
+                  "0 0 18px rgba(200,150,42,0.05), 0 4px 20px rgba(0,0,0,0.38)",
+                ],
+              } : {
                 boxShadow: [
                   "0 0 18px rgba(200,150,42,0.05), 0 4px 20px rgba(0,0,0,0.38)",
                   "0 0 36px rgba(200,150,42,0.13), 0 4px 20px rgba(0,0,0,0.38)",
                 ],
                 opacity: [0.78, 0.96],
               }}
-              transition={{
+              transition={pulsing ? {
+                duration: 0.8,
+                ease: "easeInOut",
+              } : {
                 duration: 4,
                 repeat: Infinity,
                 repeatType: "reverse",
@@ -95,6 +149,19 @@ export function TonightSignalFloat({ signal }: Props) {
                 padding: "14px 16px 13px",
               }}
             >
+              {/* Pulse label — "signal at HH:00" */}
+              <p
+                className="font-mono mb-1"
+                style={{
+                  fontSize: "8px",
+                  letterSpacing: "0.22em",
+                  color: "rgba(200,150,42,0.36)",
+                  textTransform: "uppercase",
+                }}
+              >
+                {pulse}
+              </p>
+
               {/* Time · neighborhood */}
               <p
                 className="font-mono mb-2"
@@ -119,7 +186,7 @@ export function TonightSignalFloat({ signal }: Props) {
                 {venueName}
               </p>
 
-              {/* Primary text (crowd reason or limited item) */}
+              {/* Primary text */}
               {primaryText && (
                 <p
                   className="font-sans leading-snug"
@@ -134,7 +201,7 @@ export function TonightSignalFloat({ signal }: Props) {
               )}
             </motion.div>
 
-            {/* Dismiss button */}
+            {/* Dismiss */}
             <button
               onClick={(e) => {
                 e.stopPropagation();
