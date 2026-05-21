@@ -2,6 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { FilmGrain } from "@/components/ui/FilmGrain";
 import { DailyNudge } from "@/components/ui/DailyNudge";
 import { QuietPresence } from "@/components/ui/QuietPresence";
+import { TokyoWalksWidget } from "@/components/walks/TokyoWalksWidget";
 import { OpeningHero } from "@/components/ui/OpeningHero";
 import { HomepagePortals } from "@/components/ui/HomepagePortals";
 import type { PortalData } from "@/components/ui/HomepagePortals";
@@ -12,6 +13,7 @@ import { getOpeningLine } from "@/lib/openingLine";
 import { getOpeningPhoto, WEATHER_JP } from "@/lib/openingPhoto";
 import { getTonightSignal } from "@/lib/tonightSignals";
 import { tokyoDate, getDayType } from "@/lib/season";
+import { getActiveWalks } from "@/lib/tokyoWalks";
 
 const WEATHER_LABEL: Partial<Record<string, string>> = {
   clear:    "Clear",
@@ -50,6 +52,7 @@ export default async function HomePage({
     dayOfWeek === 6 ? "saturday" :
     dayOfWeek === 0 ? "sunday" : "weekday";
   const tonightSignal = getTonightSignal(hour, weather.condition, period, signalDayType);
+  const activeWalks   = getActiveWalks(period, weather.condition, signalDayType, hour);
 
   const portals: PortalData[] = [
     {
@@ -121,6 +124,11 @@ export default async function HomePage({
       {/* ── Daily nudge — chapter-aware, scrolled to ──── */}
       <div className="py-16 flex justify-center px-6">
         <DailyNudge period={period} condition={weather.condition} />
+      </div>
+
+      {/* ── Tokyo walks — real reasons to go outside tonight ── */}
+      <div className="pb-16 flex justify-center px-6">
+        <TokyoWalksWidget walks={activeWalks} />
       </div>
 
       {/* ── Quiet presence — small evidence other people are here too ── */}

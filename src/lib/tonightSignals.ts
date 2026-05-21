@@ -79,6 +79,13 @@ export interface TonightSignal {
   weatherBoost?: WeatherCondition[];
   periodBoost?: Period[];
   dayBoost?: DayType[];
+
+  // Partner signal layer — the emotional need before the venue name.
+  // Never rendered as "featured" or "sponsored." Just: tonight this fits.
+  partner?: boolean;
+  emotionalFit?: string;    // ja: what tonight calls for, before the venue appears
+  emotionalFitEn?: string;
+  emotionalFitZh?: string;
 }
 
 // ── Signal pool ──────────────────────────────────────────────────────────────
@@ -117,6 +124,10 @@ export const ALL_SIGNALS: TonightSignal[] = [
     timeClose: 19,
     weatherBoost: ["rainy", "overcast", "cloudy"],
     periodBoost: ["morning", "daytime", "evening"],
+    partner: true,
+    emotionalFit: "今夜、静かに、いいコーヒーを飲める場所に行きたい。",
+    emotionalFitEn: "Tonight feels right for a place where good coffee is reason enough to stay.",
+    emotionalFitZh: "今晚適合去一個好咖啡本身就是理由的地方。",
   },
 
   // ── Coffee Amp 高円寺 ─────────────────────────────────────────────────────
@@ -276,6 +287,10 @@ export const ALL_SIGNALS: TonightSignal[] = [
     timeOpen: 18,
     timeClose: 2,
     periodBoost: ["night", "latenight"],
+    partner: true,
+    emotionalFit: "今夜、誰かが急に決めた音楽のある場所に行きたい気分。",
+    emotionalFitEn: "Tonight feels right for music that wasn't planned. A bar that decided on impulse.",
+    emotionalFitZh: "今晚適合去一個臨時起意有音樂的地方。",
   },
 
   // ── DUG 新宿 ──────────────────────────────────────────────────────────────
@@ -433,6 +448,10 @@ export const ALL_SIGNALS: TonightSignal[] = [
     timeOpen: 7,
     timeClose: 2,
     periodBoost: ["night", "latenight"],
+    partner: true,
+    emotionalFit: "深夜、本の近くで時間を使いたい夜がある。",
+    emotionalFitEn: "Some nights call for being near books until late. No urgency.",
+    emotionalFitZh: "有些夜晚，就是想在書旁邊待著，不用急。",
   },
 
   // ── 西荻窪 骨董通り ───────────────────────────────────────────────────────
@@ -778,6 +797,117 @@ export const ALL_SIGNALS: TonightSignal[] = [
     rating: 4.4,
     timeOpen: 0,
     timeClose: 0,
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // PARTNER VENUES
+  // Emotionally fit. Never sales-like. The city surfaces these when they match.
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  // ── Coffee Wrights 三軒茶屋 ──────────────────────────────────────────────
+  {
+    id: "coffee-wrights-sangenjaya",
+    venueName: "Coffee Wrights 三軒茶屋",
+    venueNameEn: "Coffee Wrights Sangenjaya",
+    venueNameZh: "Coffee Wrights 三軒茶屋",
+    neighborhood: "三軒茶屋",
+    neighborhoodEn: "Sangenjaya",
+    station: "三軒茶屋",
+    stationEn: "Sangenjaya",
+    walkMinutes: 5,
+    address: "東京都世田谷区三軒茶屋 1 丁目",
+    addressEn: "Sangenjaya 1-chome, Setagaya-ku",
+    coords: [35.6444, 139.6700],
+    type: "food",
+    crowdReason: "今夜は雨のせいか、それとも月曜だからか、静かに来る人が多い。",
+    crowdReasonEn: "Rain or Monday — hard to say which. But people come quietly tonight.",
+    crowdReasonZh: "今晚因為下雨，還是因為星期一，說不清楚。但來的人都很安靜。",
+    observation: "窓の外に雨が当たる。店の中は温かい。その対比が、今夜だけのものだ。",
+    observationEn: "Rain on the window. Warm inside. That contrast belongs only to tonight.",
+    observationZh: "雨打著窗。裡面很溫暖。這個對比只屬於今晚。",
+    rating: 4.4,
+    crowdNote: "雨天比平常更安靜",
+    crowdNoteEn: "Quieter than usual on rainy nights",
+    crowdNoteZh: "雨天比平常更安靜",
+    timeOpen: 8,
+    timeClose: 21,
+    weatherBoost: ["rainy", "overcast", "cloudy"],
+    periodBoost: ["morning", "daytime", "evening"],
+    partner: true,
+    emotionalFit: "今夜、雨の音を聞きながら、静かにいられる場所に行きたい。",
+    emotionalFitEn: "Tonight feels right for somewhere quiet, with rain on the window.",
+    emotionalFitZh: "今晚適合去一個安靜的地方，聽雨打窗。",
+  },
+
+  // ── Fuglen Tokyo 富ヶ谷 ──────────────────────────────────────────────────
+  {
+    id: "fuglen-tokyo-tomigaya",
+    venueName: "Fuglen Tokyo",
+    venueNameEn: "Fuglen Tokyo",
+    venueNameZh: "Fuglen Tokyo",
+    neighborhood: "富ヶ谷",
+    neighborhoodEn: "Tomigaya",
+    station: "代々木公園",
+    stationEn: "Yoyogi-koen",
+    walkMinutes: 6,
+    address: "東京都渋谷区富ヶ谷 1-16-11",
+    addressEn: "1-16-11 Tomigaya, Shibuya-ku",
+    coords: [35.6709, 139.6940],
+    type: "bar",
+    crowdReason: "今夜は外が良い夜だと気づいた人たちが、自然とここに集まっている。",
+    crowdReasonEn: "People who noticed tonight was a good night to be outside ended up here.",
+    crowdReasonZh: "發現今晚適合在外面的人，自然而然地聚到這裡了。",
+    observation: "公園側のテラス席に、静かに飲んでいる人がいる。誰も急いでいない。",
+    observationEn: "Someone drinking quietly on the terrace facing the park. Nobody hurrying.",
+    observationZh: "公園那側的露台，有人靜靜地喝著。沒有人在趕時間。",
+    rating: 4.6,
+    recentBuzz: "コーヒーとナチュラルワインの二面性",
+    recentBuzzEn: "Coffee by day, natural wine by night",
+    recentBuzzZh: "白天咖啡，晚上自然酒",
+    timeOpen: 8,
+    timeClose: 1,
+    weatherBoost: ["clear", "cloudy"],
+    periodBoost: ["evening", "night"],
+    dayBoost: ["friday", "saturday", "sunday"],
+    partner: true,
+    emotionalFit: "今夜、外が気持ちいい夜は、テラスのある場所に行きたくなる。",
+    emotionalFitEn: "Tonight is the kind of night that asks for a terrace and something worth drinking.",
+    emotionalFitZh: "今晚是那種需要露台和一杯好東西的夜晚。",
+  },
+
+  // ── Naif Coffee 下北沢 ───────────────────────────────────────────────────
+  {
+    id: "naif-coffee-shimokita",
+    venueName: "ナイフ・コーヒー",
+    venueNameEn: "Naif Coffee",
+    venueNameZh: "Naif Coffee",
+    neighborhood: "下北沢",
+    neighborhoodEn: "Shimokitazawa",
+    station: "下北沢",
+    stationEn: "Shimokitazawa",
+    walkMinutes: 6,
+    address: "東京都世田谷区北沢 2 丁目",
+    addressEn: "Kitazawa 2-chome, Setagaya-ku",
+    coords: [35.6612, 139.6669],
+    type: "food",
+    crowdReason: "下北沢の夜の前か後に、静かに一杯飲む場所として知られてきた。",
+    crowdReasonEn: "Known as the quiet cup before or after a Shimokita night.",
+    crowdReasonZh: "已成為下北澤的夜晚前後靜靜喝一杯的地方。",
+    observation: "音楽会場の帰り道に寄る人と、これから行く人が、同じカウンターにいる。",
+    observationEn: "People who just came from a show and people about to go to one, at the same counter.",
+    observationZh: "剛看完表演的人和準備要去的人，坐在同一個吧台。",
+    rating: 4.5,
+    crowdNote: "下北沢の夜の一部になっている",
+    crowdNoteEn: "Woven into Shimokita's evening",
+    crowdNoteZh: "已經成為下北澤夜晚的一部分",
+    timeOpen: 11,
+    timeClose: 23,
+    periodBoost: ["evening", "night"],
+    dayBoost: ["friday", "saturday"],
+    partner: true,
+    emotionalFit: "今夜、音楽の前でも後でも、静かに一杯できる場所がある。",
+    emotionalFitEn: "Tonight there's a place for a quiet cup — before the music, or after.",
+    emotionalFitZh: "今晚有個地方可以靜靜喝一杯——音樂前，或音樂後。",
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -1289,6 +1419,13 @@ export function getSignalStationLine(s: TonightSignal, g: LocaleGroup): string |
 
 export function getSignalMapsUrl(s: TonightSignal): string {
   return `https://www.google.com/maps/search/?api=1&query=${s.coords[0]},${s.coords[1]}`;
+}
+
+export function getSignalEmotionalFit(s: TonightSignal, g: LocaleGroup): string | undefined {
+  if (!s.partner || !s.emotionalFit) return undefined;
+  if (g === "ja") return s.emotionalFit;
+  if (g === "zh") return s.emotionalFitZh ?? s.emotionalFitEn;
+  return s.emotionalFitEn;
 }
 
 // ── Seeded PRNG ───────────────────────────────────────────────────────────────

@@ -17,6 +17,7 @@ import {
   getSignalMapsUrl,
   getSignalApproachNote,
   getSignalApproachMinutes,
+  getSignalEmotionalFit,
 } from "@/lib/tonightSignals";
 
 interface Props {
@@ -61,8 +62,9 @@ export function TonightSignalDetail({ signal, open, onClose }: Props) {
   const recentBuzz   = getSignalRecentBuzz(signal, g);
   const stationLine  = getSignalStationLine(signal, g);
   const mapsUrl      = getSignalMapsUrl(signal);
-  const approachNote = getSignalApproachNote(signal, g);
-  const approachMins = getSignalApproachMinutes(signal);
+  const approachNote  = getSignalApproachNote(signal, g);
+  const approachMins  = getSignalApproachMinutes(signal);
+  const emotionalFit  = getSignalEmotionalFit(signal, g);
 
   const credentialLine = [
     signal.rating ? `${signal.rating}` : null,
@@ -147,6 +149,21 @@ export function TonightSignalDetail({ signal, open, onClose }: Props) {
             >
               {time ?? "–:––"} · {neighborhood}
             </p>
+
+            {/* Partner emotional framing — the need comes before the venue */}
+            {emotionalFit && (
+              <p
+                className="font-sans leading-relaxed mb-3"
+                style={{
+                  fontSize: "13px",
+                  color: "rgba(200,184,154,0.52)",
+                  lineHeight: 1.72,
+                  fontStyle: "italic",
+                }}
+              >
+                {emotionalFit}
+              </p>
+            )}
 
             {/* Venue name */}
             <h2

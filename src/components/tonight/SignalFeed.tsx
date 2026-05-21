@@ -17,6 +17,7 @@ import {
   getSignalMapsUrl,
   getSignalApproachNote,
   getSignalApproachMinutes,
+  getSignalEmotionalFit,
 } from "@/lib/tonightSignals";
 import { TonightSignalDetail } from "./TonightSignalDetail";
 
@@ -66,6 +67,7 @@ export function SignalFeed({ signals }: SignalFeedProps) {
   const mapsUrl      = getSignalMapsUrl(signal);
   const approachNote = getSignalApproachNote(signal, g);
   const approachMins = getSignalApproachMinutes(signal);
+  const emotionalFit = getSignalEmotionalFit(signal, g);
 
   const credentialLine = [
     signal.rating ? `${signal.rating}` : null,
@@ -109,6 +111,22 @@ export function SignalFeed({ signals }: SignalFeedProps) {
         >
           {now ? formatTime(now) : "–:––"} · {neighborhood}
         </p>
+
+        {/* Partner emotional framing — the need comes before the venue */}
+        {emotionalFit && (
+          <p
+            className="leading-relaxed mb-3"
+            style={{
+              fontSize: "13px",
+              color: "var(--color-muted)",
+              opacity: 0.55,
+              lineHeight: 1.72,
+              fontStyle: "italic",
+            }}
+          >
+            {emotionalFit}
+          </p>
+        )}
 
         {/* Venue name — tappable to open detail */}
         <button
