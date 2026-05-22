@@ -626,6 +626,17 @@ body {
   to   { transform: scaleY(1.0);  }
 }
 
+/* ─── PWA safe area insets ───────────────────────── */
+/* Applied when running in standalone mode (installed PWA) */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .safe-area-inset-bottom {
+    margin-bottom: env(safe-area-inset-bottom);
+  }
+}
+
 /* ─── CJK typography adjustments ────────────────── */
 
 /* Display headings — Latin uses tight tracking; CJK needs breathing room */

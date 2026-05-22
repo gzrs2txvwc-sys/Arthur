@@ -88,7 +88,7 @@ export function HomepagePortals({ portals }: { portals: PortalData[] }) {
     // experience doesn't feel punishing after navigation.
     const isReturn = sessionStorage.getItem("hp_seen") === "1";
     sessionStorage.setItem("hp_seen", "1");
-    const delay = isReturn ? 700 : 3500;
+    const delay = isReturn ? 600 : 2000;
     const timer = setTimeout(() => setRevealed(true), delay);
     return () => clearTimeout(timer);
   }, []);

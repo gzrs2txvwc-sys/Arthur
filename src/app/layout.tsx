@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { Cormorant_Garamond } from "next/font/google";
 import { Noto_Serif_JP } from "next/font/google";
 import { JetBrains_Mono } from "next/font/google";
 import { getLocale } from "next-intl/server";
+import { PWAInit } from "@/components/PWAInit";
 import "./globals.css";
 
 const inter = Inter({
@@ -34,6 +35,12 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+export const viewport: Viewport = {
+  themeColor: "#100c07",
+  viewportFit: "cover",
+  colorScheme: "dark",
+};
+
 const ogLocaleMap: Record<string, string> = {
   en: "en_US",
   ja: "ja_JP",
@@ -50,16 +57,21 @@ export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
   return {
     title: {
-      template: "%s — MA (間)",
-      default: "MA (間) — Japan Lifestyle Platform",
+      template: "%s — Arthur",
+      default: "Arthur — Tonight in Tokyo",
     },
     description:
-      "Cinematic stories from the emotional geography of Japan. Not a travel guide. A feeling.",
-    keywords: ["Japan", "lifestyle", "culture", "Tokyo", "Kyoto", "Osaka"],
+      "A nightly companion for living in Tokyo.",
+    keywords: ["Tokyo", "Japan", "lifestyle", "tonight", "walks", "companion"],
     openGraph: {
       type: "website",
       locale: ogLocaleMap[locale] ?? "en_US",
-      siteName: "MA (間)",
+      siteName: "Arthur",
+    },
+    appleWebApp: {
+      capable: true,
+      title: "Arthur",
+      statusBarStyle: "black-translucent",
     },
   };
 }
@@ -79,7 +91,10 @@ export default async function RootLayout({
         ${jetbrainsMono.variable}
       `}
     >
-      <body className="min-h-screen">{children}</body>
+      <body className="min-h-screen">
+        <PWAInit />
+        {children}
+      </body>
     </html>
   );
 }

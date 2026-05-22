@@ -115,7 +115,7 @@ export function TonightSignalFloat({ signal: initialSignal }: Props) {
             transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
             style={{
               position: "fixed",
-              bottom: 28,
+              bottom: "max(28px, calc(20px + env(safe-area-inset-bottom)))",
               left: 24,
               zIndex: 40,
               maxWidth: 272,
