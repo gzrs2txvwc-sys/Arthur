@@ -43,9 +43,9 @@ function WalkCard({ walk, g, index }: { walk: TokyoWalk; g: string; index: numbe
       >
         <div
           style={{
-            borderTop: "1px solid rgba(200,150,42,0.08)",
-            paddingTop: "18px",
-            paddingBottom: expanded ? "4px" : "18px",
+            borderTop: "1px solid rgba(200,150,42,0.18)",
+            paddingTop: "20px",
+            paddingBottom: expanded ? "6px" : "20px",
           }}
         >
           {/* Time + route hint */}
@@ -55,7 +55,7 @@ function WalkCard({ walk, g, index }: { walk: TokyoWalk; g: string; index: numbe
               style={{
                 fontSize: "9px",
                 letterSpacing: "0.2em",
-                color: "rgba(200,150,42,0.38)",
+                color: "rgba(210,155,48,0.65)",
               }}
             >
               {[walk.time, route].filter(Boolean).join("  ·  ")}
@@ -66,8 +66,9 @@ function WalkCard({ walk, g, index }: { walk: TokyoWalk; g: string; index: numbe
           <h3
             className="font-display font-light leading-tight mb-2"
             style={{
-              fontSize: "17px",
+              fontSize: "18px",
               color: "var(--color-parchment)",
+              opacity: 0.95,
               letterSpacing: "0.01em",
             }}
           >
@@ -78,9 +79,9 @@ function WalkCard({ walk, g, index }: { walk: TokyoWalk; g: string; index: numbe
           <p
             style={{
               fontSize: "13px",
-              color: "var(--color-muted)",
-              opacity: 0.62,
-              lineHeight: 1.6,
+              color: "var(--color-parchment)",
+              opacity: 0.60,
+              lineHeight: 1.65,
               fontStyle: "italic",
             }}
           >
@@ -103,10 +104,10 @@ function WalkCard({ walk, g, index }: { walk: TokyoWalk; g: string; index: numbe
             <p
               style={{
                 fontSize: "13px",
-                color: "var(--color-muted)",
-                opacity: 0.52,
-                lineHeight: 1.75,
-                paddingTop: "10px",
+                color: "var(--color-parchment)",
+                opacity: 0.55,
+                lineHeight: 1.82,
+                paddingTop: "12px",
                 paddingBottom: "18px",
               }}
             >
@@ -118,8 +119,8 @@ function WalkCard({ walk, g, index }: { walk: TokyoWalk; g: string; index: numbe
               className="font-mono"
               style={{
                 fontSize: "9px",
-                letterSpacing: "0.16em",
-                color: "rgba(200,150,42,0.28)",
+                letterSpacing: "0.18em",
+                color: "rgba(210,155,48,0.52)",
                 paddingBottom: "18px",
               }}
             >
@@ -147,7 +148,7 @@ export function TokyoWalksWidget({ walks }: TokyoWalksWidgetProps) {
     <motion.section
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 1.2, ease: "easeOut", delay: 0.8 }}
+      transition={{ duration: 1.2, ease: "easeOut", delay: 0.6 }}
       style={{ maxWidth: 340 }}
     >
       {/* Eyebrow */}
@@ -155,10 +156,9 @@ export function TokyoWalksWidget({ walks }: TokyoWalksWidgetProps) {
         className="font-mono mb-5"
         style={{
           fontSize: "9px",
-          letterSpacing: "0.25em",
+          letterSpacing: "0.28em",
           textTransform: "uppercase",
-          color: "var(--color-muted)",
-          opacity: 0.32,
+          color: "rgba(210,155,48,0.72)",
         }}
       >
         {sectionLabel}

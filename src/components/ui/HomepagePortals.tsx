@@ -34,32 +34,36 @@ function WorldPortal({
         style={{ filter: imageFilter }}
       />
       <div className="absolute inset-0" style={{ background: tint }} />
+      {/* Warm amber-black gradient — lighter than before, keeps text legible */}
       <div
         className="absolute inset-0"
-        style={{ background: "linear-gradient(to top, color-mix(in srgb, var(--color-ink) 95%, transparent), color-mix(in srgb, var(--color-ink) 15%, transparent), transparent)" }}
+        style={{
+          background:
+            "linear-gradient(to top, rgba(14,7,1,0.88) 0%, rgba(10,5,0,0.52) 30%, rgba(6,3,0,0.16) 58%, transparent 80%)",
+        }}
       />
       <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-10">
         <span
           className="font-mono mb-4 block"
-          style={{ fontSize: "9px", letterSpacing: "0.3em", color: accentColor, opacity: 0.5 }}
+          style={{ fontSize: "9px", letterSpacing: "0.3em", color: accentColor, opacity: 0.78 }}
         >
           {numeral}
         </span>
         <h2
           className="font-display font-light leading-tight mb-3"
-          style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)", color: "var(--color-parchment)" }}
+          style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)", color: "var(--color-parchment)", opacity: 0.96 }}
         >
           {title}
         </h2>
         <p
           className="text-sm font-light leading-relaxed mb-5 max-w-xs"
-          style={{ color: "var(--color-muted)", opacity: 0.5 }}
+          style={{ color: "var(--color-parchment)", opacity: 0.62 }}
         >
           {tagline}
         </p>
         <span
           className="font-mono flex items-center gap-2 group-hover:gap-3 transition-all duration-300"
-          style={{ fontSize: "10px", letterSpacing: "0.18em", color: accentColor, opacity: 0.75 }}
+          style={{ fontSize: "10px", letterSpacing: "0.18em", color: accentColor, opacity: 0.90 }}
         >
           {enterLabel} <span>→</span>
         </span>

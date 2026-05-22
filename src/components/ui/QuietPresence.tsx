@@ -29,15 +29,15 @@ export function QuietPresence() {
         <motion.p
           key={text}
           initial={{ opacity: 0 }}
-          animate={{ opacity: 0.32 }}
+          animate={{ opacity: 0.48 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 1.6, ease: "easeInOut", delay: 2.4 }}
           style={{
-            fontSize: "12px",
-            lineHeight: 1.75,
-            color: "var(--color-muted)",
+            fontSize: "13px",
+            lineHeight: 1.85,
+            color: "var(--color-parchment)",
             letterSpacing: "0.02em",
-            maxWidth: 300,
+            maxWidth: 320,
             textAlign: "center",
           }}
         >

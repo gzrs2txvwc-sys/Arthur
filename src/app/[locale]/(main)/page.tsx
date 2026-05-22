@@ -62,8 +62,8 @@ export default async function HomePage({
       enterLabel:  t("worlds.tonight.enter"),
       href:        `${prefix}/today`,
       imageUrl:    "https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?w=1600&q=75",
-      imageFilter: "saturate(0.28) brightness(0.22) contrast(1.2)",
-      tint:        "rgba(18, 28, 52, 0.28)",
+      imageFilter: "saturate(0.42) brightness(0.42) contrast(1.08)",
+      tint:        "rgba(18, 28, 52, 0.18)",
       accentColor: "#7B8DB3",
     },
     {
@@ -73,8 +73,8 @@ export default async function HomePage({
       enterLabel:  t("worlds.wander.enter"),
       href:        `${prefix}/map`,
       imageUrl:    "https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=1600&q=75",
-      imageFilter: "saturate(0.48) brightness(0.3) contrast(1.06)",
-      tint:        "rgba(14, 32, 22, 0.18)",
+      imageFilter: "saturate(0.55) brightness(0.46) contrast(1.03)",
+      tint:        "rgba(14, 32, 22, 0.14)",
       accentColor: "#7A9E7E",
     },
     {
@@ -84,8 +84,8 @@ export default async function HomePage({
       enterLabel:  t("worlds.stories.enter"),
       href:        `${prefix}/moments`,
       imageUrl:    "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?w=1600&q=75",
-      imageFilter: "saturate(0.22) brightness(0.24) contrast(1.14) sepia(0.3)",
-      tint:        "rgba(48, 32, 12, 0.22)",
+      imageFilter: "saturate(0.40) brightness(0.44) contrast(1.06) sepia(0.16)",
+      tint:        "rgba(48, 32, 12, 0.16)",
       accentColor: "#C9A96E",
     },
     {
@@ -95,16 +95,19 @@ export default async function HomePage({
       enterLabel:  t("worlds.living.enter"),
       href:        `${prefix}/living`,
       imageUrl:    "https://images.unsplash.com/photo-1580822184713-fc5400e7fe10?w=1600&q=75",
-      imageFilter: "saturate(0.52) brightness(0.34) contrast(1.04)",
-      tint:        "rgba(12, 18, 38, 0.14)",
+      imageFilter: "saturate(0.60) brightness(0.52) contrast(1.02)",
+      tint:        "rgba(12, 18, 38, 0.10)",
       accentColor: "#A8B5A0",
     },
   ];
 
   return (
-    <div className="min-h-screen bg-[var(--color-ink)]">
-      {/* Page-level grain — also applies beneath the hero overlay */}
-      <FilmGrain opacity={0.032} className="z-0 pointer-events-none" />
+    <div className="min-h-screen relative" style={{ background: "#100c07" }}>
+      {/* Persistent warm city-sky glow — ambient ray breathes across the full page */}
+      <div className="ambient-ray" aria-hidden="true" />
+
+      {/* Page-level grain */}
+      <FilmGrain opacity={0.036} className="z-[1] pointer-events-none" />
 
       {/* ── Cinematic opening — full viewport, photo background ── */}
       <OpeningHero
@@ -120,22 +123,45 @@ export default async function HomePage({
         walksCount={activeWalks.length}
       />
 
+      {/* Warm seam — konbini / station light bleeding between hero and portals */}
+      <div
+        aria-hidden="true"
+        style={{
+          height: "1px",
+          background:
+            "linear-gradient(to right, transparent 6%, rgba(180,105,20,0.26) 32%, rgba(195,120,28,0.32) 50%, rgba(180,105,20,0.26) 68%, transparent 94%)",
+        }}
+      />
+
       {/* ── World Portals — revealed after 3.5s, just below fold ── */}
       <HomepagePortals portals={portals} />
 
-      {/* ── Daily nudge — chapter-aware, scrolled to ──── */}
-      <div className="py-16 flex justify-center px-6">
-        <DailyNudge period={period} condition={weather.condition} />
-      </div>
+      {/* ── Lower page — text sections in a warm ambient field ── */}
+      <div className="relative">
+        {/* Warm spill from above — like light from the portal zone */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 80% 45% at 50% 0%, rgba(165,88,12,0.072) 0%, transparent 58%)",
+          }}
+        />
 
-      {/* ── Tokyo walks — real reasons to go outside tonight ── */}
-      <div className="pb-16 flex justify-center px-6">
-        <TokyoWalksWidget walks={activeWalks} />
-      </div>
+        {/* ── Daily nudge — chapter-aware, scrolled to ──── */}
+        <div className="py-16 flex justify-center px-6">
+          <DailyNudge period={period} condition={weather.condition} />
+        </div>
 
-      {/* ── Quiet presence — small evidence other people are here too ── */}
-      <div className="pb-28 flex justify-center px-6">
-        <QuietPresence />
+        {/* ── Tokyo walks — real reasons to go outside tonight ── */}
+        <div className="pb-16 flex justify-center px-6">
+          <TokyoWalksWidget walks={activeWalks} />
+        </div>
+
+        {/* ── Quiet presence — small evidence other people are here too ── */}
+        <div className="pb-28 flex justify-center px-6">
+          <QuietPresence />
+        </div>
       </div>
 
       {/* ── Tonight signal — floats in after portals, bottom-left ── */}

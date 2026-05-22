@@ -32,15 +32,14 @@ export function DailyNudge({ period, condition }: DailyNudgeProps) {
         <motion.p
           className="font-mono text-center"
           style={{
-            fontSize: "10px",
-            letterSpacing: "0.18em",
-            color: "var(--color-muted)",
-            opacity: 0.28,
+            fontSize: "11px",
+            letterSpacing: "0.16em",
+            color: "var(--color-sand)",
             maxWidth: "32rem",
-            lineHeight: 1.9,
+            lineHeight: 2.0,
           }}
           initial={{ opacity: 0 }}
-          animate={{ opacity: 0.28 }}
+          animate={{ opacity: 0.58 }}
           transition={{ duration: 1.8, delay: 0.4 }}
         >
           {nudge}
