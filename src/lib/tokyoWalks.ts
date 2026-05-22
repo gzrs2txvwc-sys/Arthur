@@ -266,3 +266,77 @@ export function getWalkRouteHint(w: TokyoWalk, g: string): string | undefined {
   if (g === "zh") return w.routeHintZh ?? w.routeHint;
   return w.routeHint;
 }
+
+// Why the city surfaced this walk tonight — shown before the title
+export function getWalkSurfacedReason(
+  w: TokyoWalk,
+  condition: string,
+  period:    string,
+  g:         string,
+): string | null {
+  const isRainy = condition === "rainy" || condition === "foggy";
+  const isLate  = period === "night" || period === "latenight";
+  const isMorning = period === "earlyMorning" || period === "dawn" || period === "morning";
+
+  if (w.id === "rain-walk" && isRainy) {
+    if (g === "ja") return "雨が降っているから。";
+    if (g === "zh") return "因為今晚下著雨。";
+    return "Because it's raining tonight.";
+  }
+
+  if (w.id === "last-train-walk" && isLate) {
+    if (g === "ja") return "もう夜が深いから。";
+    if (g === "zh") return "因為夜已深了。";
+    return "Because the night is late.";
+  }
+
+  if (w.id === "early-morning-walk" && isMorning) {
+    if (g === "ja") return "朝がここにある。";
+    if (g === "zh") return "因為早晨在這裡。";
+    return "Because morning is here.";
+  }
+
+  if (w.id === "after-show-walk" && isLate) {
+    if (g === "ja") return "夜がまだ続いているから。";
+    if (g === "zh") return "因為夜晚還沒結束。";
+    return "Because the night is still going.";
+  }
+
+  if (w.id === "river-walk" && isRainy) {
+    if (g === "ja") return "雨が川を変えるから。";
+    if (g === "zh") return "因為雨讓河流不一樣了。";
+    return "Because rain changes the river.";
+  }
+
+  if (w.id === "konbini-walk" && isLate) {
+    if (g === "ja") return "今夜はどこへも行かなくていい。";
+    if (g === "zh") return "今晚不用去任何地方。";
+    return "Tonight needs no destination.";
+  }
+
+  if (w.id === "end-of-line-walk") {
+    if (g === "ja") return "今夜は遠くまで行きたい夜。";
+    if (g === "zh") return "今晚適合走遠一點。";
+    return "Tonight feels right for going further.";
+  }
+
+  if (w.id === "first-month-walk") {
+    if (g === "ja") return "東京に慣れている途中だから。";
+    if (g === "zh") return "還在熟悉東京的過程中。";
+    return "For people still finding their rhythm here.";
+  }
+
+  if (w.id === "arcade-walk" && isLate) {
+    if (g === "ja") return "夜の商店街に灯りがある。";
+    if (g === "zh") return "商店街夜裡還有燈光。";
+    return "The arcade still has light at night.";
+  }
+
+  if (w.id === "platform-walk") {
+    if (g === "ja") return "今夜は電車を見送りたい気分。";
+    if (g === "zh") return "今晚想讓幾班車過去。";
+    return "Tonight feels right for watching trains leave.";
+  }
+
+  return null;
+}

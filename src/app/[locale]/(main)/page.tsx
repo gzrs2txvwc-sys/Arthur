@@ -14,6 +14,7 @@ import { getOpeningPhoto, WEATHER_JP } from "@/lib/openingPhoto";
 import { getTonightSignal } from "@/lib/tonightSignals";
 import { tokyoDate, getDayType } from "@/lib/season";
 import { getActiveWalks } from "@/lib/tokyoWalks";
+import { getTickerNotes } from "@/lib/districtTicker";
 
 const WEATHER_LABEL: Partial<Record<string, string>> = {
   clear:    "Clear",
@@ -53,6 +54,7 @@ export default async function HomePage({
     dayOfWeek === 0 ? "sunday" : "weekday";
   const tonightSignal = getTonightSignal(hour, weather.condition, period, signalDayType);
   const activeWalks   = getActiveWalks(period, weather.condition, signalDayType, hour);
+  const tickerItems   = getTickerNotes(period, weather.condition, signalDayType, locale);
 
   const portals: PortalData[] = [
     {
@@ -121,6 +123,7 @@ export default async function HomePage({
         locale={locale}
         hour={hour}
         walksCount={activeWalks.length}
+        tickerItems={tickerItems}
       />
 
       {/* Warm seam — konbini / station light bleeding between hero and portals */}
@@ -157,7 +160,11 @@ export default async function HomePage({
 
         {/* ── Tokyo walks — real reasons to go outside tonight ── */}
         <div className="pt-14 pb-16 flex justify-center px-6">
-          <TokyoWalksWidget walks={activeWalks} />
+          <TokyoWalksWidget
+            walks={activeWalks}
+            condition={weather.condition}
+            period={period}
+          />
         </div>
 
         <div className="section-seam mx-8 md:mx-16" />

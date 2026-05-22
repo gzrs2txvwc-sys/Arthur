@@ -1,10 +1,12 @@
 import Image from "next/image";
 import { FilmGrain } from "@/components/ui/FilmGrain";
 import { AnchorMoment } from "@/components/ui/AnchorMoment";
+import { DistrictTicker } from "@/components/ui/DistrictTicker";
 import type { AtmospherePeriod } from "@/lib/atmosphere";
 import type { WeatherCondition } from "@/lib/weather";
 import type { OpeningPhoto } from "@/lib/openingPhoto";
 import { PERIOD_PHOTO_FILTER, getConditionTint } from "@/lib/openingPhoto";
+import type { TickerItem } from "@/lib/districtTicker";
 
 const CITY_LABEL: Record<string, string> = {
   ja:      "東京",
@@ -23,6 +25,7 @@ interface Props {
   locale?:      string;
   hour:         number;
   walksCount:   number;
+  tickerItems:  TickerItem[];
 }
 
 function heroAnchor(hour: number, condition: string, locale: string): string {
@@ -90,7 +93,7 @@ function liveStrip(condition: string, walksCount: number, locale: string): strin
 export function OpeningHero({
   timeStr, weatherLabel, weatherJp,
   openingLine, photo, period, condition,
-  locale = "en", hour, walksCount,
+  locale = "en", hour, walksCount, tickerItems,
 }: Props) {
   const photoFilter   = PERIOD_PHOTO_FILTER[period];
   const conditionTint = getConditionTint(condition);
@@ -284,6 +287,16 @@ export function OpeningHero({
             {strip}
           </span>
         </div>
+
+        {/* District ticker — city scanning itself */}
+        {tickerItems.length > 0 && (
+          <div
+            className="mt-5 animate-fade-up w-full md:w-[min(480px,80vw)]"
+            style={{ animationDelay: "0.8s", animationFillMode: "backwards" }}
+          >
+            <DistrictTicker items={tickerItems} />
+          </div>
+        )}
       </div>
 
       {/* Scroll hint */}
