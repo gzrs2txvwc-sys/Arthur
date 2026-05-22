@@ -175,13 +175,13 @@ const PHOTOS: PhotoEntry[] = [
 // ── Photo filter per period ────────────────────────────────────────────────────
 // Aggressive desaturation — the photo becomes emotional texture, not illustration.
 export const PERIOD_PHOTO_FILTER: Record<AtmospherePeriod, string> = {
-  latenight: "saturate(0.1) brightness(0.28) contrast(1.25)",
-  dawn:      "saturate(0.18) brightness(0.38) contrast(1.12)",
-  morning:   "saturate(0.38) brightness(0.52) contrast(1.08)",
-  daytime:   "saturate(0.42) brightness(0.58) contrast(1.06)",
-  sunset:    "saturate(0.28) brightness(0.44) contrast(1.12)",
-  evening:   "saturate(0.16) brightness(0.36) contrast(1.18)",
-  night:     "saturate(0.1) brightness(0.3) contrast(1.22)",
+  latenight: "saturate(0.18) brightness(0.42) contrast(1.18)",
+  dawn:      "saturate(0.26) brightness(0.50) contrast(1.10)",
+  morning:   "saturate(0.46) brightness(0.62) contrast(1.06)",
+  daytime:   "saturate(0.52) brightness(0.68) contrast(1.04)",
+  sunset:    "saturate(0.38) brightness(0.56) contrast(1.08)",
+  evening:   "saturate(0.28) brightness(0.50) contrast(1.12)",
+  night:     "saturate(0.22) brightness(0.46) contrast(1.16)",
 };
 
 // ── Japanese weather kanji ────────────────────────────────────────────────────

@@ -116,6 +116,8 @@ export default async function HomePage({
         period={period}
         condition={weather.condition}
         locale={locale}
+        hour={hour}
+        walksCount={activeWalks.length}
       />
 
       {/* ── World Portals — revealed after 3.5s, just below fold ── */}
