@@ -10,6 +10,7 @@ import {
   getSignalNeighborhood,
   getSignalCrowdReason,
   getSignalLimitedItem,
+  getSignalObservation,
 } from "@/lib/tonightSignals";
 import { TonightSignalDetail } from "./TonightSignalDetail";
 
@@ -27,11 +28,16 @@ function formatTime(d: Date): string {
   return `${h}:${m}`;
 }
 
-function pulseLabel(g: string): string {
-  const h = String(tokyoNow().getUTCHours()).padStart(2, "0");
-  if (g === "ja") return `${h}:00 のシグナル`;
-  if (g === "zh") return `${h}:00 訊號`;
-  return `signal at ${h}:00`;
+function tonightLabel(g: string): string {
+  if (g === "ja") return "今夜";
+  if (g === "zh") return "今晚";
+  return "TONIGHT";
+}
+
+function tapLabel(g: string): string {
+  if (g === "ja") return "詳細を見る →";
+  if (g === "zh") return "查看詳情 →";
+  return "tap to explore →";
 }
 
 async function fetchSignal(): Promise<TonightSignal | null> {
@@ -55,26 +61,23 @@ export function TonightSignalFloat({ signal: initialSignal }: Props) {
   const [time, setTime]             = useState<string | null>(null);
   const lastSignalId                = useRef<string | null>(initialSignal?.id ?? null);
 
-  // Live clock
   useEffect(() => {
     setTime(formatTime(tokyoNow()));
     const tick = setInterval(() => setTime(formatTime(tokyoNow())), 60_000);
     return () => clearInterval(tick);
   }, []);
 
-  // Delayed entrance
+  // Show sooner — first impression matters
   useEffect(() => {
-    const t = setTimeout(() => setShown(true), 4500);
+    const t = setTimeout(() => setShown(true), 2200);
     return () => clearTimeout(t);
   }, []);
 
-  // Poll for signal changes every 5 minutes
   const refresh = useCallback(async () => {
     const fresh = await fetchSignal();
     if (!fresh) return;
     if (fresh.id !== lastSignalId.current) {
       lastSignalId.current = fresh.id;
-      // Flash glow, then swap content
       setPulsing(true);
       setTimeout(() => {
         setSignal(fresh);
@@ -90,11 +93,15 @@ export function TonightSignalFloat({ signal: initialSignal }: Props) {
 
   if (!signal || dismissed) return null;
 
-  const g           = getLocaleGroup(locale);
-  const venueName   = getSignalVenueName(signal, g);
+  const g            = getLocaleGroup(locale);
+  const venueName    = getSignalVenueName(signal, g);
   const neighborhood = getSignalNeighborhood(signal, g);
-  const primaryText = getSignalCrowdReason(signal, g) ?? getSignalLimitedItem(signal, g);
-  const pulse       = pulseLabel(g);
+  const crowdReason  = getSignalCrowdReason(signal, g);
+  const observation  = getSignalObservation(signal, g);
+  const limitedItem  = getSignalLimitedItem(signal, g);
+  const primaryText  = crowdReason ?? limitedItem ?? observation;
+  const tonight      = tonightLabel(g);
+  const tap          = tapLabel(g);
 
   return (
     <>
@@ -102,121 +109,154 @@ export function TonightSignalFloat({ signal: initialSignal }: Props) {
         {shown && !detailOpen && (
           <motion.div
             key={signal.id}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 6, transition: { duration: 0.3 } }}
-            transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
+            initial={{ opacity: 0, y: 16, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 8, scale: 0.97, transition: { duration: 0.28 } }}
+            transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
             style={{
               position: "fixed",
               bottom: 28,
-              left: 28,
+              left: 24,
               zIndex: 40,
-              maxWidth: 230,
+              maxWidth: 272,
               cursor: "pointer",
             }}
             onClick={() => setDetailOpen(true)}
           >
-            {/* Breathing / pulse glow */}
+            {/* Main card */}
             <motion.div
               animate={pulsing ? {
                 boxShadow: [
-                  "0 0 18px rgba(200,150,42,0.05), 0 4px 20px rgba(0,0,0,0.38)",
-                  "0 0 52px rgba(200,150,42,0.28), 0 4px 20px rgba(0,0,0,0.38)",
-                  "0 0 18px rgba(200,150,42,0.05), 0 4px 20px rgba(0,0,0,0.38)",
+                  "0 0 0 1px rgba(200,148,40,0.24), 0 8px 32px rgba(0,0,0,0.52)",
+                  "0 0 0 1px rgba(200,148,40,0.60), 0 0 48px rgba(200,148,40,0.22), 0 8px 32px rgba(0,0,0,0.52)",
+                  "0 0 0 1px rgba(200,148,40,0.24), 0 8px 32px rgba(0,0,0,0.52)",
                 ],
               } : {
                 boxShadow: [
-                  "0 0 18px rgba(200,150,42,0.05), 0 4px 20px rgba(0,0,0,0.38)",
-                  "0 0 36px rgba(200,150,42,0.13), 0 4px 20px rgba(0,0,0,0.38)",
+                  "0 0 0 1px rgba(200,148,40,0.22), 0 8px 32px rgba(0,0,0,0.52), 0 0 24px rgba(180,100,10,0.08)",
+                  "0 0 0 1px rgba(200,148,40,0.32), 0 8px 32px rgba(0,0,0,0.52), 0 0 48px rgba(180,100,10,0.16)",
                 ],
-                opacity: [0.78, 0.96],
+                opacity: [0.92, 1],
               }}
-              transition={pulsing ? {
-                duration: 0.8,
-                ease: "easeInOut",
-              } : {
-                duration: 4,
+              transition={pulsing ? { duration: 0.75, ease: "easeInOut" } : {
+                duration: 3.5,
                 repeat: Infinity,
                 repeatType: "reverse",
                 ease: "easeInOut",
               }}
               style={{
-                background: "rgba(16, 11, 6, 0.86)",
-                backdropFilter: "blur(14px)",
-                WebkitBackdropFilter: "blur(14px)",
-                border: "1px solid rgba(200,150,42,0.1)",
-                borderRadius: "2px",
-                padding: "14px 16px 13px",
+                background: "rgba(18, 11, 4, 0.92)",
+                backdropFilter: "blur(16px)",
+                WebkitBackdropFilter: "blur(16px)",
+                borderRadius: "3px",
+                padding: "16px 18px 15px",
+                position: "relative",
+                overflow: "hidden",
               }}
             >
-              {/* Pulse label — "signal at HH:00" */}
-              <p
-                className="font-mono mb-1"
+              {/* Left accent bar — amber vertical line */}
+              <div
                 style={{
-                  fontSize: "8px",
-                  letterSpacing: "0.22em",
-                  color: "rgba(200,150,42,0.36)",
-                  textTransform: "uppercase",
+                  position: "absolute",
+                  left: 0,
+                  top: 0,
+                  bottom: 0,
+                  width: "2px",
+                  background:
+                    "linear-gradient(to bottom, rgba(210,152,38,0) 0%, rgba(210,152,38,0.85) 25%, rgba(210,152,38,0.85) 75%, rgba(210,152,38,0) 100%)",
                 }}
-              >
-                {pulse}
-              </p>
+              />
 
-              {/* Time · neighborhood */}
+              {/* Header: live dot + TONIGHT + time */}
+              <div className="flex items-center gap-2 mb-3">
+                <span className="live-dot" />
+                <span
+                  className="font-mono"
+                  style={{
+                    fontSize: "8px",
+                    letterSpacing: "0.28em",
+                    color: "rgba(210,152,38,0.90)",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {tonight}
+                </span>
+                <span
+                  className="font-mono ml-auto"
+                  style={{
+                    fontSize: "8px",
+                    letterSpacing: "0.14em",
+                    color: "rgba(200,178,148,0.44)",
+                  }}
+                >
+                  {time ?? "–:––"}
+                </span>
+              </div>
+
+              {/* Neighborhood */}
               <p
                 className="font-mono mb-2"
                 style={{
                   fontSize: "9px",
-                  letterSpacing: "0.18em",
-                  color: "rgba(200,184,154,0.45)",
+                  letterSpacing: "0.16em",
+                  color: "rgba(200,178,148,0.52)",
                 }}
               >
-                {time ?? "–:––"} · {neighborhood}
+                {neighborhood}
               </p>
 
-              {/* Venue name */}
+              {/* Venue name — the event anchor */}
               <p
-                className="font-display font-light mb-2 leading-tight"
+                className="font-display font-light leading-tight mb-2"
                 style={{
-                  fontSize: "13px",
-                  color: "rgba(230,220,200,0.92)",
+                  fontSize: "16px",
+                  color: "rgba(240,228,210,0.97)",
                   letterSpacing: "0.01em",
                 }}
               >
                 {venueName}
               </p>
 
-              {/* Primary text */}
+              {/* What's happening — the pull */}
               {primaryText && (
                 <p
-                  className="font-sans leading-snug"
+                  className="font-sans leading-snug mb-3"
                   style={{
-                    fontSize: "11px",
-                    color: "rgba(200,184,154,0.62)",
-                    lineHeight: 1.5,
+                    fontSize: "12px",
+                    color: "rgba(210,195,172,0.72)",
+                    lineHeight: 1.55,
                   }}
                 >
                   {primaryText}
                 </p>
               )}
+
+              {/* Tap label */}
+              <p
+                className="font-mono"
+                style={{
+                  fontSize: "9px",
+                  letterSpacing: "0.14em",
+                  color: "rgba(210,152,38,0.58)",
+                }}
+              >
+                {tap}
+              </p>
             </motion.div>
 
             {/* Dismiss */}
             <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setDismissed(true);
-              }}
+              onClick={(e) => { e.stopPropagation(); setDismissed(true); }}
               className="absolute -top-2 -right-2 flex items-center justify-center transition-opacity hover:opacity-100"
               style={{
-                width: 18,
-                height: 18,
+                width: 20,
+                height: 20,
                 borderRadius: "50%",
-                background: "rgba(30,22,14,0.9)",
-                border: "1px solid rgba(200,150,42,0.15)",
-                color: "rgba(200,184,154,0.4)",
-                fontSize: "9px",
-                opacity: 0.7,
+                background: "rgba(28,18,8,0.95)",
+                border: "1px solid rgba(200,148,40,0.20)",
+                color: "rgba(200,178,148,0.52)",
+                fontSize: "10px",
+                opacity: 0.75,
                 cursor: "pointer",
               }}
               aria-label="Dismiss"

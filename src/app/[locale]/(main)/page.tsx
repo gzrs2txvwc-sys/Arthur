@@ -148,18 +148,22 @@ export default async function HomePage({
           }}
         />
 
-        {/* ── Daily nudge — chapter-aware, scrolled to ──── */}
-        <div className="py-16 flex justify-center px-6">
+        {/* ── Daily nudge — chapter-aware ──────────────────────── */}
+        <div className="pt-20 pb-14 flex justify-center px-6">
           <DailyNudge period={period} condition={weather.condition} />
         </div>
 
+        <div className="section-seam mx-8 md:mx-16" />
+
         {/* ── Tokyo walks — real reasons to go outside tonight ── */}
-        <div className="pb-16 flex justify-center px-6">
+        <div className="pt-14 pb-16 flex justify-center px-6">
           <TokyoWalksWidget walks={activeWalks} />
         </div>
 
+        <div className="section-seam mx-8 md:mx-16" />
+
         {/* ── Quiet presence — small evidence other people are here too ── */}
-        <div className="pb-28 flex justify-center px-6">
+        <div className="pt-14 pb-28 flex justify-center px-6">
           <QuietPresence />
         </div>
       </div>

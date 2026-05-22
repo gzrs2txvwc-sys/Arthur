@@ -23,7 +23,7 @@ function WorldPortal({
   return (
     <Link
       href={href}
-      className="relative overflow-hidden group block"
+      className="portal-card relative overflow-hidden group block"
       style={{ minHeight: "clamp(280px, 44vh, 520px)" }}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -41,6 +41,11 @@ function WorldPortal({
           background:
             "linear-gradient(to top, rgba(14,7,1,0.88) 0%, rgba(10,5,0,0.52) 30%, rgba(6,3,0,0.16) 58%, transparent 80%)",
         }}
+      />
+      {/* Hover glow border overlay */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        style={{ boxShadow: "inset 0 0 0 1px rgba(190,114,22,0.36)" }}
       />
       <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-10">
         <span
