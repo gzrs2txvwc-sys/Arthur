@@ -15,6 +15,7 @@ import { getTonightSignal } from "@/lib/tonightSignals";
 import { tokyoDate, getDayType } from "@/lib/season";
 import { getActiveWalks } from "@/lib/tokyoWalks";
 import { getTickerNotes } from "@/lib/districtTicker";
+import { getTonightCharacter } from "@/lib/tonightCharacter";
 
 const WEATHER_LABEL: Partial<Record<string, string>> = {
   clear:    "Clear",
@@ -52,9 +53,10 @@ export default async function HomePage({
     dayOfWeek === 5 ? "friday" :
     dayOfWeek === 6 ? "saturday" :
     dayOfWeek === 0 ? "sunday" : "weekday";
-  const tonightSignal = getTonightSignal(hour, weather.condition, period, signalDayType);
-  const activeWalks   = getActiveWalks(period, weather.condition, signalDayType, hour);
-  const tickerItems   = getTickerNotes(period, weather.condition, signalDayType, locale);
+  const tonightSignal    = getTonightSignal(hour, weather.condition, period, signalDayType);
+  const activeWalks      = getActiveWalks(period, weather.condition, signalDayType, hour);
+  const tickerItems      = getTickerNotes(period, weather.condition, signalDayType, locale);
+  const tonightCharacter = getTonightCharacter(hour, weather.condition, period, signalDayType, locale);
 
   const portals: PortalData[] = [
     {
@@ -124,6 +126,7 @@ export default async function HomePage({
         hour={hour}
         walksCount={activeWalks.length}
         tickerItems={tickerItems}
+        tonightCharacter={tonightCharacter}
       />
 
       {/* Warm seam — konbini / station light bleeding between hero and portals */}
@@ -173,6 +176,9 @@ export default async function HomePage({
         <div className="pt-14 pb-28 flex justify-center px-6">
           <QuietPresence />
         </div>
+
+        {/* iPhone home indicator safe area */}
+        <div aria-hidden="true" style={{ height: "env(safe-area-inset-bottom)" }} />
       </div>
 
       {/* ── Tonight signal — floats in after portals, bottom-left ── */}

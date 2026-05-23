@@ -15,17 +15,18 @@ const CITY_LABEL: Record<string, string> = {
 };
 
 interface Props {
-  timeStr:      string;
-  weatherLabel: string;
-  weatherJp:    string;
-  openingLine:  string;
-  photo:        OpeningPhoto;
-  period:       AtmospherePeriod;
-  condition:    WeatherCondition;
-  locale?:      string;
-  hour:         number;
-  walksCount:   number;
-  tickerItems:  TickerItem[];
+  timeStr:          string;
+  weatherLabel:     string;
+  weatherJp:        string;
+  openingLine:      string;
+  photo:            OpeningPhoto;
+  period:           AtmospherePeriod;
+  condition:        WeatherCondition;
+  locale?:          string;
+  hour:             number;
+  walksCount:       number;
+  tickerItems:      TickerItem[];
+  tonightCharacter: string | null;
 }
 
 function heroAnchor(hour: number, condition: string, locale: string): string {
@@ -93,7 +94,7 @@ function liveStrip(condition: string, walksCount: number, locale: string): strin
 export function OpeningHero({
   timeStr, weatherLabel, weatherJp,
   openingLine, photo, period, condition,
-  locale = "en", hour, walksCount, tickerItems,
+  locale = "en", hour, walksCount, tickerItems, tonightCharacter,
 }: Props) {
   const photoFilter   = PERIOD_PHOTO_FILTER[period];
   const conditionTint = getConditionTint(condition);
@@ -269,6 +270,24 @@ export function OpeningHero({
         >
           {openingLine}
         </p>
+
+        {/* Tonight character — city taking its own temperature */}
+        {tonightCharacter && (
+          <p
+            className="font-mono animate-fade-up"
+            style={{
+              marginTop: "14px",
+              fontSize: "10px",
+              letterSpacing: "0.14em",
+              color: "rgba(210,178,120,0.60)",
+              animationDelay: "0.42s",
+              animationFillMode: "backwards",
+              maxWidth: "min(30rem, 88vw)",
+            }}
+          >
+            {tonightCharacter}
+          </p>
+        )}
 
         {/* Live strip — "● Signal surfaced tonight · 3 walks tonight" */}
         <div

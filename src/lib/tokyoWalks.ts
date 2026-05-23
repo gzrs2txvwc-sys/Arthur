@@ -28,6 +28,9 @@ export interface TokyoWalk {
 
   // Score weight — higher = more likely to surface
   weight: number;
+
+  // Only surfaces when hour >= 23 or period is latenight
+  lateNightOnly?: boolean;
 }
 
 export const ALL_WALKS: TokyoWalk[] = [
@@ -51,6 +54,7 @@ export const ALL_WALKS: TokyoWalk[] = [
       dayTypes: ["friday", "saturday"],
     },
     weight: 2,
+    lateNightOnly: true,
   },
   {
     id: "rain-walk",
@@ -199,6 +203,24 @@ export const ALL_WALKS: TokyoWalk[] = [
     },
     weight: 1,
   },
+  {
+    id: "midnight-neighborhood",
+    time: "01:00",
+    titleEn: "The Neighborhood After Midnight",
+    titleJa: "深夜の住宅街",
+    titleZh: "午夜後的住宅區",
+    taglineEn: "The same streets. A different city.",
+    taglineJa: "同じ道。でも違う街。",
+    taglineZh: "同樣的街道。不同的城市。",
+    descEn: "After midnight, residential streets become something else. No one is rushing. The lights in windows mean something different now. Walk through somewhere you know and look at it as if you're seeing it for the first time.",
+    descJa: "深夜になると、住宅街は別のものになる。急いでいる人はいない。窓の明かりが、今は違う意味を持つ。知っている場所を歩いて、初めて見るように見る。",
+    descZh: "過了午夜，住宅街道變成了另一番景象。沒有人在趕時間。窗戶裡的燈光現在有了不同的意義。走過你熟悉的地方，把它看成是第一次見到的樣子。",
+    conditions: {
+      periods: ["latenight"],
+    },
+    weight: 3,
+    lateNightOnly: true,
+  },
 ];
 
 function seededRng(seed: number): () => number {
@@ -215,12 +237,18 @@ export function getActiveWalks(
   dayType: string,
   hour: number,
 ): TokyoWalk[] {
-  const scored = ALL_WALKS.map((w) => {
+  const isLate = hour >= 23 || period === "latenight";
+
+  const scored = ALL_WALKS.filter((w) => {
+    if (w.lateNightOnly && !isLate) return false;
+    return true;
+  }).map((w) => {
     let score = w.weight;
 
     if (w.conditions.periods && w.conditions.periods.includes(period)) score += 2;
     if (w.conditions.weather && w.conditions.weather.includes(condition)) score += 2;
     if (w.conditions.dayTypes && w.conditions.dayTypes.includes(dayType)) score += 1;
+    if (w.lateNightOnly && isLate) score += 2;
 
     // Deterministic daily noise
     const dailySeed = Math.floor((Date.now() + 9 * 3600 * 1000) / (24 * 3600 * 1000));
@@ -336,6 +364,12 @@ export function getWalkSurfacedReason(
     if (g === "ja") return "今夜は電車を見送りたい気分。";
     if (g === "zh") return "今晚想讓幾班車過去。";
     return "Tonight feels right for watching trains leave.";
+  }
+
+  if (w.id === "midnight-neighborhood") {
+    if (g === "ja") return "深夜だから見えるものがある。";
+    if (g === "zh") return "深夜才能看見的東西。";
+    return "Only visible after midnight.";
   }
 
   return null;

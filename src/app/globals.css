@@ -44,6 +44,8 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
+  /* Remove blue flash on tap — makes it feel like a native app */
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -52,6 +54,13 @@ body {
   font-family: var(--font-body);
   line-height: 1.7;
   overflow-x: hidden;
+  /* Smooth momentum scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Remove 300ms tap delay on tappable elements */
+button, a, [role="button"] {
+  touch-action: manipulation;
 }
 
 ::selection {
@@ -594,7 +603,7 @@ body {
   );
 }
 
-/* Walk card button — hover warmth */
+/* Walk card button — hover warmth + native press feel */
 .walk-card-btn {
   background: none;
   border: none;
@@ -602,14 +611,19 @@ body {
   cursor: pointer;
   width: 100%;
   text-align: left;
-  transition: background 0.22s ease;
+  transition: background 0.22s ease, transform 0.12s ease;
   border-radius: 2px;
+  touch-action: manipulation;
   margin: 0 -8px;
   padding: 0 8px;
   width: calc(100% + 16px);
 }
 .walk-card-btn:hover {
   background: rgba(210, 152, 38, 0.05);
+}
+.walk-card-btn:active {
+  transform: scale(0.992);
+  background: rgba(210, 152, 38, 0.08);
 }
 
 /* Portal card — amber border glow on hover */
