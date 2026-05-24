@@ -14,6 +14,7 @@ import {
 } from "@/lib/tokyoWalks";
 import { getLocaleGroup } from "@/lib/tonightSignals";
 import { recordWalkExpansion } from "@/lib/tokyoMemory";
+import { getChapter } from "@/lib/tokyoRelationship";
 
 interface TokyoWalksWidgetProps {
   walks:     TokyoWalk[];
@@ -37,7 +38,7 @@ function WalkCard({
 
   const handleExpand = useCallback(() => {
     setExpanded((p) => {
-      if (!p) recordWalkExpansion(walk.id); // record first expansion
+      if (!p) recordWalkExpansion(walk.id, getChapter());
       return !p;
     });
   }, [walk.id]);

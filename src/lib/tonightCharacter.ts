@@ -3,6 +3,13 @@
 // Not poetic atmosphere — more like the city taking its own temperature.
 
 import type { BehaviorProfile, HourBand } from "./tokyoMemory";
+import type { TokyoChapter } from "./tokyoRelationship";
+
+const CHAPTER_ORDER: TokyoChapter[] = ["arriving", "adjusting", "feeling", "belonging", "home"];
+
+function chapterIndex(ch: TokyoChapter): number {
+  return CHAPTER_ORDER.indexOf(ch);
+}
 
 function seededRng(seed: number): () => number {
   let s = seed;
@@ -24,6 +31,8 @@ interface CharEntry {
     gapDaysMin?:         number;
     hourBands?:          HourBand[];
     requiresReturn?:     boolean;   // only shown to returning visitors
+    minChapter?:         TokyoChapter; // only shown at this chapter depth or deeper
+    requiresWalkAffinity?: string[];   // any of these walk IDs must be in affinities
   };
   weight: number;
   en: string;
@@ -310,6 +319,85 @@ const ENTRIES: CharEntry[] = [
     ja: "まだここにいる。あなたも、東京も。",
     zh: "還在這裡。你和東京都是。",
   },
+
+  // ── Chapter-depth sentences — surface as relationship deepens ─────────────
+  {
+    conditions: {
+      minChapter: "adjusting",
+      period: ["evening", "night", "latenight"],
+      requiresReturn: true,
+    },
+    weight: 3,
+    en: "Your routes are starting to repeat.",
+    ja: "歩く道が、少しずつ同じになってきた。",
+    zh: "你走的路開始重複了。",
+  },
+  {
+    conditions: {
+      minChapter: "feeling",
+      period: ["evening", "night", "latenight"],
+      requiresReturn: true,
+    },
+    weight: 4,
+    en: "Some parts of Tokyo are starting to feel like yours.",
+    ja: "東京の一部が、あなたのものになってきた気がする。",
+    zh: "東京的某些部分開始感覺像是你的了。",
+  },
+  {
+    conditions: {
+      minChapter: "belonging",
+      requiresReturn: true,
+    },
+    weight: 5,
+    en: "This city knows your rhythms now.",
+    ja: "東京は、もうあなたのリズムを知っている。",
+    zh: "這座城市現在了解你的節奏了。",
+  },
+  {
+    conditions: {
+      minChapter: "home",
+      requiresReturn: true,
+    },
+    weight: 6,
+    en: "You've been through Tokyo's seasons.",
+    ja: "あなたは東京の季節をくぐり抜けた。",
+    zh: "你已經經歷了東京的四季。",
+  },
+
+  // ── Walk-affinity sentences — surface when user has engaged with specific walks ──
+  {
+    conditions: {
+      requiresWalkAffinity: ["rain-walk"],
+      weather: ["rainy", "foggy"],
+      requiresReturn: true,
+    },
+    weight: 5,
+    en: "Another rainy night.",
+    ja: "また雨の夜。",
+    zh: "又是一個雨夜。",
+  },
+  {
+    conditions: {
+      requiresWalkAffinity: ["last-train-walk", "midnight-neighborhood", "early-hours-walk"],
+      hourMin: 22,
+      requiresReturn: true,
+    },
+    weight: 5,
+    en: "Late again.",
+    ja: "また遅くなった。",
+    zh: "又是這麼晚了。",
+  },
+  {
+    conditions: {
+      requiresWalkAffinity: ["river-walk"],
+      weather: ["rainy", "foggy"],
+      requiresReturn: true,
+    },
+    weight: 5,
+    en: "You know this kind of night.",
+    ja: "こういう夜のことを、あなたは知っている。",
+    zh: "你認識這種夜晚。",
+  },
 ];
 
 function scoreEntry(
@@ -343,6 +431,14 @@ function scoreEntry(
   if (c.hourBands) {
     if (!profile || !c.hourBands.includes(profile.hourBand)) return -1;
     score += 1.2;
+  }
+  if (c.minChapter !== undefined) {
+    if (!profile || chapterIndex(profile.chapter) < chapterIndex(c.minChapter)) return -1;
+    score += 1.0;
+  }
+  if (c.requiresWalkAffinity) {
+    if (!profile || !c.requiresWalkAffinity.some((id) => profile.walkAffinities.includes(id))) return -1;
+    score += 1.3;
   }
 
   // Boost for specific condition matches

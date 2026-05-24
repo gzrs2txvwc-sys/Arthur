@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { touchMemory } from "@/lib/tokyoMemory";
+import { getChapter } from "@/lib/tokyoRelationship";
 
 interface Props {
   hour: number;
@@ -9,7 +10,7 @@ interface Props {
 
 export function TokyoMemorySync({ hour }: Props) {
   useEffect(() => {
-    touchMemory(hour);
+    touchMemory(hour, getChapter());
   }, [hour]);
   return null;
 }

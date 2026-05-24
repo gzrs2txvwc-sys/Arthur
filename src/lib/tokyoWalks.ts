@@ -1,4 +1,11 @@
 import type { BehaviorProfile } from "./tokyoMemory";
+import type { TokyoChapter } from "./tokyoRelationship";
+
+const CHAPTER_ORDER: TokyoChapter[] = ["arriving", "adjusting", "feeling", "belonging", "home"];
+
+function chapterIndex(ch: TokyoChapter): number {
+  return CHAPTER_ORDER.indexOf(ch);
+}
 
 export interface TokyoWalk {
   id: string;
@@ -33,6 +40,9 @@ export interface TokyoWalk {
 
   // Only surfaces when hour >= 23 or period is latenight
   lateNightOnly?: boolean;
+
+  // Only surfaces once the user has reached this relationship chapter or deeper
+  minChapter?: TokyoChapter;
 }
 
 export const ALL_WALKS: TokyoWalk[] = [
@@ -223,6 +233,65 @@ export const ALL_WALKS: TokyoWalk[] = [
     weight: 3,
     lateNightOnly: true,
   },
+
+  // ── Depth-gated walks — only surface once chapter conditions are met ────────
+  {
+    id: "early-hours-walk",
+    time: "03:00",
+    titleEn: "Three in the Morning",
+    titleJa: "夜中の三時",
+    titleZh: "凌晨三點",
+    taglineEn: "Tokyo at the hour when almost no one is watching.",
+    taglineJa: "ほとんど誰も見ていない時間の東京。",
+    taglineZh: "幾乎沒有人在看的時間裡的東京。",
+    descEn: "The city has been running for hours without you. The streets belong to a different set of people now — the ones with nowhere to be, or everywhere to be. At three in the morning, Tokyo is honest in a way it can't be during the day.",
+    descJa: "街はあなたなしで、もう何時間も動いている。今は別の人たちが道を使っている——どこにも行かなくていい人、どこにでも行かなければならない人。夜中の三時、東京は昼には見せられない正直さで存在している。",
+    descZh: "城市在沒有你的情況下已經運轉了好幾個小時。街道現在屬於另一群人——沒有地方要去的人，或者到處都要去的人。凌晨三點，東京以一種白天無法做到的方式誠實地存在著。",
+    conditions: {
+      periods: ["latenight"],
+    },
+    weight: 2,
+    lateNightOnly: true,
+    minChapter: "feeling",
+  },
+  {
+    id: "sunday-slow-walk",
+    titleEn: "Slow Sunday",
+    titleJa: "ゆっくりした日曜日",
+    titleZh: "緩慢的週日",
+    taglineEn: "The city at its most unhurried.",
+    taglineJa: "一番急いでいない東京。",
+    taglineZh: "最不匆忙的城市。",
+    descEn: "Sunday afternoon Tokyo runs at a different frequency. The shops are open but no one is in a rush. Families, people reading on benches, the sound of a park a block away. There's a version of this city that exists only on slow Sundays — you've been here long enough to see it.",
+    descJa: "日曜の午後の東京は、違う周波数で動いている。店は開いているけど、誰も急いでいない。家族連れ、ベンチで本を読む人、一ブロック先の公園の音。こういう東京は、ゆっくりした日曜日にしか存在しない——あなたはそれを見られるくらいここにいた。",
+    descZh: "週日下午的東京以不同的頻率運轉。商店開著但沒有人在趕。家庭、在長椅上看書的人、一個街區外公園的聲音。這個城市有一個只在緩慢的週日才存在的版本——你在這裡待得夠久，可以看見它了。",
+    conditions: {
+      periods: ["afternoon", "evening"],
+      dayTypes: ["sunday"],
+    },
+    weight: 2,
+    minChapter: "adjusting",
+  },
+  {
+    id: "residential-deep",
+    routeHint: "Between stations",
+    routeHintJa: "駅と駅のあいだ",
+    routeHintZh: "車站之間",
+    titleEn: "Between Stations",
+    titleJa: "駅と駅のあいだ",
+    titleZh: "車站之間",
+    taglineEn: "The Tokyo nobody visits on purpose.",
+    taglineJa: "誰も意図して来ない東京。",
+    taglineZh: "沒有人特意來訪的東京。",
+    descEn: "Not a neighborhood with a name. The space between places. Find a street that connects two stations and walk the whole length. The vending machines, the small parking lots, the shuttered shop that used to be something. This is the Tokyo that exists for the people who live here, not the people visiting.",
+    descJa: "名前のある街じゃない。場所と場所のあいだ。二つの駅をつなぐ道を見つけて、全部歩く。自動販売機、小さな駐車場、何かだったはずのシャッターの店。ここは、訪れる人のためじゃなく、住む人のための東京だ。",
+    descZh: "不是有名字的街區。是地方與地方之間的空間。找一條連接兩個車站的街道，把整條走完。自動販賣機、小停車場、曾經是什麼的關門店舖。這是為住在這裡的人而存在的東京，不是為了來訪的人。",
+    conditions: {
+      periods: ["evening", "night"],
+    },
+    weight: 2,
+    minChapter: "feeling",
+  },
 ];
 
 function seededRng(seed: number): () => number {
@@ -242,8 +311,11 @@ export function getActiveWalks(
 ): TokyoWalk[] {
   const isLate = hour >= 23 || period === "latenight";
 
+  const userChapter = profile?.chapter ?? "arriving";
+
   const scored = ALL_WALKS.filter((w) => {
     if (w.lateNightOnly && !isLate) return false;
+    if (w.minChapter && chapterIndex(userChapter) < chapterIndex(w.minChapter)) return false;
     return true;
   }).map((w) => {
     let score = w.weight;
@@ -380,6 +452,24 @@ export function getWalkSurfacedReason(
     if (g === "ja") return "深夜だから見えるものがある。";
     if (g === "zh") return "深夜才能看見的東西。";
     return "Only visible after midnight.";
+  }
+
+  if (w.id === "early-hours-walk") {
+    if (g === "ja") return "あなたはこの時間を知っている。";
+    if (g === "zh") return "你已經認識這個時間了。";
+    return "You know this hour now.";
+  }
+
+  if (w.id === "sunday-slow-walk") {
+    if (g === "ja") return "ここにいると、日曜日が見えてくる。";
+    if (g === "zh") return "待久了，就能看見這樣的週日。";
+    return "Long enough here to see this Sunday.";
+  }
+
+  if (w.id === "residential-deep") {
+    if (g === "ja") return "今はこっちの東京も見える。";
+    if (g === "zh") return "現在也能看見這一面的東京了。";
+    return "The side of Tokyo you find later.";
   }
 
   return null;

@@ -2,6 +2,8 @@
 // localStorage: full history (client-only)
 // Cookie arthur_b: compact profile summary, readable server-side on next render
 
+import type { TokyoChapter } from "./tokyoRelationship";
+
 export type HourBand = "early" | "evening" | "late" | "midnight" | "any";
 
 export interface BehaviorProfile {
@@ -10,6 +12,7 @@ export interface BehaviorProfile {
   consecutiveDays: number;    // 1 = just today, 2 = today + yesterday, etc.
   gapDays:         number;    // days gap before this visit (0 = visited yesterday)
   isReturning:     boolean;   // has visited on at least 2 distinct days
+  chapter:         TokyoChapter; // relationship depth (arriving → home)
 }
 
 const LS_KEY     = "arthur_bm";
@@ -73,7 +76,7 @@ function computeConsecutiveDays(uniqueSortedDesc: string[]): number {
   return c;
 }
 
-function deriveProfile(store: MemoryStore, gapDays: number): BehaviorProfile {
+function deriveProfile(store: MemoryStore, gapDays: number, chapter: TokyoChapter = "arriving"): BehaviorProfile {
   const uniqueDates = [...new Set(store.visitDates)].sort().reverse();
   return {
     hourBand:        computeHourBand(store.visitHours),
@@ -81,6 +84,7 @@ function deriveProfile(store: MemoryStore, gapDays: number): BehaviorProfile {
     consecutiveDays: computeConsecutiveDays(uniqueDates),
     gapDays,
     isReturning:     uniqueDates.length >= 2,
+    chapter,
   };
 }
 
@@ -93,6 +97,7 @@ function writeCookie(profile: BehaviorProfile): void {
       cd:  profile.consecutiveDays,
       gd:  profile.gapDays,
       ret: profile.isReturning,
+      ch:  profile.chapter,
     });
     const exp = new Date(Date.now() + COOKIE_TTL * 86_400_000).toUTCString();
     document.cookie = `${COOKIE}=${encodeURIComponent(val)}; expires=${exp}; path=/; SameSite=Lax`;
@@ -102,7 +107,8 @@ function writeCookie(profile: BehaviorProfile): void {
 // ── Public API ─────────────────────────────────────────────────────────────
 
 // Called once per page mount — updates visit history and refreshes cookie
-export function touchMemory(hour: number): void {
+// chapter is read from tokyoRelationship client-side and passed in
+export function touchMemory(hour: number, chapter: TokyoChapter = "arriving"): void {
   const store = readStore();
   const today = tokyoDateStr();
 
@@ -118,12 +124,11 @@ export function touchMemory(hour: number): void {
   const updated: MemoryStore = { ...store, visitHours, visitDates };
   writeStore(updated);
 
-  const profile = deriveProfile(updated, gapDays);
-  writeCookie(profile);
+  writeCookie(deriveProfile(updated, gapDays, chapter));
 }
 
 // Called when a walk card is expanded — records engagement
-export function recordWalkExpansion(walkId: string): void {
+export function recordWalkExpansion(walkId: string, chapter: TokyoChapter = "arriving"): void {
   if (typeof window === "undefined") return;
   const store = readStore();
   const walks = [walkId, ...store.expandedWalks.filter((w) => w !== walkId)].slice(0, 10);
@@ -132,7 +137,7 @@ export function recordWalkExpansion(walkId: string): void {
   const today = tokyoDateStr();
   const prevDates = [...new Set(store.visitDates)].sort().reverse();
   const gapDays = prevDates.length > 0 && prevDates[0] !== today ? Math.max(0, daysBetween(prevDates[0], today) - 1) : 0;
-  writeCookie(deriveProfile(updated, gapDays));
+  writeCookie(deriveProfile(updated, gapDays, chapter));
 }
 
 // Server-side: parse the cookie value into a BehaviorProfile
@@ -146,6 +151,7 @@ export function parseCookieProfile(cookieVal: string | undefined): BehaviorProfi
       consecutiveDays: Number(raw.cd) || 1,
       gapDays:         Number(raw.gd) || 0,
       isReturning:     Boolean(raw.ret),
+      chapter:         (raw.ch as TokyoChapter) ?? "arriving",
     };
   } catch {
     return null;
