@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocale } from "next-intl";
 import type { TokyoWalk } from "@/lib/tokyoWalks";
@@ -13,6 +13,7 @@ import {
   getWalkSurfacedReason,
 } from "@/lib/tokyoWalks";
 import { getLocaleGroup } from "@/lib/tonightSignals";
+import { recordWalkExpansion } from "@/lib/tokyoMemory";
 
 interface TokyoWalksWidgetProps {
   walks:     TokyoWalk[];
@@ -34,6 +35,13 @@ function WalkCard({
   const others   = getWalkOthersCount(walk.id);
   const surfaced = getWalkSurfacedReason(walk, condition, period, g);
 
+  const handleExpand = useCallback(() => {
+    setExpanded((p) => {
+      if (!p) recordWalkExpansion(walk.id); // record first expansion
+      return !p;
+    });
+  }, [walk.id]);
+
   const othersLabel =
     g === "ja" ? `今夜 ${others} 人が歩いている`
     : g === "zh" ? `今晚 ${others} 人正在走`
@@ -48,7 +56,7 @@ function WalkCard({
       <div style={{ borderTop: "1px solid rgba(200,148,40,0.20)" }}>
         <button
           className="walk-card-btn"
-          onClick={() => setExpanded((p) => !p)}
+          onClick={handleExpand}
         >
           <div style={{ paddingTop: "20px", paddingBottom: expanded ? "6px" : "20px" }}>
 

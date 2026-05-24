@@ -2,6 +2,8 @@
 // to tonight. Changes daily (seeded), reflects conditions, time, and day of week.
 // Not poetic atmosphere — more like the city taking its own temperature.
 
+import type { BehaviorProfile, HourBand } from "./tokyoMemory";
+
 function seededRng(seed: number): () => number {
   let s = seed;
   return function () {
@@ -12,11 +14,16 @@ function seededRng(seed: number): () => number {
 
 interface CharEntry {
   conditions: {
-    period?:  string[];
-    weather?: string[];
-    dayType?: string[];
-    hourMin?: number;
-    hourMax?: number;
+    period?:             string[];
+    weather?:            string[];
+    dayType?:            string[];
+    hourMin?:            number;
+    hourMax?:            number;
+    // Profile-gated: only shown when behavioral memory matches
+    consecutiveDaysMin?: number;
+    gapDaysMin?:         number;
+    hourBands?:          HourBand[];
+    requiresReturn?:     boolean;   // only shown to returning visitors
   };
   weight: number;
   en: string;
@@ -236,6 +243,73 @@ const ENTRIES: CharEntry[] = [
     ja: "今夜、街には街の理由がある。",
     zh: "城市今晚有自己的理由。",
   },
+
+  // ── Memory / return-aware — only surface when profile conditions match ────
+  {
+    conditions: {
+      consecutiveDaysMin: 2,
+      period: ["evening", "night", "latenight"],
+      requiresReturn: true,
+    },
+    weight: 5,
+    en: "Again tonight.",
+    ja: "また今夜。",
+    zh: "又是今晚。",
+  },
+  {
+    conditions: {
+      consecutiveDaysMin: 2,
+      period: ["latenight"],
+      requiresReturn: true,
+    },
+    weight: 5,
+    en: "Still awake. Still here.",
+    ja: "まだ起きている。まだここにいる。",
+    zh: "還沒睡。還在這裡。",
+  },
+  {
+    conditions: {
+      consecutiveDaysMin: 5,
+      period: ["night", "latenight"],
+      requiresReturn: true,
+    },
+    weight: 6,
+    en: "Tokyo knows your hours now.",
+    ja: "東京は、もうあなたの時間を知っている。",
+    zh: "東京現在已經知道你的時間了。",
+  },
+  {
+    conditions: {
+      consecutiveDaysMin: 3,
+      hourBands: ["midnight", "late"],
+      requiresReturn: true,
+    },
+    weight: 5,
+    en: "You keep showing up at this hour.",
+    ja: "あなたはいつもこの時間に現れる。",
+    zh: "你總是在這個時間出現。",
+  },
+  {
+    conditions: {
+      gapDaysMin: 5,
+      period: ["evening", "night", "latenight"],
+      requiresReturn: true,
+    },
+    weight: 6,
+    en: "Tokyo kept going.",
+    ja: "東京はずっと動いていた。",
+    zh: "東京一直在動。",
+  },
+  {
+    conditions: {
+      gapDaysMin: 14,
+      requiresReturn: true,
+    },
+    weight: 7,
+    en: "Still here. Both of you.",
+    ja: "まだここにいる。あなたも、東京も。",
+    zh: "還在這裡。你和東京都是。",
+  },
 ];
 
 function scoreEntry(
@@ -244,6 +318,7 @@ function scoreEntry(
   condition: string,
   period: string,
   dayType: string,
+  profile: BehaviorProfile | null,
 ): number {
   let score = entry.weight;
   const c = entry.conditions;
@@ -255,7 +330,22 @@ function scoreEntry(
   if (c.weather && !c.weather.includes(condition)) return -1;
   if (c.dayType && !c.dayType.includes(dayType))   return -1;
 
-  // Boost for specific matches
+  // Profile-gated — these entries only appear for users with behavioral history
+  if (c.requiresReturn && (!profile || !profile.isReturning)) return -1;
+  if (c.consecutiveDaysMin !== undefined) {
+    if (!profile || profile.consecutiveDays < c.consecutiveDaysMin) return -1;
+    score += 1.5;
+  }
+  if (c.gapDaysMin !== undefined) {
+    if (!profile || profile.gapDays < c.gapDaysMin) return -1;
+    score += 1.5;
+  }
+  if (c.hourBands) {
+    if (!profile || !c.hourBands.includes(profile.hourBand)) return -1;
+    score += 1.2;
+  }
+
+  // Boost for specific condition matches
   if (c.weather?.includes(condition)) score += 1.5;
   if (c.dayType?.includes(dayType))   score += 1.0;
   if (c.period?.includes(period))     score += 0.8;
@@ -270,6 +360,7 @@ export function getTonightCharacter(
   period: string,
   dayType: string,
   locale: string,
+  profile: BehaviorProfile | null = null,
 ): string | null {
   const localeGroup =
     locale === "ja" ? "ja" :
@@ -278,7 +369,7 @@ export function getTonightCharacter(
   // Score all entries
   const scored = ENTRIES.map((e) => ({
     entry: e,
-    score: scoreEntry(e, hour, condition, period, dayType),
+    score: scoreEntry(e, hour, condition, period, dayType, profile),
   })).filter((x) => x.score > 0);
 
   if (scored.length === 0) return null;

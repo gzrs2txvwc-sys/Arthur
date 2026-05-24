@@ -1,3 +1,5 @@
+import type { BehaviorProfile } from "./tokyoMemory";
+
 export interface TokyoWalk {
   id: string;
   time?: string;        // suggested time label, e.g. "23:40"
@@ -236,6 +238,7 @@ export function getActiveWalks(
   condition: string,
   dayType: string,
   hour: number,
+  profile?: BehaviorProfile | null,
 ): TokyoWalk[] {
   const isLate = hour >= 23 || period === "latenight";
 
@@ -249,6 +252,13 @@ export function getActiveWalks(
     if (w.conditions.weather && w.conditions.weather.includes(condition)) score += 2;
     if (w.conditions.dayTypes && w.conditions.dayTypes.includes(dayType)) score += 1;
     if (w.lateNightOnly && isLate) score += 2;
+
+    // Behavioral memory — gentle, invisible bias toward familiar content
+    if (profile) {
+      if (profile.walkAffinities.includes(w.id)) score += 1.2;
+      if (profile.hourBand === "late"     && w.lateNightOnly) score += 0.8;
+      if (profile.hourBand === "midnight" && w.lateNightOnly) score += 1.4;
+    }
 
     // Deterministic daily noise
     const dailySeed = Math.floor((Date.now() + 9 * 3600 * 1000) / (24 * 3600 * 1000));

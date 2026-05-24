@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { cookies } from "next/headers";
 import { FilmGrain } from "@/components/ui/FilmGrain";
 import { DailyNudge } from "@/components/ui/DailyNudge";
 import { QuietPresence } from "@/components/ui/QuietPresence";
@@ -7,6 +8,7 @@ import { OpeningHero } from "@/components/ui/OpeningHero";
 import { HomepagePortals } from "@/components/ui/HomepagePortals";
 import type { PortalData } from "@/components/ui/HomepagePortals";
 import { TonightSignalFloat } from "@/components/tonight/TonightSignalFloat";
+import { TokyoMemorySync } from "@/components/TokyoMemorySync";
 import { getTokyoWeather } from "@/lib/weather";
 import { tokyoHour, tokyoTimeString, computeAtmosphere } from "@/lib/atmosphere";
 import { getOpeningLine } from "@/lib/openingLine";
@@ -16,6 +18,7 @@ import { tokyoDate, getDayType } from "@/lib/season";
 import { getActiveWalks } from "@/lib/tokyoWalks";
 import { getTickerNotes } from "@/lib/districtTicker";
 import { getTonightCharacter } from "@/lib/tonightCharacter";
+import { parseCookieProfile } from "@/lib/tokyoMemory";
 
 const WEATHER_LABEL: Partial<Record<string, string>> = {
   clear:    "Clear",
@@ -38,6 +41,10 @@ export default async function HomePage({
   const t = await getTranslations("home");
   const prefix = locale === "en" ? "" : `/${locale}`;
 
+  // Behavioral memory — read on server, used to subtly influence content selection
+  const cookieJar     = await cookies();
+  const memoryProfile = parseCookieProfile(cookieJar.get("arthur_b")?.value);
+
   const weather      = await getTokyoWeather();
   const hour         = tokyoHour();
   const timeStr      = tokyoTimeString();
@@ -54,9 +61,9 @@ export default async function HomePage({
     dayOfWeek === 6 ? "saturday" :
     dayOfWeek === 0 ? "sunday" : "weekday";
   const tonightSignal    = getTonightSignal(hour, weather.condition, period, signalDayType);
-  const activeWalks      = getActiveWalks(period, weather.condition, signalDayType, hour);
+  const activeWalks      = getActiveWalks(period, weather.condition, signalDayType, hour, memoryProfile);
   const tickerItems      = getTickerNotes(period, weather.condition, signalDayType, locale);
-  const tonightCharacter = getTonightCharacter(hour, weather.condition, period, signalDayType, locale);
+  const tonightCharacter = getTonightCharacter(hour, weather.condition, period, signalDayType, locale, memoryProfile);
 
   const portals: PortalData[] = [
     {
@@ -112,6 +119,9 @@ export default async function HomePage({
 
       {/* Page-level grain */}
       <FilmGrain opacity={0.036} className="z-[1] pointer-events-none" />
+
+      {/* Memory sync — updates visit history + cookie on each mount (client-only) */}
+      <TokyoMemorySync hour={hour} />
 
       {/* ── Cinematic opening — full viewport, photo background ── */}
       <OpeningHero
