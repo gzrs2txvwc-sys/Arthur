@@ -4,6 +4,7 @@ import { FilmGrain } from "@/components/ui/FilmGrain";
 import { DailyNudge } from "@/components/ui/DailyNudge";
 import { QuietPresence } from "@/components/ui/QuietPresence";
 import { TokyoWalksWidget } from "@/components/walks/TokyoWalksWidget";
+import { TokyoNeighborhoodsWidget } from "@/components/neighborhoods/TokyoNeighborhoodsWidget";
 import { OpeningHero } from "@/components/ui/OpeningHero";
 import { HomepagePortals } from "@/components/ui/HomepagePortals";
 import type { PortalData } from "@/components/ui/HomepagePortals";
@@ -16,6 +17,7 @@ import { getOpeningPhoto, WEATHER_JP } from "@/lib/openingPhoto";
 import { getTonightSignal } from "@/lib/tonightSignals";
 import { tokyoDate, getDayType } from "@/lib/season";
 import { getActiveWalks } from "@/lib/tokyoWalks";
+import { getActiveNeighborhoods } from "@/lib/tokyoNeighborhoods";
 import { getTickerNotes } from "@/lib/districtTicker";
 import { getTonightCharacter } from "@/lib/tonightCharacter";
 import { parseCookieProfile } from "@/lib/tokyoMemory";
@@ -61,7 +63,8 @@ export default async function HomePage({
     dayOfWeek === 6 ? "saturday" :
     dayOfWeek === 0 ? "sunday" : "weekday";
   const tonightSignal    = getTonightSignal(hour, weather.condition, period, signalDayType);
-  const activeWalks      = getActiveWalks(period, weather.condition, signalDayType, hour, memoryProfile);
+  const activeWalks         = getActiveWalks(period, weather.condition, signalDayType, hour, memoryProfile);
+  const activeNeighborhoods = getActiveNeighborhoods(period, weather.condition, signalDayType, hour, memoryProfile);
   const tickerItems      = getTickerNotes(period, weather.condition, signalDayType, locale);
   const tonightCharacter = getTonightCharacter(hour, weather.condition, period, signalDayType, locale, memoryProfile);
 
@@ -167,6 +170,18 @@ export default async function HomePage({
         {/* ── Daily nudge — chapter-aware ──────────────────────── */}
         <div className="pt-20 pb-14 flex justify-center px-6">
           <DailyNudge period={period} condition={weather.condition} />
+        </div>
+
+        <div className="section-seam mx-8 md:mx-16" />
+
+        {/* ── Neighborhoods — the living Tokyo ── */}
+        <div className="pt-14 pb-16 flex justify-center px-6">
+          <TokyoNeighborhoodsWidget
+            neighborhoods={activeNeighborhoods}
+            condition={weather.condition}
+            period={period}
+            dayType={signalDayType}
+          />
         </div>
 
         <div className="section-seam mx-8 md:mx-16" />
