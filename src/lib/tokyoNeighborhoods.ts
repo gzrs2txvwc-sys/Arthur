@@ -23,8 +23,6 @@ interface NeighborhoodSignal {
     periods?: string[];
     weather?: string[];
     dayTypes?: string[];
-    hourMin?: number;
-    hourMax?: number;
   };
   en: string;
   ja: string;
@@ -37,10 +35,22 @@ export interface TokyoNeighborhood {
   nameJa: string;
   nameZh: string;
 
-  // One or two sentences — what makes this place what it is
+  // Short — for homepage widget
   characterEn: string;
   characterJa: string;
   characterZh: string;
+
+  // Expanded — for detail page
+  longCharacterEn: string;
+  longCharacterJa: string;
+  longCharacterZh: string;
+
+  // Three life observations — what actually happens here
+  moments: { en: string; ja: string; zh: string }[];
+
+  // Photo
+  imageUrl: string;
+  imageFilter: string;
 
   // Condition-specific "why tonight" signals
   signals: NeighborhoodSignal[];
@@ -55,7 +65,6 @@ export interface TokyoNeighborhood {
     periods?: string[];
     weather?: string[];
     dayTypes?: string[];
-    hourMin?: number;
   };
 
   weight: number;
@@ -72,6 +81,28 @@ const ALL_NEIGHBORHOODS: TokyoNeighborhood[] = [
     characterEn: "A river runs through it. The city organized itself around the water, which is why this place feels different from anywhere else.",
     characterJa: "川が流れている。街が水を中心に組み立てられている。だから、ここは他の場所とは違う感じがする。",
     characterZh: "有條河流過。城市圍繞著水建立起來，這就是為什麼這個地方和其他任何地方感覺都不同。",
+    longCharacterEn: "The Meguro River is the neighborhood's organizing principle. Everything bends toward it — the cafés and bars arrange their best seats to face the water, the walking paths run alongside it, the cherry trees line its banks each spring. When it rains, the sound changes. People who live here know to go out rather than stay in when the weather turns.",
+    longCharacterJa: "目黒川がこの街の中心にある。すべてが川に向かって配置されている。カフェもバーも、水に面した席を一番いい場所に置いている。春になると桜が川沿いに並ぶ。雨が降ると、音が変わる。ここに住んでいる人たちは、雨になったら家にいるよりも外に出るべきだと知っている。",
+    longCharacterZh: "目黑川是這個街區的組織原則。一切都朝向河流傾斜——咖啡館和酒吧把最好的座位安排在朝向河水的方向，步行小徑沿河而行，春天時櫻樹排列在河岸兩側。下雨時，聲音會改變。住在這裡的人知道，天氣轉變時應該出去，而不是待在家裡。",
+    moments: [
+      {
+        en: "You find a bar that faces the river and stay two hours longer than you planned.",
+        ja: "川に面したバーを見つけて、予定より二時間長くいる。",
+        zh: "你找到一家面向河流的酒吧，待的時間比預計多了兩個小時。",
+      },
+      {
+        en: "In cherry blossom season, the riverbank becomes the city's living room.",
+        ja: "桜の季節、川沿いは街のリビングルームになる。",
+        zh: "櫻花季節，河岸成為整個城市的客廳。",
+      },
+      {
+        en: "After 9pm on weekdays, the path along the water is quiet enough to hear the current.",
+        ja: "平日の夜九時を過ぎると、川沿いの道は水の流れが聞こえるほど静かになる。",
+        zh: "平日晚上九點後，沿水的小路安靜得能聽見水流聲。",
+      },
+    ],
+    imageUrl: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=1600&q=75",
+    imageFilter: "saturate(0.48) brightness(0.38) contrast(1.08)",
     signals: [
       {
         conditions: { weather: ["rainy", "foggy"] },
@@ -114,6 +145,28 @@ const ALL_NEIGHBORHOODS: TokyoNeighborhood[] = [
     characterEn: "Quiet and designed without being cold. The streets here make you slow down before you decide to.",
     characterJa: "静かで、でも冷たくはない。ここの道は、気づく前に足を遅くさせる。",
     characterZh: "安靜而有設計感，但不顯冷漠。這裡的街道讓你不自覺地放慢腳步。",
+    longCharacterEn: "Daikanyama was built for walking at a particular speed. The boutiques and cafés are spaced in a way that rewards slowing down — there is always one more shop worth looking at on the next corner. The residential streets behind the main strip are quiet enough to hear your footsteps. Tsutaya Books stays open late, has chairs, and no one expects you to leave.",
+    longCharacterJa: "代官山は、特定のペースで歩くために作られたような街だ。ブティックやカフェは、立ち止まることを促すような間隔で並んでいる。次の角にも、もう一つ見る価値のある店がある。メインの商業通りの裏にある住宅街は、自分の足音が聞こえるほど静かだ。蔦屋書店は遅くまで開いていて、椅子があって、誰も出て行くことを期待しない。",
+    longCharacterZh: "代官山的建造似乎就是為了以特定的速度行走。精品店和咖啡館的間距讓人自然地放慢腳步——下一個轉角總還有一家值得看的店。主要商業街後面的住宅小路安靜得能聽見自己的腳步聲。蔦屋書店開到很晚，有椅子，沒有人期望你離開。",
+    moments: [
+      {
+        en: "You end up buying a book in Japanese you can barely read.",
+        ja: "ほとんど読めない日本語の本を買ってしまう。",
+        zh: "你最後買了一本幾乎讀不懂的日文書。",
+      },
+      {
+        en: "The coffee shop that closes at nine is the one to go to at eight.",
+        ja: "九時に閉まる喫茶店は、八時に行くべき場所だ。",
+        zh: "九點關門的咖啡館，是八點去的最佳選擇。",
+      },
+      {
+        en: "The residential side streets, not the main road, are the neighborhood.",
+        ja: "この街の本質は、メインロードではなく、住宅地の脇道にある。",
+        zh: "這個街區的真實，在住宅區的小路，不在主幹道上。",
+      },
+    ],
+    imageUrl: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1600&q=75",
+    imageFilter: "saturate(0.44) brightness(0.40) contrast(1.06)",
     signals: [
       {
         conditions: { periods: ["evening"], weather: ["clear", "cloudy"] },
@@ -156,6 +209,28 @@ const ALL_NEIGHBORHOODS: TokyoNeighborhood[] = [
     characterEn: "Music venues, vintage shops, thirty-year-old coffee shops. The part of Tokyo that still does what it wants.",
     characterJa: "ライブハウス、古着屋、三十年続く喫茶店。東京の中で、今もやりたいことをやっている場所。",
     characterZh: "音樂場所、古著店、開了三十年的咖啡館。東京中仍在做自己想做的事情的地方。",
+    longCharacterEn: "Shimokitazawa has no sensible street grid. The lanes overlap and dead-end and branch unexpectedly, as if the neighborhood grew without any plan — which it basically did. The music venues are inside buildings that look like they're about to close; the vintage shops have owners who know exactly what they have. This is the part of Tokyo that was never gentrified because it never attracted that kind of attention.",
+    longCharacterJa: "下北沢には、整然とした街路がない。路地は重なり合い、行き止まりになり、予想もしない方向に分岐する。まるで計画なしに育ったようで、実際そうだった。ライブハウスは今にも閉まりそうな建物の中にある。古着屋の店主たちは、自分たちが何を持っているかを正確に知っている。これは、その種の注目を集めなかったがゆえに、ジェントリフィケーションされなかった東京だ。",
+    longCharacterZh: "下北澤沒有合理的街道規劃。小巷重疊、死路、出乎意料地分叉，彷彿整個街區在毫無計劃的情況下生長——事實上也確實如此。音樂場所藏在看起來快要關門的建築裡；古著店的老闆清楚地知道自己手上有什麼。這是東京從未被仕紳化的地方，因為它從未吸引那種注意。",
+    moments: [
+      {
+        en: "You see a show and walk out into a street you haven't seen yet.",
+        ja: "ライブを観て外に出ると、まだ見ていない道に出る。",
+        zh: "看完演出走出來，來到一條還沒見過的街道。",
+      },
+      {
+        en: "At 11pm in a tiny coffee shop, two people are reading and the music is too soft to name.",
+        ja: "夜の十一時、小さな喫茶店で、二人が本を読んでいる。音楽は名前のつけられないほど小さい。",
+        zh: "夜晚十一點，在一間小咖啡館裡，有兩個人在看書，音樂輕得讓人說不出名字。",
+      },
+      {
+        en: "The record you weren't looking for is the one you find.",
+        ja: "探していなかったレコードを、見つける。",
+        zh: "你找到的，是那張你沒有在找的唱片。",
+      },
+    ],
+    imageUrl: "https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?w=1600&q=75",
+    imageFilter: "saturate(0.42) brightness(0.35) contrast(1.10) hue-rotate(8deg)",
     signals: [
       {
         conditions: { dayTypes: ["friday", "saturday"], periods: ["night", "latenight"] },
@@ -198,6 +273,28 @@ const ALL_NEIGHBORHOODS: TokyoNeighborhood[] = [
     characterEn: "Select shops, small galleries, coffee that takes itself seriously. The version of Tokyo that grew up.",
     characterJa: "セレクトショップ、小さなギャラリー、本格的なコーヒー。大人になった東京。",
     characterZh: "精選店鋪、小型畫廊、認真對待咖啡的地方。長大了的東京。",
+    longCharacterEn: "Aoyama is what Tokyo looks like when it's done with trying. The shops are selected rather than accumulated; the galleries run without fanfare. The coffee is excellent and the staff don't explain it to you. On weekday evenings after the offices empty, the lanes between the buildings are quiet enough that you can take your time with them.",
+    longCharacterJa: "青山は、東京が頑張るのをやめた後の姿だ。店は集積ではなく、選択の結果として並んでいる。ギャラリーは静かに営業している。コーヒーは本物で、スタッフが説明しない。平日の夕方、オフィスが空になると、建物の間の路地は、ゆっくり歩ける静けさになる。",
+    longCharacterZh: "青山是東京不再努力表現之後的樣子。店鋪是精選的結果，不是積累的；畫廊安靜地運作，不加張揚。咖啡很出色，工作人員不會向你解釋它。平日傍晚，辦公室清空之後，建築之間的小巷安靜得讓你可以慢慢走。",
+    moments: [
+      {
+        en: "A gallery you find by accident has three works that stay with you.",
+        ja: "偶然見つけたギャラリーに、心に残る作品が三つある。",
+        zh: "偶然發現的畫廊裡，有三件作品讓你難忘。",
+      },
+      {
+        en: "The coffee doesn't come with a story. It just comes.",
+        ja: "コーヒーは説明付きで来ない。ただ来る。",
+        zh: "咖啡不帶解說，就這樣送上來。",
+      },
+      {
+        en: "The lane behind the main road is better than the main road.",
+        ja: "メインロードの裏の路地は、メインロードよりいい。",
+        zh: "主幹道後面的小巷比主幹道更好。",
+      },
+    ],
+    imageUrl: "https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=1600&q=75",
+    imageFilter: "saturate(0.38) brightness(0.42) contrast(1.07)",
     signals: [
       {
         conditions: { periods: ["afternoon"], weather: ["clear", "cloudy"] },
@@ -234,6 +331,28 @@ const ALL_NEIGHBORHOODS: TokyoNeighborhood[] = [
     characterEn: "Old bookshops, old kissaten, old residents. A neighborhood that exists for the people living in it, not for visitors.",
     characterJa: "古書店、古い喫茶店、古くからの住民。訪れる人のためではなく、住む人のために存在している街。",
     characterZh: "舊書店、老喫茶店、老居民。一個為居住者而存在的街區，不是為了遊客。",
+    longCharacterEn: "Nishi-Ogikubo runs on its own schedule. The used bookshops open when they want to and close before you expected. The kissaten are unchanged from decades ago — same furniture, same record collections, same owners. This is a neighborhood that has no particular ambition to become something else, which is what makes it valuable.",
+    longCharacterJa: "西荻窪は自分のスケジュールで動いている。古書店は好きな時間に開いて、予想より早く閉まる。喫茶店は数十年前と変わっていない——同じ家具、同じレコードのコレクション、同じ店主。これは、別の何かになろうという野心を持たない街だ。だから価値がある。",
+    longCharacterZh: "西荻窪按自己的時間表運轉。舊書店在它想開門的時候開，比你預期早關門。喫茶店幾十年來沒有改變——同樣的家具、同樣的黑膠唱片收藏、同樣的老闆。這是一個沒有野心想變成別的什麼的街區，這正是它珍貴的地方。",
+    moments: [
+      {
+        en: "You spend an hour with books you can't read and buy two anyway.",
+        ja: "読めない本と一時間過ごし、それでも二冊買う。",
+        zh: "花一個小時看看不懂的書，然後還是買了兩本。",
+      },
+      {
+        en: "Rain, a window seat, and a coffee that comes in the kind of cup they stopped making.",
+        ja: "雨、窓際の席、もう作られていない種類のカップで来るコーヒー。",
+        zh: "雨、靠窗的座位，和用那種早已停產的杯子端上來的咖啡。",
+      },
+      {
+        en: "The antique shop owner doesn't try to sell to you. You end up buying something.",
+        ja: "アンティークショップの主人は、売ろうとしない。それでも何かを買ってしまう。",
+        zh: "古董店的老闆不試著向你推銷，你卻還是買了什麼。",
+      },
+    ],
+    imageUrl: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=75",
+    imageFilter: "saturate(0.50) brightness(0.36) contrast(1.05) sepia(0.12)",
     signals: [
       {
         conditions: { dayTypes: ["saturday", "sunday"], periods: ["afternoon"] },
@@ -270,6 +389,28 @@ const ALL_NEIGHBORHOODS: TokyoNeighborhood[] = [
     characterEn: "Cobblestone alleys, French influence, hidden restaurants from another era. A neighborhood that kept its history.",
     characterJa: "石畳の路地、フランスの影響、別の時代からの隠れた料理屋。歴史を保ち続けた街。",
     characterZh: "鵝卵石小巷、法式影響、來自另一個時代的隱藏餐廳。一個保留了歷史的街區。",
+    longCharacterEn: "Kagurazaka has been through enough histories to become layered. There was a geisha district here once, then a French community settled nearby, and the neighborhood absorbed both without collapsing into either. The cobblestone alleys branch off the main road into something you didn't expect — a Japanese restaurant hidden between two stone walls, a café with no English sign. Rain makes the stone paths reflective and changes the mood of the whole place.",
+    longCharacterJa: "神楽坂は、複数の歴史を経て、重なりを持つようになった。かつてここには花街があり、その後フランス人コミュニティが近くに定着し、街はどちらにも崩れることなく両方を吸収した。メインロードから石畳の路地に入ると、予想していなかったものがある——石垣の間に隠れた料理屋、英語の看板のないカフェ。雨が降ると、石畳の道が光を反射し、街の雰囲気が変わる。",
+    longCharacterZh: "神樂坂經歷了足夠多的歷史，因而變得有層次。這裡曾經有花街，後來法國社區在附近定居，街區吸收了兩者而沒有崩塌成其中任何一個。從主幹道走進鵝卵石小巷，你會遇見意想不到的東西——夾在兩道石牆之間的隱藏料理屋，沒有英文招牌的咖啡館。下雨時，石板路反射光線，整個地方的氣氛為之一變。",
+    moments: [
+      {
+        en: "You find a restaurant through a door that doesn't look like a restaurant.",
+        ja: "料理屋に見えないドアから入って、料理屋を見つける。",
+        zh: "你從一扇不像餐廳入口的門走進去，找到了一家餐廳。",
+      },
+      {
+        en: "The alley where you expect an exit leads to another alley.",
+        ja: "出口だと思った路地が、また別の路地につながっている。",
+        zh: "你以為是出口的小巷，通向另一條小巷。",
+      },
+      {
+        en: "Rainy evening. The stone path is yours.",
+        ja: "雨の夕方。石畳の道は自分のものだ。",
+        zh: "雨天傍晚。石板路是你一個人的。",
+      },
+    ],
+    imageUrl: "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?w=1600&q=75",
+    imageFilter: "saturate(0.38) brightness(0.32) contrast(1.12) sepia(0.10)",
     signals: [
       {
         conditions: { weather: ["rainy", "foggy"], periods: ["evening", "night"] },
@@ -306,6 +447,28 @@ const ALL_NEIGHBORHOODS: TokyoNeighborhood[] = [
     characterEn: "Eclectic, unpredictable, completely itself. Tokyo without pretension.",
     characterJa: "折衷的で、予測できなくて、完全に自分らしい。気取りのない東京。",
     characterZh: "折衷、難以預測、完全做自己。不裝模作樣的東京。",
+    longCharacterEn: "Koenji has always absorbed people who didn't fit anywhere else. Musicians who couldn't afford Shimokitazawa, artists who preferred the Chuo Line, people who liked the density without the gloss. The result is something fully its own — not trying to be a destination, just existing at full volume. The covered shopping streets protect it from weather and from any pressure to become more presentable.",
+    longCharacterJa: "高円寺はいつも、他のどこにも合わなかった人たちを受け入れてきた。下北沢に住む余裕がなかったミュージシャン、中央線を好むアーティスト、輝かしくない密度を好む人たち。その結果、完全に独自のものができた——目的地になろうとはしていない、ただフルボリュームで存在している。屋根付きの商店街は、天気からも、もっと見栄えよくなるべきというプレッシャーからも、街を守っている。",
+    longCharacterZh: "高円寺一直是那個接納不屬於任何其他地方的人的街區。負擔不起下北澤的音樂人，偏好中央線的藝術家，喜歡那種不加修飾的密集感的人。結果形成了某種完全屬於自己的東西——不試圖成為目的地，只是以全音量存在著。有頂棚的商店街保護著它免受天氣的侵擾，也免受變得更像樣的壓力。",
+    moments: [
+      {
+        en: "You wander into a small live venue that holds maybe forty people.",
+        ja: "四十人も入れないような小さなライブハウスに迷い込む。",
+        zh: "你誤走進一個大概只能容納四十人的小型演出場地。",
+      },
+      {
+        en: "The second-hand record shop has a listening station you use for forty minutes.",
+        ja: "中古レコード屋に試聴ステーションがある。四十分使う。",
+        zh: "二手唱片店有一個試聽站，你用了四十分鐘。",
+      },
+      {
+        en: "Something about this neighborhood makes you feel like you don't have to explain yourself.",
+        ja: "この街には何か、自分を説明しなくていい気持ちにさせるものがある。",
+        zh: "這個街區有某種東西，讓你感覺不需要解釋自己。",
+      },
+    ],
+    imageUrl: "https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=1600&q=75",
+    imageFilter: "saturate(0.45) brightness(0.36) contrast(1.08) hue-rotate(5deg)",
     signals: [
       {
         conditions: { periods: ["night", "latenight"] },
@@ -342,6 +505,28 @@ const ALL_NEIGHBORHOODS: TokyoNeighborhood[] = [
     characterEn: "Roasters, small galleries, the river close. People built a neighborhood around good coffee, and it worked.",
     characterJa: "焙煎所、小さなギャラリー、近くに川。いいコーヒーを中心に、街が作られた。そしてそれは機能した。",
     characterZh: "烘焙坊、小型畫廊、河流就在附近。人們圍繞著好咖啡建立了一個街區，而這竟然成功了。",
+    longCharacterEn: "Kiyosumi-Shirakawa became what it is because serious coffee people moved in. The old printing factory buildings and warehouses were the right size for roasters who wanted to do things properly. A neighborhood built around one thing done very well has a kind of coherence that most places lack. People come from across the city for coffee and stay for the river and the pace — which is different from almost everywhere else in Tokyo.",
+    longCharacterJa: "清澄白河は、本格的なコーヒーの人たちが移り住んできたことで、今の姿になった。古い印刷工場や倉庫は、ちゃんとやりたい焙煎人にとってちょうどいい大きさだった。一つのことをとてもよくやることを中心に作られた街には、ほとんどの場所には欠けている独特のまとまりがある。人々は街全体からコーヒーのために来て、川とそのペースのために滞在する——東京の他のほとんどの場所とは異なるペース。",
+    longCharacterZh: "清澄白河之所以成為今天這個樣子，是因為認真對待咖啡的人搬來了。舊印刷廠房和倉庫對於想把事情做好的烘焙師來說大小正好。一個圍繞著一件做得非常好的事情所建立的街區，有一種大多數地方所缺乏的獨特連貫性。人們從全城各地為咖啡而來，然後因為河流和節奏而留下——那種節奏與東京其他幾乎所有地方都不同。",
+    moments: [
+      {
+        en: "The first coffee of the day, in a room that smells of roasting.",
+        ja: "焙煎の香りがする部屋で、その日最初のコーヒーを飲む。",
+        zh: "在瀰漫著烘焙香氣的房間裡，喝這一天的第一杯咖啡。",
+      },
+      {
+        en: "You cross the bridge over the river twice without meaning to.",
+        ja: "気づかないうちに、川にかかる橋を二回渡っている。",
+        zh: "你不知不覺地過了兩次河上的橋。",
+      },
+      {
+        en: "The pace here is different. You notice it only when you leave.",
+        ja: "ここのペースは違う。それに気づくのは、離れた後だ。",
+        zh: "這裡的節奏不同。你只有在離開後才意識到這一點。",
+      },
+    ],
+    imageUrl: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=1600&q=75",
+    imageFilter: "saturate(0.40) brightness(0.40) contrast(1.06)",
     signals: [
       {
         conditions: { periods: ["morning", "earlyMorning"] },
@@ -378,6 +563,28 @@ const ALL_NEIGHBORHOODS: TokyoNeighborhood[] = [
     characterEn: "The old shitamachi that didn't get knocked down. Temple paths, narrow shotengai, cats. Tokyo before everything changed.",
     characterJa: "取り壊されなかった古い下町。寺の道、細い商店街、猫。何もかもが変わる前の東京。",
     characterZh: "沒有被拆掉的老下町。寺廟小徑、狹窄商店街、貓。一切改變之前的東京。",
+    longCharacterEn: "Yanaka is a working demonstration that not everything in Tokyo got torn down and rebuilt. The narrow streets follow the contours of the hill they were built on, rather than any grid. The cemetery at the center is not gloomy but shaded — a place people walk through on the way somewhere else. Cats appear on walls and in passageways with the confidence of residents who have lived here longer than anyone.",
+    longCharacterJa: "谷中は、東京のすべてが取り壊されて再建されたわけではないということを、実証している。ここの細い道は、どんなグリッドにも従わず、建てられた丘の輪郭に沿っている。中心にある墓地は暗くはなく、木陰になっている——他の場所へ行く途中に人が通り抜ける場所だ。猫は壁の上や路地に、誰よりも長くここに住んでいる住民の自信とともに現れる。",
+    longCharacterZh: "谷中是一個活生生的示範：東京並非所有的東西都被拆掉重建了。這裡的狹窄街道沿著建造它們的山丘輪廓延伸，而不是遵循任何網格。中心的墓地並不陰沉，而是有樹蔭——一個人們在去別的地方途中穿行的地方。貓出現在牆上和小路裡，帶著比任何人都在這裡住得更久的居民的自信。",
+    moments: [
+      {
+        en: "You get lost in fifteen minutes and find somewhere better than where you were going.",
+        ja: "十五分で迷子になって、向かっていた場所よりいいところを見つける。",
+        zh: "十五分鐘後你迷路了，然後找到了比原本目的地更好的地方。",
+      },
+      {
+        en: "The shotengai on a slow weekend. You buy something you didn't need.",
+        ja: "ゆっくりした週末の商店街。必要ではなかったものを買う。",
+        zh: "悠閒週末的商店街。你買了一件不需要的東西。",
+      },
+      {
+        en: "The morning here sounds different — birds, not trains.",
+        ja: "ここの朝は音が違う——電車ではなく、鳥の声。",
+        zh: "這裡的早晨聲音不同——是鳥聲，不是列車聲。",
+      },
+    ],
+    imageUrl: "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=1600&q=75",
+    imageFilter: "saturate(0.50) brightness(0.38) contrast(1.04) sepia(0.14)",
     signals: [
       {
         conditions: { periods: ["morning", "earlyMorning"], weather: ["clear", "cloudy"] },
@@ -414,6 +621,28 @@ const ALL_NEIGHBORHOODS: TokyoNeighborhood[] = [
     characterEn: "Dense, lived-in, unpretentious. Not designed for anyone to come and see — just a neighborhood that people end up calling theirs.",
     characterJa: "密度が高く、生活感があって、気取らない。誰かに来てもらうために設計されたわけじゃない。ただ、気づいたら自分の街になっている場所。",
     characterZh: "密集、充滿生活氣息、不裝樣。不是為了讓人來參觀而設計的——只是一個人們最終稱之為自己的地方的街區。",
+    longCharacterEn: "Sangenjaya became what it is the same way most good neighborhoods do — residents who had nowhere else to be, shops that opened because something was needed. Nothing here is particularly designed to attract anyone. The result is a density of ordinary things done well: the izakaya at the end of the covered market, the ramen shop without a sign, the bar where the owner has been there since before you could drink. People end up in Sangenjaya and then find it hard to live anywhere else.",
+    longCharacterJa: "三軒茶屋は、ほとんどのいい街と同じように、今の姿になった——他に行く場所がない住民と、何かが必要だから開いた店。誰かを惹きつけるために特別に設計されたものは何もない。その結果は、普通のことを上手くやることの密集だ。屋根付き商店街の端の居酒屋、看板のないラーメン屋、店主があなたが飲めるようになる前からいるバー。人々は三軒茶屋に行き着いて、他の場所では暮らしにくくなる。",
+    longCharacterZh: "三軒茶屋之所以成為今天這個樣子，和大多數好街區一樣——沒有其他地方可去的居民，因為有需要而開設的商店。這裡沒有任何特別為吸引人而設計的東西。結果是普通事情做得好的一種密集：有頂棚市場末端的居酒屋，沒有招牌的拉麵店，老闆在你能喝酒之前就在那裡的酒吧。人們來到三軒茶屋，然後發現很難在其他地方生活。",
+    moments: [
+      {
+        en: "The ramen shop without a sign is the one you want.",
+        ja: "看板のないラーメン屋が、本当に行きたい場所だ。",
+        zh: "沒有招牌的拉麵店，才是你真正想去的那一家。",
+      },
+      {
+        en: "You end up in a bar that feels like it has always been here.",
+        ja: "ずっとここにあったように感じるバーにいる。",
+        zh: "你待在一間感覺永遠都在這裡的酒吧裡。",
+      },
+      {
+        en: "The covered market at midnight. Everything still open.",
+        ja: "深夜の商店街。まだすべてが開いている。",
+        zh: "深夜的商店街。一切都還開著。",
+      },
+    ],
+    imageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=75",
+    imageFilter: "saturate(0.46) brightness(0.34) contrast(1.10)",
     signals: [
       {
         conditions: { periods: ["night", "latenight"] },
@@ -450,6 +679,28 @@ const ALL_NEIGHBORHOODS: TokyoNeighborhood[] = [
     characterEn: "Small shops, friendly bars, nothing remarkable about it — which is the point. A neighborhood for living in, not visiting.",
     characterJa: "小さい店、気さくなバー、特に何も目立たない——それがいいんだ。観光じゃなく、生活するための街。",
     characterZh: "小店、友善的酒吧、沒有什麼特別的——這正是重點。一個用來生活的街區，不是用來參觀的。",
+    longCharacterEn: "Gakugeidaigaku is for people who have spent time in Tokyo and arrived at the understanding that the best neighborhoods are the ones you don't hear about. It doesn't look like much — which is the correct signal. The shotengai is short and local. The bars are small and have regulars. The kind of people you meet here are the kind who know they've found something.",
+    longCharacterJa: "学芸大学は、東京でしばらく暮らして、一番いい街は話題にならないところだということに気づいた人のための街だ。見た目はそれほどでもない——それが正しいサインだ。商店街は短くてローカルだ。バーは小さくて常連がいる。ここで出会う人たちは、何かいいものを見つけたと知っている人たちだ。",
+    longCharacterZh: "學藝大學是為那些在東京待了一段時間、領悟到最好的街區是那些你不會聽說的地方的人而存在的。它看起來沒什麼特別——這是正確的信號。商店街短小而在地。酒吧小而有常客。在這裡遇到的人，都是那種知道自己找到了好東西的人。",
+    moments: [
+      {
+        en: "The bar where you become a regular after three visits.",
+        ja: "三回行くだけで常連になれるバー。",
+        zh: "去三次就能成為常客的酒吧。",
+      },
+      {
+        en: "Nobody is here for the reason you would tell someone.",
+        ja: "誰も、他の人に伝えるような理由でここにいない。",
+        zh: "這裡沒有人是因為你會告訴別人的那種理由來的。",
+      },
+      {
+        en: "A neighborhood that feels like it's letting you in on something.",
+        ja: "何かを教えてくれているような気がする街。",
+        zh: "一個讓你感覺在告訴你什麼秘密的街區。",
+      },
+    ],
+    imageUrl: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1600&q=75",
+    imageFilter: "saturate(0.44) brightness(0.38) contrast(1.06)",
     signals: [
       {
         conditions: { periods: ["evening"], dayTypes: ["weekday"] },
@@ -503,6 +754,14 @@ function pickSignal(
 
 // ── Public API ──────────────────────────────────────────────────────────────
 
+export function getNeighborhoodById(id: string): TokyoNeighborhood | undefined {
+  return ALL_NEIGHBORHOODS.find((n) => n.id === id);
+}
+
+export function getAllNeighborhoodIds(): string[] {
+  return ALL_NEIGHBORHOODS.map((n) => n.id);
+}
+
 export function getActiveNeighborhoods(
   period: string,
   condition: string,
@@ -543,6 +802,21 @@ export function getNeighborhoodCharacter(n: TokyoNeighborhood, g: string): strin
   if (g === "ja") return n.characterJa;
   if (g === "zh") return n.characterZh;
   return n.characterEn;
+}
+
+export function getNeighborhoodLongCharacter(n: TokyoNeighborhood, g: string): string {
+  if (g === "ja") return n.longCharacterJa;
+  if (g === "zh") return n.longCharacterZh;
+  return n.longCharacterEn;
+}
+
+export function getNeighborhoodMoment(
+  moment: { en: string; ja: string; zh: string },
+  g: string,
+): string {
+  if (g === "ja") return moment.ja;
+  if (g === "zh") return moment.zh;
+  return moment.en;
 }
 
 export function getNeighborhoodSignalText(
