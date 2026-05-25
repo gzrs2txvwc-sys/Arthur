@@ -10,6 +10,7 @@ import {
   getNeighborhoodById,
   getAllNeighborhoodIds,
   getNeighborhoodName,
+  getNeighborhoodForWhom,
   getNeighborhoodLongCharacter,
   getNeighborhoodMoment,
   getNeighborhoodSignalText,
@@ -60,6 +61,7 @@ export default async function NeighborhoodPage({
     dayOfWeek === 0 ? "sunday" : "weekday";
 
   const name          = getNeighborhoodName(n, g);
+  const forWhom       = getNeighborhoodForWhom(n, g);
   const longCharacter = getNeighborhoodLongCharacter(n, g);
   const signalText    = getNeighborhoodSignalText(n, period, weather.condition, dayType, g);
 
@@ -127,11 +129,25 @@ export default async function NeighborhoodPage({
           {g === "en" && (
             <p
               className="mt-1"
-              style={{ fontSize: "13px", color: "rgba(200,184,154,0.55)", fontStyle: "italic" }}
+              style={{ fontSize: "13px", color: "rgba(200,184,154,0.45)" }}
             >
               {n.nameJa}
             </p>
           )}
+
+          {/* For whom — identity framing, the new product core */}
+          <p
+            className="mt-4"
+            style={{
+              fontSize: "13px",
+              color: "rgba(220,205,182,0.60)",
+              fontStyle: "italic",
+              lineHeight: 1.6,
+              maxWidth: "480px",
+            }}
+          >
+            {forWhom}
+          </p>
         </div>
       </div>
 

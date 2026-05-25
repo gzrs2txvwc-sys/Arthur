@@ -45,6 +45,11 @@ export interface TokyoNeighborhood {
   longCharacterJa: string;
   longCharacterZh: string;
 
+  // "For whom" — identity framing, not description
+  forWhomEn: string;
+  forWhomJa: string;
+  forWhomZh: string;
+
   // Three life observations — what actually happens here
   moments: { en: string; ja: string; zh: string }[];
 
@@ -84,6 +89,9 @@ const ALL_NEIGHBORHOODS: TokyoNeighborhood[] = [
     longCharacterEn: "The Meguro River is the neighborhood's organizing principle. Everything bends toward it — the cafés and bars arrange their best seats to face the water, the walking paths run alongside it, the cherry trees line its banks each spring. When it rains, the sound changes. People who live here know to go out rather than stay in when the weather turns.",
     longCharacterJa: "目黒川がこの街の中心にある。すべてが川に向かって配置されている。カフェもバーも、水に面した席を一番いい場所に置いている。春になると桜が川沿いに並ぶ。雨が降ると、音が変わる。ここに住んでいる人たちは、雨になったら家にいるよりも外に出るべきだと知っている。",
     longCharacterZh: "目黑川是這個街區的組織原則。一切都朝向河流傾斜——咖啡館和酒吧把最好的座位安排在朝向河水的方向，步行小徑沿河而行，春天時櫻樹排列在河岸兩側。下雨時，聲音會改變。住在這裡的人知道，天氣轉變時應該出去，而不是待在家裡。",
+    forWhomEn: "For people who need a reason to stand outside a little longer.",
+    forWhomJa: "少し長く外に立っていたい理由が必要な人のために。",
+    forWhomZh: "為那些需要一個在外多待一會兒的理由的人。",
     moments: [
       {
         en: "You find a bar that faces the river and stay two hours longer than you planned.",
@@ -148,6 +156,9 @@ const ALL_NEIGHBORHOODS: TokyoNeighborhood[] = [
     longCharacterEn: "Daikanyama was built for walking at a particular speed. The boutiques and cafés are spaced in a way that rewards slowing down — there is always one more shop worth looking at on the next corner. The residential streets behind the main strip are quiet enough to hear your footsteps. Tsutaya Books stays open late, has chairs, and no one expects you to leave.",
     longCharacterJa: "代官山は、特定のペースで歩くために作られたような街だ。ブティックやカフェは、立ち止まることを促すような間隔で並んでいる。次の角にも、もう一つ見る価値のある店がある。メインの商業通りの裏にある住宅街は、自分の足音が聞こえるほど静かだ。蔦屋書店は遅くまで開いていて、椅子があって、誰も出て行くことを期待しない。",
     longCharacterZh: "代官山的建造似乎就是為了以特定的速度行走。精品店和咖啡館的間距讓人自然地放慢腳步——下一個轉角總還有一家值得看的店。主要商業街後面的住宅小路安靜得能聽見自己的腳步聲。蔦屋書店開到很晚，有椅子，沒有人期望你離開。",
+    forWhomEn: "For people who stopped needing to find the best place.",
+    forWhomJa: "一番いい場所を探すのをやめた人のために。",
+    forWhomZh: "為那些不再需要尋找最好的地方的人。",
     moments: [
       {
         en: "You end up buying a book in Japanese you can barely read.",
@@ -212,6 +223,9 @@ const ALL_NEIGHBORHOODS: TokyoNeighborhood[] = [
     longCharacterEn: "Shimokitazawa has no sensible street grid. The lanes overlap and dead-end and branch unexpectedly, as if the neighborhood grew without any plan — which it basically did. The music venues are inside buildings that look like they're about to close; the vintage shops have owners who know exactly what they have. This is the part of Tokyo that was never gentrified because it never attracted that kind of attention.",
     longCharacterJa: "下北沢には、整然とした街路がない。路地は重なり合い、行き止まりになり、予想もしない方向に分岐する。まるで計画なしに育ったようで、実際そうだった。ライブハウスは今にも閉まりそうな建物の中にある。古着屋の店主たちは、自分たちが何を持っているかを正確に知っている。これは、その種の注目を集めなかったがゆえに、ジェントリフィケーションされなかった東京だ。",
     longCharacterZh: "下北澤沒有合理的街道規劃。小巷重疊、死路、出乎意料地分叉，彷彿整個街區在毫無計劃的情況下生長——事實上也確實如此。音樂場所藏在看起來快要關門的建築裡；古著店的老闆清楚地知道自己手上有什麼。這是東京從未被仕紳化的地方，因為它從未吸引那種注意。",
+    forWhomEn: "For people who don't explain what they're into.",
+    forWhomJa: "自分が何が好きか、説明しない人のために。",
+    forWhomZh: "為那些不解釋自己喜好的人。",
     moments: [
       {
         en: "You see a show and walk out into a street you haven't seen yet.",
@@ -276,6 +290,9 @@ const ALL_NEIGHBORHOODS: TokyoNeighborhood[] = [
     longCharacterEn: "Aoyama is what Tokyo looks like when it's done with trying. The shops are selected rather than accumulated; the galleries run without fanfare. The coffee is excellent and the staff don't explain it to you. On weekday evenings after the offices empty, the lanes between the buildings are quiet enough that you can take your time with them.",
     longCharacterJa: "青山は、東京が頑張るのをやめた後の姿だ。店は集積ではなく、選択の結果として並んでいる。ギャラリーは静かに営業している。コーヒーは本物で、スタッフが説明しない。平日の夕方、オフィスが空になると、建物の間の路地は、ゆっくり歩ける静けさになる。",
     longCharacterZh: "青山是東京不再努力表現之後的樣子。店鋪是精選的結果，不是積累的；畫廊安靜地運作，不加張揚。咖啡很出色，工作人員不會向你解釋它。平日傍晚，辦公室清空之後，建築之間的小巷安靜得讓你可以慢慢走。",
+    forWhomEn: "For people who've grown out of needing to be somewhere impressive.",
+    forWhomJa: "印象的な場所にいる必要性を卒業した人のために。",
+    forWhomZh: "為那些已經不再需要待在令人印象深刻的地方的人。",
     moments: [
       {
         en: "A gallery you find by accident has three works that stay with you.",
@@ -334,6 +351,9 @@ const ALL_NEIGHBORHOODS: TokyoNeighborhood[] = [
     longCharacterEn: "Nishi-Ogikubo runs on its own schedule. The used bookshops open when they want to and close before you expected. The kissaten are unchanged from decades ago — same furniture, same record collections, same owners. This is a neighborhood that has no particular ambition to become something else, which is what makes it valuable.",
     longCharacterJa: "西荻窪は自分のスケジュールで動いている。古書店は好きな時間に開いて、予想より早く閉まる。喫茶店は数十年前と変わっていない——同じ家具、同じレコードのコレクション、同じ店主。これは、別の何かになろうという野心を持たない街だ。だから価値がある。",
     longCharacterZh: "西荻窪按自己的時間表運轉。舊書店在它想開門的時候開，比你預期早關門。喫茶店幾十年來沒有改變——同樣的家具、同樣的黑膠唱片收藏、同樣的老闆。這是一個沒有野心想變成別的什麼的街區，這正是它珍貴的地方。",
+    forWhomEn: "For people who've accepted that the best things in Tokyo don't try.",
+    forWhomJa: "東京のいちばんいいものは、何も頑張っていないと気づいた人のために。",
+    forWhomZh: "為那些接受了東京最好的東西從不費力的人。",
     moments: [
       {
         en: "You spend an hour with books you can't read and buy two anyway.",
@@ -392,6 +412,9 @@ const ALL_NEIGHBORHOODS: TokyoNeighborhood[] = [
     longCharacterEn: "Kagurazaka has been through enough histories to become layered. There was a geisha district here once, then a French community settled nearby, and the neighborhood absorbed both without collapsing into either. The cobblestone alleys branch off the main road into something you didn't expect — a Japanese restaurant hidden between two stone walls, a café with no English sign. Rain makes the stone paths reflective and changes the mood of the whole place.",
     longCharacterJa: "神楽坂は、複数の歴史を経て、重なりを持つようになった。かつてここには花街があり、その後フランス人コミュニティが近くに定着し、街はどちらにも崩れることなく両方を吸収した。メインロードから石畳の路地に入ると、予想していなかったものがある——石垣の間に隠れた料理屋、英語の看板のないカフェ。雨が降ると、石畳の道が光を反射し、街の雰囲気が変わる。",
     longCharacterZh: "神樂坂經歷了足夠多的歷史，因而變得有層次。這裡曾經有花街，後來法國社區在附近定居，街區吸收了兩者而沒有崩塌成其中任何一個。從主幹道走進鵝卵石小巷，你會遇見意想不到的東西——夾在兩道石牆之間的隱藏料理屋，沒有英文招牌的咖啡館。下雨時，石板路反射光線，整個地方的氣氛為之一變。",
+    forWhomEn: "For people who suspect Tokyo has layers most visitors never reach.",
+    forWhomJa: "東京には、ほとんどの訪問者が届かない層があると思っている人のために。",
+    forWhomZh: "為那些相信東京有大多數訪客從未觸及的層次的人。",
     moments: [
       {
         en: "You find a restaurant through a door that doesn't look like a restaurant.",
@@ -450,6 +473,9 @@ const ALL_NEIGHBORHOODS: TokyoNeighborhood[] = [
     longCharacterEn: "Koenji has always absorbed people who didn't fit anywhere else. Musicians who couldn't afford Shimokitazawa, artists who preferred the Chuo Line, people who liked the density without the gloss. The result is something fully its own — not trying to be a destination, just existing at full volume. The covered shopping streets protect it from weather and from any pressure to become more presentable.",
     longCharacterJa: "高円寺はいつも、他のどこにも合わなかった人たちを受け入れてきた。下北沢に住む余裕がなかったミュージシャン、中央線を好むアーティスト、輝かしくない密度を好む人たち。その結果、完全に独自のものができた——目的地になろうとはしていない、ただフルボリュームで存在している。屋根付きの商店街は、天気からも、もっと見栄えよくなるべきというプレッシャーからも、街を守っている。",
     longCharacterZh: "高円寺一直是那個接納不屬於任何其他地方的人的街區。負擔不起下北澤的音樂人，偏好中央線的藝術家，喜歡那種不加修飾的密集感的人。結果形成了某種完全屬於自己的東西——不試圖成為目的地，只是以全音量存在著。有頂棚的商店街保護著它免受天氣的侵擾，也免受變得更像樣的壓力。",
+    forWhomEn: "For people who find tourist Tokyo slightly embarrassing.",
+    forWhomJa: "観光地の東京が少し恥ずかしいと感じる人のために。",
+    forWhomZh: "為那些覺得觀光東京有點難為情的人。",
     moments: [
       {
         en: "You wander into a small live venue that holds maybe forty people.",
@@ -508,6 +534,9 @@ const ALL_NEIGHBORHOODS: TokyoNeighborhood[] = [
     longCharacterEn: "Kiyosumi-Shirakawa became what it is because serious coffee people moved in. The old printing factory buildings and warehouses were the right size for roasters who wanted to do things properly. A neighborhood built around one thing done very well has a kind of coherence that most places lack. People come from across the city for coffee and stay for the river and the pace — which is different from almost everywhere else in Tokyo.",
     longCharacterJa: "清澄白河は、本格的なコーヒーの人たちが移り住んできたことで、今の姿になった。古い印刷工場や倉庫は、ちゃんとやりたい焙煎人にとってちょうどいい大きさだった。一つのことをとてもよくやることを中心に作られた街には、ほとんどの場所には欠けている独特のまとまりがある。人々は街全体からコーヒーのために来て、川とそのペースのために滞在する——東京の他のほとんどの場所とは異なるペース。",
     longCharacterZh: "清澄白河之所以成為今天這個樣子，是因為認真對待咖啡的人搬來了。舊印刷廠房和倉庫對於想把事情做好的烘焙師來說大小正好。一個圍繞著一件做得非常好的事情所建立的街區，有一種大多數地方所缺乏的獨特連貫性。人們從全城各地為咖啡而來，然後因為河流和節奏而留下——那種節奏與東京其他幾乎所有地方都不同。",
+    forWhomEn: "For people who've decided one good coffee shop is worth building a day around.",
+    forWhomJa: "一軒のいいコーヒーショップを中心に一日を作る価値があると決めた人のために。",
+    forWhomZh: "為那些決定一家好咖啡館值得圍繞著它安排一天的人。",
     moments: [
       {
         en: "The first coffee of the day, in a room that smells of roasting.",
@@ -566,6 +595,9 @@ const ALL_NEIGHBORHOODS: TokyoNeighborhood[] = [
     longCharacterEn: "Yanaka is a working demonstration that not everything in Tokyo got torn down and rebuilt. The narrow streets follow the contours of the hill they were built on, rather than any grid. The cemetery at the center is not gloomy but shaded — a place people walk through on the way somewhere else. Cats appear on walls and in passageways with the confidence of residents who have lived here longer than anyone.",
     longCharacterJa: "谷中は、東京のすべてが取り壊されて再建されたわけではないということを、実証している。ここの細い道は、どんなグリッドにも従わず、建てられた丘の輪郭に沿っている。中心にある墓地は暗くはなく、木陰になっている——他の場所へ行く途中に人が通り抜ける場所だ。猫は壁の上や路地に、誰よりも長くここに住んでいる住民の自信とともに現れる。",
     longCharacterZh: "谷中是一個活生生的示範：東京並非所有的東西都被拆掉重建了。這裡的狹窄街道沿著建造它們的山丘輪廓延伸，而不是遵循任何網格。中心的墓地並不陰沉，而是有樹蔭——一個人們在去別的地方途中穿行的地方。貓出現在牆上和小路裡，帶著比任何人都在這裡住得更久的居民的自信。",
+    forWhomEn: "For people who want to see what Tokyo was before it decided to become Tokyo.",
+    forWhomJa: "東京が東京になろうと決める前の姿を見たい人のために。",
+    forWhomZh: "為那些想看看東京在決定成為東京之前的樣子的人。",
     moments: [
       {
         en: "You get lost in fifteen minutes and find somewhere better than where you were going.",
@@ -624,6 +656,9 @@ const ALL_NEIGHBORHOODS: TokyoNeighborhood[] = [
     longCharacterEn: "Sangenjaya became what it is the same way most good neighborhoods do — residents who had nowhere else to be, shops that opened because something was needed. Nothing here is particularly designed to attract anyone. The result is a density of ordinary things done well: the izakaya at the end of the covered market, the ramen shop without a sign, the bar where the owner has been there since before you could drink. People end up in Sangenjaya and then find it hard to live anywhere else.",
     longCharacterJa: "三軒茶屋は、ほとんどのいい街と同じように、今の姿になった——他に行く場所がない住民と、何かが必要だから開いた店。誰かを惹きつけるために特別に設計されたものは何もない。その結果は、普通のことを上手くやることの密集だ。屋根付き商店街の端の居酒屋、看板のないラーメン屋、店主があなたが飲めるようになる前からいるバー。人々は三軒茶屋に行き着いて、他の場所では暮らしにくくなる。",
     longCharacterZh: "三軒茶屋之所以成為今天這個樣子，和大多數好街區一樣——沒有其他地方可去的居民，因為有需要而開設的商店。這裡沒有任何特別為吸引人而設計的東西。結果是普通事情做得好的一種密集：有頂棚市場末端的居酒屋，沒有招牌的拉麵店，老闆在你能喝酒之前就在那裡的酒吧。人們來到三軒茶屋，然後發現很難在其他地方生活。",
+    forWhomEn: "For people who've stopped wanting to leave their neighborhood.",
+    forWhomJa: "自分の街から離れたくなくなった人のために。",
+    forWhomZh: "為那些不再想離開自己街區的人。",
     moments: [
       {
         en: "The ramen shop without a sign is the one you want.",
@@ -682,6 +717,9 @@ const ALL_NEIGHBORHOODS: TokyoNeighborhood[] = [
     longCharacterEn: "Gakugeidaigaku is for people who have spent time in Tokyo and arrived at the understanding that the best neighborhoods are the ones you don't hear about. It doesn't look like much — which is the correct signal. The shotengai is short and local. The bars are small and have regulars. The kind of people you meet here are the kind who know they've found something.",
     longCharacterJa: "学芸大学は、東京でしばらく暮らして、一番いい街は話題にならないところだということに気づいた人のための街だ。見た目はそれほどでもない——それが正しいサインだ。商店街は短くてローカルだ。バーは小さくて常連がいる。ここで出会う人たちは、何かいいものを見つけたと知っている人たちだ。",
     longCharacterZh: "學藝大學是為那些在東京待了一段時間、領悟到最好的街區是那些你不會聽說的地方的人而存在的。它看起來沒什麼特別——這是正確的信號。商店街短小而在地。酒吧小而有常客。在這裡遇到的人，都是那種知道自己找到了好東西的人。",
+    forWhomEn: "For people who've been here long enough to know this is better than most of it.",
+    forWhomJa: "東京を知るほど、ここがほとんどの場所よりいいとわかる人のために。",
+    forWhomZh: "為那些在這裡待得夠久、知道這裡比大多數地方更好的人。",
     moments: [
       {
         en: "The bar where you become a regular after three visits.",
@@ -802,6 +840,12 @@ export function getNeighborhoodCharacter(n: TokyoNeighborhood, g: string): strin
   if (g === "ja") return n.characterJa;
   if (g === "zh") return n.characterZh;
   return n.characterEn;
+}
+
+export function getNeighborhoodForWhom(n: TokyoNeighborhood, g: string): string {
+  if (g === "ja") return n.forWhomJa;
+  if (g === "zh") return n.forWhomZh;
+  return n.forWhomEn;
 }
 
 export function getNeighborhoodLongCharacter(n: TokyoNeighborhood, g: string): string {

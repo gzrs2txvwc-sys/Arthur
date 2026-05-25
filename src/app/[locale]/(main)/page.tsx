@@ -10,6 +10,7 @@ import { HomepagePortals } from "@/components/ui/HomepagePortals";
 import type { PortalData } from "@/components/ui/HomepagePortals";
 import { TonightSignalFloat } from "@/components/tonight/TonightSignalFloat";
 import { TokyoMemorySync } from "@/components/TokyoMemorySync";
+import { TokyoIdentitySignal } from "@/components/ui/TokyoIdentitySignal";
 import { getTokyoWeather } from "@/lib/weather";
 import { tokyoHour, tokyoTimeString, computeAtmosphere } from "@/lib/atmosphere";
 import { getOpeningLine } from "@/lib/openingLine";
@@ -18,9 +19,11 @@ import { getTonightSignal } from "@/lib/tonightSignals";
 import { tokyoDate, getDayType } from "@/lib/season";
 import { getActiveWalks } from "@/lib/tokyoWalks";
 import { getActiveNeighborhoods } from "@/lib/tokyoNeighborhoods";
+import { getBecomingStatement, shouldShowIdentity } from "@/lib/tokyoTaste";
 import { getTickerNotes } from "@/lib/districtTicker";
 import { getTonightCharacter } from "@/lib/tonightCharacter";
 import { parseCookieProfile } from "@/lib/tokyoMemory";
+import { getLocaleGroup } from "@/lib/tonightSignals";
 
 const WEATHER_LABEL: Partial<Record<string, string>> = {
   clear:    "Clear",
@@ -65,6 +68,10 @@ export default async function HomePage({
   const tonightSignal    = getTonightSignal(hour, weather.condition, period, signalDayType);
   const activeWalks         = getActiveWalks(period, weather.condition, signalDayType, hour, memoryProfile);
   const activeNeighborhoods = getActiveNeighborhoods(period, weather.condition, signalDayType, hour, memoryProfile);
+  const localeGroup         = getLocaleGroup(locale);
+  const identityStatement   = shouldShowIdentity(memoryProfile)
+    ? getBecomingStatement(memoryProfile, localeGroup)
+    : null;
   const tickerItems      = getTickerNotes(period, weather.condition, signalDayType, locale);
   const tonightCharacter = getTonightCharacter(hour, weather.condition, period, signalDayType, locale, memoryProfile);
 
@@ -167,8 +174,15 @@ export default async function HomePage({
           }}
         />
 
+        {/* ── Identity signal — quiet "you're becoming" for returning users ── */}
+        {identityStatement && (
+          <div className="pt-16 pb-0">
+            <TokyoIdentitySignal statement={identityStatement} />
+          </div>
+        )}
+
         {/* ── Daily nudge — chapter-aware ──────────────────────── */}
-        <div className="pt-20 pb-14 flex justify-center px-6">
+        <div className={`${identityStatement ? "pt-8" : "pt-20"} pb-14 flex justify-center px-6`}>
           <DailyNudge period={period} condition={weather.condition} />
         </div>
 
