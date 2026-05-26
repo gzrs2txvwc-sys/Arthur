@@ -177,12 +177,12 @@ export function OpeningHero({
         style={{ background: "linear-gradient(to bottom, rgba(10,5,0,0.26) 0%, transparent 32%)" }}
       />
 
-      {/* Bottom gradient — warm amber-black, less crushing than before */}
+      {/* Bottom gradient — warm amber-dark, lets photo breathe */}
       <div
         className="absolute inset-0 z-10 pointer-events-none"
         style={{
           background:
-            "linear-gradient(to top, rgba(14,7,0,0.88) 0%, rgba(12,5,0,0.64) 20%, rgba(8,3,0,0.24) 46%, transparent 68%)",
+            "linear-gradient(to top, rgba(16,10,3,0.84) 0%, rgba(14,8,2,0.58) 18%, rgba(10,5,1,0.20) 44%, transparent 66%)",
         }}
       />
 

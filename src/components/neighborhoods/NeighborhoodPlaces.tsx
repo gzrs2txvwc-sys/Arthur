@@ -52,7 +52,7 @@ export function NeighborhoodPlaces({ neighborhoodId, period, locale }: Props) {
             <div
               key={p.id}
               className="py-6"
-              style={{ borderTop: "1px solid rgba(200,184,154,0.06)" }}
+              style={{ borderTop: "1px solid rgba(200,155,65,0.12)" }}
             >
               {/* Category label */}
               <p
@@ -60,7 +60,7 @@ export function NeighborhoodPlaces({ neighborhoodId, period, locale }: Props) {
                 style={{
                   fontSize: "8px",
                   letterSpacing: "0.24em",
-                  color: "rgba(210,152,38,0.50)",
+                  color: "rgba(210,152,38,0.64)",
                   textTransform: "uppercase",
                 }}
               >
@@ -72,7 +72,7 @@ export function NeighborhoodPlaces({ neighborhoodId, period, locale }: Props) {
                 className="font-display font-light mb-2"
                 style={{
                   fontSize: "16px",
-                  color: "rgba(242,232,215,0.88)",
+                  color: "rgba(242,234,216,0.93)",
                 }}
               >
                 {name}
@@ -83,7 +83,7 @@ export function NeighborhoodPlaces({ neighborhoodId, period, locale }: Props) {
                 className="mb-3"
                 style={{
                   fontSize: "13px",
-                  color: "rgba(220,205,182,0.65)",
+                  color: "rgba(222,208,180,0.76)",
                   fontStyle: "italic",
                   lineHeight: 1.75,
                 }}
@@ -95,7 +95,7 @@ export function NeighborhoodPlaces({ neighborhoodId, period, locale }: Props) {
               <p
                 style={{
                   fontSize: "11px",
-                  color: "rgba(200,184,154,0.38)",
+                  color: "rgba(200,178,138,0.54)",
                   lineHeight: 1.6,
                 }}
               >

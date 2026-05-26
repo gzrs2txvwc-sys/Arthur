@@ -127,7 +127,7 @@ export default async function HomePage({
   ];
 
   return (
-    <div className="min-h-screen relative" style={{ background: "#100c07" }}>
+    <div className="min-h-screen relative" style={{ background: "#0d0906" }}>
       {/* Persistent warm city-sky glow — ambient ray breathes across the full page */}
       <div className="ambient-ray" aria-hidden="true" />
 
@@ -180,7 +180,7 @@ export default async function HomePage({
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "radial-gradient(ellipse 80% 45% at 50% 0%, rgba(165,88,12,0.072) 0%, transparent 58%)",
+              "radial-gradient(ellipse 80% 48% at 50% 0%, rgba(165,88,12,0.11) 0%, transparent 60%)",
           }}
         />
 

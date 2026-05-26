@@ -46,7 +46,7 @@ export function TonightSection({ places, condition, locale }: Props) {
         style={{
           fontSize: "10px",
           letterSpacing: "0.18em",
-          color: "rgba(200,184,154,0.38)",
+          color: "rgba(200,178,138,0.54)",
           lineHeight: 1.7,
         }}
       >
@@ -59,7 +59,7 @@ export function TonightSection({ places, condition, locale }: Props) {
         style={{
           fontSize: "9px",
           letterSpacing: "0.28em",
-          color: "rgba(210,152,38,0.65)",
+          color: "rgba(210,152,38,0.75)",
           textTransform: g === "en" ? "uppercase" : "none",
         }}
       >
@@ -88,7 +88,7 @@ export function TonightSection({ places, condition, locale }: Props) {
             >
               <div
                 className="py-9"
-                style={{ borderTop: "1px solid rgba(200,184,154,0.07)" }}
+                style={{ borderTop: "1px solid rgba(200,155,65,0.13)" }}
               >
                 {/* Meta row — category · neighborhood */}
                 <div className="flex items-center gap-3 mb-4">
@@ -97,7 +97,7 @@ export function TonightSection({ places, condition, locale }: Props) {
                     style={{
                       fontSize: "8px",
                       letterSpacing: "0.26em",
-                      color: "rgba(210,152,38,0.55)",
+                      color: "rgba(210,152,38,0.65)",
                       textTransform: "uppercase",
                     }}
                   >
@@ -109,7 +109,7 @@ export function TonightSection({ places, condition, locale }: Props) {
                       display: "inline-block",
                       width: "1px",
                       height: "9px",
-                      background: "rgba(200,184,154,0.18)",
+                      background: "rgba(200,155,65,0.26)",
                     }}
                   />
                   <span
@@ -117,7 +117,7 @@ export function TonightSection({ places, condition, locale }: Props) {
                     style={{
                       fontSize: "8px",
                       letterSpacing: "0.18em",
-                      color: "rgba(200,184,154,0.35)",
+                      color: "rgba(200,178,138,0.50)",
                     }}
                   >
                     {nbName}
@@ -129,7 +129,7 @@ export function TonightSection({ places, condition, locale }: Props) {
                   className="font-display font-light mb-3 group-hover:opacity-90 transition-opacity"
                   style={{
                     fontSize: "clamp(1.25rem, 4.5vw, 1.6rem)",
-                    color: "rgba(242,232,215,0.91)",
+                    color: "rgba(242,234,216,0.94)",
                     letterSpacing: "-0.01em",
                     lineHeight: 1.2,
                   }}
@@ -157,7 +157,7 @@ export function TonightSection({ places, condition, locale }: Props) {
                   className="mb-4"
                   style={{
                     fontSize: "13px",
-                    color: "rgba(220,205,182,0.56)",
+                    color: "rgba(222,208,180,0.72)",
                     fontStyle: "italic",
                     lineHeight: 1.85,
                   }}
@@ -169,7 +169,7 @@ export function TonightSection({ places, condition, locale }: Props) {
                 <p
                   style={{
                     fontSize: "11px",
-                    color: "rgba(200,184,154,0.33)",
+                    color: "rgba(200,178,138,0.50)",
                     lineHeight: 1.65,
                   }}
                 >

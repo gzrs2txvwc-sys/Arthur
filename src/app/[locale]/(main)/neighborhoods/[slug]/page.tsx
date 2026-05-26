@@ -132,7 +132,7 @@ export default async function NeighborhoodPage({
           {g === "en" && (
             <p
               className="mt-1"
-              style={{ fontSize: "13px", color: "rgba(200,184,154,0.45)" }}
+              style={{ fontSize: "13px", color: "rgba(200,178,138,0.60)" }}
             >
               {n.nameJa}
             </p>
@@ -143,7 +143,7 @@ export default async function NeighborhoodPage({
             className="mt-4"
             style={{
               fontSize: "13px",
-              color: "rgba(220,205,182,0.60)",
+              color: "rgba(222,208,180,0.74)",
               fontStyle: "italic",
               lineHeight: 1.6,
               maxWidth: "480px",
@@ -162,7 +162,7 @@ export default async function NeighborhoodPage({
           className="leading-loose mb-14"
           style={{
             fontSize: "15px",
-            color: "rgba(220,205,182,0.80)",
+            color: "rgba(222,210,182,0.88)",
             lineHeight: 1.9,
           }}
         >
@@ -197,12 +197,12 @@ export default async function NeighborhoodPage({
               <div
                 key={i}
                 className="py-6"
-                style={{ borderTop: "1px solid rgba(200,184,154,0.06)" }}
+                style={{ borderTop: "1px solid rgba(200,155,65,0.12)" }}
               >
                 <p
                   style={{
                     fontSize: "14px",
-                    color: "rgba(220,205,182,0.72)",
+                    color: "rgba(222,208,180,0.84)",
                     lineHeight: 1.75,
                     fontStyle: "italic",
                   }}
@@ -219,7 +219,7 @@ export default async function NeighborhoodPage({
           className="mb-12"
           style={{
             height: "1px",
-            background: "linear-gradient(to right, rgba(200,184,154,0.08), transparent)",
+            background: "linear-gradient(to right, rgba(200,155,65,0.16), transparent)",
           }}
         />
 
@@ -231,7 +231,7 @@ export default async function NeighborhoodPage({
           className="mb-12"
           style={{
             height: "1px",
-            background: "linear-gradient(to right, rgba(200,184,154,0.06), transparent)",
+            background: "linear-gradient(to right, rgba(200,155,65,0.12), transparent)",
           }}
         />
 

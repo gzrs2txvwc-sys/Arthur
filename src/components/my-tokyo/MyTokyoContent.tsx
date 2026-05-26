@@ -158,7 +158,7 @@ export function MyTokyoContent({ locale }: { locale: string }) {
         <Link
           href={`${prefix}/`}
           className="font-mono transition-opacity hover:opacity-100"
-          style={{ fontSize: "9px", letterSpacing: "0.18em", color: "rgba(200,184,154,0.45)" }}
+          style={{ fontSize: "9px", letterSpacing: "0.18em", color: "rgba(200,178,138,0.60)" }}
         >
           {backLabel}
         </Link>
@@ -192,7 +192,7 @@ export function MyTokyoContent({ locale }: { locale: string }) {
           <p
             style={{
               fontSize: "15px",
-              color: "rgba(220,205,182,0.72)",
+              color: "rgba(222,208,180,0.84)",
               lineHeight: 1.8,
               fontStyle: "italic",
             }}
@@ -215,7 +215,7 @@ export function MyTokyoContent({ locale }: { locale: string }) {
         </p>
 
         {visitedNeighborhoods.length === 0 ? (
-          <p style={{ fontSize: "13px", color: "rgba(200,184,154,0.40)", fontStyle: "italic" }}>
+          <p style={{ fontSize: "13px", color: "rgba(200,178,138,0.56)", fontStyle: "italic" }}>
             {emptyLabel}
           </p>
         ) : (
@@ -228,16 +228,16 @@ export function MyTokyoContent({ locale }: { locale: string }) {
               >
                 <div
                   className="py-5"
-                  style={{ borderTop: "1px solid rgba(200,184,154,0.06)" }}
+                  style={{ borderTop: "1px solid rgba(200,155,65,0.12)" }}
                 >
                   <p
                     className="font-display font-light mb-1 group-hover:opacity-90 transition-opacity"
-                    style={{ fontSize: "16px", color: "rgba(242,232,215,0.92)" }}
+                    style={{ fontSize: "16px", color: "rgba(242,234,216,0.95)" }}
                   >
                     {n.name}
                   </p>
                   <p
-                    style={{ fontSize: "12px", color: "rgba(200,184,154,0.50)", fontStyle: "italic" }}
+                    style={{ fontSize: "12px", color: "rgba(200,178,138,0.64)", fontStyle: "italic" }}
                   >
                     {n.forWhom}
                   </p>
@@ -249,17 +249,17 @@ export function MyTokyoContent({ locale }: { locale: string }) {
       </div>
 
       {/* Seam */}
-      <div className="mb-12" style={{ height: "1px", background: "rgba(200,184,154,0.06)" }} />
+      <div className="mb-12" style={{ height: "1px", background: "rgba(200,155,65,0.12)" }} />
 
       {/* When + how long */}
       <div className="mb-14 flex flex-col gap-5">
         <div>
-          <p style={{ fontSize: "13px", color: "rgba(200,184,154,0.55)", lineHeight: 1.7 }}>
+          <p style={{ fontSize: "13px", color: "rgba(200,180,140,0.68)", lineHeight: 1.7 }}>
             {hourLabel}
           </p>
         </div>
         {daysLabel && (
-          <p style={{ fontSize: "13px", color: "rgba(200,184,154,0.40)", lineHeight: 1.7 }}>
+          <p style={{ fontSize: "13px", color: "rgba(200,178,138,0.56)", lineHeight: 1.7 }}>
             {daysLabel}
           </p>
         )}
@@ -268,10 +268,10 @@ export function MyTokyoContent({ locale }: { locale: string }) {
       {/* Week note */}
       {weekNote && (
         <>
-          <div className="mb-10" style={{ height: "1px", background: "rgba(200,184,154,0.04)" }} />
+          <div className="mb-10" style={{ height: "1px", background: "rgba(200,155,65,0.08)" }} />
           <p
             className="font-mono mb-14"
-            style={{ fontSize: "9px", letterSpacing: "0.14em", color: "rgba(200,184,154,0.30)", lineHeight: 1.7 }}
+            style={{ fontSize: "9px", letterSpacing: "0.14em", color: "rgba(200,178,138,0.46)", lineHeight: 1.7 }}
           >
             {weekNote}
           </p>
@@ -279,12 +279,12 @@ export function MyTokyoContent({ locale }: { locale: string }) {
       )}
 
       {/* Seam */}
-      <div className="mb-10" style={{ height: "1px", background: "rgba(200,184,154,0.04)" }} />
+      <div className="mb-10" style={{ height: "1px", background: "rgba(200,155,65,0.08)" }} />
 
       {/* Privacy */}
       <p
         className="font-mono"
-        style={{ fontSize: "9px", letterSpacing: "0.12em", color: "rgba(200,184,154,0.22)" }}
+        style={{ fontSize: "9px", letterSpacing: "0.12em", color: "rgba(200,178,138,0.38)" }}
       >
         {privacyNote}
       </p>

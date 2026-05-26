@@ -66,7 +66,7 @@ export function NeighborhoodsByTaste({ locale }: Props) {
         style={{
           fontSize: "9px",
           letterSpacing: "0.28em",
-          color: "rgba(210,152,38,0.60)",
+          color: "rgba(210,152,38,0.72)",
           textTransform: g === "en" ? "uppercase" : "none",
         }}
       >
@@ -77,7 +77,7 @@ export function NeighborhoodsByTaste({ locale }: Props) {
         className="mb-14"
         style={{
           fontSize: "13px",
-          color: "rgba(200,184,154,0.45)",
+          color: "rgba(204,185,148,0.62)",
           fontStyle: "italic",
           lineHeight: 1.7,
         }}
@@ -98,9 +98,9 @@ export function NeighborhoodsByTaste({ locale }: Props) {
                 style={{
                   fontSize: "8px",
                   letterSpacing: "0.22em",
-                  color: "rgba(210,152,38,0.48)",
+                  color: "rgba(210,152,38,0.60)",
                   textTransform: "uppercase",
-                  borderBottom: "1px solid rgba(200,184,154,0.08)",
+                  borderBottom: "1px solid rgba(200,155,65,0.15)",
                   paddingBottom: "10px",
                 }}
               >
@@ -125,7 +125,7 @@ export function NeighborhoodsByTaste({ locale }: Props) {
                         className="font-display font-light group-hover:opacity-90 transition-opacity"
                         style={{
                           fontSize: "15px",
-                          color: "rgba(220,205,182,0.72)",
+                          color: "rgba(222,208,180,0.86)",
                           lineHeight: 1.4,
                         }}
                       >
