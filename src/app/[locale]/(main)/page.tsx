@@ -13,6 +13,7 @@ import { TokyoMemorySync } from "@/components/TokyoMemorySync";
 import { TokyoIdentitySignal } from "@/components/ui/TokyoIdentitySignal";
 import { AnchorPrompt } from "@/components/ui/AnchorPrompt";
 import { WeekNote } from "@/components/ui/WeekNote";
+import { TonightsPlace } from "@/components/ui/TonightsPlace";
 import { getTokyoWeather } from "@/lib/weather";
 import { tokyoHour, tokyoTimeString, computeAtmosphere } from "@/lib/atmosphere";
 import { getOpeningLine } from "@/lib/openingLine";
@@ -208,6 +209,13 @@ export default async function HomePage({
             period={period}
             dayType={signalDayType}
           />
+        </div>
+
+        <div className="section-seam mx-8 md:mx-16" />
+
+        {/* ── Tonight's Place — one specific hidden spot ── */}
+        <div className="pt-14 pb-16 flex justify-center px-6">
+          <TonightsPlace period={period} locale={locale} />
         </div>
 
         <div className="section-seam mx-8 md:mx-16" />
