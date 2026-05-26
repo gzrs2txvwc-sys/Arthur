@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { touchMemory } from "@/lib/tokyoMemory";
 import { getChapter } from "@/lib/tokyoRelationship";
+import { getTasteProfile } from "@/lib/tokyoTaste";
 
 interface Props {
   hour: number;
@@ -10,7 +11,8 @@ interface Props {
 
 export function TokyoMemorySync({ hour }: Props) {
   useEffect(() => {
-    touchMemory(hour, getChapter());
+    const taste = getTasteProfile();
+    touchMemory(hour, getChapter(), taste.dominant ?? undefined);
   }, [hour]);
   return null;
 }

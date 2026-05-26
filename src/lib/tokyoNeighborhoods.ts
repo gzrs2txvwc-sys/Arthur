@@ -3,6 +3,7 @@
 
 import type { BehaviorProfile } from "./tokyoMemory";
 import type { TokyoChapter } from "./tokyoRelationship";
+import { NEIGHBORHOOD_TASTES } from "./tokyoTaste";
 
 const CHAPTER_ORDER: TokyoChapter[] = ["arriving", "adjusting", "feeling", "belonging", "home"];
 
@@ -817,6 +818,12 @@ export function getActiveNeighborhoods(
     if (n.conditions.periods?.includes(period))    score += 2;
     if (n.conditions.weather?.includes(condition)) score += 2;
     if (n.conditions.dayTypes?.includes(dayType))  score += 1;
+
+    // Taste boost — nudge toward neighborhoods that match the user's emerging identity
+    if (profile?.dominantTaste) {
+      const tastes = NEIGHBORHOOD_TASTES[n.id] ?? [];
+      if (tastes.includes(profile.dominantTaste as import("./tokyoTaste").TokyoTasteId)) score += 0.8;
+    }
 
     const dailySeed = Math.floor((Date.now() + 9 * 3600 * 1000) / (24 * 3600 * 1000));
     const rng = seededRng(dailySeed * 71 + n.id.charCodeAt(0) + hour);

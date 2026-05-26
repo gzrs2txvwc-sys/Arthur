@@ -19,6 +19,8 @@ import {
   getNeighborhoodForWhom,
 } from "@/lib/tokyoNeighborhoods";
 import type { HourBand } from "@/lib/tokyoMemory";
+import { getWeekNote } from "@/lib/tokyoWeeks";
+import type { AnchorAnswer } from "@/lib/tokyoRelationship";
 
 // Reads hourBand from behavioral memory store
 function readHourBand(): HourBand {
@@ -44,6 +46,7 @@ interface ProfileState {
   chapter: TokyoChapter;
   sessionCount: number;
   firstSeenAt: number;
+  anchorAnswer: AnchorAnswer | null;
   hourBand: HourBand;
   loaded: boolean;
 }
@@ -69,6 +72,7 @@ export function MyTokyoContent({ locale }: { locale: string }) {
     chapter: "arriving",
     sessionCount: 0,
     firstSeenAt: Date.now(),
+    anchorAnswer: null,
     hourBand: "any",
     loaded: false,
   });
@@ -82,12 +86,13 @@ export function MyTokyoContent({ locale }: { locale: string }) {
       chapter:      rel.chapter ?? "arriving",
       sessionCount: rel.sessionCount ?? 0,
       firstSeenAt:  rel.firstSeenAt ?? Date.now(),
+      anchorAnswer: rel.anchorAnswer ?? null,
       hourBand,
       loaded: true,
     });
   }, []);
 
-  const { taste, chapter, firstSeenAt, hourBand, loaded } = state;
+  const { taste, chapter, firstSeenAt, anchorAnswer, hourBand, loaded } = state;
 
   const heading =
     g === "ja" ? "あなたの東京"
@@ -111,6 +116,7 @@ export function MyTokyoContent({ locale }: { locale: string }) {
   const chapterStr = g === "ja" ? chapterNote.ja : g === "zh" ? chapterNote.zh : chapterNote.en;
 
   const days = daysSince(firstSeenAt);
+  const weekNote = loaded ? getWeekNote(anchorAnswer, firstSeenAt, g) : null;
 
   const privacyNote =
     g === "ja" ? "ここにあるものは、あなたのブラウザにだけある。"
@@ -258,6 +264,19 @@ export function MyTokyoContent({ locale }: { locale: string }) {
           </p>
         )}
       </div>
+
+      {/* Week note */}
+      {weekNote && (
+        <>
+          <div className="mb-10" style={{ height: "1px", background: "rgba(200,184,154,0.04)" }} />
+          <p
+            className="font-mono mb-14"
+            style={{ fontSize: "9px", letterSpacing: "0.14em", color: "rgba(200,184,154,0.30)", lineHeight: 1.7 }}
+          >
+            {weekNote}
+          </p>
+        </>
+      )}
 
       {/* Seam */}
       <div className="mb-10" style={{ height: "1px", background: "rgba(200,184,154,0.04)" }} />

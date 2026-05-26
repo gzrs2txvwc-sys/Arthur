@@ -11,6 +11,8 @@ import type { PortalData } from "@/components/ui/HomepagePortals";
 import { TonightSignalFloat } from "@/components/tonight/TonightSignalFloat";
 import { TokyoMemorySync } from "@/components/TokyoMemorySync";
 import { TokyoIdentitySignal } from "@/components/ui/TokyoIdentitySignal";
+import { AnchorPrompt } from "@/components/ui/AnchorPrompt";
+import { WeekNote } from "@/components/ui/WeekNote";
 import { getTokyoWeather } from "@/lib/weather";
 import { tokyoHour, tokyoTimeString, computeAtmosphere } from "@/lib/atmosphere";
 import { getOpeningLine } from "@/lib/openingLine";
@@ -181,8 +183,18 @@ export default async function HomePage({
           </div>
         )}
 
+        {/* ── Week note — long-stay time marker ── */}
+        <div className={`${identityStatement ? "pt-4" : "pt-16"} pb-0 flex justify-center px-6`}>
+          <WeekNote />
+        </div>
+
+        {/* ── Anchor question — where are you in Tokyo? ── */}
+        <div className="pt-10 pb-0">
+          <AnchorPrompt />
+        </div>
+
         {/* ── Daily nudge — chapter-aware ──────────────────────── */}
-        <div className={`${identityStatement ? "pt-8" : "pt-20"} pb-14 flex justify-center px-6`}>
+        <div className={`${identityStatement ? "pt-8" : "pt-10"} pb-14 flex justify-center px-6`}>
           <DailyNudge period={period} condition={weather.condition} />
         </div>
 
