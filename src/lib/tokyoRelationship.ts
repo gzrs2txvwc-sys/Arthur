@@ -152,6 +152,11 @@ export function recordNeighborhoodVisit(neighborhood: string): void {
   save(updated);
 }
 
+// Public read — for taste and identity systems (client-only)
+export function readRelationshipStore(): RelationshipData {
+  return load();
+}
+
 // The current chapter — drives nudge tone, observation register, etc.
 // Never shown to the user directly.
 export function getChapter(): TokyoChapter {

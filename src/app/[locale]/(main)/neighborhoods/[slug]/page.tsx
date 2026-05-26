@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { FilmGrain } from "@/components/ui/FilmGrain";
 import { WorldBridge } from "@/components/ui/WorldBridge";
+import { NeighborhoodTracker } from "@/components/neighborhoods/NeighborhoodTracker";
 import { getTokyoWeather } from "@/lib/weather";
 import { tokyoHour, computeAtmosphere } from "@/lib/atmosphere";
 import { tokyoDate } from "@/lib/season";
@@ -70,6 +71,7 @@ export default async function NeighborhoodPage({
   return (
     <div className="min-h-screen bg-[var(--color-ink)]">
       <FilmGrain opacity={0.038} className="z-0 pointer-events-none" />
+      <NeighborhoodTracker slug={slug} />
 
       {/* ── Cinematic header ─────────────────────────── */}
       <div className="relative overflow-hidden" style={{ height: "clamp(300px, 50vh, 560px)" }}>

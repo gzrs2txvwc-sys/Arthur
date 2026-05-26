@@ -7,7 +7,7 @@ import type { TokyoChapter } from "./tokyoRelationship";
 // Five taste dimensions — what kind of Tokyo person you're becoming
 export type TokyoTasteId = "quiet" | "cafe" | "residential" | "latenight" | "creative";
 
-// Which neighborhoods map to which taste dimensions (for future tracking)
+// Which neighborhoods map to which taste dimensions
 export const NEIGHBORHOOD_TASTES: Record<string, TokyoTasteId[]> = {
   "nakameguro":        ["latenight", "quiet"],
   "daikanyama":        ["quiet", "cafe"],
@@ -22,13 +22,153 @@ export const NEIGHBORHOOD_TASTES: Record<string, TokyoTasteId[]> = {
   "gakugeidaigaku":    ["residential", "quiet"],
 };
 
-interface BecomingLine {
-  en: string;
-  ja: string;
-  zh: string;
+// ── Taste profile derived from neighborhood visits ─────────────────────────
+
+export interface TasteProfile {
+  dominant: TokyoTasteId | null;
+  counts: Record<TokyoTasteId, number>;
+  uniqueNeighborhoods: string[]; // sorted by visit count desc
+  totalUniqueCount: number;
 }
 
-// Per chapter, per hourBand — the quiet acknowledgment
+function emptyProfile(): TasteProfile {
+  return {
+    dominant: null,
+    counts: { quiet: 0, cafe: 0, residential: 0, latenight: 0, creative: 0 },
+    uniqueNeighborhoods: [],
+    totalUniqueCount: 0,
+  };
+}
+
+// Reads from the relationship store (tokyo_relationship_v1 in localStorage).
+// Must be called client-side.
+export function getTasteProfile(): TasteProfile {
+  if (typeof window === "undefined") return emptyProfile();
+  try {
+    const raw = localStorage.getItem("tokyo_relationship_v1");
+    if (!raw) return emptyProfile();
+    const data = JSON.parse(raw) as { neighborhoodVisits?: Record<string, number> };
+    const nv = data.neighborhoodVisits ?? {};
+
+    const counts: Record<TokyoTasteId, number> = { quiet: 0, cafe: 0, residential: 0, latenight: 0, creative: 0 };
+    for (const [slug, visitCount] of Object.entries(nv)) {
+      for (const t of (NEIGHBORHOOD_TASTES[slug] ?? [])) counts[t] += visitCount;
+    }
+
+    const uniqueNeighborhoods = Object.keys(nv).sort((a, b) => (nv[b] ?? 0) - (nv[a] ?? 0));
+    const totalUniqueCount = uniqueNeighborhoods.length;
+
+    if (totalUniqueCount < 2) {
+      return { dominant: null, counts, uniqueNeighborhoods, totalUniqueCount };
+    }
+
+    const sorted = (Object.entries(counts) as [TokyoTasteId, number][]).sort(([, a], [, b]) => b - a);
+    const dominant: TokyoTasteId | null = sorted[0][1] > 0 ? sorted[0][0] : null;
+
+    return { dominant, counts, uniqueNeighborhoods, totalUniqueCount };
+  } catch {
+    return emptyProfile();
+  }
+}
+
+// ── Taste-specific "you keep finding" statements ───────────────────────────
+
+interface Line { en: string; ja: string; zh: string }
+
+const TASTE_STATEMENTS: Record<TokyoTasteId, Line[]> = {
+  quiet: [
+    {
+      en: "You keep finding the quieter end of Tokyo.",
+      ja: "あなたはいつも、東京の静かな側を見つけている。",
+      zh: "你總是找到東京安靜的那一端。",
+    },
+    {
+      en: "You're drawn to the parts of Tokyo that don't announce themselves.",
+      ja: "自分を主張しない東京の場所に惹かれている。",
+      zh: "你被東京那些不自我宣傳的地方所吸引。",
+    },
+  ],
+  cafe: [
+    {
+      en: "You've found the Tokyo that lives inside good coffee shops.",
+      ja: "いいコーヒーショップの中に生きている東京を見つけた。",
+      zh: "你找到了存在於好咖啡館裡的東京。",
+    },
+    {
+      en: "You're building a relationship with Tokyo's coffee culture.",
+      ja: "東京のコーヒー文化と関係を築いている。",
+      zh: "你正在建立與東京咖啡文化的關係。",
+    },
+  ],
+  residential: [
+    {
+      en: "You're starting to love the Tokyo that wasn't made for you.",
+      ja: "あなたのために作られなかった東京を、好きになりつつある。",
+      zh: "你開始愛上那個不是為你而設計的東京。",
+    },
+    {
+      en: "You gravitate toward the neighborhoods people actually live in.",
+      ja: "人が実際に住んでいる街に惹かれている。",
+      zh: "你被人們真正居住的街區所吸引。",
+    },
+  ],
+  latenight: [
+    {
+      en: "You know Tokyo after 10pm. Most people don't get that far.",
+      ja: "夜の十時以降の東京を知っている。ほとんどの人はそこまで行かない。",
+      zh: "你了解晚上十點後的東京。大多數人沒走那麼遠。",
+    },
+    {
+      en: "Late-night Tokyo is becoming your Tokyo.",
+      ja: "深夜の東京が、あなたの東京になりつつある。",
+      zh: "深夜的東京正在成為你的東京。",
+    },
+  ],
+  creative: [
+    {
+      en: "You navigate toward the Tokyo that makes things.",
+      ja: "何かを作っている東京に向かって歩いている。",
+      zh: "你向著那個在創造事物的東京前進。",
+    },
+    {
+      en: "You're finding the creative layer that most people walk past.",
+      ja: "ほとんどの人が通り過ぎる創造的な層を見つけている。",
+      zh: "你找到了大多數人走過的那個創意層次。",
+    },
+  ],
+};
+
+export function getTasteStatement(tasteId: TokyoTasteId, g: string): string | null {
+  const lines = TASTE_STATEMENTS[tasteId];
+  if (!lines?.length) return null;
+  const dailySeed = Math.floor((Date.now() + 9 * 3600 * 1000) / (24 * 3600 * 1000));
+  const line = lines[dailySeed % lines.length];
+  if (g === "ja") return line.ja;
+  if (g === "zh") return line.zh;
+  return line.en;
+}
+
+// ── Taste labels — identity name ───────────────────────────────────────────
+
+const TASTE_LABELS: Record<TokyoTasteId, Line> = {
+  quiet:       { en: "QUIET TOKYO",       ja: "静かな東京",    zh: "安靜的東京" },
+  cafe:        { en: "CAFÉ TOKYO",        ja: "コーヒーの東京", zh: "咖啡東京"  },
+  residential: { en: "RESIDENTIAL TOKYO", ja: "生活の東京",    zh: "生活東京"  },
+  latenight:   { en: "LATE-NIGHT TOKYO",  ja: "深夜の東京",    zh: "深夜東京"  },
+  creative:    { en: "CREATIVE TOKYO",    ja: "創造の東京",    zh: "創意東京"  },
+};
+
+export function getTasteLabel(tasteId: TokyoTasteId, g: string): string {
+  const label = TASTE_LABELS[tasteId];
+  if (g === "ja") return label.ja;
+  if (g === "zh") return label.zh;
+  return label.en;
+}
+
+// ── Chapter-based "becoming" (fallback when no taste established) ──────────
+
+interface BecomingLine { en: string; ja: string; zh: string }
+
 const BECOMING: Partial<Record<
   TokyoChapter,
   { default: BecomingLine; early?: BecomingLine; late?: BecomingLine; midnight?: BecomingLine }
@@ -94,16 +234,13 @@ const BECOMING: Partial<Record<
 };
 
 function pickLine(
-  chapterEntry: NonNullable<typeof BECOMING[TokyoChapter]>,
+  entry: NonNullable<typeof BECOMING[TokyoChapter]>,
   hourBand: HourBand,
 ): BecomingLine {
-  if ((hourBand === "late" || hourBand === "midnight") && chapterEntry.midnight) {
-    return chapterEntry.midnight;
-  }
-  if (hourBand === "late" && chapterEntry.late) return chapterEntry.late;
-  if (hourBand === "midnight" && chapterEntry.midnight) return chapterEntry.midnight;
-  if (hourBand === "early" && chapterEntry.early) return chapterEntry.early;
-  return chapterEntry.default;
+  if (hourBand === "midnight" && entry.midnight) return entry.midnight;
+  if (hourBand === "late"     && entry.late)     return entry.late;
+  if (hourBand === "early"    && entry.early)     return entry.early;
+  return entry.default;
 }
 
 export function getBecomingStatement(
@@ -113,18 +250,32 @@ export function getBecomingStatement(
   if (!profile) return null;
   const chapter    = profile.chapter ?? "arriving";
   const hourBand   = profile.hourBand ?? "any";
-  const chapterEntry = BECOMING[chapter];
-  if (!chapterEntry) return null; // "arriving" — too early
-
-  const line = pickLine(chapterEntry, hourBand);
+  const entry = BECOMING[chapter];
+  if (!entry) return null;
+  const line = pickLine(entry, hourBand);
   if (g === "ja") return line.ja;
   if (g === "zh") return line.zh;
   return line.en;
 }
 
-// Whether to show the identity signal at all
 export function shouldShowIdentity(profile?: BehaviorProfile | null): boolean {
   if (!profile) return false;
-  const chapter = profile.chapter ?? "arriving";
-  return chapter !== "arriving";
+  return (profile.chapter ?? "arriving") !== "arriving";
+}
+
+// ── Hour band label (for My Tokyo page) ───────────────────────────────────
+
+const HOUR_LABELS: Record<HourBand, Line> = {
+  early:    { en: "You're a morning person.",          ja: "あなたは朝型だ。",         zh: "你是早起的人。" },
+  evening:  { en: "You come in the evenings.",         ja: "夕方に来る。",             zh: "你在傍晚來。" },
+  late:     { en: "You come late.",                    ja: "遅い時間に来る。",          zh: "你來得晚。" },
+  midnight: { en: "You come when most people are home.", ja: "ほとんどの人が帰った後に来る。", zh: "你在大多數人回家後才來。" },
+  any:      { en: "You come whenever the city calls.", ja: "街に呼ばれたときに来る。",   zh: "當城市呼喚時你就來。" },
+};
+
+export function getHourLabel(hourBand: HourBand, g: string): string {
+  const label = HOUR_LABELS[hourBand];
+  if (g === "ja") return label.ja;
+  if (g === "zh") return label.zh;
+  return label.en;
 }
