@@ -3,6 +3,7 @@ import Link from "next/link";
 import { FilmGrain } from "@/components/ui/FilmGrain";
 import { WorldBridge } from "@/components/ui/WorldBridge";
 import { NeighborhoodTracker } from "@/components/neighborhoods/NeighborhoodTracker";
+import { NeighborhoodPlaces } from "@/components/neighborhoods/NeighborhoodPlaces";
 import { getTokyoWeather } from "@/lib/weather";
 import { tokyoHour, computeAtmosphere } from "@/lib/atmosphere";
 import { tokyoDate } from "@/lib/season";
@@ -219,6 +220,18 @@ export default async function NeighborhoodPage({
           style={{
             height: "1px",
             background: "linear-gradient(to right, rgba(200,184,154,0.08), transparent)",
+          }}
+        />
+
+        {/* Places */}
+        <NeighborhoodPlaces neighborhoodId={slug} period={period} locale={locale} />
+
+        {/* Seam */}
+        <div
+          className="mb-12"
+          style={{
+            height: "1px",
+            background: "linear-gradient(to right, rgba(200,184,154,0.06), transparent)",
           }}
         />
 
