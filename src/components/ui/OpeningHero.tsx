@@ -25,6 +25,7 @@ interface Props {
   locale?:          string;
   hour:             number;
   walksCount:       number;
+  placesCount:      number;
   tickerItems:      TickerItem[];
   tonightCharacter: string | null;
 }
@@ -66,41 +67,43 @@ function heroAnchor(hour: number, condition: string, locale: string): string {
   return "Somewhere in Tokyo tonight.";
 }
 
-function liveStrip(condition: string, walksCount: number, locale: string): string {
+function liveStrip(condition: string, walksCount: number, placesCount: number, locale: string): string {
   const isRainy = condition === "rainy" || condition === "foggy";
 
   if (locale === "ja") {
     return [
-      isRainy ? "雨のシグナル" : "シグナル",
-      `今夜 ${walksCount} 本の散歩`,
+      `${placesCount} ヶ所のスポット`,
+      isRainy ? `雨の散歩 ${walksCount} 本` : `散歩 ${walksCount} 本`,
     ].join("  ·  ");
   }
   if (locale === "zh-TW") {
     return [
-      isRainy ? "雨夜訊號" : "今晚訊號",
-      `${walksCount} 條路線`,
+      `${placesCount} 個地方`,
+      isRainy ? `${walksCount} 條雨夜路線` : `${walksCount} 條路線`,
     ].join("  ·  ");
   }
   if (locale === "ko") {
-    return `오늘 밤 신호  ·  ${walksCount}개의 산책`;
+    return `${placesCount}개 장소  ·  ${walksCount}개의 산책`;
   }
 
   return [
-    isRainy ? "Rain walk active" : "Signal surfaced tonight",
-    `${walksCount} walk${walksCount !== 1 ? "s" : ""} tonight`,
+    `${placesCount} place${placesCount !== 1 ? "s" : ""} tonight`,
+    isRainy
+      ? `${walksCount} rain walk${walksCount !== 1 ? "s" : ""}`
+      : `${walksCount} walk${walksCount !== 1 ? "s" : ""}`,
   ].join("  ·  ");
 }
 
 export function OpeningHero({
   timeStr, weatherLabel, weatherJp,
   openingLine, photo, period, condition,
-  locale = "en", hour, walksCount, tickerItems, tonightCharacter,
+  locale = "en", hour, walksCount, placesCount, tickerItems, tonightCharacter,
 }: Props) {
   const photoFilter   = PERIOD_PHOTO_FILTER[period];
   const conditionTint = getConditionTint(condition);
   const cityLabel     = CITY_LABEL[locale] ?? "TOKYO";
   const anchor        = heroAnchor(hour, condition, locale);
-  const strip         = liveStrip(condition, walksCount, locale);
+  const strip         = liveStrip(condition, walksCount, placesCount, locale);
 
   return (
     <section

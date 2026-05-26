@@ -4,7 +4,7 @@ import { FilmGrain } from "@/components/ui/FilmGrain";
 import { DailyNudge } from "@/components/ui/DailyNudge";
 import { QuietPresence } from "@/components/ui/QuietPresence";
 import { TokyoWalksWidget } from "@/components/walks/TokyoWalksWidget";
-import { TokyoNeighborhoodsWidget } from "@/components/neighborhoods/TokyoNeighborhoodsWidget";
+import { NeighborhoodsByTaste } from "@/components/neighborhoods/NeighborhoodsByTaste";
 import { OpeningHero } from "@/components/ui/OpeningHero";
 import { HomepagePortals } from "@/components/ui/HomepagePortals";
 import type { PortalData } from "@/components/ui/HomepagePortals";
@@ -13,7 +13,7 @@ import { TokyoMemorySync } from "@/components/TokyoMemorySync";
 import { TokyoIdentitySignal } from "@/components/ui/TokyoIdentitySignal";
 import { AnchorPrompt } from "@/components/ui/AnchorPrompt";
 import { WeekNote } from "@/components/ui/WeekNote";
-import { TonightsPlace } from "@/components/ui/TonightsPlace";
+import { TonightSection } from "@/components/ui/TonightSection";
 import { getTokyoWeather } from "@/lib/weather";
 import { tokyoHour, tokyoTimeString, computeAtmosphere } from "@/lib/atmosphere";
 import { getOpeningLine } from "@/lib/openingLine";
@@ -21,7 +21,7 @@ import { getOpeningPhoto, WEATHER_JP } from "@/lib/openingPhoto";
 import { getTonightSignal } from "@/lib/tonightSignals";
 import { tokyoDate, getDayType } from "@/lib/season";
 import { getActiveWalks } from "@/lib/tokyoWalks";
-import { getActiveNeighborhoods } from "@/lib/tokyoNeighborhoods";
+import { getTonightsPlaces, getActivePlacesCount } from "@/lib/tokyoPlaces";
 import { getBecomingStatement, shouldShowIdentity } from "@/lib/tokyoTaste";
 import { getTickerNotes } from "@/lib/districtTicker";
 import { getTonightCharacter } from "@/lib/tonightCharacter";
@@ -69,9 +69,10 @@ export default async function HomePage({
     dayOfWeek === 6 ? "saturday" :
     dayOfWeek === 0 ? "sunday" : "weekday";
   const tonightSignal    = getTonightSignal(hour, weather.condition, period, signalDayType);
-  const activeWalks         = getActiveWalks(period, weather.condition, signalDayType, hour, memoryProfile);
-  const activeNeighborhoods = getActiveNeighborhoods(period, weather.condition, signalDayType, hour, memoryProfile);
-  const localeGroup         = getLocaleGroup(locale);
+  const activeWalks    = getActiveWalks(period, weather.condition, signalDayType, hour, memoryProfile);
+  const tonightsPlaces = getTonightsPlaces(period, 3);
+  const placesCount    = getActivePlacesCount(period);
+  const localeGroup    = getLocaleGroup(locale);
   const identityStatement   = shouldShowIdentity(memoryProfile)
     ? getBecomingStatement(memoryProfile, localeGroup)
     : null;
@@ -148,11 +149,12 @@ export default async function HomePage({
         locale={locale}
         hour={hour}
         walksCount={activeWalks.length}
+        placesCount={placesCount}
         tickerItems={tickerItems}
         tonightCharacter={tonightCharacter}
       />
 
-      {/* Warm seam — konbini / station light bleeding between hero and portals */}
+      {/* Warm seam — konbini / station light bleeding between hero and tonight section */}
       <div
         aria-hidden="true"
         style={{
@@ -162,12 +164,17 @@ export default async function HomePage({
         }}
       />
 
-      {/* ── World Portals — revealed after 3.5s, just below fold ── */}
+      {/* ── TONIGHT — product statement + places, high on page ── */}
+      <TonightSection places={tonightsPlaces} condition={weather.condition} locale={locale} />
+
+      <div className="section-seam mx-8 md:mx-16" />
+
+      {/* ── World Portals — revealed below the live content ── */}
       <HomepagePortals portals={portals} />
 
       {/* ── Lower page — text sections in a warm ambient field ── */}
       <div className="relative">
-        {/* Warm spill from above — like light from the portal zone */}
+        {/* Warm spill from above */}
         <div
           aria-hidden="true"
           className="absolute inset-0 pointer-events-none"
@@ -194,33 +201,21 @@ export default async function HomePage({
           <AnchorPrompt />
         </div>
 
-        {/* ── Daily nudge — chapter-aware ──────────────────────── */}
+        {/* ── Daily nudge — chapter-aware ── */}
         <div className={`${identityStatement ? "pt-8" : "pt-10"} pb-14 flex justify-center px-6`}>
           <DailyNudge period={period} condition={weather.condition} />
         </div>
 
         <div className="section-seam mx-8 md:mx-16" />
 
-        {/* ── Neighborhoods — the living Tokyo ── */}
-        <div className="pt-14 pb-16 flex justify-center px-6">
-          <TokyoNeighborhoodsWidget
-            neighborhoods={activeNeighborhoods}
-            condition={weather.condition}
-            period={period}
-            dayType={signalDayType}
-          />
+        {/* ── Find Your Tokyo — neighborhoods grouped by taste identity ── */}
+        <div className="pt-14">
+          <NeighborhoodsByTaste locale={locale} />
         </div>
 
         <div className="section-seam mx-8 md:mx-16" />
 
-        {/* ── Tonight's Place — one specific hidden spot ── */}
-        <div className="pt-14 pb-16 flex justify-center px-6">
-          <TonightsPlace period={period} locale={locale} />
-        </div>
-
-        <div className="section-seam mx-8 md:mx-16" />
-
-        {/* ── Tokyo walks — real reasons to go outside tonight ── */}
+        {/* ── Tokyo walks — tonight's routes ── */}
         <div className="pt-14 pb-16 flex justify-center px-6">
           <TokyoWalksWidget
             walks={activeWalks}

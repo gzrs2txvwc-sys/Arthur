@@ -431,6 +431,100 @@ export function getTonightsPlace(period: string): TokyoPlace | null {
   return pool[seed % pool.length]?.p ?? null;
 }
 
+// Multiple places for tonight — from different neighborhoods, period-aware
+function seededRng(seed: number): () => number {
+  let s = seed;
+  return function () {
+    s = (s * 1664525 + 1013904223) & 0xffffffff;
+    return (s >>> 0) / 0xffffffff;
+  };
+}
+
+export function getTonightsPlaces(period: string, count: number = 3): TokyoPlace[] {
+  const dailySeed = Math.floor((Date.now() + 9 * 3600 * 1000) / (24 * 3600 * 1000));
+  const rng = seededRng(dailySeed * 37);
+
+  const scored = ALL_PLACES.map((p) => ({
+    p,
+    score: scorePlaceForPeriod(p, period) + rng() * 0.5,
+  }));
+  scored.sort((a, b) => b.score - a.score);
+
+  // Pick from different neighborhoods
+  const selected: TokyoPlace[] = [];
+  const usedNeighborhoods = new Set<string>();
+
+  for (const { p } of scored) {
+    if (selected.length >= count) break;
+    if (!usedNeighborhoods.has(p.neighborhoodId)) {
+      selected.push(p);
+      usedNeighborhoods.add(p.neighborhoodId);
+    }
+  }
+
+  return selected;
+}
+
+export function getActivePlacesCount(period: string): number {
+  return ALL_PLACES.filter(
+    (p) => !p.bestPeriods || p.bestPeriods.length === 0 || p.bestPeriods.includes(period),
+  ).length;
+}
+
+// Weather-aware context line for a place — "Rain tonight. The window seats are filling slowly."
+export function getTonightContext(place: TokyoPlace, condition: string, g: string): string | null {
+  const isRainy = condition === "rainy" || condition === "foggy";
+  const isSnowy = condition === "snowy";
+  const isCold  = condition === "cold";
+
+  if (isSnowy) {
+    return g === "ja" ? "雪の夜。温かい場所が欲しくなる。"
+         : g === "zh" ? "雪夜。你會想找個暖的地方。"
+         : "Snow tonight. The kind of night to find somewhere warm.";
+  }
+
+  if (isRainy) {
+    if (["bar", "izakaya", "dining"].includes(place.category)) {
+      return g === "ja" ? "雨の夜。予定より長くいたくなる。"
+           : g === "zh" ? "雨夜。你會想比計畫多待一陣子。"
+           : "Rain tonight. The kind of night to stay longer than planned.";
+    }
+    if (["cafe", "kissaten"].includes(place.category)) {
+      return g === "ja" ? "雨が降っている。窓際の席がゆっくり埋まっていく。"
+           : g === "zh" ? "正在下雨。靠窗的位子慢慢坐滿了。"
+           : "Rain outside. The window seats are filling slowly.";
+    }
+    if (place.category === "bookshop") {
+      return g === "ja" ? "雨の日に本屋。正しい選択だ。"
+           : g === "zh" ? "雨天去書店。是對的選擇。"
+           : "Rain and a bookshop. The right call tonight.";
+    }
+    if (place.category === "record") {
+      return g === "ja" ? "雨の日のレコード屋。時間が経つのを忘れる。"
+           : g === "zh" ? "雨天的唱片行。你會忘記時間的流逝。"
+           : "Rain and a record shop. You'll lose track of time.";
+    }
+    return g === "ja" ? "今夜は雨。でもここは来る価値がある。"
+         : g === "zh" ? "今晚下雨。但這裡值得來。"
+         : "Rain tonight. Worth it.";
+  }
+
+  if (isCold) {
+    if (["bar", "izakaya", "dining"].includes(place.category)) {
+      return g === "ja" ? "外は寒い。中に入る理由ができた。"
+           : g === "zh" ? "外面很冷。你有了進去的理由。"
+           : "Cold outside. You'll know why you came in.";
+    }
+    if (["cafe", "kissaten"].includes(place.category)) {
+      return g === "ja" ? "寒い夜に、温かいコーヒー。"
+           : g === "zh" ? "寒夜裡，一杯熱咖啡。"
+           : "Cold night. Warm coffee.";
+    }
+  }
+
+  return null;
+}
+
 // ── Locale helpers ─────────────────────────────────────────────────────────
 
 export function getPlaceShort(p: TokyoPlace, g: string): string {
