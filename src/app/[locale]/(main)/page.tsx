@@ -164,8 +164,10 @@ export default async function HomePage({
         }}
       />
 
-      {/* ── TONIGHT — product statement + places, high on page ── */}
-      <TonightSection places={tonightsPlaces} condition={weather.condition} locale={locale} />
+      {/* ── TONIGHT — café amber light zone ── */}
+      <div className="tl-cafe">
+        <TonightSection places={tonightsPlaces} condition={weather.condition} locale={locale} />
+      </div>
 
       <div className="section-seam mx-8 md:mx-16" />
 
@@ -215,8 +217,8 @@ export default async function HomePage({
 
         <div className="section-seam mx-8 md:mx-16" />
 
-        {/* ── Tokyo walks — tonight's routes ── */}
-        <div className="pt-14 pb-16 flex justify-center px-6">
+        {/* ── Tokyo walks — station yellow light zone ── */}
+        <div className="tl-station pt-14 pb-16 flex justify-center px-6">
           <TokyoWalksWidget
             walks={activeWalks}
             condition={weather.condition}
@@ -226,8 +228,8 @@ export default async function HomePage({
 
         <div className="section-seam mx-8 md:mx-16" />
 
-        {/* ── Quiet presence — small evidence other people are here too ── */}
-        <div className="pt-14 pb-28 flex justify-center px-6">
+        {/* ── Quiet presence — apartment tungsten, end of night ── */}
+        <div className="tl-tungsten pt-14 pb-28 flex justify-center px-6">
           <QuietPresence />
         </div>
 

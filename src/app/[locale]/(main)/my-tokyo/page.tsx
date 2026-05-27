@@ -15,9 +15,22 @@ export default async function MyTokyoPage({
   const { locale } = await params;
 
   return (
-    <div className="min-h-screen bg-[var(--color-ink)]">
-      <FilmGrain opacity={0.038} className="z-0 pointer-events-none" />
-      <MyTokyoContent locale={locale} />
+    <div className="min-h-screen" style={{ background: "#0c0905" }}>
+      {/* Fixed vignette — apartment window looking out at Tokyo night */}
+      <div className="page-vignette" aria-hidden="true" />
+      {/* Apartment tungsten tint — the warmth of where you actually live */}
+      <div
+        aria-hidden="true"
+        className="fixed inset-0 pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse 68% 60% at 50% 40%, rgba(192,108,40,0.07) 0%, rgba(165,82,25,0.03) 55%, transparent 82%)",
+          zIndex: 0,
+        }}
+      />
+      <FilmGrain opacity={0.052} className="z-[2] pointer-events-none" />
+      <div className="relative z-[3]">
+        <MyTokyoContent locale={locale} />
+      </div>
     </div>
   );
 }

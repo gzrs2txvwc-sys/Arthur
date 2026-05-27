@@ -638,6 +638,118 @@ button, a, [role="button"] {
   z-index: 0;
 }
 
+/* ─── Tokyo Light Geography ──────────────────────── */
+/* Each city zone has its own light temperature.
+   Applied as position:relative wrappers — pseudo-element glow pool. */
+
+/* Café amber — warm incandescent from inside, like konbini light spilling */
+.tl-cafe {
+  position: relative;
+}
+.tl-cafe::before {
+  content: "";
+  position: absolute;
+  top: -40px; left: 0; right: 0; height: 200%;
+  background: radial-gradient(
+    ellipse 90% 55% at 50% 0%,
+    rgba(188, 108, 18, 0.10) 0%,
+    rgba(160, 82, 12, 0.05) 45%,
+    transparent 75%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Station yellow — cool halogen of Tokyo platform strip lights */
+.tl-station {
+  position: relative;
+}
+.tl-station::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 80% 52% at 50% 50%,
+    rgba(200, 172, 48, 0.07) 0%,
+    rgba(175, 148, 35, 0.03) 52%,
+    transparent 80%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Apartment tungsten — orange-warm through a rice-paper screen at 2am */
+.tl-tungsten {
+  position: relative;
+}
+.tl-tungsten::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 65% 60% at 50% 55%,
+    rgba(195, 110, 42, 0.07) 0%,
+    rgba(165, 85, 28, 0.03) 58%,
+    transparent 85%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Rain blue-grey — wet asphalt under sodium lamp, cold blue-reflected */
+.tl-rain {
+  position: relative;
+}
+.tl-rain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 100% 55% at 50% 0%,
+    rgba(55, 72, 108, 0.08) 0%,
+    rgba(40, 56, 86, 0.03) 48%,
+    transparent 72%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── Page-level vignette — detail pages ─────────── */
+/* Fixed edge darkening: makes content feel like a room, not a screen.
+   Going deeper into Tokyo night as you scroll. */
+.page-vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  background: radial-gradient(
+    ellipse 72% 68% at 50% 38%,
+    transparent 42%,
+    rgba(8, 5, 2, 0.26) 72%,
+    rgba(4, 2, 0, 0.54) 100%
+  );
+}
+
+/* ─── Content atmosphere — text area depth ───────── */
+/* Makes the readable text zone feel like city air, not a white document */
+.content-atmos {
+  position: relative;
+}
+.content-atmos::after {
+  content: "";
+  position: absolute;
+  top: 0; left: -24px; right: -24px; bottom: 0;
+  background:
+    linear-gradient(to bottom,
+      rgba(6, 4, 1, 0.14) 0%,
+      transparent 7%,
+      transparent 93%,
+      rgba(6, 4, 1, 0.12) 100%
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
 /* Walk card button — hover warmth + native press feel */
 .walk-card-btn {
   background: none;

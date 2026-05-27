@@ -41,6 +41,21 @@ export async function generateMetadata({
   };
 }
 
+// Neighborhood-specific ambient glow — each area has its own light character
+const NEIGHBORHOOD_GLOW: Record<string, string> = {
+  nakameguro:          "radial-gradient(ellipse 70% 50% at 50% 30%, rgba(140,65,130,0.09) 0%, rgba(100,48,105,0.04) 52%, transparent 80%)",
+  daikanyama:          "radial-gradient(ellipse 70% 50% at 50% 30%, rgba(195,118,25,0.10) 0%, rgba(165,88,12,0.04) 52%, transparent 80%)",
+  "kiyosumi-shirakawa":"radial-gradient(ellipse 70% 50% at 50% 30%, rgba(52,78,125,0.09) 0%, rgba(38,58,102,0.04) 52%, transparent 80%)",
+  shimokitazawa:       "radial-gradient(ellipse 70% 50% at 50% 30%, rgba(108,152,52,0.08) 0%, rgba(80,120,38,0.03) 52%, transparent 80%)",
+  yanaka:              "radial-gradient(ellipse 70% 50% at 50% 30%, rgba(200,130,42,0.09) 0%, rgba(175,105,28,0.04) 52%, transparent 80%)",
+  aoyama:              "radial-gradient(ellipse 70% 50% at 50% 30%, rgba(92,115,185,0.08) 0%, rgba(68,90,160,0.03) 52%, transparent 80%)",
+  koenji:              "radial-gradient(ellipse 70% 50% at 50% 30%, rgba(190,112,22,0.09) 0%, rgba(160,85,15,0.04) 52%, transparent 80%)",
+  sangenjaya:          "radial-gradient(ellipse 70% 50% at 50% 30%, rgba(192,132,28,0.10) 0%, rgba(165,105,18,0.04) 52%, transparent 80%)",
+  "nishi-ogikubo":     "radial-gradient(ellipse 70% 50% at 50% 30%, rgba(185,122,52,0.08) 0%, rgba(155,98,38,0.04) 52%, transparent 80%)",
+  kagurazaka:          "radial-gradient(ellipse 70% 50% at 50% 30%, rgba(195,122,42,0.09) 0%, rgba(168,95,28,0.04) 52%, transparent 80%)",
+  gakugeidaigaku:      "radial-gradient(ellipse 70% 50% at 50% 30%, rgba(188,112,46,0.08) 0%, rgba(158,88,32,0.03) 52%, transparent 80%)",
+};
+
 export default async function NeighborhoodPage({
   params,
 }: {
@@ -69,13 +84,23 @@ export default async function NeighborhoodPage({
 
   const backLabel = g === "ja" ? "← 戻る" : g === "zh" ? "← 返回" : "← Back";
 
+  const neighborhoodGlow = NEIGHBORHOOD_GLOW[slug] ?? NEIGHBORHOOD_GLOW["koenji"];
+
   return (
-    <div className="min-h-screen bg-[var(--color-ink)]">
-      <FilmGrain opacity={0.038} className="z-0 pointer-events-none" />
+    <div className="min-h-screen" style={{ background: "#0d0906" }}>
+      {/* Fixed edge vignette — deeper darkness at the periphery, city-room feel */}
+      <div className="page-vignette" aria-hidden="true" />
+      {/* Neighborhood-specific ambient glow — each area has its own light temperature */}
+      <div
+        aria-hidden="true"
+        className="fixed inset-0 pointer-events-none"
+        style={{ background: neighborhoodGlow, zIndex: 0 }}
+      />
+      <FilmGrain opacity={0.055} className="z-[2] pointer-events-none" />
       <NeighborhoodTracker slug={slug} />
 
       {/* ── Cinematic header ─────────────────────────── */}
-      <div className="relative overflow-hidden" style={{ height: "clamp(300px, 50vh, 560px)" }}>
+      <div className="relative z-[3] overflow-hidden" style={{ height: "clamp(300px, 50vh, 560px)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={`${n.imageUrl}`}
@@ -155,7 +180,7 @@ export default async function NeighborhoodPage({
       </div>
 
       {/* ── Content ─────────────────────────────────── */}
-      <div className="max-w-xl mx-auto px-6 md:px-8 pt-14 pb-28">
+      <div className="content-atmos max-w-xl mx-auto px-6 md:px-8 pt-14 pb-28 relative z-[3]">
 
         {/* Long character */}
         <p
