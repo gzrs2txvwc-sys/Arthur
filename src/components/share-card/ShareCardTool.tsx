@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { track } from "@vercel/analytics";
 
 // ── Data ───────────────────────────────────────────────────
 
@@ -416,6 +417,7 @@ export function ShareCardTool({ locale }: Props) {
   function download() {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    track("card_downloaded", { format, emotion });
     const link = document.createElement("a");
     const safe = (emotion + "_" + location).replace(/[^a-zA-Z0-9぀-鿿]/g, "").slice(0, 16);
     link.download = `ma-${format}-${safe.toLowerCase() || "card"}.png`;
@@ -424,6 +426,7 @@ export function ShareCardTool({ locale }: Props) {
   }
 
   function copyLink() {
+    track("card_link_copied", { emotion });
     const p = new URLSearchParams({ e: emotion, l: location, q: text });
     const url = window.location.origin + window.location.pathname + "?" + p.toString();
     navigator.clipboard.writeText(url).then(() => {

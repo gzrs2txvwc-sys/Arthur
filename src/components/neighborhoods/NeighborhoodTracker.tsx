@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { track } from "@vercel/analytics";
 import { recordNeighborhoodVisit } from "@/lib/tokyoRelationship";
 
 // Fires once on mount — records this neighborhood visit in the relationship
@@ -8,6 +9,7 @@ import { recordNeighborhoodVisit } from "@/lib/tokyoRelationship";
 export function NeighborhoodTracker({ slug }: { slug: string }) {
   useEffect(() => {
     recordNeighborhoodVisit(slug);
+    track("neighborhood_view", { slug });
   }, [slug]);
   return null;
 }

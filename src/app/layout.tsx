@@ -5,6 +5,8 @@ import { Noto_Serif_JP } from "next/font/google";
 import { JetBrains_Mono } from "next/font/google";
 import { getLocale } from "next-intl/server";
 import { PWAInit } from "@/components/PWAInit";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 const inter = Inter({
@@ -94,6 +96,10 @@ export default async function RootLayout({
       <body className="min-h-screen">
         <PWAInit />
         {children}
+        {/* Vercel Analytics — page views, visitors, countries, referrers */}
+        <Analytics />
+        {/* Vercel Speed Insights — Core Web Vitals (LCP, FID, CLS) */}
+        <SpeedInsights />
       </body>
     </html>
   );
